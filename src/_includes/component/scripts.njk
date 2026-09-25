@@ -61,6 +61,25 @@
     if (answerBox) answerBox.addEventListener('click', toggleFaq);
   });
 
+  // Deck Waitlist Card Toggle
+  function toggleDeckWaitlist() {
+    const card = document.getElementById('deckWaitlist');
+    const btn = document.getElementById('btnToggleDeckWaitlist');
+    if (!card) return;
+    const isOpen = card.classList.contains('is-open');
+    if (isOpen) {
+      card.classList.remove('is-open');
+      card.setAttribute('aria-hidden', 'true');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    } else {
+      card.classList.add('is-open');
+      card.setAttribute('aria-hidden', 'false');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+  window.toggleDeckWaitlist = toggleDeckWaitlist;
+
   // Header Scroll Effect
   const header = document.querySelector('.site-header');
   window.addEventListener('scroll', () => {

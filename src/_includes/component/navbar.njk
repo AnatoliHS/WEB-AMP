@@ -1,27 +1,43 @@
 <header class="site-header">
-  <div class="container">
-    <nav class="navbar" aria-label="Main Navigation">
-      <a href="/" class="nav-brand" aria-label="AMP Visual Media Home">
-        <img src="/images/amp-logo.png" alt="AMP Visual Media Logo">
-      </a>
+  <div class="dock-container">
+    <nav class="curved-dock" aria-label="Main Navigation">
+      <!-- Left Wing: Editorial How It Works with Cards Icon -->
+      <div class="dock-wing dock-wing-left">
+        <a href="/#thedeck" class="dock-link-explore">
+          <svg class="dock-icon-deck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="6" width="13" height="15" rx="2"></rect>
+            <path d="M7 2h11a2 2 0 0 1 2 2v13"></path>
+          </svg>
+          <span>How It Works</span>
+        </a>
+      </div>
 
-      <div class="nav-right">
-        <a href="/#thedeck" class="nav-link">How it works</a>
-        <a href="/services/" class="nav-link">Services</a>
-        <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav-deck">
-          <span>Book a Deck Session ($750)</span>
-          <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor">
+      <!-- Center Cutout Notch & Home Popout -->
+      <div class="dock-notch-wrap">
+        <!-- SVG Curved Notch Background -->
+        <svg class="dock-notch-svg" viewBox="0 0 92 58" width="92" height="58" preserveAspectRatio="none" aria-hidden="true">
+          <!-- Background fill matching wings -->
+          <path d="M 0,0 Q 14,0 14,14 A 32,32 0 0 0 78,14 Q 78,0 92,0 L 92,58 L 0,58 Z" fill="#140F11"/>
+          <!-- Top continuous scooped border -->
+          <path d="M 0,0.75 Q 14,0.75 14,14 A 32,32 0 0 0 78,14 Q 78,0.75 92,0.75" fill="none" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1.5"/>
+          <!-- Bottom line continuous border -->
+          <line x1="0" y1="57.25" x2="92" y2="57.25" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1.5"/>
+        </svg>
+
+        <!-- Center Raised Circular AMP Logo Button -->
+        <a href="/" class="dock-popout-btn" aria-label="AMP Home">
+          <img src="/images/amp-logo.png" alt="AMP Visual Media Logo" class="dock-popout-logo">
+        </a>
+      </div>
+
+      <!-- Right Wing: Book A Session -->
+      <div class="dock-wing dock-wing-right">
+        <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="dock-link-explore">
+          <span>Book a Session</span>
+          <svg class="dock-icon-arrow" width="11" height="9" viewBox="0 0 16 14" fill="currentColor" aria-hidden="true">
             <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
           </svg>
         </a>
-        <button type="button" class="btn-menu-toggle" id="menuToggle" aria-label="Open navigation menu">
-          <span>MENU</span>
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="0" y1="1" x2="18" y2="1"></line>
-            <line x1="0" y1="6" x2="18" y2="6"></line>
-            <line x1="0" y1="11" x2="18" y2="11"></line>
-          </svg>
-        </button>
       </div>
     </nav>
   </div>
