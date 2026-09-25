@@ -1,2305 +1,358 @@
 ---
-layout: default.njk
-title: Home
+layout: default
+title: "AMP | Digital Marketing Agency - Canada"
+description: "As a strategy‑driven creative studio, AMP helps bold brands clarify their voice, design sites that convert and amplify growth with campaigns that compound."
 ---
 
-<style>
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* --- 1. GLOBAL & HERO STYLES --- */
-    .core-points-section {
-        background: #ffffff;
-        padding: 60px 30px 100px;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    /* --- INTRO DESCRIPTION --- */
-    .intro-description-section {
-        padding: 100px 30px 40px;
-        background: #f2f8fc;
-        text-align: center;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    @media (min-width: 1025px) {
-        .intro-description-section {
-            padding-top: 150px;
-        }
-    }
-
-    .intro-container {
-        max-width: 900px;
-        margin: 0 auto;
-    }
-
-    @media (min-width: 1025px) {
-        .intro-container {
-            max-width: 1200px;
-        }
-    }
-
-    .intro-text-large {
-        font-family: var(--font-display);
-        font-size: 2rem;
-        line-height: 1.6;
-        color: #191f4f;
-        font-weight: 400;
-        margin-bottom: 30px;
-    }
-
-    @media (min-width: 1025px) {
-        .intro-text-large {
-            font-size: 2.5rem;
-            line-height: 1.4;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .intro-text-large {
-            font-size: 1.5rem;
-            line-height: 1.5;
-        }
-    }
-
-    .hero-section {
-        background: transparent;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        display: flex;
-        flex-direction: column;
-        min-height: 600px;
-        color: white;
-        padding-top: calc(var(--navbar-height, 70px) + 40px);
-        position: relative;
-        overflow: hidden;
-        margin-bottom: -1px;
-    }
-
-    .hero-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 125%;
-        background: linear-gradient(to right, rgba(33, 37, 41, 0.85) 20%, rgba(33, 37, 41, 0.0) 100%), url('/assets/hero-cell.png') no-repeat center center / cover;
-        z-index: 1;
-        pointer-events: none;
-        transform: translateY(calc(var(--scroll-y, 0px) * 0.35));
-        will-change: transform;
-    }
-
-    /* --- ANIMATIONS --- */
-    @keyframes slideInCenter {
-        from {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes slideInLeft {
-        from {
-            opacity: 0;
-            transform: translateX(-100px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes slideInTop {
-        from {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .hero-container {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-        z-index: 2;
-        position: relative;
-        align-items: center;
-        gap: 20px;
-        flex-grow: 1;
-    }
-
-    .hero-left {
-        flex: 1;
-        max-width: 750px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 40px 60px;
-        text-align: left;
-        transform: translateY(calc(var(--scroll-y, 0px) * -0.2));
-        will-change: transform;
-    }
-
-    .hero-title {
-        font-size: 6.8rem;
-        font-weight: 600;
-        margin-bottom: 20px;
-        line-height: 1.1;
-        color: white;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-        opacity: 0;
-        animation: slideInTop 1s ease-out forwards;
-        animation-delay: 0.5s;
-    }
-
-    .hero-text {
-        font-size: 1.8rem;
-        line-height: 1.6;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.95);
-        margin-bottom: 10px;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-        opacity: 0;
-        animation: slideInLeft 1s ease-out forwards;
-        animation-delay: 1.0s;
-    }
-
-    /* --- 2. WAVE ANIMATION --- */
-    .waves-container {
-        position: relative;
-        width: 100%;
-        height: 50px;
-        z-index: 2;
-        margin-bottom: -7px;
-    }
-
-    .waves {
-        position: relative;
-        width: 100%;
-        height: 50px;
-        margin-bottom: -7px;
-        min-height: 50px;
-        max-height: 150px;
-    }
-
-    .parallax>use {
-        animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
-    }
-
-    .parallax>use:nth-child(1) {
-        animation-delay: -2s;
-        animation-duration: 7s;
-        fill: rgba(88, 140, 186, 0.7);
-    }
-
-    .parallax>use:nth-child(2) {
-        animation-delay: -3s;
-        animation-duration: 10s;
-        fill: rgba(125, 170, 208, 0.7);
-    }
-
-    .parallax>use:nth-child(3) {
-        animation-delay: -4s;
-        animation-duration: 13s;
-        fill: rgba(163, 201, 230, 0.7);
-    }
-
-    .parallax>use:nth-child(4) {
-        animation-delay: -5s;
-        animation-duration: 20s;
-        fill: #f2f8fc;
-    }
-
-    @keyframes move-forever {
-        0% {
-            transform: translate3d(-90px, 0, 0);
-        }
-
-        100% {
-            transform: translate3d(85px, 0, 0);
-        }
-    }
-
-    /* --- 3. CORE POINTS SECTION --- */
-    .core-points-section {
-        padding: 120px 20px 80px;
-        background: #f2f8fc;
-        overflow: hidden;
-    }
-
-    .core-points-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-start;
-        max-width: 1200px;
-        margin: 0 auto;
-        gap: 40px;
-    }
-
-    .core-point {
-        flex: 1;
-        text-align: center;
-        opacity: 0;
-        animation: fadeInUp 1s ease-out forwards;
-    }
-
-    .core-point:nth-child(1) {
-        animation-delay: 1.5s;
-    }
-
-    .core-point:nth-child(2) {
-        animation-delay: 1.8s;
-    }
-
-    .core-point:nth-child(3) {
-        animation-delay: 2.1s;
-    }
-
-    .core-point img {
-        width: 100%;
-        height: 250px;
-        margin-bottom: 25px;
-        object-fit: cover;
-        border-radius: 16px;
-    }
-
-    .core-point h3 {
-        font-size: 1.7rem;
-        color: #191f4f;
-        margin-bottom: 15px;
-        font-weight: 600;
-        font-family: var(--font-display);
-    }
-
-    .core-point p {
-        font-size: 1.15rem;
-        color: #555;
-        line-height: 1.6;
-        margin: 0;
-    }
-
-    /* --- 4. SERVICES SECTION --- */
-    .services-section {
-        padding: 100px 40px 120px;
-        background: #f7f5f2;
-        overflow-x: hidden;
-        position: relative;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .services-main-title {
-        text-align: center;
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #191f4f;
-        margin-bottom: 16px;
-        font-weight: 700;
-        letter-spacing: -1px;
-        position: relative;
-    }
-
-    .services-subtitle {
-        text-align: center;
-        font-size: 1.1rem;
-        color: #6b7280;
-        margin-bottom: 72px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        position: relative;
-    }
-
-    /* ── Service Cards Grid ── */
-    .srv-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 28px;
-        max-width: 1100px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .srv-card {
-        background: #ffffff;
-        border-radius: 24px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.35s ease, box-shadow 0.35s ease;
-        position: relative;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-        /* scroll reveal */
-        opacity: 0;
-        transform: translateY(36px);
-    }
-
-    .srv-card.revealed {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .srv-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.13);
-    }
-
-    /* coloured top accent bar per card */
-    .srv-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        border-radius: 24px 24px 0 0;
-        background: var(--srv-accent, linear-gradient(90deg, #63b3ed, #4299e1));
-        opacity: 0.85;
-    }
-
-    .srv-card:nth-child(1) {
-        --srv-accent: linear-gradient(90deg, #63b3ed, #4fd1c5);
-        transition-delay: 0.05s;
-    }
-
-    .srv-card:nth-child(2) {
-        --srv-accent: linear-gradient(90deg, #68d391, #38b2ac);
-        transition-delay: 0.15s;
-    }
-
-    .srv-card:nth-child(3) {
-        --srv-accent: linear-gradient(90deg, #b794f4, #805ad5);
-        transition-delay: 0.25s;
-    }
-
-    .srv-card:nth-child(4) {
-        --srv-accent: linear-gradient(90deg, #f6ad55, #ed8936);
-        transition-delay: 0.35s;
-    }
-
-    .srv-img-wrap {
-        width: 100%;
-        height: 230px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .srv-img-wrap::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, transparent 40%, rgba(13, 17, 23, 0.85) 100%);
-    }
-
-    .srv-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.55s ease;
-    }
-
-    .srv-card:hover .srv-img {
-        transform: scale(1.06);
-    }
-
-    .srv-body {
-        padding: 28px 32px 36px;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-
-    .srv-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        background: var(--srv-accent, linear-gradient(135deg, #63b3ed, #4299e1));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 18px;
-        flex-shrink: 0;
-    }
-
-    .srv-icon svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: #fff;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
-
-    .srv-title {
-        font-size: 1.35rem;
-        font-weight: 600;
-        color: #191f4f;
-        margin-bottom: 12px;
-        letter-spacing: -0.3px;
-    }
-
-    .srv-text {
-        font-size: 0.97rem;
-        line-height: 1.75;
-        color: #6b7280;
-        flex: 1;
-    }
-
-    .srv-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 22px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #345470;
-        text-decoration: none;
-        letter-spacing: 0.02em;
-        transition: gap 0.25s ease, color 0.25s ease;
-    }
-
-    .srv-link:hover {
-        color: #191f4f;
-        gap: 10px;
-    }
-
-    .srv-link svg {
-        width: 16px;
-        height: 16px;
-        stroke: currentColor;
-        fill: none;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        transition: transform 0.25s ease;
-    }
-
-    .srv-link:hover svg {
-        transform: translateX(3px);
-    }
-
-    /* --- VIDEO DIVIDER SECTION --- */
-
-    .parallax-divider {
-        height: 600px;
-        position: relative;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    .parallax-divider video {
-        position: absolute;
-        top: -30vh;
-        left: 0;
-        width: 100%;
-        height: 160vh;
-        object-fit: cover;
-        display: block;
-        will-change: transform;
-    }
-
-    @media (max-width: 768px) {
-        .parallax-divider {
-            height: 360px;
-        }
-
-        .parallax-divider video {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%) !important;
-            width: auto;
-            min-width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #000;
-            will-change: auto;
-        }
-    }
-
-    .parallax-divider::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.25);
-        pointer-events: none;
-    }
-
-    /* --- 5. CONTACT SECTION --- */
-    .quick-contact {
-        padding: 100px 20px;
-        background: #ffffff;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .contact-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 80px;
-    }
-
-    .contact-info {
-        flex: 1;
-    }
-
-    .contact-title {
-        font-size: 2.8rem;
-        color: #191f4f;
-        margin-bottom: 15px;
-        font-weight: 800;
-    }
-
-    .contact-subtitle {
-        font-size: 1.1rem;
-        color: #555;
-        margin-bottom: 40px;
-        line-height: 1.6;
-    }
-
-    .info-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-
-    .info-icon {
-        font-size: 1.8rem;
-        background: #f2f8fc;
-        padding: 15px;
-        border-radius: 50%;
-        line-height: 1;
-    }
-
-    .info-text strong {
-        display: block;
-        font-size: 1.2rem;
-        color: #191f4f;
-        margin-bottom: 5px;
-    }
-
-    .info-text p {
-        font-size: 1.1rem;
-        color: #666;
-        margin: 0;
-    }
-
-    .contact-image {
-        width: 100%;
-        height: 450px;
-        object-fit: cover;
-        border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(25, 31, 79, 0.1);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-        .hero-bg,
-        .hero-left {
-            transform: none !important;
-        }
-    }
-
-    /* --- 6. RESPONSIVE BREAKPOINTS --- */
-    @media (max-width: 1024px) {
-        .hero-container {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 80px 20px 80px 20px;
-        }
-
-        .hero-section {
-            padding-top: 40px;
-            min-height: 500px;
-            background: transparent;
-        }
-
-        .hero-bg {
-            background: linear-gradient(to bottom, rgba(33, 37, 41, 0.85) 40%, rgba(33, 37, 41, 0.1) 100%), url('/assets/hero-cell.png') no-repeat center center / cover;
-            height: 120%;
-            transform: translateY(calc(var(--scroll-y, 0px) * 0.2));
-        }
-
-        .waves-container {
-            transform: translateY(-5px);
-        }
-
-        .hero-left {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-            padding: 0;
-            transform: translateY(calc(var(--scroll-y, 0px) * -0.1));
-        }
-
-        .hero-title {
-            font-size: 3.4rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .hero-text {
-            font-size: 1.4rem;
-            padding: 0 10px;
-        }
-
-        .core-points-container {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .core-point {
-            width: 100%;
-            margin-bottom: 40px;
-        }
-
-        .services-section {
-            padding: 80px 20px 100px;
-        }
-
-        .services-subtitle {
-            margin-bottom: 48px;
-        }
-
-        .srv-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .srv-img-wrap {
-            height: 200px;
-        }
-
-        .srv-body {
-            padding: 22px 24px 30px;
-        }
-
-        .contact-container {
-            flex-direction: column;
-            text-align: center;
-            gap: 50px;
-        }
-
-        .info-item {
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .contact-title {
-            font-size: 2.2rem;
-        }
-
-        .contact-image {
-            height: 300px;
-        }
-    }
-
-    /* --- 7. NEW SHARED CONTENT STYLES (FROM ABOUT/FAQ/CONTACT) --- */
-    .content-section {
-        padding: 80px 20px;
-        background: #ffffff;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .content-section.alt-bg {
-        background: #f2f8fc;
-    }
-
-    .philosophy-section {
-        padding: 100px 20px;
-        background: #ffffff !important;
-        position: relative;
-        overflow: hidden;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .philosophy-progress-track {
-        grid-row: 3;
-        grid-column: 1;
-        width: 100%;
-        height: 4px;
-        background: rgba(25, 31, 79, 0.15);
-        z-index: 10;
-        border-radius: 2px;
-        overflow: hidden;
-        margin-top: 35px;
-    }
-
-    .philosophy-progress-bar {
-        height: 100%;
-        background: linear-gradient(to right, #56ccf2, #191f4f);
-        width: 0;
-        opacity: 0.85;
-    }
-
-    .philosophy-progress-bar.animating {
-        animation: philProgress 15s linear forwards;
-    }
-
-    @keyframes philProgress {
-        from {
-            width: 0%;
-        }
-
-        to {
-            width: 100%;
-        }
-    }
-
-    .philosophy-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 60px;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        position: relative;
-    }
-
-    .philosophy-nav-container {
-        grid-row: 2;
-        grid-column: 1;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 15px;
-        margin-top: 30px;
-        z-index: 15;
-    }
-
-
-    .philosophy-nav-btn {
-        width: 46px;
-        height: 46px;
-        background: #ffffff;
-        border: 1px solid rgba(25, 31, 79, 0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        padding: 0;
-    }
-
-    .philosophy-nav-btn:hover {
-        background: #f2f8fc;
-        transform: scale(1.08);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
-
-    .philosophy-nav-btn svg {
-        width: 20px;
-        height: 20px;
-        fill: #191f4f;
-    }
-
-    @media (max-width: 1024px) {
-        .philosophy-nav-container {
-            justify-content: center;
-            margin-top: 25px;
-        }
-
-        .philosophy-section {
-            padding-bottom: 100px !important;
-        }
-    }
-
-    .philosophy-left-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        flex: 0.8;
-        order: 2;
-        gap: 25px;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-title-container {
-        position: relative;
-        width: 100%;
-        min-height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-title-container .section-title {
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #191f4f;
-        margin: 0 !important;
-        font-family: var(--font-display);
-        font-weight: 600;
-        line-height: 1.2;
-        position: absolute;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px);
-        transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-title-container .section-title.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        position: relative;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-icon {
-        width: 280px;
-        height: auto;
-        transform: rotate(var(--phil-rotation, 0deg)) scale(1);
-        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        margin: 0 !important;
-    }
-
-    .philosophy-icon:hover {
-        transform: rotate(var(--phil-rotation, 0deg)) scale(1.06);
-    }
-
-    .philosophy-right-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        flex: 1.2;
-        order: 1;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-slide {
-        grid-area: 1 / 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(15px);
-        transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-slide.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .philosophy-subheading {
-        font-family: var(--font-display);
-        font-size: 2.8rem;
-        color: #191f4f;
-        /* brand dark blue */
-        font-weight: 600;
-        line-height: 1.2;
-        margin: 0 0 15px 0 !important;
-        padding: 0 !important;
-    }
-
-    .philosophy-slide .section-paragraph {
-        font-size: 1.35rem;
-        line-height: 1.8;
-        color: #444;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    @media (max-width: 1024px) {
-        .philosophy-container {
-            flex-direction: column;
-            gap: 40px;
-            text-align: center;
-        }
-
-        .philosophy-left-container {
-            flex: none;
-            order: 1;
-            align-items: center;
-            width: 100%;
-        }
-
-        .philosophy-title-container {
-            min-height: 60px;
-        }
-
-        .philosophy-title-container .section-title {
-            font-size: 2.3rem;
-        }
-
-        .philosophy-icon {
-            width: 110px;
-            margin-top: 20px !important;
-        }
-
-        .philosophy-right-container {
-            flex: none;
-            order: 2;
-            width: 100%;
-        }
-
-        .philosophy-subheading {
-            font-size: 2.0rem;
-            margin-bottom: 12px !important;
-        }
-
-        .philosophy-slide .section-paragraph {
-            line-height: 1.5;
-        }
-
-        .philosophy-progress-track {
-            margin-top: 20px;
-        }
-    }
-
-    .content-container-wide {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 60px;
-    }
-
-    .content-container-wide.reverse {
-        flex-direction: row-reverse;
-    }
-
-    .content-text {
-        flex: 1;
-    }
-
-    .content-image-wrapper {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-    }
-
-    .content-image {
-        width: 100%;
-        max-width: 500px;
-        border-radius: 20px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        object-fit: cover;
-    }
-
-    .section-title {
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #191f4f;
-        margin-bottom: 20px;
-        font-weight: 600;
-    }
-
-    .section-paragraph {
-        font-size: 1.15rem;
-        line-height: 1.8;
-        color: #444;
-        margin-bottom: 20px;
-    }
-
-    /* --- TEAM SECTION --- */
-    .team-section {
-        padding: 100px 20px;
-        background: #ffffff;
-        text-align: center;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .team-card {
-        background: #f2f8fc;
-        padding: 40px;
-        border-radius: 24px;
-        max-width: 900px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 50px;
-        text-align: left;
-        box-shadow: 0 10px 25px rgba(88, 140, 186, 0.15);
-    }
-
-    .team-image {
-        width: 250px;
-        height: 250px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 5px solid #fff;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        flex-shrink: 0;
-    }
-
-    .team-info h3 {
-        font-size: 2rem;
-        color: #191f4f;
-        margin-bottom: 5px;
-    }
-
-    .team-role {
-        font-size: 1.1rem;
-        color: #588cba;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
-        display: block;
-    }
-
-    /* --- WHY US SECTION --- */
-    .why-us-section {
-        padding: 120px 20px;
-        background: #191f4f;
-        color: white;
-        position: relative;
-        overflow: hidden;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .why-us-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        gap: 80px;
-        align-items: flex-start;
-        position: relative;
-        z-index: 1;
-    }
-
-    .why-us-bg-icons {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 0;
-    }
-
-    .why-us-floating-icon {
-        position: absolute;
-        bottom: -120px;
-        height: auto;
-        opacity: 0.08;
-        filter: brightness(0) invert(1);
-        pointer-events: none;
-    }
-
-    .why-us-floating-icon.icon-1 {
-        width: 65px;
-        left: 5%;
-        animation: floatUpRotateCW 25s linear infinite;
-        animation-delay: 0s;
-    }
-
-    .why-us-floating-icon.icon-2 {
-        width: 85px;
-        left: 15%;
-        animation: floatUpRotateCCW 30s linear infinite;
-        animation-delay: 4s;
-    }
-
-    .why-us-floating-icon.icon-3 {
-        width: 60px;
-        left: 25%;
-        animation: floatUpRotateCW 28s linear infinite;
-        animation-delay: 8s;
-    }
-
-    .why-us-floating-icon.icon-4 {
-        width: 80px;
-        left: 35%;
-        animation: floatUpRotateCCW 32s linear infinite;
-        animation-delay: 12s;
-    }
-
-    .why-us-floating-icon.icon-5 {
-        width: 70px;
-        left: 45%;
-        animation: floatUpRotateCW 26s linear infinite;
-        animation-delay: 2s;
-    }
-
-    .why-us-floating-icon.icon-6 {
-        width: 75px;
-        left: 55%;
-        animation: floatUpRotateCCW 29s linear infinite;
-        animation-delay: 16s;
-    }
-
-    .why-us-floating-icon.icon-7 {
-        width: 60px;
-        left: 65%;
-        animation: floatUpRotateCW 24s linear infinite;
-        animation-delay: 6s;
-    }
-
-    .why-us-floating-icon.icon-8 {
-        width: 90px;
-        left: 75%;
-        animation: floatUpRotateCCW 34s linear infinite;
-        animation-delay: 10s;
-    }
-
-    .why-us-floating-icon.icon-9 {
-        width: 70px;
-        left: 85%;
-        animation: floatUpRotateCW 27s linear infinite;
-        animation-delay: 14s;
-    }
-
-    .why-us-floating-icon.icon-10 {
-        width: 80px;
-        left: 95%;
-        animation: floatUpRotateCCW 31s linear infinite;
-        animation-delay: 18s;
-    }
-
-    .why-us-floating-icon.icon-11 {
-        width: 55px;
-        left: 20%;
-        animation: floatUpRotateCW 23s linear infinite;
-        animation-delay: 20s;
-    }
-
-    .why-us-floating-icon.icon-12 {
-        width: 50px;
-        left: 50%;
-        animation: floatUpRotateCCW 22s linear infinite;
-        animation-delay: 22s;
-    }
-
-    @keyframes floatUpRotateCW {
-        0% {
-            bottom: -120px;
-            transform: translateX(0) rotate(0deg);
-        }
-
-        50% {
-            transform: translateX(30px) rotate(180deg);
-        }
-
-        100% {
-            bottom: calc(100% + 120px);
-            transform: translateX(0) rotate(360deg);
-        }
-    }
-
-    @keyframes floatUpRotateCCW {
-        0% {
-            bottom: -120px;
-            transform: translateX(0) rotate(0deg);
-        }
-
-        50% {
-            transform: translateX(-30px) rotate(-180deg);
-        }
-
-        100% {
-            bottom: calc(100% + 120px);
-            transform: translateX(0) rotate(-360deg);
-        }
-    }
-
-    .why-us-left {
-        flex: 1;
-        position: sticky;
-        top: 120px;
-    }
-
-    .why-us-title {
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #ffffff;
-        font-family: var(--font-display);
-        font-weight: 600;
-        line-height: 1.2;
-        margin: 0 !important;
-    }
-
-    .why-us-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 16px;
-        margin-top: 40px;
-        display: block;
-    }
-
-    .why-us-right {
-        flex: 1.3;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .why-us-item {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 25px;
-        padding-bottom: 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 30px;
-    }
-
-    .why-us-item:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-
-    .why-us-num {
-        font-family: var(--font-display);
-        font-size: 2.2rem;
-        color: #ee6257;
-        /* brand red */
-        font-weight: 500;
-        line-height: 1;
-        opacity: 0.95;
-    }
-
-    .why-us-content {
-        flex: 1;
-    }
-
-    .why-us-content h3 {
-        font-size: 1.65rem;
-        color: #ffffff;
-        margin: 0 0 10px 0 !important;
-        font-weight: 600;
-        font-family: var(--font-display);
-    }
-
-    .why-us-content p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.8);
-        margin: 0 !important;
-    }
-
-    @media (max-width: 1024px) {
-
-        /* Hide selected icons to prevent overcrowding on mobile screens */
-        .why-us-floating-icon.icon-4,
-        .why-us-floating-icon.icon-6,
-        .why-us-floating-icon.icon-11,
-        .why-us-floating-icon.icon-12 {
-            display: none;
-        }
-
-        /* Adjust positions and scale down for mobile viewports to prevent collisions */
-        .why-us-floating-icon.icon-1 {
-            width: 40px;
-            left: 5%;
-        }
-
-        .why-us-floating-icon.icon-2 {
-            width: 45px;
-            left: 14%;
-        }
-
-        .why-us-floating-icon.icon-3 {
-            width: 35px;
-            left: 23%;
-        }
-
-        .why-us-floating-icon.icon-5 {
-            width: 40px;
-            left: 32%;
-        }
-
-        .why-us-floating-icon.icon-7 {
-            width: 35px;
-            left: 65%;
-        }
-
-        .why-us-floating-icon.icon-8 {
-            width: 50px;
-            left: 74%;
-        }
-
-        .why-us-floating-icon.icon-9 {
-            width: 40px;
-            left: 83%;
-        }
-
-        .why-us-floating-icon.icon-10 {
-            width: 45px;
-            left: 92%;
-        }
-
-        .why-us-section {
-            padding: 80px 20px;
-        }
-
-        .why-us-container {
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .why-us-left {
-            width: 100%;
-            position: static;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .why-us-title {
-            font-size: 2.4rem;
-        }
-
-        .why-us-image {
-            max-width: 280px;
-            margin-top: 25px;
-            margin-bottom: 20px;
-        }
-
-        .why-us-right {
-            width: 100%;
-        }
-
-        .why-us-item {
-            gap: 20px;
-            padding-bottom: 25px;
-            margin-bottom: 25px;
-        }
-
-        .why-us-num {
-            font-size: 1.8rem;
-        }
-    }
-
-    /* --- FAQ STYLES --- */
-    .faq-container {
-        width: 100vw;
-        padding: 100px 20px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #ffffff;
-        margin-left: calc(-50vw + 50%);
-    }
-
-    .faq {
-        position: relative;
-        z-index: 1;
-        margin: 0 auto;
-        background: transparent;
-        border-bottom: 1px solid rgba(25, 31, 79, 0.1);
-        overflow: hidden;
-        transition: all 0.3s ease;
-        width: 100%;
-        max-width: 900px;
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    .faq:first-of-type {
-        border-top: 1px solid rgba(25, 31, 79, 0.1);
-    }
-
-    .faq.visible {
-        opacity: 1;
-        transform: translateY(0);
-        transition: transform 0.6s ease-out, opacity 0.6s ease-out;
-    }
-
-    .faq:hover {
-        background: rgba(88, 140, 186, 0.03);
-    }
-
-    .faq-question {
-        padding: 30px 10px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 1.3rem;
-        color: #191f4f;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        user-select: none;
-        font-family: var(--font-display);
-        transition: color 0.3s ease;
-    }
-
-    .faq-question::after {
-        content: '+';
-        font-size: 1.8rem;
-        color: #588cba;
-        font-weight: 300;
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .faq.active .faq-question {
-        color: #588cba;
-    }
-
-    .faq.active .faq-question::after {
-        transform: rotate(45deg);
-        color: #191f4f;
-    }
-
-    .faq-answer {
-        display: grid;
-        grid-template-rows: 0fr;
-        transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .answer-content {
-        overflow: hidden;
-        opacity: 0;
-        transition: opacity 0.4s ease-out;
-        padding: 0 10px;
-    }
-
-    .answer-content p {
-        margin-top: 0;
-        margin-bottom: 30px;
-        color: #555;
-        line-height: 1.8;
-        font-size: 1.1rem;
-    }
-
-    .faq.active .faq-answer {
-        grid-template-rows: 1fr;
-    }
-
-    .faq.active .answer-content {
-        opacity: 1;
-        transition-delay: 0.1s;
-    }
-
-    /* --- BOOKING STYLES --- */
-    .booking-section {
-        padding: 100px 20px;
-        background: #ffffff;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .booking-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    /* --- ENHANCED CONTACT STYLES --- */
-    .contact-details {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .contact-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .contact-icon {
-        font-size: 1.8rem;
-        background: #f2f8fc;
-        padding: 15px;
-        border-radius: 50%;
-        line-height: 1;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .contact-item strong {
-        display: block;
-        font-size: 1.2rem;
-        color: #191f4f;
-        margin-bottom: 5px;
-    }
-
-    .contact-item p {
-        font-size: 1.1rem;
-        color: #555;
-        margin: 0;
-        line-height: 1.5;
-    }
-
-    .map-hover:hover {
-        transform: scale(1.02);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    /* --- 8. SECTION ANCHOR OFFSET --- */
-    [id] {
-        scroll-margin-top: 100px;
-    }
-
-    @media (max-width: 1024px) {
-
-        .content-container-wide,
-        .content-container-wide.reverse {
-            flex-direction: column;
-            text-align: center;
-            gap: 30px;
-        }
-
-        .team-card {
-            flex-direction: column;
-            text-align: center;
-            padding: 30px 20px;
-            gap: 20px;
-        }
-
-        .team-image {
-            width: 180px;
-            height: 180px;
-        }
-
-        .features-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .faq-container {
-            padding: 60px 20px;
-        }
-
-        .faq-question {
-            padding: 20px;
-            font-size: 1.3rem;
-        }
-
-        .answer-content {
-            padding: 0 20px;
-        }
-
-        /* Contact Mobile Fixes */
-        .contact-container {
-            flex-direction: column;
-            text-align: center;
-            align-items: center;
-        }
-
-        .contact-info {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .contact-details {
-            align-items: center;
-        }
-
-        .contact-item {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 15px;
-        }
-
-        .contact-icon {
-            margin-bottom: 5px;
-        }
-    }
-</style>
-
-<div class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-container">
-        <div class="hero-left">
-            <h1 class="hero-title">Your Trusted Neighborhood Pharmacy</h1>
-            <p class="hero-text">Right Corner. Right Care. Right Now.</p>
-        </div>
+<!-- Hero Section -->
+<section class="hero-section" id="hero">
+  <div class="container hero-container">
+    <h1 class="hero-title">You don't have a<br class="hero-title-br"> marketing problem. You<br class="hero-title-br"> have a systems problem.</h1>
+
+    <div class="hero-content-bottom">
+      <div class="hero-desc-group">
+        <p class="hero-desc">
+          Most owners who feel stuck assume more marketing will fix it. It won't, if something's broken at a specific stage of your client journey. In one session, we help you find exactly where you're losing growth and what to build to get it back.
+        </p>
+
+        <a href="#standalone" class="hero-link-deck">
+          <span>Not ready for a session? Get the Deck &rarr;</span>
+        </a>
+      </div>
+
+      <div class="hero-cta-wrap">
+        <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">
+          <span>Book a Deck Session ($750)</span>
+          <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-btn-arrow">
+            <path d="M1 7H16M16 7L10.5 1.5M16 7L10.5 12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: The Mirror ("Sound familiar?") -->
+<section class="section-mirror" id="mirror">
+  <div class="container">
+    <div class="mirror-header" style="text-align: center;">
+      <h2>Sound familiar?</h2>
     </div>
 
-    <div class="waves-container">
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none"
-            shape-rendering="auto">
-            <defs>
-                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-            </defs>
-            <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="0" />
-                <use xlink:href="#gentle-wave" x="48" y="3" />
-                <use xlink:href="#gentle-wave" x="48" y="5" />
-                <use xlink:href="#gentle-wave" x="48" y="7" />
-            </g>
+    <div class="mirror-grid">
+      <div class="mirror-item">
+        <img src="/images/one.svg" alt="Revenue swinging" class="mirror-icon" width="82" height="82">
+        <h3 class="mirror-item-title">Revenue swinging<br>with no clear reason</h3>
+      </div>
+      <div class="mirror-item">
+        <img src="/images/two.svg" alt="Marketing bursts" class="mirror-icon" width="82" height="82">
+        <h3 class="mirror-item-title">Marketing that<br>happens in bursts<br>then goes quiet</h3>
+      </div>
+      <div class="mirror-item">
+        <img src="/images/three.svg" alt="Weaker competitors" class="mirror-icon" width="82" height="82">
+        <h3 class="mirror-item-title">Weaker competitors<br>outranking you</h3>
+      </div>
+      <div class="mirror-item">
+        <img src="/images/four.svg" alt="Being busy" class="mirror-icon" width="82" height="82">
+        <h3 class="mirror-item-title">Being busy without<br>being able to say<br>what you built</h3>
+      </div>
+      <div class="mirror-item">
+        <img src="/images/five.svg" alt="Leads coming in" class="mirror-icon" width="82" height="82">
+        <h3 class="mirror-item-title">Leads coming<br>in but the wrong<br>ones, or nowhere</h3>
+      </div>
+    </div>
+
+    <p class="mirror-footer-text">
+      You don't need more ideas. You need to know which<br>one of these is costing you the most, right now.
+    </p>
+  </div>
+</section>
+
+<!-- Section: The Mechanic ("The AMP Deck" & Video) -->
+<section class="section-mechanic" id="thedeck">
+  <div class="container">
+    <!-- Eyebrow bar with horizontal line -->
+    <div class="deck-eyebrow-row">
+      <div class="deck-eyebrow-badge">
+        <span class="deck-eyebrow-dot"></span>
+        <span>MORE SIGNAL, LESS NOISE.</span>
+      </div>
+      <div class="deck-eyebrow-line"></div>
+    </div>
+
+    <!-- 2-Column Content Grid -->
+    <div class="deck-content-grid">
+      <div class="deck-col-left">
+        <h2 class="deck-main-title">The <span class="badge-amp">AMP</span> Deck</h2>
+        <p class="deck-statement">
+          The deck doesn't tell you what's wrong. It creates the conditions for you to see it yourself. Which means you own the diagnosis before we ever talk about a solution.
+        </p>
+      </div>
+
+      <div class="deck-col-right">
+        <p class="deck-description">
+          A <span class="text-gold">52-card diagnostic tool</span>, built around <span class="text-gold">6 stages every client moves through</span> on the way to becoming a repeat customer <span class="text-gold">Attention, Interest, Trust, Conversion, Delivery, Growth.</span> In one session, you lay your business across those six stages, place the real threats where they're actually hurting you, and walk out with the two or three systems that fix the one doing the most damage.
+        </p>
+      </div>
+    </div>
+
+    <!-- Video Player Container -->
+    <div class="deck-video-wrapper">
+      <div class="deck-video-player">
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/Ghtowmb-9FM?rel=0&modestbranding=1" 
+          title="The AMP Deck Demonstration" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen 
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Centered Action Button -->
+    <div class="deck-action-center">
+      <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">
+        <span>Book a Deck Session ($750)</span>
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-btn-arrow">
+          <path d="M1 7H16M16 7L10.5 1.5M16 7L10.5 12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
+      </a>
     </div>
-</div>
+  </div>
+</section>
 
-<section class="intro-description-section">
-    <div class="intro-container">
-        <p class="intro-text-large">
-            Located in the heart of Ottawa at the corner of Rideau and Friel Street, I.D.A. Rideau Pharmacy is
-            a proud, locally operated community pharmacy. We believe that your pharmacist should be your most
-            accessible healthcare provider. Whether you live in the downtown core, work nearby, or are a student in the
-            area, our mission is to
-            provide you with fast, personalized, and comprehensive healthcare without the "big box" wait times.
+<!-- Section: Primary Offer ("Get a full roadmap in one sitting") -->
+<section class="section-offer" id="offer">
+  <div class="container">
+    <div class="offer-container">
+      <div class="offer-details">
+        <span class="eyebrow eyebrow-sand">More Signal, Less Noise</span>
+        <h2 style="margin-bottom: 20px;">Get a full roadmap in one sitting</h2>
+        <p class="offer-lead">What you walk out with</p>
+        <p class="offer-desc">
+          This isn't a workshop or a vague strategy chat.<br><br>
+          It's a 90 to 110 minute working session, run by AMP's Brand Strategist Ash Murrell directly, that ends with a written summary in your inbox within 24 hours.
         </p>
 
-    </div>
-</section>
+        <h4 class="offer-list-title">What you leave with:</h4>
+        <ul class="offer-list">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>a complete map of your business across all six stages</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>the one threat doing the most damage, named plainly</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>the two or three systems that fix it, and why</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>a 90-day build sequence</span>
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>a written summary within 24 hours.</span>
+          </li>
+        </ul>
+      </div>
 
-<div class="core-points-section">
-    <div class="core-points-container">
-        <div class="core-point">
-            <img src="/assets/pesronal.jpg" alt="Prescription Care">
-            <h3>Personalized Prescription Care</h3>
-            <p>We don’t just fill bottles; we manage your health with precision and expert consultation.</p>
-        </div>
-        <div class="core-point">
-            <img src="/assets/modern.jpg" alt="Modern Convenience">
-            <h3>Modern Convenience</h3>
-            <p>Easy transfers, online refills, and quick service without the "big box" wait times.</p>
-        </div>
-        <div class="core-point">
-            <img src="/assets/community.jpg" alt="Community Wellness">
-            <h3>Community First Wellness</h3>
-            <p>Locally owned and operated, dedicated to the families in our neighborhood.</p>
-        </div>
-    </div>
-</div>
-
-<div id="about-section">
-
-    <section class="content-section philosophy-section">
-        <div class="philosophy-container">
-            <!-- Left Column: Description paragraphs (Fades in/out) -->
-            <div class="philosophy-right-container">
-                <!-- Slide 1: Our Philosophy -->
-                <div class="philosophy-slide active">
-                    <h3 class="philosophy-subheading">Our Philosophy</h3>
-                    <p class="section-paragraph">
-                        Healthcare should not be a hassle. At Rideau Pharmacy, we go beyond counting pills offering on
-                        site telemedicine, prescribing for minor ailments, and custom medication compounding tailored to
-                        the unique needs of our Ottawa community.
-                    </p>
-                </div>
-
-                <!-- Slide 2: Multilingual Care -->
-                <div class="philosophy-slide">
-                    <h3 class="philosophy-subheading">Multilingual Care</h3>
-                    <p class="section-paragraph">
-                        We are proud to serve the diverse Ottawa community by offering comprehensive pharmacy services
-                        and consultations in English, French, and Arabic. Discussing your health in your preferred
-                        language helps us ensure you feel confident and supported.
-                    </p>
-                </div>
-
-                <!-- Slide 3: Medication Reviews -->
-                <div class="philosophy-slide">
-                    <h3 class="philosophy-subheading">Medication Reviews</h3>
-                    <p class="section-paragraph">
-                        Gain complete clarity about your health. We sit down with you to review your prescriptions, over
-                        the counter medications, and supplements, helping to identify potential drug interactions,
-                        manage side effects, and optimize your schedule.
-                    </p>
-                </div>
-
-                <!-- Slide 4: Health & Wellness Coaching -->
-                <div class="philosophy-slide">
-                    <h3 class="philosophy-subheading">Health & Wellness Coaching</h3>
-                    <p class="section-paragraph">
-                        Our care goes far beyond filling prescriptions. We partner with you to manage chronic conditions
-                        with on site blood pressure monitoring, diabetes support, and healthy lifestyle coaching
-                        tailored to your daily needs.
-                    </p>
-                </div>
-                <!-- Navigational Arrows -->
-                <div class="philosophy-nav-container">
-                    <button class="philosophy-nav-btn prev-btn" aria-label="Previous Slide">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-                        </svg>
-                    </button>
-                    <button class="philosophy-nav-btn next-btn" aria-label="Next Slide">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-                        </svg>
-                    </button>
-                </div>
-                <!-- Progress Bar Indicator -->
-                <div class="philosophy-progress-track">
-                    <div class="philosophy-progress-bar animating"></div>
-                </div>
-            </div>
-
-            <!-- Right Column: Persistent Icon -->
-            <div class="philosophy-left-container">
-                <!-- Persistent Cross Icon -->
-                <img src="/assets/cross2.png" alt="Pharmacy Icon" id="persistent-philosophy-icon"
-                    class="philosophy-icon" style="--phil-rotation: 0deg;">
-            </div>
-        </div>
-    </section>
-
-    <section class="team-section">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Meet Our Team</h2>
-        <div class="team-card">
-            <img src="/assets/manager-photo.png" alt="Mirelle (Mira) Tawdrous" class="team-image">
-            <div class="team-info">
-                <h3>Mirelle (Mira) Tawdrous</h3>
-                <span class="team-role">Pharmacist & Manager</span>
-                <p class="section-paragraph">
-                    Led by Mira, our dedicated team is known for being friendly, knowledgeable, and always ready to
-                    help. Mira and
-                    our staff take the time to know our patients by name, review medications thoroughly to prevent
-                    interactions, and
-                    offer practical advice on managing your day-to-day health.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="why-us-section">
-        <!-- Floating background icons -->
-        <div class="why-us-bg-icons">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-1" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-2" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-3" alt="">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-4" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-5" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-6" alt="">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-7" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-8" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-9" alt="">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-10" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-11" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-12" alt="">
-        </div>
-
-        <div class="why-us-container">
-            <div class="why-us-left">
-                <h2 class="why-us-title">Why Choose Rideau Pharmacy?</h2>
-                <img src="/assets/pharmacist.png" alt="Pharmacist" class="why-us-image">
-            </div>
-            <div class="why-us-right">
-                <!-- Item 1 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">01</span>
-                    <div class="why-us-content">
-                        <h3>Prescribing Pharmacists</h3>
-                        <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink
-                            eye, rashes, UTIs, and insect bites right at the counter.</p>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">02</span>
-                    <div class="why-us-content">
-                        <h3>On Site Walk In Clinic</h3>
-                        <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick
-                            and easy consultations.</p>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">03</span>
-                    <div class="why-us-content">
-                        <h3>Modern Convenience</h3>
-                        <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout
-                            the Ottawa area.</p>
-                    </div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">04</span>
-                    <div class="why-us-content">
-                        <h3>Tailored Care</h3>
-                        <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to
-                            your lifestyle.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<div id="services-section" class="services-section">
-    <h2 class="services-main-title">Our Services</h2>
-    <p class="services-subtitle">Everything you need, all under one roof, delivered with care.</p>
-
-    <div class="srv-grid">
-
-        <!-- Card 1 – Immunizations -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/vaccine.jpg" alt="Vaccination" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- syringe icon -->
-                    <svg viewBox="0 0 24 24">
-                        <path d="M18 2l4 4-1.5 1.5-4-4L18 2z" />
-                        <path d="M10.5 9.5L14 6l4 4-3.5 3.5" />
-                        <path d="M2 22l6-6" />
-                        <path d="M7.5 16.5l-2-2 8-8 2 2-8 8z" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Immunizations &amp; Vaccinations</h3>
-                <p class="srv-text">Stay protected year round. From flu shots to travel vaccines, our pharmacists
-                    administer them safely, no appointment needed.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Card 2 – Free Delivery -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/home-delivery.png" alt="Free Delivery" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- delivery / box icon -->
-                    <svg viewBox="0 0 24 24">
-                        <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3" />
-                        <rect x="9" y="11" width="14" height="10" rx="2" />
-                        <path d="M9 15h14" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Free Local Delivery</h3>
-                <p class="srv-text">We bring your medications to your doorstep reliably and on time, at no extra
-                    charge throughout the Ottawa area.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Card 3 – Compliance Packaging -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/pack.jpg" alt="Compliance Packaging" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- grid / blister pack icon -->
-                    <svg viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="7" height="7" />
-                        <rect x="14" y="3" width="7" height="7" />
-                        <rect x="14" y="14" width="7" height="7" />
-                        <rect x="3" y="14" width="7" height="7" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Compliance Packaging</h3>
-                <p class="srv-text">We organise your daily doses into clearly labelled blister packs by day and time,
-                    making complex medication schedules effortless.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Card 4 – Professional Consultations -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/consult.png" alt="Consultations" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- chat / consult icon -->
-                    <svg viewBox="0 0 24 24">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Professional Consultations</h3>
-                <p class="srv-text">Your pharmacist is your most accessible healthcare provider. Private, one on one
-                    sessions to review your medications and answer health questions.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<script>
-    (function () {
-        var cards = document.querySelectorAll('.srv-card');
-        if (!cards.length) return;
-        if ('IntersectionObserver' in window) {
-            var io = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        io.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.12 });
-            cards.forEach(function (card) { io.observe(card); });
-        } else {
-            cards.forEach(function (card) { card.classList.add('revealed'); });
-        }
-    })();
-</script>
-
-<div class="parallax-divider">
-    <video id="parallax-video" autoplay loop muted playsinline>
-        <source src="/movie.mp4" type="video/mp4">
-    </video>
-</div>
-
-<script>
-    (function () {
-        var el = document.getElementById('parallax-video');
-        var container = el && el.closest('.parallax-divider');
-        if (!el || !container) return;
-
-        /* Disable parallax on mobile / touch devices */
-        if (window.innerWidth <= 768 || ('ontouchstart' in window)) return;
-
-        var containerOffsetTop = 0;
-        function calcOffset() {
-            containerOffsetTop = container.getBoundingClientRect().top + window.scrollY;
-        }
-
-        var ticking = false;
-        function update() {
-            /* Shift the video by exactly the scroll amount so it appears fixed */
-            el.style.transform = 'translateY(' + (window.scrollY - containerOffsetTop) + 'px)';
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', function () {
-            if (!ticking) { requestAnimationFrame(update); ticking = true; }
-        }, { passive: true });
-
-        window.addEventListener('resize', function () {
-            calcOffset();
-            update();
-        });
-
-        calcOffset();
-        update();
-    })();
-</script>
-
-<div id="faq-section" class="faq-container">
-    <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
-    <div class="faq">
-        <div class="faq-question">How do I transfer my prescriptions to Rideau Pharmacy?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>It's incredibly easy! Simply give us a call at (613) 789-4444 or bring in your current medication
-                    bottles. Our team will handle the rest by contacting your previous pharmacy to transfer your files
-                    seamlessly.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">Do you offer prescription delivery?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Yes, we offer free local delivery throughout the Ottawa area. Just let us know when you request your
-                    refill, and we will bring your medications straight to your door.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">Can the pharmacist prescribe medications?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Our prescribing pharmacists can assess and write prescriptions for a variety of minor ailments right
-                    at the counter, including pink eye, UTIs, cold sores, and insect bites.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">How does the on site telemedicine clinic work?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Consult with a licensed physician via a secure video link from our pharmacy. The doctor can diagnose
-                    conditions and send prescriptions straight to our pharmacists for immediate pickup.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">Do you provide compliance blister packaging?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Absolutely. We offer custom blister packaging to help you organize your daily doses by day and time,
-                    ensuring you take the right medication exactly when needed.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">What languages are spoken at Rideau Pharmacy?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Our friendly team is fluent and ready to assist you in English, French, and Arabic.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section id="booking-section" class="booking-section">
-    <div class="booking-container">
-        <h2 class="section-title" style="text-align: center;">Book an Appointment</h2>
-        <p class="section-paragraph" style="text-align: center; max-width: 700px; margin: 0 auto 40px;">
-            Select a time that works for you. Our pharmacists are available for consultations, minor ailment
-            prescribing, and medication reviews.
+      <div class="offer-pricing-box">
+        <span class="eyebrow eyebrow-copper">Session Investment</span>
+        <div class="offer-price">Price: $750.</div>
+        <p class="offer-guarantee">
+          <strong>Guarantee:</strong> if the session doesn't give real clarity, the full fee credits toward anything built with AMP in the next 60 days.
         </p>
 
-        <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_LINK_HERE"
-            style="min-width:320px;height:700px;"></div>
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%;">
+            <span>Book your session</span>
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor">
+              <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
+            </svg>
+          </a>
+          <a href="#standalone" class="btn btn-secondary" style="width: 100%;">
+            <span>Buy the Deck</span>
+          </a>
+        </div>
+
+        <p class="offer-availability">
+          We run a small number of sessions each month so each one gets full attention. Live availability is on the booking page.
+        </p>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="contact-section" class="quick-contact">
-    <div class="contact-container">
-        <div class="contact-info">
-            <h2 class="contact-title">Visit Us Today</h2>
-            <p class="contact-subtitle">We are conveniently located in the heart of the community, ready to serve your
-                healthcare needs.</p>
-            <div class="contact-details">
-                <div class="contact-item">
-                    <span class="contact-icon">📍</span>
-                    <div class="info-text">
-                        <strong>Our Address</strong>
-                        <p>390 Rideau St, Ottawa, ON K1N 5Y8</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📞</span>
-                    <div class="info-text">
-                        <strong>Give Us a Call</strong>
-                        <p>(613) 789-4444</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">🕒</span>
-                    <div class="info-text">
-                        <strong>Opening Hours</strong>
-                        <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
-                        <p>Saturday: 9:00 AM - 4:00 PM</p>
-                        <p>Sunday: 9:00 AM - 3:00 PM</p>
-                    </div>
-                </div>
-            </div>
+<!-- Section: Buy the Deck (Standalone Product) -->
+<section class="section-buy-deck" id="standalone">
+  <div class="container">
+    <div class="buy-deck-card">
+      <div class="buy-deck-text">
+        <span class="eyebrow eyebrow-sand">ABOUT OUR COMPANY • Buy the Deck</span>
+        <h2>Want to try it for yourself first?</h2>
+        <p>
+          The AMP Deck is also sold as a standalone product. The same diagnostic, run at your own table, on your own time. Every system card linking to more detail on how to build it. If it surfaces something worth a second set of eyes, booking a session is the natural next step.
+        </p>
+        <div class="buy-deck-actions">
+          <button type="button" class="btn btn-primary" onclick="document.getElementById('deckWaitlist').style.display='block'; this.scrollIntoView({behavior:'smooth'});">
+            <span>Get the Deck</span>
+          </button>
+          <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <span>Book a free consultation</span>
+          </a>
         </div>
-        <div class="contact-map-placeholder">
-            <a href="https://www.google.com/maps/search/?api=1&query=390+Rideau+St+Ottawa+ON+K1N+5Y8" target="_blank">
-                <img src="/assets/rideau-House.png" alt="Rideau Pharmacy Location" class="contact-image map-hover">
-            </a>
-            <p style="text-align: center; font-size: 0.9rem; color: #666; margin-top: 10px;">Click map to open in Google
-                Maps</p>
+
+        <!-- Inline Waitlist Drawer/Box -->
+        <div id="deckWaitlist" style="display: none; margin-top: 32px; padding: 28px; background: rgba(0,0,0,0.5); border: 1px solid var(--border-accent); border-radius: var(--radius-lg);">
+          <h4 style="margin-bottom: 8px;">Join the waitlist for The AMP Deck</h4>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;">
+            A 52-card diagnostic for finding what's actually breaking your growth. Run it at your own table. We'll email you once when it ships. Nothing else.
+          </p>
+          <form action="#" method="POST" onsubmit="event.preventDefault(); alert('You have been added to the waitlist!'); document.getElementById('deckWaitlist').style.display='none';" style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <input type="email" required placeholder="Enter your email" style="flex: 1; min-width: 220px; padding: 12px 18px; border-radius: var(--radius-full); background: rgba(255,255,255,0.06); border: 1px solid var(--border-card); color: var(--text-warm-white); outline: none;">
+            <button type="submit" class="btn btn-primary" style="padding: 12px 24px;">Join</button>
+          </form>
         </div>
+      </div>
+
+      <div class="buy-deck-image">
+        <img src="/images/deck-cards.jpg" alt="The AMP Deck cards showcase">
+      </div>
     </div>
+  </div>
 </section>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // 1. FAQ Scroll Trigger
-        const faqs = document.querySelectorAll(".faq");
-        const faqContainer = document.querySelector('.faq-container');
+<!-- Section: Proof (Testimonials) -->
+<section class="section-proof" id="proof">
+  <div class="container">
+    <div class="proof-header">
+      <span class="eyebrow eyebrow-copper">What our clients say</span>
+      <h2>Thoughts and notes from our Clients.</h2>
+    </div>
 
-        const faqObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    faqs.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.classList.add("visible");
-                        }, index * 150);
-                    });
-                    faqObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+    <div class="testimonials-grid">
+      <!-- Testimonial 1 -->
+      <div class="testimonial-card">
+        <p class="testimonial-quote">
+          "Before working with AMP, figuring out our next steps felt overwhelming. When I was asked about the direction we wanted to take, I had dozens of different ideas bouncing around in my head all at once and every direction possible.<br><br>
+          Using the Amp deck of cards completely transformed our planning process. The cards allowed us to instantly simplify concepts, organize scattered thoughts into clear categories, and highlight key areas where we needed improvement. Most importantly, it boiled everything down into the precise, focused campaign our business actually required.<br><br>
+          Thanks to Amp, we went from creative chaos to total strategic clarity. I am now completely confident that we are executing what is best for our business."
+        </p>
 
-        if (faqContainer) {
-            faqObserver.observe(faqContainer);
-        }
+        <div class="testimonial-author">
+          <img src="/images/justin-davidson.jpg" alt="Justin Davidson" class="author-avatar">
+          <div>
+            <div class="author-name">Justin Davidson</div>
+            <div class="author-role">Quinte Smart homes</div>
+          </div>
+        </div>
+      </div>
 
-        // 2. FAQ Accordion Handler
-        const questions = document.querySelectorAll('.faq-question');
-        questions.forEach((question) => {
-            question.addEventListener('click', () => {
-                const parent = question.parentElement;
-                const isActive = parent.classList.contains('active');
+      <!-- Testimonial 2 -->
+      <div class="testimonial-card">
+        <p class="testimonial-quote">
+          "It's really neat to see how the AMP team understands what clients need, and the fact they were able to guide me through the process during the session was a true game-changer. I now have a list of things to work towards."
+        </p>
 
-                // Close others
-                document.querySelectorAll('.faq.active').forEach(openFaq => {
-                    if (openFaq !== parent) openFaq.classList.remove('active');
-                });
+        <div class="testimonial-author">
+          <img src="/images/yona-harvey.jpg" alt="Yona Harvey" class="author-avatar">
+          <div>
+            <div class="author-name">Yona Harvey</div>
+            <div class="author-role">Mabuhay Canada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                parent.classList.toggle('active');
-            });
-        });
+<!-- Section: Objections (FAQ) -->
+<section class="section-faq" id="faq">
+  <div class="container">
+    <div class="faq-header">
+      <span class="eyebrow eyebrow-sand">Frequently Asked Questions</span>
+      <h2>We get asked this all the time</h2>
+    </div>
 
+    <div class="faq-list">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          <span>I've tried things like this before and nothing changed.</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Diagnosis-first is the whole point; most things fail because they solve the wrong problem.</p>
+        </div>
+      </div>
 
-        // Hero scroll parallax driver
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-            const onHeroScroll = () => {
-                const scrollY = window.scrollY;
-                if (scrollY <= 800) {
-                    heroSection.style.setProperty('--scroll-y', scrollY + 'px');
-                }
-            };
-            window.addEventListener('scroll', onHeroScroll, { passive: true });
-            onHeroScroll();
-        }
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          <span>I already know what our problem is!</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Good, use the session to confirm it or find what's underneath it.</p>
+        </div>
+      </div>
 
-        // 4. Philosophy Rotation Manager (10s intervals)
-        const philSlides = document.querySelectorAll('.philosophy-slide');
-        const philIcon = document.getElementById('persistent-philosophy-icon');
-        const philProgressBar = document.querySelector('.philosophy-progress-bar');
-        let currentPhilSlide = 0;
-        let philRotation = 0;
-        let philInterval;
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          <span>Is this just going to be a pitch for AMP's services?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>No, the session's only job is the diagnosis; what you build after is a separate, optional conversation.</p>
+        </div>
+      </div>
 
-        function showPhilSlide(index, direction = 'forward') {
-            if (index === currentPhilSlide && philRotation !== 0) return;
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          <span>Can a deck of cards actually tell me anything about my business?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>The cards don't tell you anything, they give the knowledge you already have somewhere to land.</p>
+        </div>
+      </div>
 
-            philSlides.forEach(slide => slide.classList.remove('active'));
+      <!-- FAQ 5 -->
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          <span>What if I need time to think about it after?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Every session ends with a written summary and no hard close.</p>
+        </div>
+      </div>
 
-            philSlides[index].classList.add('active');
-
-            if (index !== currentPhilSlide) {
-                if (direction === 'backward') {
-                    philRotation -= 90;
-                } else {
-                    philRotation += 90;
-                }
-                if (philIcon) {
-                    philIcon.style.setProperty('--phil-rotation', philRotation + 'deg');
-                }
-            }
-
-            // Restart progress bar animation
-            if (philProgressBar) {
-                philProgressBar.classList.remove('animating');
-                void philProgressBar.offsetWidth; // Trigger reflow to restart CSS keyframe animation
-                philProgressBar.classList.add('animating');
-            }
-
-            currentPhilSlide = index;
-        }
-
-        function nextPhilSlide() {
-            let next = (currentPhilSlide + 1) % philSlides.length;
-            showPhilSlide(next, 'forward');
-        }
-
-        function startPhilRotation() {
-            philInterval = setInterval(nextPhilSlide, 15000);
-        }
-
-        function resetPhilRotation() {
-            clearInterval(philInterval);
-            startPhilRotation();
-        }
-
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                let prev = (currentPhilSlide - 1 + philSlides.length) % philSlides.length;
-                showPhilSlide(prev, 'backward');
-                resetPhilRotation();
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                let next = (currentPhilSlide + 1) % philSlides.length;
-                showPhilSlide(next, 'forward');
-                resetPhilRotation();
-            });
-        }
-
-        if (philSlides.length > 0) {
-            startPhilRotation();
-        }
-    });
-</script>
+      <!-- FAQ 6 -->
+      <div class="faq-item">
+        <button class="faq-question" type="button">
+          <span>What if I already have a marketing team or agency?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Even better. The session doesn't replace them, it tells them where to aim. Most teams are executing well on the wrong stage, because nobody's mapped the client journey end to end. You walk out with a diagnosis your team can build against, and a written summary you can hand straight to them. If they're good, they'll be glad someone finally named the problem.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,1 +1,65 @@
-<script src="/script.js"></script>
+<script>
+  // Mobile / Drawer Menu
+  const menuToggle = document.getElementById('menuToggle');
+  const menuClose = document.getElementById('menuClose');
+  const menuDrawer = document.getElementById('menuDrawer');
+
+  function openMenu() {
+    if (menuDrawer) {
+      menuDrawer.classList.add('is-open');
+      menuDrawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeMenu() {
+    if (menuDrawer) {
+      menuDrawer.classList.remove('is-open');
+      menuDrawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (menuToggle) menuToggle.addEventListener('click', openMenu);
+  if (menuClose) menuClose.addEventListener('click', closeMenu);
+
+  // Close menu on pressing Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuDrawer && menuDrawer.classList.contains('is-open')) {
+      closeMenu();
+    }
+  });
+
+  // Close menu when clicking navigation link
+  const drawerLinks = document.querySelectorAll('.menu-nav-links a');
+  drawerLinks.forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // FAQ Accordion
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const questionBtn = item.querySelector('.faq-question');
+    if (questionBtn) {
+      questionBtn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+        // Close all others
+        faqItems.forEach(i => i.classList.remove('is-open'));
+        // Toggle current
+        if (!isOpen) {
+          item.classList.add('is-open');
+        }
+      });
+    }
+  });
+
+  // Header Scroll Effect
+  const header = document.querySelector('.site-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header?.classList.add('is-scrolled');
+    } else {
+      header?.classList.remove('is-scrolled');
+    }
+  });
+</script>

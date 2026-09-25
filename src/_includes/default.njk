@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include "component/head.njk" %}
-    <body style="--maxw-md: 100vw; 
-        
-        overflow-x: hidden;
-        
-        --m: auto;
-        --size: 1.2rem;
-        min-height: 100vh;
-        --ai: center;
-        --jc: center; 
-        --d: flex; 
-        --fd: column;">
-        
-      {% include "component/navbar.njk" %}
-      
+  <body>
+    {% include "component/navbar.njk" %}
 
-      <main style="flex-grow: 1;">
+    <main id="main-content">
       {{ content | safe }}
-      </main>
+    </main>
 
-      {% include "component/footer.njk" %}
-      {% include "component/scripts.njk" %}
-    </body>
-  </html>
+    {% include "component/footer.njk" %}
+    {% include "component/scripts.njk" %}
+  </body>
 </html>
