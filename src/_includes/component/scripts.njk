@@ -40,17 +40,25 @@
   const faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach(item => {
     const questionBtn = item.querySelector('.faq-question');
-    if (questionBtn) {
-      questionBtn.addEventListener('click', () => {
-        const isOpen = item.classList.contains('is-open');
-        // Close all others
-        faqItems.forEach(i => i.classList.remove('is-open'));
-        // Toggle current
-        if (!isOpen) {
-          item.classList.add('is-open');
-        }
+    const answerBox = item.querySelector('.faq-answer');
+
+    function toggleFaq() {
+      const isOpen = item.classList.contains('is-open');
+      // Close all others
+      faqItems.forEach(i => {
+        i.classList.remove('is-open');
+        const btn = i.querySelector('.faq-question');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
       });
+      // Toggle current
+      if (!isOpen) {
+        item.classList.add('is-open');
+        if (questionBtn) questionBtn.setAttribute('aria-expanded', 'true');
+      }
     }
+
+    if (questionBtn) questionBtn.addEventListener('click', toggleFaq);
+    if (answerBox) answerBox.addEventListener('click', toggleFaq);
   });
 
   // Header Scroll Effect
