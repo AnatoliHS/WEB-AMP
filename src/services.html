@@ -52,141 +52,258 @@ description: "Brand Growth Agency Emphasizing Customer-led Strategy, Integrative
       <h2 class="services-engine-title">Build the Engine Behind Your Growth.</h2>
     </div>
 
-    <div class="services-engine-grid">
-      <!-- 01: Brand Identity -->
-      <div class="services-engine-card">
-        <div class="services-engine-card-top">
-          <div class="services-card-badge">
-            <span class="services-card-badge-dot"></span>
-            <span>01 • BRAND IDENTITY</span>
+    <!-- Scroll-Driven Showcase Component (Matching User's Reference) -->
+    <div class="engine-scroll-container" id="engineScrollContainer">
+      <div class="engine-showcase-wrap" id="engineShowcase">
+        <!-- Left Column: Sticky Sidebar with Count-Up Ticker and Sliding Info -->
+        <div class="engine-showcase-sidebar">
+          <!-- Animated Count-Up Ticker (01. -> 02. -> 03.) -->
+          <div class="engine-big-number-wrap">
+            <div class="engine-number-ticker" id="engineNumberTicker">
+              <div class="engine-number-item">01.</div>
+              <div class="engine-number-item">02.</div>
+              <div class="engine-number-item">03.</div>
+            </div>
           </div>
-          <h3 class="services-card-name">Brand Identity</h3>
-          <p class="services-card-tagline">Strategy meets design.</p>
-          <p class="services-card-desc">
-            Your brand is more than a logo — it’s the foundation of your business. We craft clear, compelling identities that position you as the trusted choice in your industry. From visuals to messaging, every element is designed to cut through noise and connect with your audience.
-          </p>
 
-          <ul class="services-bullet-list">
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Ensure brand consistency across all touchpoints for a unified client experience.</span>
-            </li>
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Create tailored strategies that position you as the go-to expert in your field.</span>
-            </li>
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Build trust and recognition with a professional, cohesive brand system.</span>
-            </li>
-          </ul>
+          <nav class="engine-nav-list" aria-label="Services Navigation">
+            <button type="button" class="engine-nav-btn is-active" data-index="0" aria-selected="true">
+              <span class="engine-nav-dash">—</span>
+              <span class="engine-nav-label">Brand Identity</span>
+            </button>
+            <button type="button" class="engine-nav-btn" data-index="1" aria-selected="false">
+              <span class="engine-nav-dash">—</span>
+              <span class="engine-nav-label">Websites</span>
+            </button>
+            <button type="button" class="engine-nav-btn" data-index="2" aria-selected="false">
+              <span class="engine-nav-dash">—</span>
+              <span class="engine-nav-label">Services SEO</span>
+            </button>
+          </nav>
+
+          <!-- Dynamic Content Panels (Slide Out Up / Slide In Up) -->
+          <div class="engine-panels-container">
+            <!-- Panel 0: Brand Identity -->
+            <div class="engine-panel is-active" data-panel="0">
+              <h3 class="engine-panel-title">Brand Identity</h3>
+              <p class="engine-panel-tagline">Strategy meets design.</p>
+              <p class="engine-panel-desc">
+                Your brand is more than a logo — it’s the foundation of your business. We craft clear, compelling identities that position you as the trusted choice in your industry. From visuals to messaging, every element is designed to cut through noise and connect with your audience.
+              </p>
+              <ul class="engine-bullet-list">
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Ensure brand consistency across all touchpoints for a unified client experience.</span>
+                </li>
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Create tailored strategies that position you as the go-to expert in your field.</span>
+                </li>
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Build trust and recognition with a professional, cohesive brand system.</span>
+                </li>
+              </ul>
+              <div class="engine-panel-cta">
+                <a href="#work" class="hero-btn-primary">
+                  <span>Learn More</span>
+                  <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
+                    <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Panel 1: Websites -->
+            <div class="engine-panel" data-panel="1">
+              <h3 class="engine-panel-title">Websites</h3>
+              <p class="engine-panel-tagline">Your hardest working salesperson.</p>
+              <p class="engine-panel-desc">
+                Search visibility isn’t luck, it’s strategy. We optimize your website to attract the right audience, convert visitors into leads, and keep your business competitive. From technical SEO to content strategy, we make sure your site works as hard as you do.
+              </p>
+              <ul class="engine-bullet-list">
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Optimize site speed, structure, and metadata for search performance.</span>
+                </li>
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Develop content strategies that attract, educate, and convert prospects.</span>
+                </li>
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Build long-term visibility with SEO systems designed to scale as you grow.</span>
+                </li>
+              </ul>
+              <div class="engine-panel-cta">
+                <a href="#work" class="hero-btn-primary">
+                  <span>Learn More</span>
+                  <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
+                    <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Panel 2: Services SEO -->
+            <div class="engine-panel" data-panel="2">
+              <h3 class="engine-panel-title">Services SEO</h3>
+              <p class="engine-panel-tagline">Turn clicks into clients.</p>
+              <p class="engine-panel-desc">
+                Running ads isn’t about impressions, it’s about impact. We create targeted campaigns across search, social, and display that drive real conversions. Every campaign is backed by data, storytelling, and strategy — so you don’t just get traffic, you get results.
+              </p>
+              <ul class="engine-bullet-list">
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Launch hyper-targeted PPC campaigns designed to capture demand.</span>
+                </li>
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Track and optimize performance in real time for maximum ROI.</span>
+                </li>
+                <li>
+                  <span class="engine-bullet-dot"></span>
+                  <span>Align ad creative with your brand story for consistent impact.</span>
+                </li>
+              </ul>
+              <div class="engine-panel-cta">
+                <a href="#work" class="hero-btn-primary">
+                  <span>Learn More</span>
+                  <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
+                    <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="services-card-footer">
-          <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="services-card-btn">
-            <span>Learn More / Book a Session</span>
-            <svg width="14" height="12" viewBox="0 0 16 14" fill="currentColor" aria-hidden="true">
+        <!-- Right Column: Unified Stage with Sliding Layers -->
+        <div class="engine-showcase-display" id="engineShowcaseDisplay">
+          <!-- Layer 0: Brand Identity -->
+          <div class="engine-showcase-layer is-active" data-layer="0" id="engineLayer0">
+            <img src="/images/brand-identity.avif" alt="Brand Identity Showcase" class="engine-mockup-img" loading="eager">
+          </div>
+
+          <!-- Layer 1: Websites -->
+          <div class="engine-showcase-layer" data-layer="1" id="engineLayer1">
+            <img src="/images/websites.jpg" alt="Websites Showcase" class="engine-mockup-img" loading="eager">
+          </div>
+
+          <!-- Layer 2: Services SEO -->
+          <div class="engine-showcase-layer" data-layer="2" id="engineLayer2">
+            <img src="/images/SEO.avif" alt="Services SEO Showcase" class="engine-mockup-img" loading="eager">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Sequential Feed (Natural Vertical Scroll for 01, 02, 03) -->
+    <div class="engine-mobile-feed">
+      <!-- Card 01: Brand Identity -->
+      <article class="engine-mobile-card">
+        <div class="engine-mobile-number">01.</div>
+        <h3 class="engine-mobile-title">Brand Identity</h3>
+        <p class="engine-mobile-tagline">Strategy meets design.</p>
+        <p class="engine-mobile-desc">
+          Your brand is more than a logo — it’s the foundation of your business. We craft clear, compelling identities that position you as the trusted choice in your industry. From visuals to messaging, every element is designed to cut through noise and connect with your audience.
+        </p>
+        <ul class="engine-mobile-bullets">
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Ensure brand consistency across all touchpoints for a unified client experience.</span>
+          </li>
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Create tailored strategies that position you as the go-to expert in your field.</span>
+          </li>
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Build trust and recognition with a professional, cohesive brand system.</span>
+          </li>
+        </ul>
+        <div class="engine-mobile-cta">
+          <a href="#work" class="hero-btn-primary">
+            <span>Learn More</span>
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
               <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
             </svg>
           </a>
         </div>
-      </div>
-
-      <!-- 02: Websites -->
-      <div class="services-engine-card">
-        <div class="services-engine-card-top">
-          <div class="services-card-badge">
-            <span class="services-card-badge-dot"></span>
-            <span>02 • WEBSITES</span>
-          </div>
-          <h3 class="services-card-name">Websites</h3>
-          <p class="services-card-tagline">Your hardest working salesperson.</p>
-          <p class="services-card-desc">
-            Search visibility isn’t luck, it’s strategy. We optimize your website to attract the right audience, convert visitors into leads, and keep your business competitive. From technical SEO to content strategy, we make sure your site works as hard as you do.
-          </p>
-
-          <ul class="services-bullet-list">
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Optimize site speed, structure, and metadata for search performance.</span>
-            </li>
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Develop content strategies that attract, educate, and convert prospects.</span>
-            </li>
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Build long-term visibility with SEO systems designed to scale as you grow.</span>
-            </li>
-          </ul>
+        <div class="engine-mobile-image-wrap">
+          <img src="/images/brand-identity.avif" alt="Brand Identity Showcase" class="engine-mobile-img" loading="lazy">
         </div>
+      </article>
 
-        <div class="services-card-footer">
-          <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="services-card-btn">
-            <span>Learn More / Book a Session</span>
-            <svg width="14" height="12" viewBox="0 0 16 14" fill="currentColor" aria-hidden="true">
+      <!-- Card 02: Websites -->
+      <article class="engine-mobile-card">
+        <div class="engine-mobile-number">02.</div>
+        <h3 class="engine-mobile-title">Websites</h3>
+        <p class="engine-mobile-tagline">Your hardest working salesperson.</p>
+        <p class="engine-mobile-desc">
+          Search visibility isn’t luck, it’s strategy. We optimize your website to attract the right audience, convert visitors into leads, and keep your business competitive. From technical SEO to content strategy, we make sure your site works as hard as you do.
+        </p>
+        <ul class="engine-mobile-bullets">
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Optimize site speed, structure, and metadata for search performance.</span>
+          </li>
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Develop content strategies that attract, educate, and convert prospects.</span>
+          </li>
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Build long-term visibility with SEO systems designed to scale as you grow.</span>
+          </li>
+        </ul>
+        <div class="engine-mobile-cta">
+          <a href="#work" class="hero-btn-primary">
+            <span>Learn More</span>
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
               <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
             </svg>
           </a>
         </div>
-      </div>
-
-      <!-- 03: Services SEO & Campaigns -->
-      <div class="services-engine-card">
-        <div class="services-engine-card-top">
-          <div class="services-card-badge">
-            <span class="services-card-badge-dot"></span>
-            <span>03 • SERVICES SEO & PPC</span>
-          </div>
-          <h3 class="services-card-name">Services SEO</h3>
-          <p class="services-card-tagline">Turn clicks into clients.</p>
-          <p class="services-card-desc">
-            Running ads isn’t about impressions, it’s about impact. We create targeted campaigns across search, social, and display that drive real conversions. Every campaign is backed by data, storytelling, and strategy — so you don’t just get traffic, you get results.
-          </p>
-
-          <ul class="services-bullet-list">
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Launch hyper-targeted PPC campaigns designed to capture demand.</span>
-            </li>
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Track and optimize performance in real time for maximum ROI.</span>
-            </li>
-            <li class="services-bullet-item">
-              <svg class="services-bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Align ad creative with your brand story for consistent impact.</span>
-            </li>
-          </ul>
+        <div class="engine-mobile-image-wrap">
+          <img src="/images/websites.jpg" alt="Websites Showcase" class="engine-mobile-img" loading="lazy">
         </div>
+      </article>
 
-        <div class="services-card-footer">
-          <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="services-card-btn">
-            <span>Learn More / Book a Session</span>
-            <svg width="14" height="12" viewBox="0 0 16 14" fill="currentColor" aria-hidden="true">
+      <!-- Card 03: Services SEO -->
+      <article class="engine-mobile-card">
+        <div class="engine-mobile-number">03.</div>
+        <h3 class="engine-mobile-title">Services SEO</h3>
+        <p class="engine-mobile-tagline">Turn clicks into clients.</p>
+        <p class="engine-mobile-desc">
+          Running ads isn’t about impressions, it’s about impact. We create targeted campaigns across search, social, and display that drive real conversions. Every campaign is backed by data, storytelling, and strategy — so you don’t just get traffic, you get results.
+        </p>
+        <ul class="engine-mobile-bullets">
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Launch hyper-targeted PPC campaigns designed to capture demand.</span>
+          </li>
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Track and optimize performance in real time for maximum ROI.</span>
+          </li>
+          <li>
+            <span class="engine-bullet-dot"></span>
+            <span>Align ad creative with your brand story for consistent impact.</span>
+          </li>
+        </ul>
+        <div class="engine-mobile-cta">
+          <a href="#work" class="hero-btn-primary">
+            <span>Learn More</span>
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
               <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
             </svg>
           </a>
         </div>
-      </div>
+        <div class="engine-mobile-image-wrap">
+          <img src="/images/SEO.avif" alt="Services SEO Showcase" class="engine-mobile-img" loading="lazy">
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -292,4 +409,138 @@ description: "Brand Growth Agency Emphasizing Customer-led Strategy, Integrative
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    const scrollContainer = document.getElementById('engineScrollContainer');
+    const showcase = document.getElementById('engineShowcase');
+    if (!scrollContainer || !showcase) return;
+
+    const navButtons = showcase.querySelectorAll('.engine-nav-btn');
+    const panels = showcase.querySelectorAll('.engine-panel');
+    const layers = showcase.querySelectorAll('.engine-showcase-layer');
+    const ticker = document.getElementById('engineNumberTicker');
+    let currentIndex = 0;
+    let isClickScrolling = false;
+    let clickTimeout = null;
+
+    function setActiveStep(newIndex) {
+      if (newIndex === currentIndex) return;
+      const direction = newIndex > currentIndex ? 'down' : 'up';
+      const prevIndex = currentIndex;
+      currentIndex = newIndex;
+
+      // 1. Animate Number Ticker (Odometer Count-Up)
+      if (ticker) {
+        const itemH = ticker.firstElementChild ? ticker.firstElementChild.offsetHeight : 56;
+        ticker.style.transform = `translateY(-${newIndex * itemH}px)`;
+      }
+
+      // 2. Animate Nav Buttons
+      navButtons.forEach((btn, i) => {
+        const isActive = i === newIndex;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      // 3. Animate Content Panels (Slide Out Up / Slide In Up)
+      panels.forEach((panel, i) => {
+        panel.classList.remove('slide-out-up', 'slide-out-down', 'slide-in-up', 'slide-in-down', 'prepare-bottom', 'prepare-top');
+
+        if (i === prevIndex) {
+          panel.classList.remove('is-active');
+          panel.classList.add(direction === 'down' ? 'slide-out-up' : 'slide-out-down');
+        } else if (i === newIndex) {
+          panel.classList.add(direction === 'down' ? 'prepare-bottom' : 'prepare-top');
+          void panel.offsetHeight; // trigger reflow
+          panel.classList.remove('prepare-bottom', 'prepare-top');
+          panel.classList.add('is-active', direction === 'down' ? 'slide-in-up' : 'slide-in-down');
+        } else {
+          panel.classList.remove('is-active');
+        }
+      });
+
+      // 4. Animate Showcase Image Layers (Slide Up / Down)
+      layers.forEach((layer, i) => {
+        if (i === 0) {
+          layer.classList.toggle('is-active', newIndex === 0);
+        } else {
+          if (i < newIndex) {
+            // Already passed layer - stays at translateY(0) underneath
+            layer.classList.remove('is-active');
+            layer.classList.add('is-passed');
+          } else if (i === newIndex) {
+            // Current active layer - slides up to translateY(0)
+            layer.classList.remove('is-passed');
+            layer.classList.add('is-active');
+          } else {
+            // Future layer - stays down at translateY(100%)
+            layer.classList.remove('is-active', 'is-passed');
+          }
+        }
+      });
+    }
+
+    // Scroll Observer to detect scroll position through the container
+    function updateOnScroll() {
+      if (isClickScrolling) return;
+      if (window.innerWidth <= 1024) return;
+
+      const rect = scrollContainer.getBoundingClientRect();
+      const stickyTop = 85;
+      const maxScroll = scrollContainer.offsetHeight - showcase.offsetHeight;
+      if (maxScroll <= 0) return;
+
+      const scrolled = stickyTop - rect.top;
+      const progress = Math.min(Math.max(scrolled / maxScroll, 0), 1);
+
+      let step = 0;
+      if (progress >= 0.65) {
+        step = 2;
+      } else if (progress >= 0.32) {
+        step = 1;
+      } else {
+        step = 0;
+      }
+
+      if (step !== currentIndex) {
+        setActiveStep(step);
+      }
+    }
+
+    window.addEventListener('scroll', updateOnScroll, { passive: true });
+    window.addEventListener('resize', updateOnScroll, { passive: true });
+    // Run on initial load
+    updateOnScroll();
+
+    // Clicking a nav button smoothly scrolls to that step
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-index'), 10);
+        if (isNaN(idx)) return;
+
+        if (window.innerWidth <= 1024) {
+          setActiveStep(idx);
+          return;
+        }
+
+        isClickScrolling = true;
+        if (clickTimeout) clearTimeout(clickTimeout);
+        setActiveStep(idx);
+
+        const rect = scrollContainer.getBoundingClientRect();
+        const stickyTop = 85;
+        const maxScroll = scrollContainer.offsetHeight - showcase.offsetHeight;
+        const targetProgress = idx === 0 ? 0.05 : (idx === 1 ? 0.48 : 0.85);
+        const targetScrollY = window.pageYOffset + rect.top - stickyTop + (targetProgress * maxScroll);
+
+        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+
+        clickTimeout = setTimeout(() => {
+          isClickScrolling = false;
+        }, 700);
+      });
+    });
+  })();
+</script>
 
