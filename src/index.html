@@ -227,8 +227,7 @@ and amplify growth with campaigns that compound."
       </div>
 
       <div class="trydeck-action">
-        <button type="button" class="btn-trydeck" id="btnToggleDeckWaitlist" onclick="toggleDeckWaitlist()"
-          aria-expanded="false" aria-controls="deckWaitlist">
+        <a href="/the-deck/" class="btn-trydeck">
           <span class="btn-trydeck-text">Get the Deck</span>
           <span class="btn-trydeck-sep"></span>
           <span class="btn-trydeck-arrow">
@@ -237,44 +236,7 @@ and amplify growth with campaigns that compound."
                 d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z" />
             </svg>
           </span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Dropdown / Expanded Waitlist Card -->
-    <div id="deckWaitlist" class="deck-waitlist-card" aria-hidden="true">
-      <button type="button" class="deck-waitlist-close" onclick="toggleDeckWaitlist()" aria-label="Close waitlist card">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-
-      <!-- Left Column: Content & Waitlist Form -->
-      <div class="deck-waitlist-left">
-        <div class="deck-waitlist-badge">
-          <img src="/images/amp-logo.png" alt="AMP Logo" class="deck-waitlist-logo" width="76" height="76">
-        </div>
-
-        <p class="deck-waitlist-eyebrow">Join the waitlist for</p>
-        <h3 class="deck-waitlist-title">The AMP Deck</h3>
-        <p class="deck-waitlist-desc">
-          A 52-card diagnostic for finding what's actually breaking your growth. Run it at your own table.
-        </p>
-
-        <form action="#" method="POST" class="deck-waitlist-form"
-          onsubmit="event.preventDefault(); alert('You have been added to the waitlist!'); toggleDeckWaitlist();">
-          <input type="email" required placeholder="Enter your email" class="deck-waitlist-input" autocomplete="email">
-          <button type="submit" class="deck-waitlist-submit">Join the waitlist</button>
-        </form>
-
-        <p class="deck-waitlist-note">We'll email you once when it ships. Nothing else.</p>
-      </div>
-
-      <!-- Right Column: Deck Visual on Table -->
-      <div class="deck-waitlist-media">
-        <img src="/images/deck.avif" alt="The AMP Deck cards on table" class="deck-waitlist-img" loading="lazy">
+        </a>
       </div>
     </div>
   </div>
@@ -361,125 +323,141 @@ and amplify growth with campaigns that compound."
       <div class="faq-eyebrow-line"></div>
     </div>
 
-    <div class="faq-layout-grid">
-      <!-- Left Column: Title -->
-      <div class="faq-title-col">
+    <div class="faq-deck-header">
+      <div>
         <h2 class="faq-main-title">
           We get asked<br>
           this all the time
         </h2>
+        <p class="faq-deck-intro">Pick a card. Every one is a real objection we hear before a session.</p>
       </div>
-
-      <!-- Right Column: Accordion List -->
-      <div class="faq-list">
-        <!-- FAQ 1 -->
-        <div class="faq-item is-open">
-          <div class="faq-answer-drawer">
-            <div class="faq-answer">
-              <span class="faq-answer-tag">ANSWER</span>
-              <p class="faq-answer-text">Diagnosis-first is the whole point; most things fail because they solve the
-                wrong problem.</p>
-            </div>
-          </div>
-          <button class="faq-question" type="button" aria-expanded="true">
-            <span class="faq-question-tag">QUESTION</span>
-            <div class="faq-question-row">
-              <span class="faq-question-text">I've tried things like this before and nothing changed.</span>
-              <span class="faq-icon">+</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- FAQ 2 -->
-        <div class="faq-item">
-          <div class="faq-answer-drawer">
-            <div class="faq-answer">
-              <span class="faq-answer-tag">ANSWER</span>
-              <p class="faq-answer-text">Good, use the session to confirm it or find what's underneath it.</p>
-            </div>
-          </div>
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-question-tag">QUESTION</span>
-            <div class="faq-question-row">
-              <span class="faq-question-text">I already know what our problem is!</span>
-              <span class="faq-icon">+</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="faq-item">
-          <div class="faq-answer-drawer">
-            <div class="faq-answer">
-              <span class="faq-answer-tag">ANSWER</span>
-              <p class="faq-answer-text">No, the session's only job is the diagnosis; what you build after is a
-                separate, optional conversation.</p>
-            </div>
-          </div>
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-question-tag">QUESTION</span>
-            <div class="faq-question-row">
-              <span class="faq-question-text">Is this just going to be a pitch for AMP's services?</span>
-              <span class="faq-icon">+</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="faq-item">
-          <div class="faq-answer-drawer">
-            <div class="faq-answer">
-              <span class="faq-answer-tag">ANSWER</span>
-              <p class="faq-answer-text">The cards don't tell you anything, they give the knowledge you already have
-                somewhere to land.</p>
-            </div>
-          </div>
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-question-tag">QUESTION</span>
-            <div class="faq-question-row">
-              <span class="faq-question-text">Can a deck of cards actually tell me anything about my business?</span>
-              <span class="faq-icon">+</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="faq-item">
-          <div class="faq-answer-drawer">
-            <div class="faq-answer">
-              <span class="faq-answer-tag">ANSWER</span>
-              <p class="faq-answer-text">Every session ends with a written summary and no hard close.</p>
-            </div>
-          </div>
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-question-tag">QUESTION</span>
-            <div class="faq-question-row">
-              <span class="faq-question-text">What if I need time to think about it after?</span>
-              <span class="faq-icon">+</span>
-            </div>
-          </button>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="faq-item">
-          <div class="faq-answer-drawer">
-            <div class="faq-answer">
-              <span class="faq-answer-tag">ANSWER</span>
-              <p class="faq-answer-text">Even better. The session doesn't replace them, it tells them where to aim. Most
-                teams are executing well on the wrong stage, because nobody's mapped the client journey end to end. You
-                walk out with a diagnosis your team can build against, and a written summary you can hand straight to
-                them. If they're good, they'll be glad someone finally named the problem.</p>
-            </div>
-          </div>
-          <button class="faq-question" type="button" aria-expanded="false">
-            <span class="faq-question-tag">QUESTION</span>
-            <div class="faq-question-row">
-              <span class="faq-question-text">What if I already have a marketing team or agency?</span>
-              <span class="faq-icon">+</span>
-            </div>
-          </button>
-        </div>
+      <div class="faq-deck-controls">
+        <span class="faq-deck-count" id="faqDeckCount" aria-live="polite">0 / 6 flipped</span>
+        <button class="faq-deck-flip-all" id="faqDeckFlipAll" type="button">Flip all</button>
       </div>
+    </div>
+
+    <!-- Card Deck: click a card to flip between question and answer -->
+    <div class="faq-deck" id="faqDeck">
+      <!-- FAQ 1 -->
+      <button class="faq-card" type="button" aria-pressed="false">
+        <span class="faq-card-inner">
+          <span class="faq-card-face faq-card-front">
+            <span class="faq-card-corner">Question</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Burned before</span>
+            <span class="faq-card-question">I've tried things like this before and nothing changed.</span>
+            <span class="faq-card-hint">Flip for the answer ↻</span>
+          </span>
+          <span class="faq-card-face faq-card-back">
+            <span class="faq-card-corner">Answer</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Burned before</span>
+            <span class="faq-card-answer">Diagnosis-first is the whole point; most things fail because they solve the wrong problem.</span>
+            <span class="faq-card-stage"><span>Growth</span></span>
+          </span>
+        </span>
+      </button>
+
+      <!-- FAQ 2 -->
+      <button class="faq-card" type="button" aria-pressed="false">
+        <span class="faq-card-inner">
+          <span class="faq-card-face faq-card-front">
+            <span class="faq-card-corner">Question</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Already diagnosed</span>
+            <span class="faq-card-question">I already know what our problem is!</span>
+            <span class="faq-card-hint">Flip for the answer ↻</span>
+          </span>
+          <span class="faq-card-face faq-card-back">
+            <span class="faq-card-corner">Answer</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Already diagnosed</span>
+            <span class="faq-card-answer">Good, use the session to confirm it or find what's underneath it.</span>
+            <span class="faq-card-stage"><span>Interest</span></span>
+          </span>
+        </span>
+      </button>
+
+      <!-- FAQ 3 -->
+      <button class="faq-card" type="button" aria-pressed="false">
+        <span class="faq-card-inner">
+          <span class="faq-card-face faq-card-front">
+            <span class="faq-card-corner">Question</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Pitch-wary</span>
+            <span class="faq-card-question">Is this just going to be a pitch for AMP's services?</span>
+            <span class="faq-card-hint">Flip for the answer ↻</span>
+          </span>
+          <span class="faq-card-face faq-card-back">
+            <span class="faq-card-corner">Answer</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Pitch-wary</span>
+            <span class="faq-card-answer">No, the session's only job is the diagnosis; what you build after is a separate, optional conversation.</span>
+            <span class="faq-card-stage"><span>Trust</span></span>
+          </span>
+        </span>
+      </button>
+
+      <!-- FAQ 4 -->
+      <button class="faq-card" type="button" aria-pressed="false">
+        <span class="faq-card-inner">
+          <span class="faq-card-face faq-card-front">
+            <span class="faq-card-corner">Question</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Card skeptic</span>
+            <span class="faq-card-question">Can a deck of cards actually tell me anything about my business?</span>
+            <span class="faq-card-hint">Flip for the answer ↻</span>
+          </span>
+          <span class="faq-card-face faq-card-back">
+            <span class="faq-card-corner">Answer</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Card skeptic</span>
+            <span class="faq-card-answer">The cards don't tell you anything, they give the knowledge you already have somewhere to land.</span>
+            <span class="faq-card-stage"><span>Attention</span></span>
+          </span>
+        </span>
+      </button>
+
+      <!-- FAQ 5 -->
+      <button class="faq-card" type="button" aria-pressed="false">
+        <span class="faq-card-inner">
+          <span class="faq-card-face faq-card-front">
+            <span class="faq-card-corner">Question</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Needs time</span>
+            <span class="faq-card-question">What if I need time to think about it after?</span>
+            <span class="faq-card-hint">Flip for the answer ↻</span>
+          </span>
+          <span class="faq-card-face faq-card-back">
+            <span class="faq-card-corner">Answer</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Needs time</span>
+            <span class="faq-card-answer">Every session ends with a written summary and no hard close.</span>
+            <span class="faq-card-stage"><span>Conversion</span></span>
+          </span>
+        </span>
+      </button>
+
+      <!-- FAQ 6 -->
+      <button class="faq-card" type="button" aria-pressed="false">
+        <span class="faq-card-inner">
+          <span class="faq-card-face faq-card-front">
+            <span class="faq-card-corner">Question</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Has an agency</span>
+            <span class="faq-card-question">What if I already have a marketing team or agency?</span>
+            <span class="faq-card-hint">Flip for the answer ↻</span>
+          </span>
+          <span class="faq-card-face faq-card-back">
+            <span class="faq-card-corner">Answer</span>
+            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+            <span class="faq-card-tag">Has an agency</span>
+            <span class="faq-card-answer faq-card-answer--long">Even better. The session doesn't replace them, it tells them where to aim. Most teams are executing well on the wrong stage, because nobody's mapped the client journey end to end. You walk out with a diagnosis your team can build against, and a written summary you can hand straight to them. If they're good, they'll be glad someone finally named the problem.</span>
+            <span class="faq-card-stage"><span>Delivery</span></span>
+          </span>
+        </span>
+      </button>
     </div>
   </div>
 </section>
