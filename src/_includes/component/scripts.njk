@@ -74,6 +74,130 @@
 
   syncFaqDeck();
 
+  // "Sound familiar?" — deal the cards in when the section comes into view.
+  // On phones the cards form a fanned pile: swipe right for the next card, left to bring one back.
+  (function initMirrorCards() {
+    const section = document.querySelector('.section-mirror');
+    const table = section && section.querySelector('[data-mirror-table]');
+    if (!table) return;
+
+    const cards = Array.from(table.querySelectorAll('.mirror-card'));
+    const count = section.querySelector('[data-mirror-count]');
+    const prevBtn = section.querySelector('[data-mirror-prev]');
+    const nextBtn = section.querySelector('[data-mirror-next]');
+    const phone = window.matchMedia('(max-width: 900px)');
+    const SWIPE = 70;
+    let index = 0;
+    let dealt = false;
+
+    section.classList.add('is-animated');
+
+    function renderPile(stagger) {
+      // Nudge the pile left as it grows so the fan stays centred on screen
+      const shift = (cards.length - 1 - index) * 4;
+      cards.forEach((card, i) => {
+        const depth = i - index;
+        const away = !dealt || depth < 0;
+        card.style.transform = away
+          ? 'translate(130vw, -30px) rotate(24deg)'
+          : 'translate(' + (depth * 5 - shift) + 'px, ' + depth * 2 + 'px) rotate(' + depth * 3 + 'deg)';
+        // Swiped cards sit above the pile so they slide back over it
+        card.style.zIndex = depth < 0 ? 20 + i : 10 - depth;
+        // Leaving cards get a slower, even curve so the exit is visible
+        // (the pile's ease-out would cover the whole distance almost instantly)
+        card.style.transition = depth < 0 && dealt ? 'transform 0.65s cubic-bezier(0.45, 0, 0.2, 1)' : '';
+        // Bottom card lands first, card 01 lands last on top
+        card.style.transitionDelay = stagger ? (cards.length - 1 - i) * 0.12 + 's' : '0s';
+        card.classList.toggle('is-top', depth === 0);
+      });
+      count.textContent = (index + 1) + ' / ' + cards.length;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === cards.length - 1;
+      if (stagger) setTimeout(() => cards.forEach(c => { c.style.transitionDelay = '0s'; }), 1200);
+    }
+
+    function setMode() {
+      const pile = phone.matches;
+      section.classList.toggle('is-pile', pile);
+      if (pile) {
+        renderPile(false);
+      } else {
+        cards.forEach(c => {
+          c.style.transform = '';
+          c.style.zIndex = '';
+          c.style.transitionDelay = '';
+          c.classList.remove('is-top');
+        });
+      }
+    }
+
+    function go(step) {
+      const next = Math.min(cards.length - 1, Math.max(0, index + step));
+      if (next === index) { renderPile(false); return; }
+      index = next;
+      renderPile(false);
+    }
+
+    prevBtn.addEventListener('click', () => go(-1));
+    nextBtn.addEventListener('click', () => go(1));
+
+    // Swipe the top card
+    let drag = null;
+    table.addEventListener('pointerdown', e => {
+      if (!section.classList.contains('is-pile') || !dealt) return;
+      const top = cards[index];
+      if (!top.contains(e.target)) return;
+      drag = { card: top, x: e.clientX, dx: 0 };
+      top.setPointerCapture(e.pointerId);
+      top.classList.add('is-dragging');
+    });
+    table.addEventListener('pointermove', e => {
+      if (!drag) return;
+      drag.dx = e.clientX - drag.x;
+      drag.card.style.transform = 'translate(' + drag.dx + 'px, 0) rotate(' + drag.dx / 18 + 'deg)';
+    });
+    function endDrag() {
+      if (!drag) return;
+      drag.card.classList.remove('is-dragging');
+      const dx = drag.dx;
+      drag = null;
+      if (dx > SWIPE) go(1);
+      else if (dx < -SWIPE) go(-1);
+      else renderPile(false);
+    }
+    table.addEventListener('pointerup', endDrag);
+    table.addEventListener('pointercancel', endDrag);
+
+    function dealIn() {
+      if (dealt) return;
+      dealt = true;
+      section.classList.add('is-dealt');
+      if (section.classList.contains('is-pile')) renderPile(true);
+    }
+
+    phone.addEventListener('change', setMode);
+    setMode();
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        if (entries.some(en => en.isIntersecting)) { dealIn(); io.disconnect(); }
+      }, { threshold: 0.35 });
+      io.observe(table);
+    } else {
+      dealIn();
+    }
+  })();
+
+  // Latest work strips: widen the strip being hovered or focused (desktop layout)
+  document.querySelectorAll('[data-work-strips]').forEach(group => {
+    const strips = Array.from(group.querySelectorAll('.work-strip'));
+    const activate = strip => strips.forEach(s => s.classList.toggle('is-active', s === strip));
+    strips.forEach(strip => {
+      strip.addEventListener('mouseenter', () => activate(strip));
+      strip.addEventListener('focus', () => activate(strip));
+    });
+  });
+
   // Header Scroll Effect
   const header = document.querySelector('.site-header');
   window.addEventListener('scroll', () => {

@@ -43,38 +43,59 @@ and amplify growth with campaigns that compound."
 </section>
 
 <!-- Section: The Mirror ("Sound familiar?") -->
+<!-- Desktop: the cards deal themselves onto the table when the section comes into view.
+     Phones: the cards form a fanned pile; swipe right for the next card, left to bring one back (scripts.njk). -->
 <section class="section-mirror" id="mirror">
-  <div class="container">
-    <div class="mirror-header" style="text-align: center;">
-      <h2>Sound familiar?</h2>
-    </div>
-
-    <div class="mirror-grid">
-      <div class="mirror-item">
-        <img src="/images/one.svg" alt="Revenue swinging" class="mirror-icon" width="82" height="82">
-        <h3 class="mirror-item-title">Revenue swinging<br>with no clear reason</h3>
-      </div>
-      <div class="mirror-item">
-        <img src="/images/two.svg" alt="Marketing bursts" class="mirror-icon" width="82" height="82">
-        <h3 class="mirror-item-title">Marketing that<br>happens in bursts<br>then goes quiet</h3>
-      </div>
-      <div class="mirror-item">
-        <img src="/images/three.svg" alt="Weaker competitors" class="mirror-icon" width="82" height="82">
-        <h3 class="mirror-item-title">Weaker competitors<br>outranking you</h3>
-      </div>
-      <div class="mirror-item">
-        <img src="/images/four.svg" alt="Being busy" class="mirror-icon" width="82" height="82">
-        <h3 class="mirror-item-title">Being busy without<br>being able to say<br>what you built</h3>
-      </div>
-      <div class="mirror-item">
-        <img src="/images/five.svg" alt="Leads coming in" class="mirror-icon" width="82" height="82">
-        <h3 class="mirror-item-title">Leads coming<br>in but the wrong<br>ones, or nowhere</h3>
+  <div class="mirror-stage">
+    <div class="container">
+      <div class="mirror-header">
+        <h2>Sound familiar?</h2>
       </div>
     </div>
 
-    <p class="mirror-footer-text">
-      You don't need more ideas. You need to know which<br>one of these is costing you the most, right now.
-    </p>
+    <div class="mirror-table" data-mirror-table>
+      <article class="mirror-card">
+        <span class="mirror-card-corner">01</span>
+        <h3 class="mirror-card-text">Revenue swinging with no clear reason</h3>
+        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+      </article>
+      <article class="mirror-card">
+        <span class="mirror-card-corner">02</span>
+        <h3 class="mirror-card-text">Marketing that happens in bursts then goes quiet</h3>
+        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+      </article>
+      <article class="mirror-card">
+        <span class="mirror-card-corner">03</span>
+        <h3 class="mirror-card-text">Weaker competitors outranking you</h3>
+        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+      </article>
+      <article class="mirror-card">
+        <span class="mirror-card-corner">04</span>
+        <h3 class="mirror-card-text">Being busy without being able to say what you built</h3>
+        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+      </article>
+      <article class="mirror-card">
+        <span class="mirror-card-corner">05</span>
+        <h3 class="mirror-card-text">Leads coming in but the wrong ones, or nowhere</h3>
+        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
+      </article>
+    </div>
+
+    <div class="mirror-controls">
+      <button type="button" class="mirror-nav" data-mirror-prev aria-label="Previous card">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <span class="mirror-count" data-mirror-count aria-live="polite">1 / 5</span>
+      <button type="button" class="mirror-nav" data-mirror-next aria-label="Next card">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <div class="container">
+      <p class="mirror-footer-text">
+        You don't need more ideas. You need to know which <br>one of these is costing you the most, right now.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -348,13 +369,13 @@ and amplify growth with campaigns that compound."
             <span class="faq-card-tag">Burned before</span>
             <span class="faq-card-question">I've tried things like this before and nothing changed.</span>
             <span class="faq-card-hint">Flip for the answer ↻</span>
+            <span class="faq-card-stage"><span>Growth</span></span>
           </span>
           <span class="faq-card-face faq-card-back">
             <span class="faq-card-corner">Answer</span>
             <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
             <span class="faq-card-tag">Burned before</span>
             <span class="faq-card-answer">Diagnosis-first is the whole point; most things fail because they solve the wrong problem.</span>
-            <span class="faq-card-stage"><span>Growth</span></span>
           </span>
         </span>
       </button>
@@ -368,13 +389,13 @@ and amplify growth with campaigns that compound."
             <span class="faq-card-tag">Already diagnosed</span>
             <span class="faq-card-question">I already know what our problem is!</span>
             <span class="faq-card-hint">Flip for the answer ↻</span>
+            <span class="faq-card-stage"><span>Interest</span></span>
           </span>
           <span class="faq-card-face faq-card-back">
             <span class="faq-card-corner">Answer</span>
             <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
             <span class="faq-card-tag">Already diagnosed</span>
             <span class="faq-card-answer">Good, use the session to confirm it or find what's underneath it.</span>
-            <span class="faq-card-stage"><span>Interest</span></span>
           </span>
         </span>
       </button>
@@ -388,13 +409,13 @@ and amplify growth with campaigns that compound."
             <span class="faq-card-tag">Pitch-wary</span>
             <span class="faq-card-question">Is this just going to be a pitch for AMP's services?</span>
             <span class="faq-card-hint">Flip for the answer ↻</span>
+            <span class="faq-card-stage"><span>Trust</span></span>
           </span>
           <span class="faq-card-face faq-card-back">
             <span class="faq-card-corner">Answer</span>
             <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
             <span class="faq-card-tag">Pitch-wary</span>
             <span class="faq-card-answer">No, the session's only job is the diagnosis; what you build after is a separate, optional conversation.</span>
-            <span class="faq-card-stage"><span>Trust</span></span>
           </span>
         </span>
       </button>
@@ -408,13 +429,13 @@ and amplify growth with campaigns that compound."
             <span class="faq-card-tag">Card skeptic</span>
             <span class="faq-card-question">Can a deck of cards actually tell me anything about my business?</span>
             <span class="faq-card-hint">Flip for the answer ↻</span>
+            <span class="faq-card-stage"><span>Attention</span></span>
           </span>
           <span class="faq-card-face faq-card-back">
             <span class="faq-card-corner">Answer</span>
             <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
             <span class="faq-card-tag">Card skeptic</span>
             <span class="faq-card-answer">The cards don't tell you anything, they give the knowledge you already have somewhere to land.</span>
-            <span class="faq-card-stage"><span>Attention</span></span>
           </span>
         </span>
       </button>
@@ -428,13 +449,13 @@ and amplify growth with campaigns that compound."
             <span class="faq-card-tag">Needs time</span>
             <span class="faq-card-question">What if I need time to think about it after?</span>
             <span class="faq-card-hint">Flip for the answer ↻</span>
+            <span class="faq-card-stage"><span>Conversion</span></span>
           </span>
           <span class="faq-card-face faq-card-back">
             <span class="faq-card-corner">Answer</span>
             <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
             <span class="faq-card-tag">Needs time</span>
             <span class="faq-card-answer">Every session ends with a written summary and no hard close.</span>
-            <span class="faq-card-stage"><span>Conversion</span></span>
           </span>
         </span>
       </button>
@@ -448,13 +469,13 @@ and amplify growth with campaigns that compound."
             <span class="faq-card-tag">Has an agency</span>
             <span class="faq-card-question">What if I already have a marketing team or agency?</span>
             <span class="faq-card-hint">Flip for the answer ↻</span>
+            <span class="faq-card-stage"><span>Delivery</span></span>
           </span>
           <span class="faq-card-face faq-card-back">
             <span class="faq-card-corner">Answer</span>
             <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
             <span class="faq-card-tag">Has an agency</span>
             <span class="faq-card-answer faq-card-answer--long">Even better. The session doesn't replace them, it tells them where to aim. Most teams are executing well on the wrong stage, because nobody's mapped the client journey end to end. You walk out with a diagnosis your team can build against, and a written summary you can hand straight to them. If they're good, they'll be glad someone finally named the problem.</span>
-            <span class="faq-card-stage"><span>Delivery</span></span>
           </span>
         </span>
       </button>

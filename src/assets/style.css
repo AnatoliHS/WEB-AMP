@@ -739,12 +739,17 @@ h3 {
 
 /* ========================================================
    SECTION: THE MIRROR ("Sound familiar?")
+   Desktop: cards deal onto the table when the section comes into view.
+   Phones (<= 900px): a fanned pile you swipe through.
+   Without JS the cards simply show as a row (desktop) or a stacked list (phones).
    ======================================================== */
 .section-mirror {
-  padding: 120px 0;
   position: relative;
+  overflow: clip;
   background-color: #F5F2EB;
   color: #0F2B2C;
+  --mirror-card-w: clamp(150px, 13vw, 188px);
+  --mirror-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-mirror .container {
@@ -753,8 +758,16 @@ h3 {
   padding: 0 40px;
 }
 
+.mirror-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(40px, 6vw, 64px);
+  padding: 120px 0;
+}
+
 .mirror-header {
-  margin-bottom: 48px;
+  text-align: center;
 }
 
 .mirror-header h2 {
@@ -766,47 +779,79 @@ h3 {
   margin: 0;
 }
 
-.mirror-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  border-top: 1px dotted rgba(15, 43, 44, 0.28);
-  padding-top: 64px;
-  margin-bottom: 24px;
+.mirror-table {
+  display: flex;
+  justify-content: center;
+  gap: clamp(10px, 1.6vw, 22px);
+  width: min(1100px, 92%);
 }
 
-.mirror-item {
+/* Card: same design as the FAQ answer face */
+.mirror-card {
+  --tilt: 0deg;
+  --lift: 0px;
+  --i: 0;
+  position: relative;
+  flex: none;
+  width: var(--mirror-card-w);
+  aspect-ratio: 5 / 7;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0 32px;
-  border-right: 1px dotted rgba(15, 43, 44, 0.28);
+  padding: 38px 16px 56px;
+  background-color: #ECE1C3;
+  color: #140F11;
+  border: 8px solid #FFFFFF;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 3.5px #140F11, 0 22px 36px -22px rgba(0, 0, 0, 0.55);
+  transform: translateY(var(--lift)) rotate(var(--tilt));
 }
 
-.mirror-item:first-child {
-  padding-left: 0;
+/* Resting tilts so the row looks hand-dealt */
+.mirror-card:nth-child(1) { --tilt: -3deg; --lift: -6px; --i: 0; }
+.mirror-card:nth-child(2) { --tilt: 2deg; --lift: 10px; --i: 1; }
+.mirror-card:nth-child(3) { --tilt: -1.5deg; --lift: -6px; --i: 2; }
+.mirror-card:nth-child(4) { --tilt: 3deg; --lift: 10px; --i: 3; }
+.mirror-card:nth-child(5) { --tilt: -2deg; --lift: -6px; --i: 4; }
+
+.mirror-card-corner {
+  position: absolute;
+  top: 12px;
+  left: 13px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1;
 }
 
-.mirror-item:last-child {
-  border-right: none;
-  padding-right: 0;
-}
-
-.mirror-icon {
-  width: 82px;
-  height: 82px;
-  object-fit: contain;
-  margin-bottom: 36px;
-  display: block;
-}
-
-.mirror-item-title {
-  font-family: var(--font-heading);
-  font-size: 20px;
+.mirror-card-text {
+  font-family: var(--font-sans);
+  font-size: clamp(0.86rem, 1.05vw, 1rem);
   font-weight: 500;
-  line-height: 1.22;
-  color: #0F2B2C;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: inherit;
   margin: 0;
-  text-align: left;
+}
+
+/* Three touching stripes under each pain point, darkest on top */
+.mirror-card-text::after {
+  content: "";
+  display: block;
+  height: 12px;
+  margin-top: 12px;
+  background: linear-gradient(to bottom, #7b1e00 0 4px, #a64400 4px 8px, #be6e0e 8px 12px);
+}
+
+.mirror-card-logo {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #FFFFFF;
+  pointer-events: none;
 }
 
 .mirror-footer-text {
@@ -817,55 +862,153 @@ h3 {
   color: #0F2B2C;
   line-height: 1.28;
   max-width: 720px;
-  margin: 80px auto 0;
+  margin: 0 auto;
 }
 
-@media (max-width: 1024px) {
-  .mirror-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 36px 0;
+/* Pile controls only show on phones */
+.mirror-controls {
+  display: none;
+}
+
+/* Desktop deal-in (script adds .is-animated, then .is-dealt when in view) */
+@media (min-width: 901px) {
+  .section-mirror.is-animated .mirror-card {
+    opacity: 0;
+    transform: translate(85vw, -40px) rotate(28deg);
+    transition:
+      transform 0.9s var(--mirror-ease) calc(var(--i) * 0.16s),
+      opacity 0.25s ease calc(var(--i) * 0.16s);
   }
 
-  .mirror-item:nth-child(3) {
-    border-right: none;
-  }
-
-  .mirror-item:first-child,
-  .mirror-item:nth-child(4) {
-    padding-left: 0;
+  .section-mirror.is-animated.is-dealt .mirror-card {
+    opacity: 1;
+    transform: translateY(var(--lift)) rotate(var(--tilt));
   }
 }
 
-@media (max-width: 768px) {
+.section-mirror.is-animated .mirror-footer-text {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s var(--mirror-ease) 1.2s, transform 0.6s var(--mirror-ease) 1.2s;
+}
+
+.section-mirror.is-animated.is-dealt .mirror-footer-text {
+  opacity: 1;
+  transform: none;
+}
+
+/* Phones and small tablets: fanned pile */
+@media (max-width: 900px) {
   .section-mirror {
+    --mirror-card-w: 220px;
+  }
+
+  .mirror-stage {
     padding: 70px 0;
+    gap: 36px;
   }
 
-  .mirror-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding-top: 36px;
+  .mirror-card-text {
+    font-size: 1rem;
   }
 
-  .mirror-item {
-    padding: 0 0 28px 0;
-    border-right: none;
-    border-bottom: 1px dotted rgba(15, 43, 44, 0.28);
+  .mirror-footer-text br {
+    display: none;
   }
 
-  .mirror-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+  /* No-JS fallback: a simple column of cards */
+  .mirror-table {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
 
-  .mirror-icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 20px;
+  .mirror-card {
+    transform: none;
   }
 
-  .mirror-footer-text {
-    margin-top: 48px;
+  /* Pile mode (script adds .is-pile) */
+  .section-mirror.is-pile .mirror-table {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: calc(var(--mirror-card-w) * 1.4 + 40px);
+    touch-action: pan-y;
+  }
+
+  .section-mirror.is-pile .mirror-card {
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    margin-left: calc(var(--mirror-card-w) / -2);
+    transform-origin: 50% 100%;
+    transition: transform 0.45s var(--mirror-ease), opacity 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .section-mirror.is-pile .mirror-card.is-top {
+    cursor: grab;
+  }
+
+  .section-mirror.is-pile .mirror-card.is-dragging {
+    cursor: grabbing;
+    transition: none;
+  }
+
+  .section-mirror.is-pile .mirror-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: -12px;
+  }
+}
+
+.mirror-nav {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 43, 44, 0.25);
+  background: transparent;
+  color: #0F2B2C;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.mirror-nav:hover {
+  background-color: rgba(15, 43, 44, 0.06);
+  border-color: #0F2B2C;
+}
+
+.mirror-nav:focus-visible {
+  outline: 2px solid #DE9E3B;
+  outline-offset: 3px;
+}
+
+.mirror-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.mirror-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #0F2B2C;
+  font-variant-numeric: tabular-nums;
+  min-width: 48px;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-mirror .mirror-card,
+  .section-mirror .mirror-footer-text {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 }
 
@@ -2124,19 +2267,21 @@ h3 {
   box-shadow: inset 0 0 0 3.5px #140F11, 0 24px 40px -24px rgba(0, 0, 0, 0.75);
 }
 
+/* Question side (shown first): terracotta with the dark band and stage pill */
 .faq-card-front {
-  background-color: #ECE1C3;
-}
-
-.faq-card-back {
   background-color: #A03622;
   color: var(--text-warm-white);
   padding-bottom: 82px;
+}
+
+/* Answer side (revealed on flip): cream with the striped underline */
+.faq-card-back {
+  background-color: #ECE1C3;
   transform: rotateY(180deg);
 }
 
-/* Dark footer band on the answer side, edge to edge inside the black border */
-.faq-card-back::before {
+/* Dark footer band on the question side, edge to edge inside the black border */
+.faq-card-front::before {
   content: "";
   position: absolute;
   left: 0;
@@ -2168,7 +2313,7 @@ h3 {
   box-shadow: 0 0 0 2px #FFFFFF;
 }
 
-.faq-card-back .faq-card-logo {
+.faq-card-front .faq-card-logo {
   bottom: 9px;
 }
 
@@ -2181,7 +2326,7 @@ h3 {
   opacity: 0.6;
 }
 
-.faq-card-back .faq-card-tag {
+.faq-card-front .faq-card-tag {
   opacity: 0.75;
 }
 
@@ -2194,8 +2339,8 @@ h3 {
   text-wrap: balance;
 }
 
-/* Three touching stripes under each question, darkest on top */
-.faq-card-question::after {
+/* Three touching stripes under each answer, darkest on top */
+.faq-card-answer::after {
   content: "";
   display: block;
   height: 12px;
@@ -2222,10 +2367,10 @@ h3 {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #8f1c19;
+  color: #ECE1C3;
 }
 
-/* Journey-stage pill on the red/black seam, with rules out to the black border */
+/* Journey-stage pill on the question side's seam above the black band, with rules out to the black border */
 .faq-card-stage {
   position: absolute;
   left: 0;
@@ -3006,7 +3151,9 @@ h3 {
   gap: 48px;
   align-items: start;
   position: sticky;
-  top: 85px;
+  /* Clear the floating navbar with room to breathe; grows on tall (full-screen) windows.
+     The scroll script in services.html reads this value. */
+  top: clamp(110px, 14vh, 170px);
 }
 
 /* Left Sidebar - inside sticky wrap */
@@ -4160,6 +4307,202 @@ h3 {
   color: rgba(15, 43, 44, 0.78);
   margin: 0;
   max-width: 540px;
+}
+
+/* Foundational Pillars: bento grid (heading tile, feature tile, two small tiles) */
+.pillars-bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pillars-tile {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(15, 43, 44, 0.14);
+  border-radius: 18px;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pillars-tile:not(.pillars-intro):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 50px -36px rgba(15, 43, 44, 0.5);
+}
+
+.pillars-intro {
+  grid-column: span 2;
+  justify-content: space-between;
+  gap: 40px;
+  padding: clamp(28px, 4vw, 48px);
+  background-color: #0F2B2C;
+  border: none;
+  color: #F5F2EB;
+}
+
+.pillars-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pillars-eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: rgba(245, 242, 235, 0.18);
+}
+
+.pillars-eyebrow span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  background-color: rgba(245, 242, 235, 0.08);
+  border: 1px solid rgba(245, 242, 235, 0.16);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pillars-eyebrow span::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background-color: #D9823B;
+}
+
+.pillars-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: #F5F2EB;
+  margin: 0 0 14px;
+}
+
+.pillars-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: rgba(245, 242, 235, 0.75);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.pillars-tile--feature {
+  grid-column: 3 / span 2;
+  grid-row: span 2;
+}
+
+.pillars-tile-media {
+  position: relative;
+  overflow: hidden;
+  background-color: #EDE8DC;
+}
+
+.pillars-tile--feature .pillars-tile-media {
+  flex: 1 1 auto;
+  min-height: 320px;
+}
+
+.pillars-tile--small .pillars-tile-media {
+  aspect-ratio: 16 / 9;
+}
+
+.pillars-tile-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* For photos whose subject sits on the right (keeps the face in the crop) */
+.pillars-tile-media img.is-focus-right {
+  object-position: 78% center;
+}
+
+.pillars-tile:hover .pillars-tile-media img {
+  transform: scale(1.04);
+}
+
+.pillars-tile-body {
+  display: grid;
+  gap: 10px;
+  padding: 24px 26px 28px;
+}
+
+.pillars-tile--feature .pillars-tile-body {
+  padding: 30px 34px 34px;
+}
+
+.pillars-tile-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #0F2B2C;
+  margin: 0;
+}
+
+.pillars-tile--feature .pillars-tile-title {
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+}
+
+.pillars-tile-copy {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(15, 43, 44, 0.78);
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .pillars-bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pillars-intro,
+  .pillars-tile--feature {
+    grid-column: span 2;
+  }
+
+  .pillars-tile--feature {
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .pillars-bento {
+    grid-template-columns: 1fr;
+  }
+
+  .pillars-intro,
+  .pillars-tile--feature {
+    grid-column: auto;
+  }
+
+  .pillars-tile--feature .pillars-tile-media {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pillars-tile,
+  .pillars-tile-media img {
+    transition: none;
+  }
 }
 
 /* Solutions We Offer Section (Accordion) */
@@ -5398,7 +5741,7 @@ h3 {
 .cs-spec-projects {
   background-color: var(--bg-main);
   color: var(--text-warm-white);
-  padding-top: 100px;
+  padding: 100px 0 110px;
 }
 
 .cs-spec-projects-head {
@@ -5567,5 +5910,184 @@ h3 {
 
   .cs-spec-need {
     border-right: none;
+  }
+}
+
+/* ========================================================
+   COMPONENT: LATEST WORK STRIPS
+   Used by "Browse our latest Work" (service pages) and
+   "Discover our other projects" (case studies).
+   Desktop: expanding strips; hovered/focused strip widens and shows in colour.
+   Phones (<= 820px): asymmetric mosaic; first project large, the rest below.
+   ======================================================== */
+.work-strips {
+  display: flex;
+  gap: 14px;
+  height: clamp(440px, 58vh, 560px);
+}
+
+.work-strip {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: #f4efe6;
+  text-decoration: none;
+  transition: flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-strip.is-active {
+  flex-grow: 2.6;
+}
+
+.work-strip-media {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+  border-radius: 14px;
+  background-color: #11302c;
+}
+
+.work-strip-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.6s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-strip:not(.is-active) .work-strip-media img {
+  filter: grayscale(0.85) brightness(0.75);
+}
+
+.work-strip.is-active:hover .work-strip-media img {
+  transform: scale(1.03);
+}
+
+.work-strip-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.work-strip-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: rgba(244, 239, 230, 0.55);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+
+.work-strip.is-active .work-strip-title {
+  color: #f4efe6;
+}
+
+.work-strip-arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 239, 230, 0.22);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-strip:not(.is-active) .work-strip-arrow {
+  opacity: 0;
+}
+
+.work-strip.is-active .work-strip-arrow {
+  background-color: #F5F2EB;
+  border-color: #F5F2EB;
+  color: #0B1E1C;
+}
+
+.work-strip.is-active:hover .work-strip-arrow {
+  transform: rotate(-45deg);
+}
+
+.work-strip:focus-visible {
+  outline: 2px solid #DE9E3B;
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
+/* Phones: asymmetric mosaic */
+@media (max-width: 820px) {
+  .work-strips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 12px;
+    height: auto;
+  }
+
+  .work-strip {
+    gap: 10px;
+  }
+
+  .work-strip-media {
+    flex: none;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* First project is the large feature tile */
+  .work-strip:first-child {
+    grid-column: span 2;
+  }
+
+  .work-strip:first-child .work-strip-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* With only two projects (case studies), both run full width */
+  .work-strip:nth-child(2):last-child {
+    grid-column: span 2;
+  }
+
+  .work-strip:nth-child(2):last-child .work-strip-media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .work-strip:not(.is-active) .work-strip-media img {
+    filter: none;
+  }
+
+  .work-strip-title,
+  .work-strip:not(.is-active) .work-strip-title {
+    color: #f4efe6;
+    white-space: normal;
+    font-size: 1.1rem;
+  }
+
+  .work-strip:first-child .work-strip-title {
+    font-size: 1.35rem;
+  }
+
+  .work-strip:not(.is-active) .work-strip-arrow {
+    opacity: 1;
+  }
+
+  .work-strip-arrow {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-strip,
+  .work-strip-media img,
+  .work-strip-arrow {
+    transition: none;
   }
 }
