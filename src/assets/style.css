@@ -6102,6 +6102,7 @@ h3 {
   inset: 0;
   z-index: 9999;
   background-color: #0c0407;
+  container-type: size;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -6127,6 +6128,50 @@ h3 {
 
 .page-transition-video.is-playing {
   opacity: 1;
+}
+
+/* Logo: large at top center while the clip plays, then shrinks onto the
+   navbar's .dock-popout-btn (same spot, size, border and glow) as the clip
+   fades, so the next page's navbar logo takes over seamlessly */
+.page-transition-logo {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  /* Same cream border as the navbar logo, with a softer glow; both scale with the logo */
+  border: 2px solid rgba(245, 242, 235, 0.9);
+  box-shadow: 0 0 14px rgba(222, 158, 59, 0.45), 0 6px 12px rgba(0, 0, 0, 0.4);
+  /* Start large in the top-left corner (50cqw = half the overlay's width,
+     so this cancels left: 50% and leaves a 32px gutter) */
+  transform: translate(calc(-50vw + 32px), 22px) scale(1.8);
+  transform: translate(calc(-50cqw + 32px), 22px) scale(1.8);
+  transform-origin: 0 0;
+}
+
+/* card-fan: sit on the hands at the base of the fan instead of the corner.
+   The clip is 16:9 with object-fit: cover, so its rendered size is
+   max(100cqw, 177.78cqh) x max(56.25cqw, 100cqh). The hands sit at 50% across,
+   74% down the frame. With a 2.2x scale from the top-left origin, the logo is
+   118.8px wide, so subtract 59.4px to center it (plus the 10px base top). */
+.page-transition[data-clip="fan"] .page-transition-logo {
+  transform: translate(-59.4px, calc(50vh + max(13.5vw, 24vh) - 69.4px)) scale(2.2);
+  transform: translate(-59.4px, calc(50cqh + max(13.5cqw, 24cqh) - 69.4px)) scale(2.2);
+}
+
+/* Only animate the shrink; growing back happens while hidden, so it snaps */
+.page-transition.is-done .page-transition-logo,
+html.is-arriving .page-transition-logo {
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+  transform: translate(-50%, 0) scale(1);
+  border-color: rgba(245, 242, 235, 0.9);
+  box-shadow: 0 0 22px rgba(222, 158, 59, 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
 /* Clip has finished: fade the video out to solid dark before navigating */

@@ -207,7 +207,12 @@
 
     // Arriving: reveal the page by fading the dark overlay away
     if (root.classList.contains('is-arriving')) {
-      requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('is-arriving')));
+      // Hold the logo at navbar size while the overlay fades, then reset it once hidden
+      overlay.classList.add('is-done');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        root.classList.remove('is-arriving');
+        setTimeout(() => overlay.classList.remove('is-done'), 600);
+      }));
     }
     // Back/forward cache restores the page mid-transition; reset it
     window.addEventListener('pageshow', e => {
@@ -243,6 +248,7 @@
         if (revealed) return;
         revealed = true;
         overlay.classList.add('is-done');
+        // Wait for the logo to finish shrinking onto the navbar before revealing
         setTimeout(() => {
           root.classList.remove('is-intro');
           // Reset the overlay once it has faded so later transitions start clean
@@ -250,9 +256,10 @@
             overlay.classList.remove('is-done');
             intro.classList.remove('is-playing');
           }, 500);
-        }, 280);
+        }, 480);
       };
       intro.preload = 'auto';
+      overlay.dataset.clip = 'fan';
       intro.classList.add('is-playing');
       intro.addEventListener('ended', reveal, { once: true });
       // Never hold the page hostage: reveal anyway if the clip is slow or blocked
@@ -291,6 +298,8 @@
       hint.href = url.href;
       document.head.appendChild(hint);
 
+      overlay.classList.remove('is-done');
+      overlay.dataset.clip = routes[to]; // lets CSS place the logo per clip
       overlay.classList.add('is-leaving');
       clip.classList.add('is-playing');
       clip.currentTime = 0;
@@ -300,7 +309,8 @@
         if (finished) return;
         finished = true;
         overlay.classList.add('is-done');
-        setTimeout(go, 280);
+        // Wait for the logo to finish shrinking onto the navbar before leaving
+        setTimeout(go, 480);
       };
       clip.addEventListener('ended', finish, { once: true });
       // Safety net in case the clip stalls or never reports "ended"
