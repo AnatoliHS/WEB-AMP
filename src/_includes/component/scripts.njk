@@ -198,6 +198,118 @@
     });
   });
 
+  // Page transitions: play a card clip when navigating to key pages.
+  // Going to Home plays card-fan; going to Services plays card-spread.
+  (function initPageTransitions() {
+    const overlay = document.querySelector('.page-transition');
+    if (!overlay) return;
+    const root = document.documentElement;
+
+    // Arriving: reveal the page by fading the dark overlay away
+    if (root.classList.contains('is-arriving')) {
+      requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('is-arriving')));
+    }
+    // Back/forward cache restores the page mid-transition; reset it
+    window.addEventListener('pageshow', e => {
+      if (e.persisted) {
+        overlay.classList.remove('is-leaving', 'is-done');
+        overlay.querySelectorAll('video').forEach(v => { v.classList.remove('is-playing'); v.pause(); });
+      }
+    });
+
+    // No transitions on phones and tablets (also skips downloading the clips there)
+    const mobile = window.matchMedia('(max-width: 900px), (hover: none) and (pointer: coarse)');
+    if (mobile.matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      root.classList.remove('is-intro');
+      return;
+    }
+
+    const clips = {
+      fan: overlay.querySelector('[data-clip="fan"]'),
+      spread: overlay.querySelector('[data-clip="spread"]')
+    };
+    // Only these destinations get a transition; every other page loads normally
+    const routes = {
+      '/': 'fan',
+      '/services/': 'spread'
+    };
+    const normalise = path => (path.replace(/index\.html$/, '').replace(/\/?$/, '/'));
+
+    // Home page intro (desktop, direct load or reload): play card-fan, then reveal the page
+    if (root.classList.contains('is-intro')) {
+      const intro = clips.fan;
+      let revealed = false;
+      const reveal = () => {
+        if (revealed) return;
+        revealed = true;
+        overlay.classList.add('is-done');
+        setTimeout(() => {
+          root.classList.remove('is-intro');
+          // Reset the overlay once it has faded so later transitions start clean
+          setTimeout(() => {
+            overlay.classList.remove('is-done');
+            intro.classList.remove('is-playing');
+          }, 500);
+        }, 280);
+      };
+      intro.preload = 'auto';
+      intro.classList.add('is-playing');
+      intro.addEventListener('ended', reveal, { once: true });
+      // Never hold the page hostage: reveal anyway if the clip is slow or blocked
+      setTimeout(reveal, 3500);
+      const started = intro.play();
+      if (started && started.catch) started.catch(reveal);
+    }
+
+    // Warm up both clips once the page has settled so they start instantly on click
+    window.addEventListener('load', () => {
+      setTimeout(() => Object.values(clips).forEach(v => { v.preload = 'auto'; v.load(); }), 1200);
+    });
+
+    let busy = false;
+    document.addEventListener('click', e => {
+      if (busy || mobile.matches || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const link = e.target.closest('a[href]');
+      if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+      const url = new URL(link.href, location.href);
+      if (url.origin !== location.origin) return;
+      const from = normalise(location.pathname);
+      const to = normalise(url.pathname);
+      if (to === from) return; // same page (including in-page anchors)
+      const clip = clips[routes[to]];
+      if (!clip) return;
+
+      e.preventDefault();
+      busy = true;
+      const go = () => {
+        try { sessionStorage.setItem('amp-transition', '1'); } catch (err) {}
+        location.href = url.href;
+      };
+      // Fetch the next page while the clip plays
+      const hint = document.createElement('link');
+      hint.rel = 'prefetch';
+      hint.href = url.href;
+      document.head.appendChild(hint);
+
+      overlay.classList.add('is-leaving');
+      clip.classList.add('is-playing');
+      clip.currentTime = 0;
+
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        overlay.classList.add('is-done');
+        setTimeout(go, 280);
+      };
+      clip.addEventListener('ended', finish, { once: true });
+      // Safety net in case the clip stalls or never reports "ended"
+      setTimeout(finish, ((clip.duration || 2.1) * 1000) + 1500);
+      const playing = clip.play();
+      if (playing && playing.catch) playing.catch(go);
+    });
+  })();
+
   // Header Scroll Effect
   const header = document.querySelector('.site-header');
   window.addEventListener('scroll', () => {

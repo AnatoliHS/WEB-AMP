@@ -27,4 +27,25 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/style.css">
+
+  <!-- Page transitions: start covered when arriving via a card transition, or for the home page intro -->
+  <script>
+    try {
+      var root = document.documentElement;
+      if (sessionStorage.getItem('amp-transition')) {
+        root.classList.add('is-arriving');
+        sessionStorage.removeItem('amp-transition');
+      } else {
+        var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+        if (
+          /^\/(index\.html)?$/.test(location.pathname) &&
+          !(nav && nav.type === 'back_forward') &&
+          !matchMedia('(max-width: 900px), (hover: none) and (pointer: coarse), (prefers-reduced-motion: reduce)').matches
+        ) {
+          // Direct load or reload of the home page (desktop): cover the page for the card-fan intro
+          root.classList.add('is-intro');
+        }
+      }
+    } catch (e) {}
+  </script>
 </head>

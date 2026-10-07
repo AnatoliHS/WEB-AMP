@@ -6091,3 +6091,61 @@ h3 {
     transition: none;
   }
 }
+
+/* ========================================================
+   PAGE TRANSITIONS (card-fan / card-spread clips)
+   Leaving: .is-leaving shows the overlay and plays a clip.
+   Arriving: html.is-arriving starts covered, then fades out.
+   ======================================================== */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #0c0407;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+}
+
+.page-transition-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.page-transition.is-leaving {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s ease, visibility 0s;
+}
+
+.page-transition-video.is-playing {
+  opacity: 1;
+}
+
+/* Clip has finished: fade the video out to solid dark before navigating */
+.page-transition.is-done .page-transition-video {
+  opacity: 0;
+}
+
+html.is-arriving .page-transition,
+html.is-intro .page-transition {
+  opacity: 1;
+  visibility: visible;
+  transition: none;
+  /* Failsafe: uncover the page even if the script never runs */
+  animation: page-transition-failsafe 0.4s ease 4s forwards;
+}
+
+@keyframes page-transition-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
