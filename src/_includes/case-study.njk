@@ -1,0 +1,198 @@
+---
+layout: default.njk
+---
+{#- Case study page. Content comes from src/case-studies/*.md, edited through Decap CMS (/admin/). -#}
+{%- set arrow = '<svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true"><path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/></svg>' -%}
+{%- set t = theme or {} -%}
+<div class="cs-spec" style="
+  {%- if t.brand %}--cs-brand: {{ t.brand | e }};{% endif -%}
+  {%- if t.brand_ink %}--cs-brand-ink: {{ t.brand_ink | e }};{% endif -%}
+  {%- if t.dark %}--cs-dark: {{ t.dark | e }};{% endif -%}
+  {%- if t.dark_accent %}--cs-dark-accent: {{ t.dark_accent | e }};{% endif -%}
+  {%- if t.accent %}--cs-accent: {{ t.accent | e }};{% endif -%}
+  {%- if t.label %}--cs-label: {{ t.label | e }};{% endif -%}
+  {%- if t.ink %}--cs-ink: {{ t.ink | e }};{% endif -%}
+">
+
+<!-- Case Study Hero: title on solid ground, subtitle band in brand colour -->
+<section class="cs-spec-hero" id="hero">
+  <div class="container">
+    <span class="cs-spec-client">{{ client | upper | e }}</span>
+    <h1 class="cs-spec-title">
+      {{ heading | e }}
+    </h1>
+  </div>
+
+  <div class="cs-spec-band">
+    <div class="container cs-spec-band-row">
+      <h2 class="cs-spec-lead">
+        {{ lead | e }}
+      </h2>
+      <div class="cs-spec-actions">
+        <a href="#cta" class="hero-btn-primary">
+          <span>Let's talk strategy for growth</span>
+          {{ arrow | safe }}
+        </a>
+        <a href="#challenge" class="cs-spec-text-link">Explore the Case Study ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Hero Image (kept clear of text) -->
+<div class="cs-spec-bleed">
+  <img src="{{ hero_image | e }}" alt="{{ hero_alt | e }}" class="cs-spec-bleed-img">
+</div>
+
+<!-- Spec Sheet: project metadata + overview -->
+<section class="cs-spec-sheet">
+  <div class="container cs-spec-sheet-grid">
+    <dl class="cs-spec-meta">
+      {%- for item in details %}
+      <div>
+        <dt>{{ item.label | e }}</dt>
+        <dd>{{ item.value | e }}</dd>
+      </div>
+      {%- endfor %}
+    </dl>
+    <p class="cs-spec-overview">
+      {{ overview | e }}
+    </p>
+  </div>
+</section>
+
+{%- if showcase and showcase.image %}
+
+<div class="cs-spec-bleed">
+  <img src="{{ showcase.image | e }}" alt="{{ showcase.alt | e }}" class="cs-spec-bleed-img{% if showcase.natural %} is-natural{% endif %}" loading="lazy">
+</div>
+{%- endif %}
+
+<!-- Section: The Challenge -->
+<section class="cs-spec-challenge" id="challenge">
+  <div class="cs-spec-split">
+    <div class="cs-spec-split-panel">
+      <div class="cs-spec-eyebrow"><span>THE CHALLENGE • {{ challenge.eyebrow | upper | e }}</span></div>
+      <h2 class="cs-spec-challenge-title">
+        {{ challenge.title | e }}
+        {%- if challenge.highlight %}<br>
+        <span class="cs-spec-highlight">{{ challenge.highlight | e }}</span>
+        {%- endif %}
+      </h2>
+      {%- if challenge.subtitle %}
+      <p class="cs-spec-challenge-sub">
+        {{ challenge.subtitle | e }}
+      </p>
+      {%- endif %}
+    </div>
+    <div class="cs-spec-split-media">
+      <img src="{{ challenge.image | e }}" alt="{{ challenge.image_alt | e }}" loading="lazy">
+    </div>
+  </div>
+
+  <div class="container cs-spec-needs">
+    <h3 class="cs-spec-needs-title">{{ needs.title | e }}</h3>
+    <div class="cs-spec-needs-strip">
+      {%- for need in needs.items %}
+        <div class="cs-spec-need">
+          <span class="cs-spec-need-label">{{ need.label | e }}</span>
+          <span class="cs-spec-need-desc">{{ need.description | e }}</span>
+        </div>
+      {%- endfor %}
+    </div>
+
+    <div class="cs-spec-narrative">
+      <div>
+        {%- for paragraph in narrative.paragraphs %}
+        <p class="cs-spec-narrative-copy">
+          {{ paragraph | e }}
+        </p>
+        {%- endfor %}
+        {%- if narrative.list_title %}
+        <h3 class="cs-spec-narrative-title">{{ narrative.list_title | e }}</h3>
+        {%- endif %}
+        {%- if narrative.list and narrative.list.length %}
+        <ul class="cs-spec-list">
+          {%- for item in narrative.list %}
+          <li>{{ item | e }}</li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+      </div>
+      <div>
+        {%- if narrative.quote %}
+        <blockquote class="cs-spec-quote">
+          “{{ narrative.quote | e }}”
+        </blockquote>
+        {%- endif %}
+        {%- if narrative.mandate %}
+        <p class="cs-spec-mandate">
+          {{ narrative.mandate | e }}
+        </p>
+        {%- endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: The Solution -->
+<section class="cs-spec-solution" id="solution">
+  <div class="container">
+    <div class="cs-spec-eyebrow"><span>THE SOLUTION • {{ solution.eyebrow | upper | e }}</span></div>
+    <h2 class="cs-spec-solution-title">{{ solution.title | e }}</h2>
+    {%- if solution.subtitle %}
+    <p class="cs-spec-solution-sub">
+      {{ solution.subtitle | e }}
+    </p>
+    {%- endif %}
+  </div>
+</section>
+
+<!-- Solution Phases: edge-to-edge image / colour-block rows, alternating sides -->
+<div class="cs-spec-phases">
+  {%- for phase in phases %}
+  <article class="cs-spec-phase{% if loop.index is even %} is-reversed{% endif %}">
+    <div class="cs-spec-phase-media">
+      <img src="{{ phase.image | e }}" alt="{{ phase.image_alt | e }}"{% if phase.crop and phase.crop != "none" %} class="is-slice-{{ phase.crop }}"{% endif %} loading="lazy">
+    </div>
+    <div class="cs-spec-phase-body is-{{ phase.panel or 'cream' }}">
+      <span class="cs-spec-phase-num">{{ "0" if loop.index < 10 }}{{ loop.index }}.</span>
+      <h3 class="cs-spec-phase-title">{{ phase.title | e }}</h3>
+      {%- if phase.lead %}
+      <p class="cs-spec-phase-copy is-lead">{{ phase.lead | e }}</p>
+      {%- endif %}
+      {%- for paragraph in phase.paragraphs %}
+      <p class="cs-spec-phase-copy">{{ paragraph | e }}</p>
+      {%- endfor %}
+      {%- if phase.bullets and phase.bullets.length %}
+      <ul class="cs-spec-list">
+        {%- for item in phase.bullets %}
+        <li>{{ item | e }}</li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+      {%- if phase.after_list %}
+      <p class="cs-spec-phase-copy">{{ phase.after_list | e }}</p>
+      {%- endif %}
+      {%- if phase.closing %}
+      <p class="cs-spec-phase-close">{{ phase.closing | e }}</p>
+      {%- endif %}
+    </div>
+  </article>
+  {%- endfor %}
+</div>
+
+<!-- Section: Discover our other projects -->
+<section class="cs-spec-projects" id="projects">
+  <div class="container">
+    <div class="cs-spec-eyebrow"><span>CASE STUDIES • PROVEN IMPACT</span></div>
+    <div class="cs-spec-projects-head">
+      <h2 class="cs-spec-projects-title">Discover our other projects</h2>
+      <a href="#cta" class="cs-spec-text-link">Work with us →</a>
+    </div>
+
+    {% include "component/work-strips.njk" %}
+  </div>
+</section>
+
+</div>

@@ -23,6 +23,18 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addGlobalData("layout", "default");
 
+  // Decap CMS admin: copied as-is, not built as a page
+  eleventyConfig.addPassthroughCopy("src/admin");
+  eleventyConfig.ignores.add("src/admin/**");
+
+  // Case studies, in the order set in the CMS
+  eleventyConfig.addCollection("caseStudies", collectionApi =>
+    collectionApi.getFilteredByGlob("src/case-studies/*.md")
+      .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
+  );
+
+  eleventyConfig.addFilter("excludeUrl", (items, url) => items.filter(item => item.url !== url));
+
   // After build, if outputting to dist, also mirror to _site (or vice versa)
   // so Cloudflare Pages succeeds whether Build Output Directory is set to 'dist' or '_site'
   eleventyConfig.on("eleventy.after", async ({ dir }) => {

@@ -1,0 +1,167 @@
+backend:
+  name: github
+  repo: AnatoliHS/WEB-AMP
+  branch: develop
+  # Production site that serves the login handler (functions/api/auth.js and callback.js)
+  base_url: https://web-amp-9yz.pages.dev
+  auth_endpoint: /api/auth
+
+# Lets `npm run admin` (decap-server) write to your working copy instead of GitHub,
+# so local edits never touch the live repo.
+local_backend: true
+
+# Uploads land in src/assets/images/uploads and are served from /images/uploads
+media_folder: "src/assets/images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://web-amp-9yz.pages.dev
+display_url: https://web-amp-9yz.pages.dev
+
+collections:
+  # ---------------------------------------------------------------
+  # Case studies. One file per case study in src/case-studies/,
+  # rendered by src/_includes/case-study.njk.
+  # ---------------------------------------------------------------
+  - name: "case_studies"
+    label: "Case Studies"
+    label_singular: "Case Study"
+    description: "Each case study gets its own page and appears in the project strips on the services pages. Saving publishes the change (the site rebuilds in about a minute)."
+    folder: "src/case-studies"
+    create: true
+    delete: true
+    extension: "md"
+    format: "yaml-frontmatter"
+    identifier_field: client
+    slug: "{{slug}}"
+    summary: "{{client}}"
+    sortable_fields: ["order", "client"]
+    editor:
+      preview: false
+    fields:
+      # --- Listing & SEO ------------------------------------------
+      - { label: "Client name", name: "client", widget: "string", hint: "Shown above the page heading. Also sets the page address for new case studies, e.g. /case-studies/client-name/" }
+      - { label: "Short name for project cards", name: "card_title", widget: "string", required: false, hint: "Used in the 'other projects' strips, e.g. 'Belleville Ec-Dev'. Defaults to the client name." }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", default: 10, hint: "Lower numbers appear first in the project strips." }
+      - { label: "SEO title", name: "title", widget: "string", hint: "Browser tab and search result title, e.g. 'Client | Project | AMP Visual Media'" }
+      - { label: "SEO description", name: "description", widget: "text" }
+      - { label: "Custom URL", name: "custom_url", widget: "string", required: false, hint: "Leave blank. Only used to keep the original addresses of the first three case studies." }
+
+      # --- Hero ---------------------------------------------------
+      - { label: "Page heading", name: "heading", widget: "string" }
+      - { label: "Subheading (coloured band)", name: "lead", widget: "text" }
+      - { label: "Hero image", name: "hero_image", widget: "image", hint: "Wide image under the hero. Also used on the project cards." }
+      - { label: "Hero image description (alt text)", name: "hero_alt", widget: "string" }
+      - { label: "Project card image", name: "card_image", widget: "image", required: false, hint: "Optional. Defaults to the hero image." }
+      - { label: "Project card image description", name: "card_alt", widget: "string", required: false }
+
+      # --- Brand colours ------------------------------------------
+      - label: "Brand colours"
+        name: "theme"
+        widget: "object"
+        collapsed: true
+        hint: "The client's palette for this page."
+        fields:
+          - { label: "Brand colour (hero band, brand panels)", name: "brand", widget: "color" }
+          - { label: "Text on brand colour", name: "brand_ink", widget: "color" }
+          - { label: "Dark panel colour", name: "dark", widget: "color" }
+          - { label: "Accent on dark panels (numbers, bullets)", name: "dark_accent", widget: "color" }
+          - { label: "Accent on light panels (numbers, bullets)", name: "accent", widget: "color" }
+          - { label: "'Needs' tile label colour", name: "label", widget: "color" }
+          - { label: "Heading colour on light panels", name: "ink", widget: "color" }
+
+      # --- Project details ----------------------------------------
+      - label: "Project details"
+        name: "details"
+        widget: "list"
+        summary: "{{fields.label}}: {{fields.value}}"
+        hint: "e.g. Industry, Timeline, Timeframe, Deliverable, Scope"
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Value", name: "value", widget: "string" }
+      - { label: "Overview", name: "overview", widget: "text" }
+      - label: "Showcase image"
+        name: "showcase"
+        widget: "object"
+        required: false
+        hint: "Optional full-width image after the overview."
+        fields:
+          - { label: "Image", name: "image", widget: "image", required: false }
+          - { label: "Description (alt text)", name: "alt", widget: "string", required: false }
+          - { label: "Show whole image (no cropping)", name: "natural", widget: "boolean", default: false, required: false }
+
+      # --- The challenge ------------------------------------------
+      - label: "The challenge"
+        name: "challenge"
+        widget: "object"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string", hint: "Shown after 'THE CHALLENGE •'" }
+          - { label: "Heading", name: "title", widget: "string" }
+          - { label: "Heading, highlighted second line", name: "highlight", widget: "string", required: false }
+          - { label: "Intro", name: "subtitle", widget: "text", required: false }
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Image description (alt text)", name: "image_alt", widget: "string" }
+      - label: "Needs"
+        name: "needs"
+        widget: "object"
+        fields:
+          - { label: "Heading", name: "title", widget: "string", hint: "e.g. 'They needed:'" }
+          - label: "Tiles"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Label", name: "label", widget: "string", hint: "e.g. 'Brand Credibility' or '01 • Audience'" }
+              - { label: "Description", name: "description", widget: "string" }
+      - label: "Narrative"
+        name: "narrative"
+        widget: "object"
+        fields:
+          - { label: "Paragraphs", name: "paragraphs", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+          - { label: "List heading", name: "list_title", widget: "string", required: false }
+          - { label: "List", name: "list", widget: "list", required: false, field: { label: "Item", name: "item", widget: "string" } }
+          - { label: "Quote", name: "quote", widget: "text", required: false, hint: "Without quotation marks; they are added for you." }
+          - { label: "Mandate", name: "mandate", widget: "text", required: false }
+
+      # --- The solution -------------------------------------------
+      - label: "The solution"
+        name: "solution"
+        widget: "object"
+        fields:
+          - { label: "Eyebrow", name: "eyebrow", widget: "string", hint: "Shown after 'THE SOLUTION •'" }
+          - { label: "Heading", name: "title", widget: "string" }
+          - { label: "Intro", name: "subtitle", widget: "text", required: false }
+      - label: "Phases"
+        name: "phases"
+        widget: "list"
+        summary: "{{fields.title}}"
+        hint: "Numbered automatically. Image and text swap sides on every other phase."
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Image description (alt text)", name: "image_alt", widget: "string" }
+          - label: "Image crop"
+            name: "crop"
+            widget: "select"
+            required: false
+            default: "none"
+            hint: "Use the slices to spread one tall image across four phases."
+            options:
+              - { label: "None", value: "none" }
+              - { label: "Slice 1 (top)", value: "1" }
+              - { label: "Slice 2", value: "2" }
+              - { label: "Slice 3", value: "3" }
+              - { label: "Slice 4 (bottom)", value: "4" }
+          - label: "Panel colour"
+            name: "panel"
+            widget: "select"
+            default: "cream"
+            options:
+              - { label: "Cream", value: "cream" }
+              - { label: "Dark", value: "dark" }
+              - { label: "White", value: "white" }
+              - { label: "Brand colour", value: "brand" }
+          - { label: "Lead paragraph (larger)", name: "lead", widget: "text", required: false }
+          - { label: "Paragraphs", name: "paragraphs", widget: "list", required: false, field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+          - { label: "Bullet points", name: "bullets", widget: "list", required: false, field: { label: "Bullet", name: "bullet", widget: "string" } }
+          - { label: "Paragraph after bullets", name: "after_list", widget: "text", required: false }
+          - { label: "Closing line (bold)", name: "closing", widget: "text", required: false }
