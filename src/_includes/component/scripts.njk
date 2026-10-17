@@ -199,7 +199,7 @@
   });
 
   // Page transitions: play a card clip when navigating to key pages.
-  // Going to Home plays card-fan; going to Services plays card-spread.
+  // Going to Home plays card-fan; other pages load normally.
   (function initPageTransitions() {
     const overlay = document.querySelector('.page-transition');
     if (!overlay) return;
@@ -230,13 +230,11 @@
     }
 
     const clips = {
-      fan: overlay.querySelector('[data-clip="fan"]'),
-      spread: overlay.querySelector('[data-clip="spread"]')
+      fan: overlay.querySelector('[data-clip="fan"]')
     };
     // Only these destinations get a transition; every other page loads normally
     const routes = {
-      '/': 'fan',
-      '/services/': 'spread'
+      '/': 'fan'
     };
     const normalise = path => (path.replace(/index\.html$/, '').replace(/\/?$/, '/'));
 

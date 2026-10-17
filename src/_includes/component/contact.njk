@@ -1,0 +1,352 @@
+<!-- Contact section: form over a retro TV that flips through AMP videos (replaces the footer CTA on Services) -->
+<section class="contact-section" id="cta">
+  <div class="container">
+    <h2 class="contact-title">Pull up <em>a chair.</em></h2>
+
+    <div class="contact-layout">
+      <div class="contact-card">
+        <p>Tell us where you're stuck. We'll reply within one business day with next steps.</p>
+        <form class="contact-form" action="/api/contact" method="post" novalidate data-contact-form data-fallback-email="{{ contact.email }}">
+          <div class="contact-field">
+            <label for="contact-name">Name</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" required>
+            <p class="contact-error" aria-live="polite"></p>
+          </div>
+          <div class="contact-field">
+            <label for="contact-email">Email</label>
+            <input id="contact-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" required>
+            <p class="contact-error" aria-live="polite"></p>
+          </div>
+          <div class="contact-field">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" rows="3" required></textarea>
+            <p class="contact-error" aria-live="polite"></p>
+          </div>
+          <!-- Cloudflare Turnstile: adds a cf-turnstile-response field the server checks -->
+          <div class="cf-turnstile" data-sitekey="{{ contact.turnstileSiteKey }}" data-theme="light" data-size="flexible"
+               data-callback="contactTurnstileDone" data-expired-callback="contactTurnstileExpired"
+               data-timeout-callback="contactTurnstileExpired" data-error-callback="contactTurnstileFailed"></div>
+          <div class="contact-form-error" role="alert" hidden></div>
+          <button type="submit" class="contact-submit">Send message</button>
+          <div class="contact-success" role="status" tabindex="-1" hidden>
+            <p class="contact-success-title">Message sent.</p>
+            <p>Thanks for reaching out. We'll reply within one business day.</p>
+          </div>
+        </form>
+      </div>
+
+      <div class="tv" data-tv data-videos="iXOZpumpWWc:21,s5-oinrVHHg,S8BzmtmqUY0" data-interval="22000">
+        <img class="tv-photo" src="/images/tv/tv-scene.webp" alt="" width="1400" height="1400" loading="lazy">
+        <div class="tv-screen" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+  (function () {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // YouTube IFrame API, loaded once and only when the TV first comes into view
+    let ytReady = null;
+    function loadYouTube() {
+      if (!ytReady) {
+        ytReady = new Promise(resolve => {
+          if (window.YT && window.YT.Player) return resolve(window.YT);
+          const previous = window.onYouTubeIframeAPIReady;
+          window.onYouTubeIframeAPIReady = () => { if (previous) previous(); resolve(window.YT); };
+          const script = document.createElement('script');
+          script.src = 'https://www.youtube.com/iframe_api';
+          document.head.appendChild(script);
+        });
+      }
+      return ytReady;
+    }
+
+    // ---------- TV: plays each video, with an old-school static burst between channels ----------
+    document.querySelectorAll('[data-tv]').forEach(el => {
+      const screen = el.querySelector('.tv-screen');
+      // data-videos="id,id:21,…": an optional :seconds sets how long that video stays on (default data-interval)
+      const interval = parseInt(el.dataset.interval, 10) || 22000;
+      const videos = el.dataset.videos.split(',').map(entry => {
+        const [id, seconds] = entry.split(':');
+        return { id: id, ms: seconds ? parseFloat(seconds) * 1000 : interval };
+      });
+      const ids = videos.map(v => v.id);
+
+      // Thumbnails show while each video loads
+      const slides = ids.map((id, i) => {
+        const img = document.createElement('img');
+        img.className = 'tv-slide' + (i === 0 ? ' is-on' : '');
+        img.src = 'https://i.ytimg.com/vi/' + id + '/mqdefault.jpg';
+        img.alt = '';
+        img.decoding = 'async';
+        screen.appendChild(img);
+        return img;
+      });
+
+      const videoWrap = document.createElement('div');
+      videoWrap.className = 'tv-video';
+      videoWrap.appendChild(document.createElement('div'));
+      screen.appendChild(videoWrap);
+
+      // Low-res canvas scaled up reads as analogue snow
+      const canvas = document.createElement('canvas');
+      canvas.className = 'tv-static';
+      canvas.width = 180;
+      canvas.height = 135;
+      screen.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      const frame = ctx.createImageData(canvas.width, canvas.height);
+      const pixels = new Uint32Array(frame.data.buffer);
+
+      let player = null;
+      let index = 0;
+      let tuning = false;
+      let visible = false;
+      let timer = null;
+
+      function drawNoise(t) {
+        // A brighter band rolls down the screen like a losing vertical hold
+        const w = canvas.width, h = canvas.height;
+        const band = Math.floor((t / 3) % (h * 1.5)) - h * 0.25;
+        for (let y = 0; y < h; y++) {
+          const boost = Math.abs(y - band) < 10 ? 70 : 0;
+          const row = y * w;
+          for (let x = 0; x < w; x++) {
+            const v = Math.min(255, (Math.random() * 215 | 0) + boost);
+            pixels[row + x] = 0xff000000 | (v << 16) | (v << 8) | v;
+          }
+        }
+        ctx.putImageData(frame, 0, 0);
+      }
+
+      function swap(next) {
+        slides[index].classList.remove('is-on');
+        index = next;
+        slides[index].classList.add('is-on');
+        if (player && player.loadVideoById) {
+          videoWrap.classList.remove('is-playing');
+          player.loadVideoById(ids[index]);
+        }
+      }
+
+      // Keep the static going until the next video is actually playing (capped)
+      const waitingForVideo = () => player && !videoWrap.classList.contains('is-playing');
+
+      function tune(next) {
+        if (tuning) return;
+        tuning = true;
+        if (reduceMotion) {
+          swap(next);
+          tuning = false;
+          return;
+        }
+        const duration = 520;
+        const start = performance.now();
+        let swapped = false;
+        screen.classList.add('is-tuning');
+        (function loop(now) {
+          const elapsed = now - start;
+          drawNoise(elapsed);
+          if (!swapped && elapsed > duration * 0.45) {
+            swapped = true;
+            swap(next);
+          }
+          if (elapsed < duration || (waitingForVideo() && elapsed < 1600)) {
+            requestAnimationFrame(loop);
+          } else {
+            screen.classList.remove('is-tuning');
+            tuning = false;
+          }
+        })(start);
+      }
+
+      function next() {
+        const upcoming = (index + 1) % ids.length;
+        tune(upcoming);
+        // index only changes mid-static, so time the new channel by its own length
+        schedule(upcoming);
+      }
+
+      function schedule(current = index) {
+        clearTimeout(timer);
+        const running = visible && !document.hidden;
+        if (running) timer = setTimeout(next, videos[current].ms);
+        if (player && player.playVideo) running ? player.playVideo() : player.pauseVideo();
+      }
+
+      function startVideo() {
+        loadYouTube().then(YT => {
+          player = new YT.Player(videoWrap.firstElementChild, {
+            host: 'https://www.youtube-nocookie.com',
+            videoId: ids[index],
+            playerVars: { autoplay: 1, mute: 1, controls: 0, playsinline: 1, rel: 0, disablekb: 1, fs: 0, iv_load_policy: 3 },
+            events: {
+              onReady: e => {
+                e.target.mute();
+                e.target.getIframe().setAttribute('tabindex', '-1');
+                schedule();
+              },
+              onStateChange: e => {
+                if (e.data === YT.PlayerState.PLAYING) videoWrap.classList.add('is-playing');
+                // A video shorter than the interval moves straight on to the next one
+                if (e.data === YT.PlayerState.ENDED) next();
+              }
+            }
+          });
+        });
+      }
+
+      // Only run while on screen and the tab is visible
+      new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+        if (visible && !player) startVideo();
+        schedule();
+      }, { threshold: 0.25 }).observe(el);
+      document.addEventListener('visibilitychange', () => schedule());
+    });
+
+    // ---------- Form validation ----------
+    // name@domain.tld: no spaces, one @, a dot in the domain and a 2+ letter ending
+    const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+
+    function check(input) {
+      const value = input.value.trim();
+      if (input.name === 'name') return value ? '' : 'Please enter your name.';
+      if (input.name === 'email') {
+        if (!value) return 'Please enter your email.';
+        if (!EMAIL_RE.test(value) || value.includes('..')) return "That email doesn't look right. Check for a typo (e.g. name@company.com).";
+        return '';
+      }
+      if (input.name === 'message') return value.length >= 10 ? '' : 'Tell us a little more (at least 10 characters).';
+      return '';
+    }
+
+    document.querySelectorAll('[data-contact-form]').forEach(form => {
+      const inputs = [...form.querySelectorAll('input:not([type="hidden"]), textarea')];
+      const formError = form.querySelector('.contact-form-error');
+      const button = form.querySelector('.contact-submit');
+      const buttonLabel = button.textContent;
+      const fallbackEmail = form.dataset.fallbackEmail;
+
+      // Form-level message; offerEmail adds "email us" for problems the visitor can't fix
+      function showFormError(text, offerEmail) {
+        formError.textContent = text || '';
+        if (text && offerEmail && fallbackEmail) {
+          const link = document.createElement('a');
+          link.href = 'mailto:' + fallbackEmail;
+          link.textContent = fallbackEmail;
+          formError.append(document.createElement('br'), 'You can also email us at ', link, '.');
+        }
+        formError.hidden = !text;
+        if (text) formError.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+
+      // Turnstile callbacks (named in the widget's data-* attributes)
+      window.contactTurnstileDone = () => showFormError('');
+      window.contactTurnstileExpired = () => {
+        showFormError('The verification check expired. Please complete it again.');
+        resetTurnstile();
+      };
+      window.contactTurnstileFailed = () => {
+        showFormError("The verification check couldn't load. Refresh the page and try again.", true);
+      };
+
+      function resetTurnstile() {
+        const widget = form.querySelector('.cf-turnstile');
+        if (window.turnstile && widget) window.turnstile.reset(widget);
+      }
+
+      function show(input, force) {
+        const field = input.closest('.contact-field');
+        const error = check(input);
+        // Only nag once someone has left the field or tried to submit
+        if (force || field.dataset.touched) {
+          field.querySelector('.contact-error').textContent = error;
+          field.classList.toggle('is-invalid', !!error);
+          input.setAttribute('aria-invalid', error ? 'true' : 'false');
+        }
+        field.classList.toggle('is-valid', !error && input.name === 'email');
+        return !error;
+      }
+
+      inputs.forEach(input => {
+        input.addEventListener('blur', () => { input.closest('.contact-field').dataset.touched = '1'; show(input); });
+        input.addEventListener('input', () => show(input));
+      });
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        if (button.disabled) return;
+        showFormError('');
+        const ok = inputs.map(input => show(input, true)).every(Boolean);
+        if (!ok) {
+          form.querySelector('[aria-invalid="true"]').focus();
+          return;
+        }
+        const token = form.querySelector('[name="cf-turnstile-response"]');
+        if (!token || !token.value) {
+          showFormError('Please complete the verification check above.');
+          return;
+        }
+
+        button.disabled = true;
+        button.textContent = 'Sending…';
+        let result = {};
+        let status = 0;
+        // Give up after 20s rather than leaving the button on "Sending…"
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 20000);
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+            signal: controller.signal
+          });
+          status = response.status;
+          result = await response.json().catch(() => ({}));
+        } catch (err) {
+          result = {
+            ok: false,
+            error: err.name === 'AbortError'
+              ? 'Sending is taking too long. Please try again.'
+              : 'Network problem. Check your connection and try again.'
+          };
+        }
+        clearTimeout(timeout);
+
+        if (result.ok) {
+          form.classList.add('is-sent');
+          const success = form.querySelector('.contact-success');
+          success.hidden = false;
+          // Move focus so screen readers announce it and phones scroll to it
+          success.focus({ preventScroll: true });
+          success.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          return;
+        }
+
+        // Server-side field errors use the same messages as the browser checks
+        Object.entries(result.fields || {}).forEach(([name, text]) => {
+          const input = form.elements[name];
+          if (!input) return;
+          const field = input.closest('.contact-field');
+          field.dataset.touched = '1';
+          field.querySelector('.contact-error').textContent = text;
+          field.classList.add('is-invalid');
+          field.classList.remove('is-valid');
+          input.setAttribute('aria-invalid', 'true');
+        });
+        // Field and verification problems the visitor can fix; anything else gets the email fallback
+        const fixable = status === 422 || result.turnstile;
+        showFormError(result.error || 'Something went wrong. Please try again.', !fixable);
+        // Turnstile tokens work once, so get a fresh one for the next attempt
+        resetTurnstile();
+        button.disabled = false;
+        button.textContent = buttonLabel;
+      });
+    });
+  })();
+</script>

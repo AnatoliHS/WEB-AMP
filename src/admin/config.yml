@@ -3,7 +3,7 @@ backend:
   repo: AnatoliHS/WEB-AMP
   branch: develop
   # Production site that serves the login handler (functions/api/auth.js and callback.js)
-  base_url: https://web-amp-9yz.pages.dev
+  base_url: https://www.ampvisualmedia.com
   auth_endpoint: /api/auth
 
 # Lets `npm run admin` (decap-server) write to your working copy instead of GitHub,
@@ -14,8 +14,8 @@ local_backend: true
 media_folder: "src/assets/images/uploads"
 public_folder: "/images/uploads"
 
-site_url: https://web-amp-9yz.pages.dev
-display_url: https://web-amp-9yz.pages.dev
+site_url: https://www.ampvisualmedia.com
+display_url: https://www.ampvisualmedia.com
 
 collections:
   # ---------------------------------------------------------------

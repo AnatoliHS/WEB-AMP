@@ -1,3 +1,5 @@
+{# Pages with their own contact section (front matter: hideFooterCta: true) skip this CTA #}
+{% if not hideFooterCta %}
 <section class="footer-cta" id="cta">
   <div class="container">
     <div class="footer-cta-eyebrow-row">
@@ -36,6 +38,7 @@
     </div>
   </div>
 </section>
+{% endif %}
 
 <footer class="site-footer">
   <div class="container">
