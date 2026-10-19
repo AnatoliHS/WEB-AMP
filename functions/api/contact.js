@@ -1,4 +1,4 @@
-// Contact form (Services page): checks the Turnstile challenge, validates the fields,
+// Contact form (Services page): checks the Turnstile Challenge, validates the fields,
 // then emails the message through Resend. Needs these in Cloudflare Pages >
 // Settings > Variables and Secrets (or .dev.vars locally):
 //   TURNSTILE_SECRET_KEY  Turnstile widget secret key
