@@ -1,7 +1,7 @@
 <!-- Contact section: form over a retro TV that flips through AMP videos (replaces the footer CTA on Services) -->
 <section class="contact-section" id="cta">
   <div class="container">
-    <h2 class="contact-title">Pull up <em>a chair.</em></h2>
+    <h2 class="contact-title">Amplify <em>your brand.</em></h2>
 
     <div class="contact-layout">
       <div class="contact-card">
@@ -231,8 +231,9 @@
       const buttonLabel = button.textContent;
       const fallbackEmail = form.dataset.fallbackEmail;
 
-      // Form-level message; offerEmail adds "email us" for problems the visitor can't fix
-      function showFormError(text, offerEmail) {
+      // Form-level message; offerEmail adds "email us" for problems the visitor can't fix.
+      // Only scroll to it when the visitor just submitted, never from background Turnstile callbacks
+      function showFormError(text, offerEmail, scroll) {
         formError.textContent = text || '';
         if (text && offerEmail && fallbackEmail) {
           const link = document.createElement('a');
@@ -241,15 +242,13 @@
           formError.append(document.createElement('br'), 'You can also email us at ', link, '.');
         }
         formError.hidden = !text;
-        if (text) formError.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        if (text && scroll) formError.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
 
       // Turnstile callbacks (named in the widget's data-* attributes)
       window.contactTurnstileDone = () => showFormError('');
-      window.contactTurnstileExpired = () => {
-        showFormError('The verification check expired. Please complete it again.');
-        resetTurnstile();
-      };
+      // Tokens expire after ~5 minutes on the page; quietly get a fresh one
+      window.contactTurnstileExpired = () => resetTurnstile();
       window.contactTurnstileFailed = () => {
         showFormError("The verification check couldn't load. Refresh the page and try again.", true);
       };
@@ -288,7 +287,7 @@
         }
         const token = form.querySelector('[name="cf-turnstile-response"]');
         if (!token || !token.value) {
-          showFormError('Please complete the verification check above.');
+          showFormError('Please complete the verification check above.', false, true);
           return;
         }
 
@@ -341,7 +340,7 @@
         });
         // Field and verification problems the visitor can fix; anything else gets the email fallback
         const fixable = status === 422 || result.turnstile;
-        showFormError(result.error || 'Something went wrong. Please try again.', !fixable);
+        showFormError(result.error || 'Something went wrong. Please try again.', !fixable, true);
         // Turnstile tokens work once, so get a fresh one for the next attempt
         resetTurnstile();
         button.disabled = false;
