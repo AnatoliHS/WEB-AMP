@@ -2,17 +2,16 @@
 client: Rose Scale LTD
 card_title: Rose Scale
 order: 1
-title: Rose Scale | Industrial Brand Overhaul & Growth Engine Implementation |
-  AMP Visual Media
-description: Repositioning a 50+ Year Industrial Scale Company for Authority,
-  Inbound Growth, and Long-Term Expansion. Case study on brand strategy, visual
-  identity overhaul, web development, and TrueVoice content engine.
+title: Rose Scale | Industrial Brand Overhaul & Growth Engine | AMP Visual Media
+description: How AMP repositioned Rose Scale, a 50+ year industrial weighing
+  company, with a new brand, website, content engine and ongoing agency support.
 custom_url: /case-study-one/
-heading: Rose Scale | Industrial Brand Overhaul & Growth Engine Implementation
-lead: Repositioning a 50+ Year Industrial Scale Company for Authority, Inbound
-  Growth, and Long-Term Expansion
-hero_image: /images/rose-scale.avif
-hero_alt: Rose Scale Branded Shipping Container
+heading: Rose Scale | Industrial Brand Overhaul & Growth Engine
+lead: Repositioning a 50+ year industrial weighing company for authority,
+  inbound growth and long-term expansion
+hero_image: /images/uploads/_.00_20_38_08.still001.jpg
+hero_alt: Rose Scale employee watches calibration weights being lifted by crane
+card_image: /images/uploads/_.00_20_38_08.still001.jpg
 card_alt: Rose Scale Industrial Brand Overhaul
 theme:
   brand: "#F4C21B"
