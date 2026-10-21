@@ -11,7 +11,7 @@ lead: Repositioning a 50+ year industrial weighing company for authority,
   inbound growth and long-term expansion
 hero_image: /images/uploads/_.00_20_38_08.still001.jpg
 hero_alt: Rose Scale employee watches calibration weights being lifted by crane
-card_image: /images/uploads/_.00_20_38_08.still001.jpg
+card_image: /images/uploads/_.00_08_39_05.still015.jpg
 card_alt: Rose Scale Industrial Brand Overhaul
 theme:
   brand: "#F4C21B"
@@ -50,7 +50,7 @@ challenge:
   subtitle: But the brand told a smaller story. Without change, they risked being
     seen as a local maintenance company instead of a systems-driven industrial
     partner.
-  image: /images/uploads/_.00_08_39_05.still015.jpg
+  image: /images/uploads/_.00_17_12_05.still002.jpg
   image_alt: Rose Scale facility and heavy service truck
 needs:
   title: "They needed:"
@@ -86,7 +86,7 @@ solution:
     campaigns.
 phases:
   - title: Brand Strategy & Repositioning
-    image: /images/rose-scle-hat.webp
+    image: /images/uploads/dsc00585.jpg
     image_alt: Rose Scale On-Site Industrial Engineering and Safety Hard Hat
     panel: cream
     lead: We shifted Rose Scale’s positioning from “we service scales” to “we
@@ -100,7 +100,7 @@ phases:
       - Maintenance-focused clients
     closing: Brand pillars were defined to anchor future communication and growth.
   - title: Visual Identity Overhaul
-    image: /images/rose-scale-cap.avif
+    image: /images/uploads/_.00_47_20_03.still003.jpg
     image_alt: Rose Scale Visual Identity Overhaul and Branded Apparel
     panel: dark
     lead: The legacy identity was replaced with a modern, authoritative industrial
@@ -128,7 +128,7 @@ phases:
       - Supports SEO for industrial weighing systems
     closing: The experience now matches the value of their projects.
   - title: Content Strategy
-    image: /images/rose-scale-truck.avif
+    image: /images/uploads/_.00_51_22_22.still007.jpg
     image_alt: Rose Scale Heavy Industrial Service Truck with Updated Vehicle Graphics
     panel: brand
     lead: TrueVoice uncovered a key insight. Rose Scale’s audience was already
@@ -146,7 +146,7 @@ phases:
       - Website content clusters to support SEO
     closing: The brand shifted from passive presentation to strategic authority.
   - title: Ongoing Growth & Advertising Support
-    image: /images/rose-scale-mug.avif
+    image: /images/uploads/dsc00551.jpg
     image_alt: Rose Scale Branded Merchandise and Ongoing Strategic Partnership
     panel: dark
     lead: AMP is now Rose Scale's agency of record, handling the ongoing work that
