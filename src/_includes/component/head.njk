@@ -3,7 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title | default("AMP | Digital Marketing Agency - Canada") }}</title>
   <meta name="description" content="{{ description | default("As a strategy‑driven creative studio, AMP helps bold brands clarify their voice, design sites that convert and amplify growth with campaigns that compound.") }}">
-  
+  {% if noindex %}<meta name="robots" content="noindex">{% endif %}
+
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title | default("AMP | Digital Marketing Agency - Canada") }}">
