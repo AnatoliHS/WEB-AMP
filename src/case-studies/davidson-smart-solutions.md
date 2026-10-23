@@ -42,7 +42,7 @@ showcase:
   alt: Control4 Network Rack
 challenge:
   eyebrow: Five Threats, Three Stages
-  title: Real expertise, / hard to see from the outside.
+  title: Real expertise / hard to see from the outside.
   subtitle: Attention was the starting point. Trust and Delivery had threats too,
     but they sat further right.
   image: /images/uploads/sequence.01_05_12_22.still040.jpg
@@ -59,6 +59,7 @@ needs:
       label: Proof
     - description: A business that doesn't run through one person
       label: Capacity
+  title: What DSS needed
 narrative:
   quote: A break in an early stage starves every stage after it.
   paragraphs:
