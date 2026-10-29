@@ -130,6 +130,15 @@ collections:
           - { label: "Eyebrow", name: "eyebrow", widget: "string", hint: "Shown after 'THE SOLUTION •'" }
           - { label: "Heading", name: "title", widget: "string" }
           - { label: "Intro", name: "subtitle", widget: "text", required: false }
+      - label: "Video"
+        name: "video"
+        widget: "object"
+        required: false
+        collapsed: true
+        hint: "Optional YouTube video shown right after the solution heading."
+        fields:
+          - { label: "YouTube link", name: "url", widget: "string", required: false, hint: "Paste the link from YouTube, e.g. https://www.youtube.com/watch?v=… Leave blank for no video." }
+          - { label: "Video title", name: "title", widget: "string", required: false, hint: "Read out by screen readers. Defaults to the client name." }
       - label: "Phases"
         name: "phases"
         widget: "list"

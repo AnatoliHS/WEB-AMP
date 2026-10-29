@@ -145,6 +145,16 @@ layout: default.njk
       {{ solution.subtitle | e }}
     </p>
     {%- endif %}
+    {%- set videoId = video.url | youtubeId if video else "" %}
+    {%- if videoId %}
+    <div class="cs-spec-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ videoId }}?rel=0&modestbranding=1"
+        title="{{ (video.title or client + ' video') | e }}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen loading="lazy">
+      </iframe>
+    </div>
+    {%- endif %}
   </div>
 </section>
 

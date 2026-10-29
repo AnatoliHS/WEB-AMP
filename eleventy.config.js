@@ -35,6 +35,12 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("excludeUrl", (items, url) => items.filter(item => item.url !== url));
 
+  // YouTube video ID from a watch, youtu.be, shorts or embed link (or a bare ID)
+  eleventyConfig.addFilter("youtubeId", url => {
+    const match = String(url || "").trim().match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([\w-]{11})|^([\w-]{11})$/);
+    return match ? (match[1] || match[2]) : "";
+  });
+
   // After build, if outputting to dist, also mirror to _site (or vice versa)
   // so Cloudflare Pages succeeds whether Build Output Directory is set to 'dist' or '_site'
   eleventyConfig.on("eleventy.after", async ({ dir }) => {

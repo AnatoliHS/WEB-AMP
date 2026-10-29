@@ -77,6 +77,9 @@ solution:
   title: AMP built the Attention stage, one system at a time.
   subtitle: Each piece of work maps back to a system card from the roadmap, so
     nothing was built without a reason.
+video:
+  url: https://www.youtube.com/watch?v=SukLg1C57dQ
+  title: Davidson Smart Solutions
 phases:
   - crop: none
     panel: cream
