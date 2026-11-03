@@ -1,6 +1,6 @@
 ---
 layout: landing.njk
-title: "AMP Growth System | Turn Your Best Work Into Your Best Salesperson"
+title: "AMP Visual Media | Turn Your Best Work Into Your Best Salesperson"
 description: "AMP turns one real client project into a case study film, a content library, a landing page and a paid funnel that keeps bringing in new leads."
 hideFooterCta: true
 # How It Works: the four phases (items = what each one includes)
@@ -51,6 +51,33 @@ pieces:
     desc: "Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions."
     word: "Leads in"
     img: "/images/uploads/sequence.01_35_45_12.still077.jpg"
+# Questions: shown in the FAQ section and sent to search engines as FAQ schema (schema: false keeps one out of the schema)
+faqs:
+  - q: "What does it cost?"
+    stat: "$20K"
+    statLabel: "Starting price, + HST"
+    a: "The full system starts at $20,000. One engagement covers the story and strategy, media production, the landing page, the ads themselves and the funnel launch. Ad spend is separate. Pricing is exclusive of HST."
+  - q: "Is ad spend included?"
+    stat: "Extra"
+    statLabel: "Ad spend, set to your goals"
+    a: "No. We make and run the ads, but the budget you pay the ad platforms to show them is separate. It's set to your goals, so you stay in control."
+  - q: "How do we start?"
+    stat: "$750"
+    statLabel: "AMP Deck™, credited back"
+    a: "Every engagement starts with an AMP Deck™ session ($750), so we diagnose where your pipeline is leaking before we build anything. The fee is credited toward your package when you move forward within 60 days."
+    schema: false
+  - q: "How long does it take?"
+    stat: "4"
+    statLabel: "Phases, dates set at kickoff"
+    a: "Four phases: Discovery, Media Day, Edit & Build, then Launch & Optimize. Each phase has a clear owner and deliverable, and exact dates are set together at kickoff."
+  - q: "What do we need to bring?"
+    stat: "1"
+    statLabel: "Project + a happy customer"
+    a: "A standout project and a customer who is happy to talk about it. We plan the story, the shoot and everything after it."
+  - q: "Who does the filming?"
+    stat: "1"
+    statLabel: "Focused shoot by Mind Fusion"
+    a: "Our sister company Mind Fusion captures the media in one focused shoot. AMP turns it into proof and gets your message in front of the people who buy."
 # Navbar links stay on this page
 nav:
   left: { label: "How It Works", href: "#how" }
@@ -470,32 +497,23 @@ nav:
       </div>
     </div>
     <div class="sales-faq">
+      {%- for faq in faqs %}
       <details>
-        <summary><span class="sales-faq-num">Q.01</span><span class="sales-faq-q">What does it cost?</span><span class="sales-faq-stat"><b>$20K</b><small>Starting price, + HST</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
-        <p>The full system starts at $20,000. One engagement covers the story and strategy, media production, the landing page, the ads themselves and the funnel launch. Ad spend is separate. Pricing is exclusive of HST.</p>
+        <summary><span class="sales-faq-num">Q.{{ "0" if loop.index < 10 }}{{ loop.index }}</span><span class="sales-faq-q">{{ faq.q | e }}</span><span class="sales-faq-stat"><b>{{ faq.stat | e }}</b><small>{{ faq.statLabel | e }}</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+        <p>{{ faq.a | e }}</p>
       </details>
-      <details>
-        <summary><span class="sales-faq-num">Q.02</span><span class="sales-faq-q">Is ad spend included?</span><span class="sales-faq-stat"><b>Extra</b><small>Ad spend, set to your goals</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
-        <p>No. We make and run the ads, but the budget you pay the ad platforms to show them is separate. It's set to your goals, so you stay in control.</p>
-      </details>
-      <details>
-        <summary><span class="sales-faq-num">Q.03</span><span class="sales-faq-q">How do we start?</span><span class="sales-faq-stat"><b>$750</b><small>AMP Deck™, credited back</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
-        <p>Every engagement starts with an AMP Deck™ session ($750), so we diagnose where your pipeline is leaking before we build anything. The fee is credited toward your package when you move forward within 60 days.</p>
-      </details>
-      <details>
-        <summary><span class="sales-faq-num">Q.04</span><span class="sales-faq-q">How long does it take?</span><span class="sales-faq-stat"><b>4</b><small>Phases, dates set at kickoff</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
-        <p>Four phases: Discovery, Media Day, Edit &amp; Build, then Launch &amp; Optimize. Each phase has a clear owner and deliverable, and exact dates are set together at kickoff.</p>
-      </details>
-      <details>
-        <summary><span class="sales-faq-num">Q.05</span><span class="sales-faq-q">What do we need to bring?</span><span class="sales-faq-stat"><b>1</b><small>Project + a happy customer</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
-        <p>A standout project and a customer who is happy to talk about it. We plan the story, the shoot and everything after it.</p>
-      </details>
-      <details>
-        <summary><span class="sales-faq-num">Q.06</span><span class="sales-faq-q">Who does the filming?</span><span class="sales-faq-stat"><b>1</b><small>Focused shoot by Mind Fusion</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
-        <p>Our sister company Mind Fusion captures the media in one focused shoot. AMP turns it into proof and gets your message in front of the people who buy.</p>
-      </details>
+      {%- endfor %}
     </div>
   </div>
 </section>
+
+{#- FAQ schema: built from the same questions as the section above, so the two can't drift apart -#}
+{%- set faqEntities = [] -%}
+{%- for faq in faqs -%}
+  {%- if faq.schema !== false -%}
+    {%- set faqEntities = (faqEntities.push({ "@type": "Question", "name": faq.q, "acceptedAnswer": { "@type": "Answer", "text": faq.a } }), faqEntities) -%}
+  {%- endif -%}
+{%- endfor %}
+<script type="application/ld+json">{{ { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faqEntities } | dump | safe }}</script>
 
 {% include "component/contact.njk" %}

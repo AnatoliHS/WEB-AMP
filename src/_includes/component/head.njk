@@ -9,13 +9,18 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title | default("AMP | Digital Marketing Agency - Canada") }}">
   <meta property="og:description" content="{{ description | default("As a strategy‑driven creative studio, AMP helps bold brands clarify their voice, design sites that convert and amplify growth with campaigns that compound.") }}">
-  <meta property="og:image" content="/images/og-image.png">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}/images/amp-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="AMP logo">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ title | default("AMP | Digital Marketing Agency - Canada") }}">
   <meta name="twitter:description" content="{{ description | default("As a strategy‑driven creative studio, AMP helps bold brands clarify their voice, design sites that convert and amplify growth with campaigns that compound.") }}">
-  <meta name="twitter:image" content="/images/og-image.png">
+  <meta name="twitter:image" content="{{ site.url }}/images/amp-share.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/images/amp-logo.png">

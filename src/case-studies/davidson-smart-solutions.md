@@ -2,9 +2,9 @@
 client: Davidson Smart Solutions
 card_title: Davidson
 order: 2
-title: Davidson Smart Solutions | From Amp Deck™ to Growth Build | AMP Visual Media
-description: How a smart home and smart business installer used the Amp Deck™ to
-  find where growth stalled, then rebuilt its brand, website, ads and media.
+title: Davidson Smart Solutions | From Diagnosis to Growth Build | AMP Visual Media
+description: How AMP helped a smart home and smart business installer find where
+  growth stalled, then rebuilt its brand, website, ads and media.
 heading: Davidson Smart Solutions | From Amp Deck™ Diagnosis to Growth Build
 lead: How a smart home and smart business installer found where growth was
   stalling, then rebuilt its brand, website, ads, and media around the answer
