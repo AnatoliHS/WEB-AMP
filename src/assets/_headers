@@ -1,0 +1,3 @@
+# Cloudflare Pages: repeat visits get the hero wall from the browser cache, with no round trip per image
+/images/sales/wall/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400

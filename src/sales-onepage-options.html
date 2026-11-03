@@ -1,0 +1,241 @@
+---
+layout: landing.njk
+permalink: /sales/onepage-options/
+title: "Sales page | One page card: animation options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#op" }
+  home: "#op"
+  right: { label: "Back to Sales", href: "/sales/#included" }
+---
+{#- TEMPORARY comparison page: five replacements for the "One page" (landing page) card's animation in What You Get.
+    Each sits in the real card, so it reads exactly as it would on the sales page. Delete once one is picked. -#}
+{#- A tiny landing page, sized in container units so it scales with the card -#}
+{%- macro page(cls="") -%}
+<div class="op-page {{ cls }}">
+  <div class="op-hero"><img src="/images/sales/funnel/landing.jpg" alt=""><div><b>How one project became a pipeline</b><span class="op-btn">Book a call</span></div></div>
+  <div class="op-stats"><span><b>1</b>project</span><span><b>40+</b>assets</span><span><b>3</b>campaigns</span></div>
+  <div class="op-film"><img src="/images/sales/funnel/warm.jpg" alt=""><i></i></div>
+  <span class="op-line"></span><span class="op-line is-short"></span>
+  <div class="op-quote">“They told our story better than we could.”</div>
+  <div class="op-cta"><b>Ready to grow beyond referrals?</b><span class="op-btn">Book a call</span></div>
+</div>
+{%- endmacro -%}
+{%- macro bar() -%}<div class="sales-show-browser-bar op-bar"><i></i><i></i><i></i><span>yourcompany.com/case-study</span></div>{%- endmacro -%}
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false">
+  <filter id="sales-show-rough">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="4"/>
+  </filter>
+</svg>
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+  .op-cards { margin-top: 0; }
+  .op-card-body b { display: block; margin-bottom: 4px; color: #f4efe6; font-family: var(--font-heading); font-size: 1.05rem; }
+
+  /* ----- The mini landing page (shared) ----- */
+  .op-bar { align-items: center; }
+  .op-bar span { margin-left: 6px; padding: 1px 8px; border-radius: 99px; background: #F5F2EB; color: #6b6458; font-family: var(--font-mono); font-size: max(8px, 1.5cqw); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .op-page { display: grid; gap: 2.4cqw; padding: 2.4cqw; background: #F5F2EB; color: #0F2B2C; }
+  .op-page img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .op-hero { position: relative; height: 30cqw; overflow: hidden; border-radius: 4px; }
+  .op-hero > div { position: absolute; inset: auto 2.4cqw 2.4cqw; display: grid; justify-items: start; gap: 1.6cqw; color: #f4efe6; }
+  .op-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 30%, rgba(12, 4, 7, 0.85)); }
+  .op-hero > div { z-index: 1; }
+  .op-hero b, .op-cta b { font-family: var(--font-heading); font-size: 3.4cqw; line-height: 1.05; letter-spacing: -0.03em; }
+  .op-btn { padding: 0.9cqw 2cqw; border-radius: 3px; background: #A83C27; color: #fff; font-size: 1.7cqw; font-weight: 700; }
+  .op-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6cqw; }
+  .op-stats span { padding: 1.6cqw; border-radius: 4px; background: #e9e2d2; font-size: 1.5cqw; }
+  .op-stats b { display: block; font-family: var(--font-heading); font-size: 3.6cqw; line-height: 1; color: #A83C27; }
+  .op-film { position: relative; height: 22cqw; overflow: hidden; border-radius: 4px; }
+  .op-film i { position: absolute; left: 50%; top: 50%; width: 6cqw; height: 6cqw; border-radius: 50%; background: #fff; transform: translate(-50%, -50%); }
+  .op-film i::after { content: ""; position: absolute; left: 40%; top: 30%; border: 1.3cqw solid transparent; border-left: 2cqw solid #0F2B2C; border-right: 0; }
+  .op-line { display: block; height: 1.4cqw; width: 90%; border-radius: 1cqw; background: #d6cebc; }
+  .op-line.is-short { width: 64%; }
+  .op-quote { padding: 2cqw; border-left: 0.6cqw solid #DE9E3B; background: #ece5d6; font-size: 2cqw; font-style: italic; }
+  .op-cta { display: grid; justify-items: start; gap: 1.6cqw; padding: 2.4cqw; border-radius: 4px; background: #0F2B2C; color: #f4efe6; }
+
+  /* A browser window, reused by the options below */
+  .op-browser { position: absolute; z-index: 3; overflow: hidden; border-radius: 8px; background: #F5F2EB; box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5); }
+
+  /* ---------- 1: Scroll-through ---------- */
+  /* The finished page scrolls slowly top to bottom and back, like someone reading it */
+  .op1 .op-browser { left: 50%; top: 5cqh; width: 66cqw; height: 66cqh; transform: translateX(-50%); }
+  .op1 .op-view { height: calc(100% - 26px); overflow: hidden; }
+  .op1 .op-page { animation: op1-scroll 9s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+  @keyframes op1-scroll { 0%, 12% { transform: translateY(0); } 50%, 62% { transform: translateY(calc(-100% + 66cqh - 26px)); } 100% { transform: translateY(0); } }
+
+  /* ---------- 2: Every ad lands here ---------- */
+  /* Ad thumbnails fly in from the edges and drop into one page, which glows amber as each one lands */
+  .op2 .op-browser { left: 50%; top: 38%; width: 42cqw; transform: translate(-50%, -50%); animation: op2-glow 1.5s ease-out infinite; }
+  .op2 .op-browser .op-page { gap: 1.4cqw; padding: 1.4cqw; }
+  .op2 .op-browser .op-hero { height: 16cqw; }
+  .op2 .op-browser .op-hero b { font-size: 2cqw; }
+  .op2 .op-browser .op-btn { font-size: 1.1cqw; }
+  .op2 .op-browser .op-stats, .op2 .op-browser .op-film, .op2 .op-browser .op-quote, .op2 .op-browser .op-line, .op2 .op-browser .op-cta { display: none; }
+  @keyframes op2-glow { 0%, 60% { box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(222, 158, 59, 0); } 70% { box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(222, 158, 59, 0.9); } 100% { box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), 0 0 0 14px rgba(222, 158, 59, 0); } }
+  .op2-ad { position: absolute; z-index: 4; left: 50%; top: 38%; width: 13cqw; aspect-ratio: 9 / 16; overflow: hidden; border: 2px solid #f4efe6; border-radius: 6px; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); opacity: 0; animation: op2-fly 6s cubic-bezier(0.55, 0, 0.25, 1) infinite; animation-delay: var(--d); }
+  .op2-ad img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  @keyframes op2-fly {
+    0% { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r)) scale(1); }
+    6% { opacity: 1; }
+    22% { opacity: 1; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--r)) scale(1); }
+    25% { opacity: 1; }
+    34% { opacity: 0; transform: translate(-50%, -50%) rotate(0deg) scale(0.3); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  }
+  .op2 .sales-show-chip { top: 14px; right: 14px; }
+
+  /* ---------- 3: Tap to book ---------- */
+  /* On a phone: a thumb taps "Book a call", the button turns into "Booked", and a new-lead alert drops in */
+  .op3 .op-phone { position: absolute; z-index: 3; right: 9cqw; top: 6cqh; width: 30cqw; height: 120cqh; overflow: hidden; border: 1.2cqw solid #111; border-radius: 4cqw; background: #F5F2EB; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); transform: rotate(-4deg); }
+  .op3 .op-page { gap: 2.4cqw; padding: 2cqw; font-size: 2.4cqw; }
+  .op3 .op-hero { height: 40cqw; }
+  .op3 .op-hero b { font-size: 3cqw; }
+  .op3 .op-hero .op-btn { position: relative; font-size: 2.2cqw; padding: 1.4cqw 3cqw; animation: op3-btn 5s ease infinite; }
+  .op3 .op-hero .op-btn::after { content: "Booked ✓"; position: absolute; inset: 0; display: grid; place-items: center; border-radius: 3px; background: #2f8a55; opacity: 0; animation: op3-booked 5s ease infinite; }
+  .op3 .op-stats, .op3 .op-quote, .op3 .op-cta { display: none; }
+  @keyframes op3-btn { 0%, 30% { transform: scale(1); } 34% { transform: scale(0.9); } 40%, 100% { transform: scale(1); } }
+  @keyframes op3-booked { 0%, 34% { opacity: 0; } 38%, 90% { opacity: 1; } 100% { opacity: 0; } }
+  .op3-tap { position: absolute; z-index: 4; right: 26cqw; top: 39cqh; width: 5cqw; height: 5cqw; border-radius: 50%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); opacity: 0; animation: op3-tap 5s ease infinite; }
+  @keyframes op3-tap { 0%, 24% { opacity: 0; transform: scale(1.6); } 30% { opacity: 1; transform: scale(1); } 34% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6); } 42% { opacity: 0; box-shadow: 0 0 0 4cqw rgba(255, 255, 255, 0); } 100% { opacity: 0; } }
+  .op-toast { position: absolute; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px; background: rgba(245, 242, 235, 0.96); color: #0F2B2C; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45); font-size: max(11px, 1.9cqw); line-height: 1.25; white-space: nowrap; }
+  .op-toast::before { content: ""; flex-shrink: 0; width: 26px; height: 26px; border-radius: 6px; background: #A83C27 url("/images/amp-logo.png") center / 80% no-repeat; }
+  .op-toast b { display: block; font-size: 0.82em; font-family: var(--font-mono); letter-spacing: 0.06em; color: #A83C27; }
+  .op3 .op-toast { left: 5cqw; top: 8cqh; opacity: 0; animation: op3-toast 5s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+  @keyframes op3-toast { 0%, 40% { opacity: 0; transform: translateY(-14px); } 46%, 88% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: translateY(-6px); } }
+
+  /* ---------- 4: Leads coming in ---------- */
+  /* The page sits still; new-enquiry alerts stack up beside it one by one, then clear and start again */
+  .op4 .op-browser { left: 5cqw; top: 6cqh; width: 52cqw; height: 74cqh; }
+  .op4 .op-page { gap: 1.6cqw; padding: 1.6cqw; }
+  .op4 .op-hero { height: 20cqw; }
+  .op4 .op-hero b { font-size: 2.4cqw; }
+  .op4 .op-btn { font-size: 1.3cqw; }
+  .op4-stack { position: absolute; z-index: 4; right: 4cqw; top: 8cqh; display: grid; gap: 10px; }
+  .op4-stack .op-toast { position: static; opacity: 0; animation: op4-in 7.5s cubic-bezier(0.16, 1, 0.3, 1) infinite; animation-delay: var(--d); }
+  @keyframes op4-in { 0% { opacity: 0; transform: translateX(30px); } 6%, 72% { opacity: 1; transform: none; } 80%, 100% { opacity: 0; transform: none; } }
+  .op4-count { position: absolute; z-index: 4; right: 4cqw; top: 3cqh; }
+
+  /* ---------- 5: Sketch to site ---------- */
+  /* A wireframe of the page; an amber line wipes across and leaves the finished design behind it */
+  .op5 .op-browser { left: 50%; top: 5cqh; width: 66cqw; height: 66cqh; transform: translateX(-50%); }
+  .op5 .op-layer { position: absolute; inset: 26px 0 0; overflow: hidden; }
+  .op5 .op-wire .op-page { background: #16343a; }
+  .op5 .op-wire .op-page > * { border: 1px dashed rgba(223, 212, 167, 0.55); background: transparent !important; color: transparent; }
+  .op5 .op-wire .op-page img, .op5 .op-wire .op-hero::after, .op5 .op-wire .op-film i { visibility: hidden; }
+  .op5 .op-wire .op-page * { color: transparent !important; background: transparent !important; border-color: rgba(223, 212, 167, 0.35); }
+  .op5 .op-wire .op-btn { border: 1px dashed rgba(223, 212, 167, 0.55); }
+  .op5 .op-done { clip-path: inset(0 100% 0 0); animation: op5-wipe 6s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+  .op5-edge { position: absolute; z-index: 2; top: 26px; bottom: 0; left: 0; width: 3px; background: #DE9E3B; box-shadow: 0 0 14px rgba(222, 158, 59, 0.9); animation: op5-edge 6s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+  @keyframes op5-wipe { 0%, 10% { clip-path: inset(0 100% 0 0); opacity: 1; } 50%, 85% { clip-path: inset(0 0 0 0); opacity: 1; } 100% { clip-path: inset(0 0 0 0); opacity: 0; } }
+  @keyframes op5-edge { 0%, 10% { left: 0; opacity: 1; } 50% { left: 100%; opacity: 1; } 52%, 100% { left: 100%; opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .op1 .op-page, .op2 .op-browser, .op2-ad, .op3 .op-btn, .op3 .op-btn::after, .op3-tap, .op3 .op-toast, .op4-stack .op-toast, .op5 .op-done, .op5-edge { animation: none; }
+    .op3 .op-toast, .op4-stack .op-toast { opacity: 1; }
+    .op5 .op-done { clip-path: none; }
+    .op5-edge { display: none; }
+  }
+</style>
+
+<div class="po-label" id="op">
+  <div class="container">
+    <h2><strong>05</strong>“One page” card: five alternatives</h2>
+    <p>Each option is shown inside the real What You Get card, so it reads exactly as it would on the sales page. The current version is first, for reference. The little landing page is the same throughout; only the animation changes.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container">
+    <div class="sales-show-cards op-cards">
+      {#- Current, for reference -#}
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active">
+          <img class="sales-show-bg" src="/images/uploads/sequence.02_05_07_14.still083.jpg" alt="" style="filter: brightness(0.3);">
+          <div class="sales-show-browser">
+            <div class="sales-show-browser-bar"><i></i><i></i><i></i></div>
+            <div class="sales-show-browser-body"><span class="sales-show-line is-wide"></span><span class="sales-show-line is-mid"></span><span class="sales-show-line is-short"></span><span class="sales-show-btn">BOOK A CALL</span></div>
+          </div>
+          <svg class="sales-show-cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15 L13 22 L16 20 L12 13 L19 13 Z" fill="#fff" stroke="#111" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span class="sales-show-chip sales-show-click">ONE CLEAR ACTION</span>
+          <span class="sales-show-word">One page</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">00</span><p class="op-card-body"><b>Current</b>Grey placeholder lines grow in, then a cursor clicks “Book a call”.</p></div>
+      </article>
+
+      <!-- 1 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active op1">
+          <img class="sales-show-bg" src="/images/sales/funnel/cold.jpg" alt="" style="filter: brightness(0.3) blur(2px);">
+          <div class="op-browser">{{ bar() }}<div class="op-view">{{ page() }}</div></div>
+          <span class="sales-show-word">One page</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">01</span><p class="op-card-body"><b>Scroll-through</b>A real-looking finished page (hero, stats, film, quote, call to action) scrolls slowly top to bottom and back, like someone reading it. Calm, and shows what's actually on the page.</p></div>
+      </article>
+
+      <!-- 2 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active op2">
+          <img class="sales-show-bg" src="/images/sales/funnel/cold.jpg" alt="" style="filter: brightness(0.3) blur(2px);">
+          <div class="op-browser">{{ bar() }}{{ page() }}</div>
+          <div class="op2-ad" style="--x: -34cqw; --y: -20cqh; --r: -10deg; --d: 0s"><img src="/images/sales/funnel/cold.jpg" alt=""></div>
+          <div class="op2-ad" style="--x: 34cqw; --y: -16cqh; --r: 9deg; --d: 1.5s"><img src="/images/sales/funnel/warm.jpg" alt=""></div>
+          <div class="op2-ad" style="--x: -30cqw; --y: 22cqh; --r: 7deg; --d: 3s"><img src="/images/sales/funnel/hot.jpg" alt=""></div>
+          <div class="op2-ad" style="--x: 32cqw; --y: 24cqh; --r: -8deg; --d: 4.5s"><img src="/images/sales/funnel/landing.jpg" alt=""></div>
+          <span class="sales-show-chip">EVERY AD LANDS HERE</span>
+          <span class="sales-show-word">One page</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">02</span><p class="op-card-body"><b>Every ad lands here</b>Ad thumbnails fly in from the corners one at a time and drop into a single page, which flashes an amber ring as each one lands. Ties straight into “every ad points to one place”.</p></div>
+      </article>
+
+      <!-- 3 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active op3">
+          <img class="sales-show-bg" src="/images/sales/funnel/hot.jpg" alt="" style="filter: brightness(0.3) blur(2px);">
+          <div class="op-phone">{{ page() }}</div>
+          <span class="op3-tap"></span>
+          <div class="op-toast"><span><b>NEW LEAD</b>Call booked for Thursday, 10am</span></div>
+          <span class="sales-show-word">One page</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">03</span><p class="op-card-body"><b>Tap to book</b>The page on a phone. A thumb taps “Book a call”, the button turns green and says “Booked ✓”, and a “New lead” alert drops in. Shows the outcome, not the building.</p></div>
+      </article>
+
+      <!-- 4 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active op4">
+          <img class="sales-show-bg" src="/images/sales/funnel/warm.jpg" alt="" style="filter: brightness(0.3) blur(2px);">
+          <div class="op-browser">{{ bar() }}{{ page() }}</div>
+          <div class="op4-stack">
+            <div class="op-toast" style="--d: 0.4s"><span><b>NEW ENQUIRY</b>Kitchen renovation quote</span></div>
+            <div class="op-toast" style="--d: 1.6s"><span><b>CALL BOOKED</b>Tuesday, 2pm</span></div>
+            <div class="op-toast" style="--d: 2.8s"><span><b>NEW ENQUIRY</b>Commercial install</span></div>
+          </div>
+          <span class="sales-show-word">One page</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">04</span><p class="op-card-body"><b>Leads coming in</b>The page sits still while “New enquiry” and “Call booked” alerts stack up beside it one by one, then clear and start again. The page is quiet; the results do the moving.</p></div>
+      </article>
+
+      <!-- 5 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active op5">
+          <img class="sales-show-bg" src="/images/sales/funnel/landing.jpg" alt="" style="filter: brightness(0.3) blur(2px);">
+          <div class="op-browser">
+            {{ bar() }}
+            <div class="op-layer op-wire">{{ page() }}</div>
+            <div class="op-layer op-done">{{ page() }}</div>
+            <span class="op5-edge"></span>
+          </div>
+          <span class="sales-show-chip" style="top: 14px; right: 14px;">SKETCH → LIVE</span>
+          <span class="sales-show-word">One page</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">05</span><p class="op-card-body"><b>Sketch to site</b>The page starts as a dashed blueprint wireframe; a glowing amber line wipes across and leaves the finished design behind it. Shows that the page is designed and built for you.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div style="height: 120px; background: var(--bg-main);"></div>

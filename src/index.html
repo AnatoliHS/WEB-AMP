@@ -1,546 +1,501 @@
 ---
-layout: default
-title: "AMP | Digital Marketing Agency - Canada"
-description: "As a strategy‑driven creative studio, AMP helps bold brands clarify their voice, design sites that convert
-and amplify growth with campaigns that compound."
+layout: landing.njk
+title: "AMP Growth System | Turn Your Best Work Into Your Best Salesperson"
+description: "AMP turns one real client project into a case study film, a content library, a landing page and a paid funnel that keeps bringing in new leads."
+hideFooterCta: true
+# How It Works: the four phases (items = what each one includes)
+steps:
+  - name: "Discovery"
+    text: "An AMP Deck™ session finds where your pipeline leaks. Then we pick the project and plan the story and the shoot."
+    out: "A roadmap and a shoot plan"
+    items: ["AMP Deck™ session", "Pipeline audit", "Project pick", "Story plan", "Shoot plan"]
+    img: "/images/deck.avif"
+  - name: "Media Day"
+    text: "Mind Fusion, our production partner, captures the hero video, ad footage, behind the scenes and photography in one focused shoot."
+    out: "A raw content library"
+    items: ["Hero video", "Customer interview", "Ad footage", "Behind the scenes", "Photography"]
+    img: "/images/sales/hero-2-poster.jpg"
+  - name: "Edit & Build"
+    text: "We write the case study and bring the hero film, cut-downs, frame grabs and landing page together."
+    out: "Final assets and a live page"
+    items: ["Case study", "Hero film edit", "Cut-downs", "Frame grabs", "Landing page"]
+    img: "/images/sales/how/industry-professionals.jpg"
+  - name: "Launch & Optimize"
+    text: "Ads go live across the funnel. We track leads and refine what is working as results come in."
+    out: "A running funnel and reporting"
+    items: ["Paid ads", "Retargeting", "Lead tracking", "Reporting", "Refinement"]
+    img: "/images/bee-strong-web.avif"
+# Pieces shown in What You Get (word = the big lettering on the screen)
+pieces:
+  - name: "The Case Study"
+    desc: "We find the project worth telling, interview you and your customer, and shape the story of what you did and why it mattered."
+    word: "The story"
+    img: "/images/sales/interview.jpg"
+  - name: "Hero Video"
+    desc: "The main case study film. Featured on your landing page and built to make a stranger trust you."
+    word: "Hero film"
+    img: "/images/uploads/sequence-01.00_03_41_07.still005.jpg"
+  - name: "Cut-Downs & Ads"
+    desc: "Short edits of the hero video in vertical and horizontal formats, cut to run as paid ads."
+    word: "Cut it down"
+    img: "/images/uploads/dss00349.jpg"
+  - name: "Photo Library"
+    desc: "Stills from the shoot plus high-res frame grabs, ready for your website, socials and print."
+    word: "Every frame"
+    img: "/images/uploads/dss00026.jpg"
+  - name: "The Landing Page"
+    desc: "A focused sales page built around the case study. Visitors see what you can do, then get a clear path to get in touch."
+    word: "One page"
+    img: "/images/uploads/sequence.02_05_07_14.still083.jpg"
+  - name: "The Paid Funnel"
+    desc: "Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions."
+    word: "Leads in"
+    img: "/images/uploads/sequence.01_35_45_12.still077.jpg"
+# Navbar links stay on this page
+nav:
+  left: { label: "How It Works", href: "#how" }
+  home: "#hero"
+  right: { label: "Book a Call", href: "#cta" }
 ---
+{#- Sales page: one page, one action. Sections follow AMP's "The Sales Page" guide:
+    hero, problem, what you get, how it works, proof, who it's for, questions, next step. -#}
+{%- set booking = "https://calendar.app.google/vc5qz2BpLdG4BEgq9" -%}
+{%- set arrow = '<svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true"><path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/></svg>' -%}
 
-<!-- Hero Section -->
-<section class="hero-section" id="hero">
-  <div class="container hero-container">
-    <h1 class="hero-title">
-      You don't have a marketing problem. You have a systems problem.
-    </h1>
-
-    <div class="hero-content-bottom">
-      <div class="hero-desc-group">
-        <p class="hero-desc">
-          Most owners who feel stuck assume more marketing will fix it. It won't, if something's broken at a specific stage of your client journey. In one session, we help you find exactly where you're losing growth and what to build to get it back.
-        </p>
-
-        <a href="#standalone" class="hero-link-deck">
-          <span>Not ready for a session? Get the Deck</span>
-          <svg width="14" height="12" viewBox="0 0 16 14" fill="currentColor"
-            style="margin-left: 6px; display: inline-block; vertical-align: middle;" aria-hidden="true">
-            <path
-              d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z" />
-          </svg>
-        </a>
+<!-- 1. Hero: what we do, who it's for, the one action -->
+<section class="sales-hero" id="hero">
+  {#- The portfolio as a wall laid back in perspective, its strips drifting up and down.
+      Each strip holds the same set of images twice, so moving it up by half loops without a seam.
+      Wall images are 4:5 WebP tiles (480x600 at most) in sales/wall, cut to the size they display at; the originals elsewhere are full size.
+      The wall stays hidden until its images are decoded, then fades in as one piece (script below). -#}
+  {%- set wall = [
+    "bee-strong-identity", "rose-scale-truck", "girl-camera", "basketball-player",
+    "sequence.01_35_45_12.still077", "rose-scale-cap", "deck", "rose-scale-mug",
+    "dss00124", "bee-strong-mobile", "rose-scale-site", "boat",
+    "brand-identity", "rose-scale-building", "sequence-01.00_03_41_07.still005", "deck-cards",
+    "rose-scale", "bee-strong-web", "dss00026", "websites"
+  ] %}
+  <div class="sales-hero-wall" aria-hidden="true" data-hero-wall>
+    <div class="sales-hero-wall-plane">
+      {%- for c in range(0, 5) %}
+      <div class="sales-hero-strip">
+        {%- for copy in range(0, 2) %}{%- for r in range(0, 10) %}
+        <figure><img src="/images/sales/wall/{{ wall[(c * 7 + r) % wall.length] }}.webp" alt="" decoding="sync" fetchpriority="high"></figure>
+        {%- endfor %}{%- endfor %}
       </div>
-
-      <div class="hero-cta-wrap">
-        <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer"
-          class="hero-btn-primary">
-          <span>Book a Deck Session ($750)</span>
-          <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
-            <path
-              d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z" />
-          </svg>
-        </a>
-      </div>
+      {%- endfor %}
     </div>
   </div>
-</section>
-
-<!-- Section: The Mirror ("Sound familiar?") -->
-<!-- Desktop: the cards deal themselves onto the table when the section comes into view.
-     Phones: the cards form a fanned pile; swipe right for the next card, left to bring one back (scripts.njk). -->
-<section class="section-mirror" id="mirror">
-  <div class="mirror-stage">
-    <div class="container">
-      <div class="mirror-header">
-        <h2>Sound familiar?</h2>
-      </div>
-    </div>
-
-    <div class="mirror-table" data-mirror-table>
-      <article class="mirror-card">
-        <span class="mirror-card-corner">01</span>
-        <h3 class="mirror-card-text">Revenue swinging with no clear reason</h3>
-        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-      </article>
-      <article class="mirror-card">
-        <span class="mirror-card-corner">02</span>
-        <h3 class="mirror-card-text">Marketing that happens in bursts then goes quiet</h3>
-        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-      </article>
-      <article class="mirror-card">
-        <span class="mirror-card-corner">03</span>
-        <h3 class="mirror-card-text">Weaker competitors outranking you</h3>
-        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-      </article>
-      <article class="mirror-card">
-        <span class="mirror-card-corner">04</span>
-        <h3 class="mirror-card-text">Being busy without being able to say what you built</h3>
-        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-      </article>
-      <article class="mirror-card">
-        <span class="mirror-card-corner">05</span>
-        <h3 class="mirror-card-text">Leads coming in but the wrong ones, or nowhere</h3>
-        <img class="mirror-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-      </article>
-    </div>
-
-    <div class="mirror-controls">
-      <button type="button" class="mirror-nav" data-mirror-prev aria-label="Previous card">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
-      </button>
-      <span class="mirror-count" data-mirror-count aria-live="polite">1 / 5</span>
-      <button type="button" class="mirror-nav" data-mirror-next aria-label="Next card">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </button>
-    </div>
-
-    <div class="container">
-      <p class="mirror-footer-text">
-        You don't need more ideas. You need to know which <br>one of these is costing you the most, right now.
+  <div class="container sales-hero-grid">
+    <div class="sales-hero-copy">
+      <div class="sales-eyebrow sales-hero-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+      <h1 class="sales-hero-title">Turn your best work into your best <span class="sales-mark">salesperson.</span></h1>
+      <p class="sales-hero-lead">
+        One great project, told well, can sell for years. We turn a single client win into a case study film,
+        a content library, a landing page and a paid funnel that keeps bringing in new leads.
       </p>
-    </div>
-  </div>
-</section>
-
-<!-- Section: The Mechanic ("The AMP Deck" & Video) -->
-<section class="section-mechanic" id="thedeck">
-  <div class="container">
-    <!-- Eyebrow bar with horizontal line -->
-    <div class="deck-eyebrow-row">
-      <div class="deck-eyebrow-badge">
-        <span class="deck-eyebrow-dot"></span>
-        <span>MORE SIGNAL, LESS NOISE.</span>
-      </div>
-      <div class="deck-eyebrow-line"></div>
-    </div>
-
-    <!-- 2-Column Content Grid -->
-    <div class="deck-content-grid">
-      <div class="deck-col-left">
-        <h2 class="deck-main-title">The <span class="badge-amp">AMP</span> Deck</h2>
-        <p class="deck-statement">
-          The deck doesn't tell you what's wrong. It creates the conditions for you to see it yourself. Which means you
-          own the diagnosis before we ever talk about a solution.
-        </p>
-      </div>
-
-      <div class="deck-col-right">
-        <p class="deck-description">
-          A <span class="text-gold">52-card diagnostic tool</span>, built around <span class="text-gold">6 stages every
-            client moves through</span> on the way to becoming a repeat customer <span class="text-gold">Attention,
-            Interest, Trust, Conversion, Delivery, Growth.</span> In one session, you lay your business across those six
-          stages, place the real threats where they're actually hurting you, and walk out with the two or three systems
-          that fix the one doing the most damage.
-        </p>
-      </div>
-    </div>
-
-    <!-- Video Player Container -->
-    <div class="deck-video-wrapper">
-      <div class="deck-video-player">
-        <iframe src="https://www.youtube-nocookie.com/embed/Ghtowmb-9FM?rel=0&modestbranding=1"
-          title="The AMP Deck Demonstration"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen loading="lazy">
-        </iframe>
-      </div>
-    </div>
-
-    <!-- Centered Action Button -->
-    <div class="deck-action-center">
-      <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer"
-        class="hero-btn-primary">
-        <span>Book a Deck Session ($750)</span>
-        <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true">
-          <path
-            d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z" />
-        </svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Primary Offer ("Get a full roadmap in one sitting") -->
-<section class="section-offer" id="offer">
-  <div class="container">
-    <div class="roadmap-eyebrow-row">
-      <div class="roadmap-eyebrow-badge">
-        <span class="roadmap-eyebrow-dot"></span>
-        <span>MORE SIGNAL, LESS NOISE</span>
-      </div>
-      <div class="roadmap-eyebrow-line"></div>
-    </div>
-
-    <h2 class="roadmap-main-title">Get a full roadmap in one sitting</h2>
-
-    <!-- White Card Container -->
-    <div class="roadmap-card">
-      <div class="roadmap-img-wrap">
-        <img src="/images/deck-table.jpg" alt="The AMP Deck cards on table during a strategy session"
-          class="roadmap-img">
-      </div>
-
-      <div class="roadmap-content-col">
-        <h3 class="roadmap-card-title">What you walk out with</h3>
-
-        <p class="roadmap-p roadmap-intro">
-          This isn't a workshop or a vague strategy chat.<br>
-          It's a 90 to 110 minute working session, run by AMP's Brand Strategist Ash Murrell directly, that ends with a
-          written summary in your inbox within 24 hours.
-        </p>
-
-        <div class="roadmap-leave-block">
-          <p class="roadmap-leave-heading">What you leave with:</p>
-          <ul class="roadmap-leave-list">
-            <li>a complete map of your business across all six stages</li>
-            <li>the one threat doing the most damage, named plainly</li>
-            <li>the two or three systems that fix it, and why</li>
-            <li>a 90-day build sequence</li>
-            <li>a written summary within 24 hours.</li>
-          </ul>
-        </div>
-
-        <p class="roadmap-p roadmap-pricing">
-          Price: $750. Guarantee: if the session doesn't give real clarity, the full fee credits toward anything built
-          with AMP in the next 60 days.
-        </p>
-      </div>
-    </div>
-
-    <!-- Bottom Section Piece -->
-    <div class="roadmap-bottom">
-      <p class="roadmap-availability-callout">
-        We run a small number of sessions each month so each one gets full attention. Live availability is on the
-        booking page.
-      </p>
-      <div class="roadmap-cta-wrap">
-        <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer"
-          class="btn-roadmap-book">
-          <span>Book your session</span>
-          <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="btn-arrow" aria-hidden="true">
-            <path
-              d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z" />
-          </svg>
+      <p class="sales-hero-for">For established service businesses, trades, manufacturers and B2B companies ready to grow beyond referrals.</p>
+      <div class="sales-actions">
+        <a href="{{ booking }}" target="_blank" rel="noopener noreferrer" class="hero-btn-primary">
+          <span>Book a call</span>
+          {{ arrow | safe }}
         </a>
+        <a href="#proof" class="sales-text-link">See it in action ↓</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Section: Buy the Deck (Standalone Product) -->
-<section class="section-buy-deck" id="standalone">
+<script>
+  // Hero wall: fade it in once, as a whole, when its images are ready (or after 2.5s at most),
+  // instead of letting each photo and strip pop in as it arrives. Only an image still loading at that point fades in by itself.
+  (() => {
+    const wall = document.querySelector('[data-hero-wall]');
+    if (!wall) return;
+    const imgs = [...wall.querySelectorAll('img')];
+    const ready = Promise.all(imgs.map(img => (img.decode ? img.decode() : Promise.resolve()).catch(() => {})));
+    const timeout = new Promise(r => setTimeout(r, 2500));
+    Promise.race([ready, timeout]).then(() => requestAnimationFrame(() => {
+      imgs.filter(img => !img.complete).forEach(img => {
+        img.classList.add('is-late');
+        img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+      });
+      wall.classList.add('is-ready');
+    }));
+  })();
+</script>
+<noscript><style>.sales-hero-wall { opacity: 1; }</style></noscript>
+
+<!-- 2. The problem: the best project stuck in a camera roll -->
+<section class="sales-section is-cream sales-problem" id="problem">
   <div class="container">
-    <div class="trydeck-eyebrow-row">
-      <div class="trydeck-eyebrow-badge">
-        <span class="trydeck-eyebrow-dot"></span>
-        <span>BUY THE DECK</span>
-      </div>
-      <div class="trydeck-eyebrow-line"></div>
-    </div>
-
-    <div class="trydeck-layout">
-      <div class="trydeck-content">
-        <h2 class="trydeck-title">Want to try it for yourself first?</h2>
-        <p class="trydeck-subtitle">The AMP Deck is also sold as a standalone product.</p>
-        <p class="trydeck-desc">
-          The same diagnostic, run at your own table, on your own time.<br>
-          Every system card linking to more detail on how to build it. If it<br>
-          surfaces something worth a second set of eyes, booking a session<br>
-          is the natural next step.
-        </p>
-      </div>
-
-      <div class="trydeck-action">
-        <a href="https://theampdeck.com/" target="_blank" rel="noopener noreferrer" class="btn-trydeck">
-          <span class="btn-trydeck-text">Get the Deck</span>
-          <span class="btn-trydeck-sep"></span>
-          <span class="btn-trydeck-arrow">
-            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" aria-hidden="true">
-              <path
-                d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z" />
-            </svg>
-          </span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Proof (Testimonials) -->
-<section class="section-proof" id="proof">
-  <div class="container">
-    <div class="proof-eyebrow-row">
-      <div class="proof-eyebrow-badge">
-        <span class="proof-eyebrow-dot"></span>
-        <span>WHAT OUR CLIENTS SAY</span>
-      </div>
-      <div class="proof-eyebrow-line"></div>
-    </div>
-
-    <h2 class="proof-main-title">
-      Thoughts and notes<br>
-      from our <span class="proof-title-tag">Clients.</span>
-    </h2>
-
-    <!-- Dark Spruce Container Box -->
-    <div class="proof-dark-box">
-      <div class="proof-cards-grid">
-        <!-- Testimonial 1: Justin Davidson -->
-        <div class="proof-column">
-          <div class="proof-card-eyebrow">
-            <span class="proof-card-dot"></span>
-            <span>TESTIMONIALS</span>
-            <div class="proof-card-line"></div>
-          </div>
-          <div class="proof-card proof-card-amber">
-            <div class="proof-author-header">
-              <img src="/images/justin-davidson.jpg" alt="Justin Davidson" class="proof-avatar">
-              <h3 class="proof-author-name">Justin Davidson</h3>
-            </div>
-            <div class="proof-author-company">Quinte Smart homes</div>
-            <p class="proof-quote">
-              "Before working with AMP, figuring out our next steps felt overwhelming. When I was asked about the
-              direction we wanted to take, I had dozens of different ideas bouncing around in my head all at once and
-              every direction possible. Using the Amp deck of cards completely transformed our planning process. The
-              cards allowed us to instantly simplify concepts, organize scattered thoughts into clear categories, and
-              highlight key areas where we needed improvement. Most importantly, it boiled everything down into the
-              precise, focused campaign our business actually required. Thanks to Amp, we went from creative chaos to
-              total strategic clarity. I am now completely confident that we are executing what is best for our
-              business."
-            </p>
-          </div>
-        </div>
-
-        <!-- Testimonial 2: Tony Chastik -->
-        <div class="proof-column">
-          <div class="proof-card-eyebrow">
-            <span class="proof-card-dot"></span>
-            <span>TESTIMONIALS</span>
-            <div class="proof-card-line"></div>
-          </div>
-          <div class="proof-card proof-card-rust">
-            <div class="proof-author-header">
-              <img src="/images/review-tony.webp" alt="Tony Chastik" class="proof-avatar">
-              <h3 class="proof-author-name">Tony Chastik</h3>
-            </div>
-            <div class="proof-author-company">ChasTech Inc</div>
-            <p class="proof-quote">
-              "Honestly, doing The Deck was the most valuable thing I've done to get a real read on my business. It was
-              super straightforward and helped me spot weaknesses I had no idea were even issues. It completely shifted
-              my focus from the setbacks I imagined to the ones actually holding me back. At the end of it all, I left
-              with a clear, actionable plan for getting people interested in my service, building trust, and growing."
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Objections (FAQ) -->
-<section class="section-faq" id="faq">
-  <div class="container">
-    <div class="faq-eyebrow-row">
-      <div class="faq-eyebrow-badge">
-        <span class="faq-eyebrow-dot"></span>
-        <span>FREQUENTLY ASKED QUESTIONS</span>
-      </div>
-      <div class="faq-eyebrow-line"></div>
-    </div>
-
-    <div class="faq-deck-header">
+    <div class="sales-problem-grid">
       <div>
-        <h2 class="faq-main-title">
-          We get asked<br>
-          this all the time
-        </h2>
-        <p class="faq-deck-intro">Pick a card. Every one is a real objection we hear before a session.</p>
-      </div>
-      <div class="faq-deck-controls">
-        <span class="faq-deck-count" id="faqDeckCount" aria-live="polite">0 / 6 flipped</span>
-        <button class="faq-deck-flip-all" id="faqDeckFlipAll" type="button">Flip all</button>
-      </div>
-    </div>
-
-    <!-- Card Deck: click a card to flip between question and answer -->
-    <div class="faq-deck" id="faqDeck">
-      <!-- FAQ 1 -->
-      <button class="faq-card" type="button" aria-pressed="false">
-        <span class="faq-card-inner">
-          <span class="faq-card-face faq-card-front">
-            <span class="faq-card-corner">Question</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Burned before</span>
-            <span class="faq-card-question">I've tried things like this before and nothing changed.</span>
-            <span class="faq-card-hint">Flip for the answer ↻</span>
-            <span class="faq-card-stage"><span>Growth</span></span>
-          </span>
-          <span class="faq-card-face faq-card-back">
-            <span class="faq-card-corner">Answer</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Burned before</span>
-            <span class="faq-card-answer">Diagnosis-first is the whole point; most things fail because they solve the wrong problem.</span>
-          </span>
-        </span>
-      </button>
-
-      <!-- FAQ 2 -->
-      <button class="faq-card" type="button" aria-pressed="false">
-        <span class="faq-card-inner">
-          <span class="faq-card-face faq-card-front">
-            <span class="faq-card-corner">Question</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Already diagnosed</span>
-            <span class="faq-card-question">I already know what our problem is!</span>
-            <span class="faq-card-hint">Flip for the answer ↻</span>
-            <span class="faq-card-stage"><span>Interest</span></span>
-          </span>
-          <span class="faq-card-face faq-card-back">
-            <span class="faq-card-corner">Answer</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Already diagnosed</span>
-            <span class="faq-card-answer">Good, use the session to confirm it or find what's underneath it.</span>
-          </span>
-        </span>
-      </button>
-
-      <!-- FAQ 3 -->
-      <button class="faq-card" type="button" aria-pressed="false">
-        <span class="faq-card-inner">
-          <span class="faq-card-face faq-card-front">
-            <span class="faq-card-corner">Question</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Pitch-wary</span>
-            <span class="faq-card-question">Is this just going to be a pitch for AMP's services?</span>
-            <span class="faq-card-hint">Flip for the answer ↻</span>
-            <span class="faq-card-stage"><span>Trust</span></span>
-          </span>
-          <span class="faq-card-face faq-card-back">
-            <span class="faq-card-corner">Answer</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Pitch-wary</span>
-            <span class="faq-card-answer">No, the session's only job is the diagnosis; what you build after is a separate, optional conversation.</span>
-          </span>
-        </span>
-      </button>
-
-      <!-- FAQ 4 -->
-      <button class="faq-card" type="button" aria-pressed="false">
-        <span class="faq-card-inner">
-          <span class="faq-card-face faq-card-front">
-            <span class="faq-card-corner">Question</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Card skeptic</span>
-            <span class="faq-card-question">Can a deck of cards actually tell me anything about my business?</span>
-            <span class="faq-card-hint">Flip for the answer ↻</span>
-            <span class="faq-card-stage"><span>Attention</span></span>
-          </span>
-          <span class="faq-card-face faq-card-back">
-            <span class="faq-card-corner">Answer</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Card skeptic</span>
-            <span class="faq-card-answer">The cards don't tell you anything, they give the knowledge you already have somewhere to land.</span>
-          </span>
-        </span>
-      </button>
-
-      <!-- FAQ 5 -->
-      <button class="faq-card" type="button" aria-pressed="false">
-        <span class="faq-card-inner">
-          <span class="faq-card-face faq-card-front">
-            <span class="faq-card-corner">Question</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Needs time</span>
-            <span class="faq-card-question">What if I need time to think about it after?</span>
-            <span class="faq-card-hint">Flip for the answer ↻</span>
-            <span class="faq-card-stage"><span>Conversion</span></span>
-          </span>
-          <span class="faq-card-face faq-card-back">
-            <span class="faq-card-corner">Answer</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Needs time</span>
-            <span class="faq-card-answer">Every session ends with a written summary and no hard close.</span>
-          </span>
-        </span>
-      </button>
-
-      <!-- FAQ 6 -->
-      <button class="faq-card" type="button" aria-pressed="false">
-        <span class="faq-card-inner">
-          <span class="faq-card-face faq-card-front">
-            <span class="faq-card-corner">Question</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Has an agency</span>
-            <span class="faq-card-question">What if I already have a marketing team or agency?</span>
-            <span class="faq-card-hint">Flip for the answer ↻</span>
-            <span class="faq-card-stage"><span>Delivery</span></span>
-          </span>
-          <span class="faq-card-face faq-card-back">
-            <span class="faq-card-corner">Answer</span>
-            <img class="faq-card-logo" src="/images/amp-logo.png" alt="" aria-hidden="true">
-            <span class="faq-card-tag">Has an agency</span>
-            <span class="faq-card-answer faq-card-answer--long">Even better. The session doesn't replace them, it tells them where to aim. Most teams are executing well on the wrong stage, because nobody's mapped the client journey end to end. You walk out with a diagnosis your team can build against, and a written summary you can hand straight to them. If they're good, they'll be glad someone finally named the problem.</span>
-          </span>
-        </span>
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Services ("What happens after the diagnosis...") -->
-<section class="section-services" id="services">
-  <div class="container">
-    <div class="services-eyebrow-row">
-      <div class="services-eyebrow-badge">
-        <span class="services-eyebrow-dot"></span>
-        <span>AMP SERVICES</span>
-      </div>
-      <div class="services-eyebrow-line"></div>
-    </div>
-
-    <div class="services-header-row">
-      <h2 class="services-main-title">
-        What happens after<br>
-        <span class="services-title-tag">the diagnosis...</span>
-      </h2>
-      <div class="services-header-aside">
-        <p>
-          Every one of these starts from the same place:<br>
-          a clear diagnosis of what's actually broken.
+        <div class="sales-eyebrow"><span>THE PROBLEM</span></div>
+        <h2 class="sales-title">Your best sales asset is sitting in a few <span class="sales-mark is-ink">phone photos.</span></h2>
+        <p class="sales-intro">
+          The project that changed a customer's day. The job that proves you are the right call. It lives in a few
+          phone photos and a happy text message, and nobody else ever sees it.
         </p>
+        <p class="sales-kicker">Built once. Deployed everywhere. Still working long after the cameras pack up.</p>
       </div>
-    </div>
-
-    <!-- 4 Services Rows -->
-    <div class="services-table">
-      <!-- Row 1: Strategy -->
-      <a href="/services/#engine" class="services-row">
-        <div class="services-row-label">Strategy</div>
-        <div class="services-row-desc">
-          Positioning, messaging, and the roadmap that ties it together.
+      <!-- An iPhone open on the camera roll, with the customer's thank-you text arriving as a notification -->
+      <div class="sales-phone" aria-hidden="true">
+        <div class="sales-phone-screen">
+          <div class="sales-phone-status">
+            <span>9:41</span>
+            <span class="sales-phone-icons">
+              <svg viewBox="0 0 18 12" width="17" height="11"><rect y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" width="3" height="12" rx="1"/></svg>
+              <svg viewBox="0 0 16 12" width="15" height="11"><path d="M8 2.5c2.3 0 4.4.9 6 2.4l1.2-1.3A10.4 10.4 0 0 0 8 .7 10.4 10.4 0 0 0 .8 3.6L2 4.9a8.6 8.6 0 0 1 6-2.4Zm0 3.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.8 6.8 0 0 0 8 4.3a6.8 6.8 0 0 0-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3Zm0 3.5c.4 0 .8.1 1.1.4L8 11.3 6.9 10c.3-.3.7-.4 1.1-.4Z"/></svg>
+              <svg viewBox="0 0 27 12" width="25" height="11"><rect x=".5" y=".5" width="23" height="11" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2"/><path d="M25 4v4c.8-.3 1.3-1 1.3-2S25.8 4.3 25 4Z" opacity=".4"/></svg>
+            </span>
+          </div>
+          <span class="sales-phone-island"></span>
+          <div class="sales-phone-notice">
+            <span class="sales-phone-app"><svg viewBox="0 0 24 24"><path d="M12 4C7 4 3 7.3 3 11.3c0 2.3 1.3 4.3 3.3 5.6-.1 1-.6 2.2-1.5 3 1.9-.1 3.4-.8 4.4-1.7.9.2 1.8.3 2.8.3 5 0 9-3.3 9-7.2S17 4 12 4Z"/></svg></span>
+            <div>
+              <p class="sales-phone-from"><b>Jess · Kitchen reno</b><span>now</span></p>
+              <p>The install looks amazing. Thank you so much!</p>
+            </div>
+          </div>
+          <div class="sales-phone-head"><b>Today</b><span>Select</span></div>
+          <div class="sales-phone-roll">
+            <img src="/images/uploads/dss00124.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/_.00_20_38_08.still001.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/dss00349.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/dsc00551.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/dss00026.jpg" alt="" loading="lazy">
+            <span class="is-video" data-time="0:14"><img src="/images/uploads/_.00_17_12_05.still002.jpg" alt="" loading="lazy"></span>
+            <img src="/images/uploads/sequence.02_11_19_12.still089.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/dsc00320.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/_.00_51_22_22.still007.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/sequence.00_28_13_00.still030.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/dsc00585.jpg" alt="" loading="lazy">
+            <span class="is-video" data-time="0:08"><img src="/images/uploads/_.00_47_20_03.still003.jpg" alt="" loading="lazy"></span>
+            <img src="/images/uploads/sequence.01_05_12_22.still040.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/sequence.02_05_07_14.still083.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/sequence-01.00_03_41_07.still005.jpg" alt="" loading="lazy">
+          </div>
+          <div class="sales-phone-dock">
+            <p class="sales-phone-views"><span>Years</span><span>Months</span><span>Days</span><span class="is-on">All Photos</span></p>
+            <p class="sales-phone-tabs">
+              <span class="is-on"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m6 17 4-5 3 3.5 2-2.5 3 4Z" fill="#fff"/></svg>Library</span>
+              <span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16.5s-4-2.4-4-5a2 2 0 0 1 4-.8 2 2 0 0 1 4 .8c0 2.6-4 5-4 5Z"/></svg>For You</span>
+              <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>Albums</span>
+              <span><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="m15 15 5 5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>Search</span>
+            </p>
+            <span class="sales-phone-home"></span>
+          </div>
         </div>
-      </a>
-
-      <!-- Row 2: Branding -->
-      <a href="/services/#engine" class="services-row">
-        <div class="services-row-label">Branding</div>
-        <div class="services-row-desc">
-          Visual identity systems built to match the strategy, not decorate it.
-        </div>
-      </a>
-
-      <!-- Row 3: True Voice -->
-      <a href="/services/#engine" class="services-row">
-        <div class="services-row-label">True Voice</div>
-        <div class="services-row-desc">
-          An authority-led content engine, built and run for you.
-        </div>
-      </a>
-
-      <!-- Row 4: Campaign Management -->
-      <a href="/services/#engine" class="services-row">
-        <div class="services-row-label">Campaign Management</div>
-        <div class="services-row-desc">
-          Coordinated campaigns across channels, aligned to what the session identified.
-        </div>
-      </a>
+        <span class="sales-phone-sticker"><span>Nobody</span><span>else</span><span>sees it</span></span>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- 3. What you get: one card per piece, each with its own animated scene -->
+{% import "component/sales-scenes.njk" as scenes %}
+<section class="sales-section is-forest" id="included">
+  <div class="container">
+    <div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+    <h2 class="sales-title">Six pieces, <span class="sales-mark">one engine.</span></h2>
+    <p class="sales-intro">
+      Each piece works on its own. Together they turn a single project into a steady flow of new leads.
+      With our sister company Mind Fusion, we handle the whole process end to end.
+    </p>
+
+    <!-- One chapter per piece: a near-full-height row, screen and text swapping sides. Only the row on screen plays -->
+    <div class="sales-chapters">
+      {%- for p in pieces %}
+      <article class="sales-chapter" data-chapter>
+        {%- if loop.index0 == 1 %}
+        {#- Hero film: the 15s Crimson Cider cut plays on a muted loop (no animated scene) -#}
+        <div class="sales-chapter-screen" aria-hidden="true"><div class="sales-show-stage sales-show-film">
+          <video class="sales-show-video" muted loop playsinline preload="none" poster="/images/sales/film/crimson-15s-poster.jpg">
+            <source src="/images/DSS_Crimson_AUDIO_15sec-ezgif.com-video-compressor.mp4" type="video/mp4">
+          </video>
+          <span class="sales-show-word">{{ p.word }}</span>
+        </div></div>
+        {%- else %}
+        <div class="sales-chapter-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene">
+{{ scenes.scene(loop.index, pieces) }}
+        </div></div></div>
+        {%- endif %}
+        <div class="sales-chapter-text">
+          <span class="sales-chapter-num">0{{ loop.index }}</span>
+          <h3 class="sales-chapter-name">{{ p.name }}</h3>
+          <p>{{ p.desc }}</p>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  // The chapter crossing the middle of the viewport is the one that plays: its scene animates (is-active)
+  // and the hero film runs; the rest dim and sit still. Reduced motion: everything stays still, poster up.
+  (() => {
+    const chapters = [...document.querySelectorAll('[data-chapter]')];
+    if (!chapters.length) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const setActive = active => chapters.forEach(chapter => {
+      const on = chapter === active;
+      if (chapter.classList.contains('is-on') === on) return;
+      chapter.classList.toggle('is-on', on);
+      const scene = chapter.querySelector('.sales-show-scene');
+      if (scene) scene.classList.toggle('is-active', on && !reduced);
+      const video = chapter.querySelector('video');
+      if (video) {
+        if (on && !reduced) { const started = video.play(); if (started && started.catch) started.catch(() => {}); } else video.pause();
+      }
+    });
+    const watch = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target);
+    }), { rootMargin: '-45% 0px -45% 0px' });
+    chapters.forEach(chapter => watch.observe(chapter));
+    // Leaving the section altogether stops whatever was playing
+    new IntersectionObserver(([entry]) => { if (!entry.isIntersecting) setActive(null); })
+      .observe(document.querySelector('.sales-chapters'));
+  })();
+</script>
+
+<!-- 4. How it works: the four phases as columns, left to right -->
+<section class="sales-section is-sand" id="how">
+  <div class="container">
+    <div class="sales-eyebrow"><span>HOW IT WORKS</span></div>
+    <h2 class="sales-title">Prove it. Produce it. Promote it.</h2>
+    <p class="sales-intro">
+      Every phase has a clear owner and a clear deliverable, from first call to first lead. Exact dates are set together at kickoff.
+    </p>
+    <div class="sales-phases">
+      {%- for st in steps %}
+      <div class="sales-phase">
+        <div class="sales-phase-photo"><img src="{{ st.img }}" alt="" loading="lazy" decoding="async"></div>
+        <span class="sales-phase-num">0{{ loop.index }}</span>
+        <h3 class="sales-phase-name">{{ st.name }}</h3>
+        <p class="sales-phase-text">{{ st.text }}</p>
+        <ul class="sales-phase-items">
+          {%- for item in st.items %}<li>{{ item }}</li>{% endfor %}
+        </ul>
+        <div class="sales-phase-meta">
+          <span>→ {{ st.out }}</span>
+        </div>
+        {%- if not loop.last %}<span class="sales-phase-arrow" aria-hidden="true">→</span>{% endif %}
+      </div>
+      {%- endfor %}
+    </div>
+
+    <h3 class="sales-subtitle">Every ad points to one place: your landing page.</h3>
+    {#- Three big words that read as one sentence, each with its funnel stage underneath -#}
+    <div class="sales-funnel">
+      <div class="sales-stage">
+        <span class="sales-stage-word">Seen.</span>
+        <span class="sales-stage-label">Top of funnel · Awareness</span>
+        <p>Short, scroll-stopping cut-downs put your work in front of the right audience for the first time.</p>
+      </div>
+      <div class="sales-stage">
+        <span class="sales-stage-word">Trusted.</span>
+        <span class="sales-stage-label">Middle of funnel · Interest</span>
+        <p>Longer edits, photos and customer moments retarget warm viewers and build trust in your work.</p>
+      </div>
+      <div class="sales-stage">
+        <span class="sales-stage-word">Booked.</span>
+        <span class="sales-stage-label">Bottom of funnel · Conversion</span>
+        <p>Direct offers send ready buyers to the landing page to book, buy or get in touch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Proof -->
+<section class="sales-section is-dark" id="proof">
+  <div class="container">
+    <div class="sales-eyebrow"><span>PROOF IN ACTION</span></div>
+    <h2 class="sales-title">We ran the full system for <span class="sales-mark">Davidson Smart Solutions.</span></h2>
+    <p class="sales-intro">
+      One project became a case study, a content library and a landing page that is now live and working for them.
+    </p>
+    {#- HEVC first (needs the full codec string, or browsers skip it), H.264 as the fallback.
+        Without JS the native controls stay and the big play button stays hidden. -#}
+    <figure class="sales-video" data-film>
+      <video controls playsinline preload="metadata" poster="/images/sales/film/crimson-poster.jpg" aria-label="Crimson Cider case study film">
+        <source src="/images/sales/film/Crimson-Cider-Case-Study.mp4" type='video/mp4; codecs="hvc1.1.6.L120.90, mp4a.40.2"'>
+        <source src="/images/sales/film/Crimson-Cider-Case-Study-h264.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="sales-video-play" hidden>
+        {#- Stepped "pixel" play triangle, drawn like the pixel arrow in the site's buttons -#}
+        <span class="sales-video-icon"><svg viewBox="0 0 12 14" fill="currentColor" aria-hidden="true"><path d="M0 0h2v14H0zM2 1h2v12H2zM4 3h2v8H4zM6 4h2v6H6zM8 5h2v4H8zM10 6h2v2h-2z"/></svg></span>
+        {#- Pixel pause bars, shown instead of the triangle once the film has been paused -#}
+        <span class="sales-video-icon is-pause"><svg viewBox="0 0 12 14" fill="currentColor" aria-hidden="true"><path d="M1 0h4v14H1zM7 0h4v14H7z"/></svg></span>
+        <span class="sales-video-label"><b data-film-title>Watch the film</b><span data-film-sub>Crimson Cider case study · 1:10</span></span>
+      </button>
+    </figure>
+    <script>
+      // Big play cue over the poster: the native button is too small to notice.
+      // Paused mid-film, the cue comes back with the pause icon
+      // and where you stopped, and clicking it resumes. After the film ends, reload it so the poster and the cue come back.
+      document.querySelectorAll('[data-film]').forEach(film => {
+        const video = film.querySelector('video');
+        const play = film.querySelector('.sales-video-play');
+        const title = film.querySelector('[data-film-title]');
+        const sub = film.querySelector('[data-film-sub]');
+        const start = { title: title.textContent, sub: sub.textContent };
+        const clock = t => Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0');
+        video.controls = false;
+        play.hidden = false;
+        play.addEventListener('click', () => {
+          video.controls = true;
+          const started = video.play();
+          if (started && started.catch) started.catch(() => {});
+        });
+        video.addEventListener('play', () => {
+          film.classList.add('is-playing');
+          film.classList.remove('is-paused');
+        });
+        video.addEventListener('pause', () => {
+          if (video.ended) return;
+          film.classList.remove('is-playing');
+          film.classList.add('is-paused');
+          title.textContent = 'Paused';
+          sub.textContent = clock(video.currentTime) + ' / ' + clock(video.duration || 70) + ' · Click to resume';
+        });
+        video.addEventListener('ended', () => {
+          film.classList.remove('is-playing', 'is-paused');
+          title.textContent = start.title;
+          sub.textContent = start.sub;
+          video.controls = false;
+          video.load();
+        });
+      });
+    </script>
+    <div class="sales-stats">
+      <div class="sales-stat">
+        <span class="sales-stat-num">1</span>
+        <p>project became a full library of video, photo and ad content</p>
+      </div>
+      <div class="sales-stat">
+        <span class="sales-stat-num">3</span>
+        <p>funnel stages running at once, each with its own message</p>
+      </div>
+      <div class="sales-stat">
+        <span class="sales-stat-num">1</span>
+        <p>destination for every ad: the landing page</p>
+      </div>
+    </div>
+    <figure class="sales-quote">
+      <blockquote>
+        “Thanks to Amp, we went from creative chaos to total strategic clarity. I am now completely confident that we are
+        executing what is best for our business.”
+      </blockquote>
+      <figcaption>
+        <img src="/images/justin-davidson.jpg" alt="" width="56" height="56">
+        <span><strong>Justin Davidson</strong> Davidson Smart Solutions</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Who it's for: one dark panel, a client photo beside the headline, the fit lists and the call to action -->
+<section class="sales-section is-cream" id="fit">
+  <div class="container">
+    <div class="sales-fit">
+      <div class="sales-fit-photo"><img src="/images/strategic-content-seo.avif" alt="" loading="lazy"></div>
+      <div class="sales-fit-body">
+        <span class="sales-fit-label">Who it's for</span>
+        <h2 class="sales-fit-title">For great work nobody's seen.</h2>
+        <p class="sales-fit-lede">Built for businesses that do great work but still rely on word of mouth. If that's you, we turn one project into a <b>steady flow of new leads.</b></p>
+        <div class="sales-fit-cols">
+          <div>
+            <span class="sales-fit-label">You're a fit if</span>
+            <ul>
+              <li>You run a service business, trade, manufacturer or B2B company</li>
+              <li>You have a standout project with real results</li>
+              <li>You have a customer happy to talk about it</li>
+              <li>You are ready to grow beyond referrals</li>
+            </ul>
+          </div>
+          <div class="sales-fit-no">
+            <span class="sales-fit-label">Not yet if</span>
+            <ul>
+              <li>You don't have a finished project to show yet</li>
+              <li>You want one-off content with no plan to put it to work</li>
+              <li>You would rather run stock footage and generic ads</li>
+            </ul>
+          </div>
+        </div>
+        <div class="sales-fit-cta">
+          <a href="#cta" class="sales-fit-btn">Sounds like you? Book a call →</a>
+          <span>Not ready? Start with an AMP Deck™ session.</span>
+        </div>
+        <p class="sales-fit-line"><b>One project</b> · one story · <b>every channel</b> · new leads</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why AMP: the team as a strip of film, two rows running in opposite directions (no names, just the people) -->
+{#- Ordered so the same person never sits next to themselves, in either row or where the loop joins -#}
+{%- set crew = [] -%}
+{%- for n in ["01", "03", "04", "02", "06", "05", "08", "10", "09", "12"] %}{% set crew = (crew.push("/images/sales/team/people-" + n + ".jpg"), crew) %}{% endfor %}
+<section class="sales-section is-forest sales-crew" id="team">
+  <div class="container">
+    <div class="sales-crew-copy">
+      <div class="sales-eyebrow"><span>WHY AMP</span></div>
+      <h2 class="sales-title">We don't just make content. We build <span class="sales-gold">systems that bring in business.</span></h2>
+      <p class="sales-intro">
+        AMP Visual Media is a strategy-driven creative agency based in Belleville, Ontario. Strategy, production, web
+        and ads live under one roof, so your story stays sharp from the first interview to the final click.
+      </p>
+      <p class="sales-intro">We built this system because we have seen what real proof can do for a business. Now we build it for yours.</p>
+    </div>
+  </div>
+  <div class="sales-film" role="img" aria-label="The AMP team at work on shoots and in the studio">
+    <div class="sales-film-row"><div class="sales-film-track">{% for r in range(0, 2) %}{% for p in crew %}<figure><img src="{{ p }}" alt="" loading="lazy"></figure>{% endfor %}{% endfor %}</div></div>
+    <div class="sales-film-row is-back"><div class="sales-film-track">{% for r in range(0, 2) %}{% for p in crew | reverse %}<figure><img src="{{ p }}" alt="" loading="lazy"></figure>{% endfor %}{% endfor %}</div></div>
+  </div>
+</section>
+
+<!-- 7. Questions: cost, time and risk. Each question shows its key number before it is opened -->
+<section class="sales-section is-cream" id="questions">
+  <div class="container sales-faq-grid">
+    <div>
+      <div class="sales-eyebrow"><span>QUESTIONS</span></div>
+      <h2 class="sales-title">Cost, time and risk, answered <span class="sales-mark is-ink">up front.</span></h2>
+      <p class="sales-faq-lead">No surprises later. Here's what people ask us before they book.</p>
+      <div class="sales-faq-ask">
+        <span class="sales-faq-ask-label">Still have a question?</span>
+        <a href="mailto:hi@ampvisualmedia.com">hi@ampvisualmedia.com</a>
+        <a href="tel:+16138892770">(613) 889-2770</a>
+      </div>
+    </div>
+    <div class="sales-faq">
+      <details>
+        <summary><span class="sales-faq-num">Q.01</span><span class="sales-faq-q">What does it cost?</span><span class="sales-faq-stat"><b>$20K</b><small>Starting price, + HST</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+        <p>The full system starts at $20,000. One engagement covers the story and strategy, media production, the landing page, the ads themselves and the funnel launch. Ad spend is separate. Pricing is exclusive of HST.</p>
+      </details>
+      <details>
+        <summary><span class="sales-faq-num">Q.02</span><span class="sales-faq-q">Is ad spend included?</span><span class="sales-faq-stat"><b>Extra</b><small>Ad spend, set to your goals</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+        <p>No. We make and run the ads, but the budget you pay the ad platforms to show them is separate. It's set to your goals, so you stay in control.</p>
+      </details>
+      <details>
+        <summary><span class="sales-faq-num">Q.03</span><span class="sales-faq-q">How do we start?</span><span class="sales-faq-stat"><b>$750</b><small>AMP Deck™, credited back</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+        <p>Every engagement starts with an AMP Deck™ session ($750), so we diagnose where your pipeline is leaking before we build anything. The fee is credited toward your package when you move forward within 60 days.</p>
+      </details>
+      <details>
+        <summary><span class="sales-faq-num">Q.04</span><span class="sales-faq-q">How long does it take?</span><span class="sales-faq-stat"><b>4</b><small>Phases, dates set at kickoff</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+        <p>Four phases: Discovery, Media Day, Edit &amp; Build, then Launch &amp; Optimize. Each phase has a clear owner and deliverable, and exact dates are set together at kickoff.</p>
+      </details>
+      <details>
+        <summary><span class="sales-faq-num">Q.05</span><span class="sales-faq-q">What do we need to bring?</span><span class="sales-faq-stat"><b>1</b><small>Project + a happy customer</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+        <p>A standout project and a customer who is happy to talk about it. We plan the story, the shoot and everything after it.</p>
+      </details>
+      <details>
+        <summary><span class="sales-faq-num">Q.06</span><span class="sales-faq-q">Who does the filming?</span><span class="sales-faq-stat"><b>1</b><small>Focused shoot by Mind Fusion</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+        <p>Our sister company Mind Fusion captures the media in one focused shoot. AMP turns it into proof and gets your message in front of the people who buy.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+{% include "component/contact.njk" %}

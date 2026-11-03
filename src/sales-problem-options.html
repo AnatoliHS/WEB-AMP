@@ -1,0 +1,471 @@
+---
+layout: landing.njk
+permalink: /sales/problem-options/
+title: "Sales page | The Problem: layout options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#current" }
+  home: "#current"
+  right: { label: "Back to Sales", href: "/" }
+---
+{#- TEMPORARY comparison page for the Sales page "The Problem" section. Delete once an option is picked. -#}
+<style>
+  .po-label {
+    padding: 140px 0 26px;
+    background: var(--bg-main);
+  }
+  .po-label + .po-label { padding-top: 60px; }
+  .po-label h2 {
+    font-size: 1.5rem;
+    color: var(--text-warm-white);
+  }
+  .po-label p {
+    margin-top: 6px;
+    color: var(--text-muted);
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+  .po-label strong {
+    font-family: var(--font-mono);
+    color: var(--accent-amber);
+    margin-right: 10px;
+  }
+  .po-sep { height: 60px; background: var(--bg-main); }
+
+  /* ---------- Option A: Camera roll ---------- */
+  .pa-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 72px;
+    align-items: center;
+  }
+  .pa-phone {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 330px);
+    padding: 14px;
+    border-radius: 44px;
+    background: #16110e;
+    box-shadow: 0 40px 80px rgba(24, 20, 16, 0.28);
+    transform: rotate(3deg);
+  }
+  .pa-screen {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 9 / 18;
+    border-radius: 32px;
+    background: #f7f5f0;
+    padding: 34px 14px 22px;
+    overflow: hidden;
+  }
+  .pa-roll-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0 4px 10px;
+  }
+  .pa-roll {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+  .pa-roll img, .pa-roll span {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  .pa-roll span { background: #e2ddd2; }
+  .pa-bubble {
+    align-self: flex-start;
+    margin: auto 4px 0;
+    padding: 12px 14px;
+    border-radius: 18px 18px 18px 4px;
+    background: #e6e2da;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .pa-seen {
+    margin: 6px 6px 0;
+    font-size: 0.72rem;
+    color: rgba(24, 20, 16, 0.45);
+  }
+  .pa-sticker {
+    position: absolute;
+    left: -64px;
+    top: 120px;
+    padding: 10px 16px;
+    border-radius: var(--radius-full);
+    background: #a83c27;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    transform: rotate(-6deg);
+    box-shadow: 0 10px 24px rgba(168, 60, 39, 0.35);
+  }
+  .pa-points {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 80px;
+    border-top: 2px solid var(--text-dark);
+  }
+  .pa-points div {
+    padding: 26px 28px 0 0;
+    line-height: 1.55;
+  }
+  .pa-points div:last-child {
+    padding: 26px 28px 30px;
+    background: var(--text-dark);
+    color: var(--text-warm-white);
+  }
+  .pa-points div:last-child .sales-num { color: var(--accent-amber); }
+
+  /* ---------- Option B: Editorial rows ---------- */
+  .pb-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 80px;
+    align-items: start;
+  }
+  .pb-sticky { position: sticky; top: 130px; }
+  .pb-row {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+    padding: 34px 0;
+    border-top: 1px solid rgba(24, 20, 16, 0.15);
+  }
+  .pb-n {
+    font-family: var(--font-heading);
+    font-size: 7.5rem;
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(24, 20, 16, 0.25);
+  }
+  .pb-row p { font-size: 1.2rem; line-height: 1.5; }
+  .pb-row p strong { display: block; font-size: 1.45rem; margin-bottom: 6px; letter-spacing: -0.02em; }
+  .pb-row.is-fix {
+    margin-top: 14px;
+    padding: 34px 32px;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: #a83c27;
+    color: #fff;
+  }
+  .pb-row.is-fix .pb-n { -webkit-text-stroke-color: rgba(255, 255, 255, 0.6); }
+  .pb-kicker {
+    margin-top: 110px;
+    font-family: var(--font-heading);
+    font-size: clamp(2.4rem, 6vw, 5.4rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+  }
+  .pb-kicker span { color: rgba(24, 20, 16, 0.3); }
+
+  /* ---------- Option C: Before / after ---------- */
+  .pc-head { text-align: center; }
+  .pc-head .sales-title, .pc-head .sales-intro { margin-left: auto; margin-right: auto; }
+  .pc-compare {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+    align-items: stretch;
+    margin-top: 60px;
+  }
+  .pc-side {
+    padding: 40px;
+    border-radius: var(--radius-lg);
+  }
+  .pc-side h3 {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .pc-before {
+    border: 2px dashed rgba(24, 20, 16, 0.2);
+    color: rgba(24, 20, 16, 0.75);
+  }
+  .pc-before li { filter: grayscale(1); }
+  .pc-after {
+    background: var(--text-dark);
+    color: var(--text-warm-white);
+    box-shadow: 0 30px 70px rgba(24, 20, 16, 0.25);
+  }
+  .pc-after h3 { color: var(--accent-amber); }
+  .pc-list { list-style: none; display: grid; gap: 22px; }
+  .pc-list li { display: grid; grid-template-columns: 34px 1fr; gap: 14px; line-height: 1.5; font-size: 1.05rem; }
+  .pc-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-weight: 700;
+  }
+  .pc-before .pc-icon { background: rgba(24, 20, 16, 0.08); }
+  .pc-after .pc-icon { background: var(--accent-amber); color: var(--text-dark); }
+  .pc-arrow {
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    color: #a83c27;
+  }
+  .pc-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+  .pc-chips span {
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(245, 242, 235, 0.25);
+    font-size: 0.9rem;
+  }
+  .pc-chips span:last-child { background: #a83c27; border-color: #a83c27; }
+  .pc-kicker { text-align: center; margin: 56px auto 0; }
+
+  /* ---------- Option D: Reach map ---------- */
+  .pd-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 72px;
+    align-items: center;
+  }
+  .pd-map { position: relative; aspect-ratio: 1; max-width: 520px; width: 100%; justify-self: center; }
+  .pd-map svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .pd-tag {
+    position: absolute;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .pd-tag.is-you { left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--text-dark); color: var(--text-warm-white); }
+  .pd-tag.is-ref { left: 50%; top: 31%; transform: translateX(-50%); background: #fff; border: 1px solid rgba(24, 20, 16, 0.15); }
+  .pd-tag.is-market { left: 50%; top: 4%; transform: translateX(-50%); color: rgba(24, 20, 16, 0.55); }
+  .pd-tag.is-proof { right: -2%; bottom: 14%; background: #a83c27; color: #fff; }
+  .pd-list { list-style: none; margin-top: 34px; display: grid; gap: 18px; }
+  .pd-list li { display: grid; grid-template-columns: 44px 1fr; gap: 16px; line-height: 1.5; }
+  .pd-list .sales-num { margin: 2px 0 0; }
+  .pd-list li:last-child { padding: 18px; margin-left: -18px; border-radius: var(--radius-md); background: #fff; }
+
+  @media (max-width: 900px) {
+    .pa-grid, .pb-grid, .pd-grid { grid-template-columns: 1fr; gap: 48px; }
+    .pa-points { grid-template-columns: 1fr; }
+    .pa-points div { padding: 22px 0; }
+    .pa-sticker { left: -10px; }
+    .pb-sticky { position: static; }
+    .pb-row { grid-template-columns: 90px minmax(0, 1fr); }
+    .pb-n { font-size: 4.8rem; }
+    .pc-compare { grid-template-columns: 1fr; gap: 0; }
+    .pc-arrow { transform: rotate(90deg); padding: 14px 0; }
+  }
+</style>
+
+<!-- ===================== CURRENT ===================== -->
+<div class="po-label" id="current">
+  <div class="container">
+    <h2><strong>NOW</strong>Current version</h2>
+    <p>For reference: the three cards as they are on the sales page today.</p>
+  </div>
+</div>
+<section class="sales-section is-cream">
+  <div class="container">
+    <div class="sales-eyebrow"><span>THE PROBLEM</span></div>
+    <h2 class="sales-title">Your best sales asset is sitting in a few phone photos.</h2>
+    <p class="sales-intro">
+      The project that changed a customer's day. The job that proves you are the right call. It lives in a few
+      phone photos and a happy text message, and nobody else ever sees it.
+    </p>
+    <div class="sales-problem-grid">
+      <div class="sales-problem"><span class="sales-num">01</span><p>Referrals only reach people who already know you. Strangers need proof before they pick up the phone.</p></div>
+      <div class="sales-problem"><span class="sales-num">02</span><p>Generic ads and stock content blend in. People trust real work, real customers and real results.</p></div>
+      <div class="sales-problem is-answer"><span class="sales-num">03</span><p>The Growth System turns one real project into a story, a content library and a funnel that turns attention into leads.</p></div>
+    </div>
+    <p class="sales-kicker">Built once. Deployed everywhere. Still working long after the cameras pack up.</p>
+  </div>
+</section>
+
+<!-- ===================== OPTION A ===================== -->
+<div class="po-label" id="a">
+  <div class="container">
+    <h2><strong>A</strong>Camera roll</h2>
+    <p>Shows the problem literally: the best project stuck in a phone, with a happy message only one person read. The three points sit underneath as a ruled strip that ends on the fix.</p>
+  </div>
+</div>
+<section class="sales-section is-cream">
+  <div class="container">
+    <div class="pa-grid">
+      <div>
+        <div class="sales-eyebrow"><span>THE PROBLEM</span></div>
+        <h2 class="sales-title">Your best sales asset is sitting in a few phone photos.</h2>
+        <p class="sales-intro">
+          The project that changed a customer's day. The job that proves you are the right call. It lives in a few
+          phone photos and a happy text message, and nobody else ever sees it.
+        </p>
+      </div>
+      <div class="pa-phone" aria-hidden="true">
+        <div class="pa-screen">
+          <p class="pa-roll-title">Recents</p>
+          <div class="pa-roll">
+            <img src="/images/uploads/dss00124.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/dss00349.jpg" alt="" loading="lazy">
+            <span></span>
+            <img src="/images/uploads/dss00026.jpg" alt="" loading="lazy">
+            <span></span>
+            <img src="/images/uploads/sequence.02_11_19_12.still089.jpg" alt="" loading="lazy">
+            <span></span>
+            <img src="/images/uploads/sequence.00_28_13_00.still030.jpg" alt="" loading="lazy">
+            <span></span>
+            <span></span>
+            <span></span>
+            <img src="/images/uploads/sequence.02_05_07_14.still083.jpg" alt="" loading="lazy">
+          </div>
+          <p class="pa-bubble">The install looks amazing. Thank you so much!</p>
+          <p class="pa-seen">Read by 1 person</p>
+        </div>
+        <span class="pa-sticker">NOBODY ELSE SEES IT</span>
+      </div>
+    </div>
+    <div class="pa-points">
+      <div><span class="sales-num">01</span><p>Referrals only reach people who already know you. Strangers need proof before they pick up the phone.</p></div>
+      <div><span class="sales-num">02</span><p>Generic ads and stock content blend in. People trust real work, real customers and real results.</p></div>
+      <div><span class="sales-num">03 · THE FIX</span><p>The Growth System turns one real project into a story, a content library and a funnel that turns attention into leads.</p></div>
+    </div>
+    <p class="sales-kicker">Built once. Deployed everywhere. Still working long after the cameras pack up.</p>
+  </div>
+</section>
+
+<!-- ===================== OPTION B ===================== -->
+<div class="po-label" id="b">
+  <div class="container">
+    <h2><strong>B</strong>Editorial rows</h2>
+    <p>Magazine-style: the heading stays pinned on the left while you scroll the points on the right. Oversized outlined numbers, the fix in a solid brand-red row, and the closing line set huge across the full width.</p>
+  </div>
+</div>
+<section class="sales-section is-cream">
+  <div class="container">
+    <div class="pb-grid">
+      <div class="pb-sticky">
+        <div class="sales-eyebrow"><span>THE PROBLEM</span></div>
+        <h2 class="sales-title">Your best sales asset is sitting in a few phone photos.</h2>
+        <p class="sales-intro">
+          The project that changed a customer's day. The job that proves you are the right call. It lives in a few
+          phone photos and a happy text message, and nobody else ever sees it.
+        </p>
+      </div>
+      <div>
+        <div class="pb-row">
+          <span class="pb-n">01</span>
+          <p><strong>Referrals have a ceiling.</strong>They only reach people who already know you. Strangers need proof before they pick up the phone.</p>
+        </div>
+        <div class="pb-row">
+          <span class="pb-n">02</span>
+          <p><strong>Stock content blends in.</strong>Generic ads look like everyone else's. People trust real work, real customers and real results.</p>
+        </div>
+        <div class="pb-row is-fix">
+          <span class="pb-n">03</span>
+          <p><strong>One project, put to work.</strong>The Growth System turns one real project into a story, a content library and a funnel that turns attention into leads.</p>
+        </div>
+      </div>
+    </div>
+    <p class="pb-kicker">Built once. Deployed everywhere. <span>Still working long after the cameras pack up.</span></p>
+  </div>
+</section>
+
+<!-- ===================== OPTION C ===================== -->
+<div class="po-label" id="c">
+  <div class="container">
+    <h2><strong>C</strong>Before / after</h2>
+    <p>Turns the three points into a side-by-side: a faded, dashed "today" panel next to a solid "with the system" panel. Point 03 becomes the right-hand side, ending in a chain of what the project turns into.</p>
+  </div>
+</div>
+<section class="sales-section is-cream">
+  <div class="container">
+    <div class="pc-head">
+      <div class="sales-eyebrow"><span>THE PROBLEM</span></div>
+      <h2 class="sales-title">Your best sales asset is sitting in a few phone photos.</h2>
+      <p class="sales-intro">
+        The project that changed a customer's day. The job that proves you are the right call. It lives in a few
+        phone photos and a happy text message, and nobody else ever sees it.
+      </p>
+    </div>
+    <div class="pc-compare">
+      <div class="pc-side pc-before">
+        <h3>Today</h3>
+        <ul class="pc-list">
+          <li><span class="pc-icon">✕</span><span>Referrals only reach people who already know you. Strangers need proof before they pick up the phone.</span></li>
+          <li><span class="pc-icon">✕</span><span>Generic ads and stock content blend in. People trust real work, real customers and real results.</span></li>
+          <li><span class="pc-icon">✕</span><span>Your best project lives in a camera roll.</span></li>
+        </ul>
+      </div>
+      <div class="pc-arrow" aria-hidden="true">→</div>
+      <div class="pc-side pc-after">
+        <h3>With the Growth System</h3>
+        <ul class="pc-list">
+          <li><span class="pc-icon">✓</span><span>One real project becomes proof that strangers can see.</span></li>
+          <li><span class="pc-icon">✓</span><span>Real work, real customers and real results, cut for every ad and post.</span></li>
+          <li><span class="pc-icon">✓</span><span>A funnel that turns attention into leads.</span></li>
+        </ul>
+        <div class="pc-chips" aria-label="What one project becomes">
+          <span>Story</span><span>Content library</span><span>Funnel</span><span>Leads</span>
+        </div>
+      </div>
+    </div>
+    <p class="sales-kicker pc-kicker">Built once. Deployed everywhere. Still working long after the cameras pack up.</p>
+  </div>
+</section>
+
+<!-- ===================== OPTION D ===================== -->
+<div class="po-label" id="d">
+  <div class="container">
+    <h2><strong>D</strong>Reach map</h2>
+    <p>A simple diagram of the problem: referrals cover a small circle of people who already know you, while the market around it never hears about you. Proof is what breaks out of the circle.</p>
+  </div>
+</div>
+<section class="sales-section is-cream">
+  <div class="container pd-grid">
+    <div class="pd-map" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <defs>
+          <pattern id="pd-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="7" cy="7" r="1.6" fill="rgba(24,20,16,0.18)"/>
+          </pattern>
+          <marker id="pd-head" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L10 5 L0 10 Z" fill="#a83c27"/>
+          </marker>
+        </defs>
+        <circle cx="200" cy="200" r="196" fill="url(#pd-dots)" stroke="rgba(24,20,16,0.15)" stroke-width="1.5"/>
+        <circle cx="200" cy="200" r="88" fill="#efe8dc" stroke="var(--accent-copper)" stroke-width="2" stroke-dasharray="6 6"/>
+        <path d="M232 228 C 280 270, 320 300, 352 330" fill="none" stroke="#a83c27" stroke-width="3" marker-end="url(#pd-head)"/>
+      </svg>
+      <span class="pd-tag is-market">Strangers who need you</span>
+      <span class="pd-tag is-ref">Referrals stop here</span>
+      <span class="pd-tag is-you">Your business</span>
+      <span class="pd-tag is-proof">Proof travels further</span>
+    </div>
+    <div>
+      <div class="sales-eyebrow"><span>THE PROBLEM</span></div>
+      <h2 class="sales-title">Your best sales asset is sitting in a few phone photos.</h2>
+      <p class="sales-intro">
+        The project that changed a customer's day. The job that proves you are the right call. It lives in a few
+        phone photos and a happy text message, and nobody else ever sees it.
+      </p>
+      <ul class="pd-list">
+        <li><span class="sales-num">01</span><p>Referrals only reach people who already know you. Strangers need proof before they pick up the phone.</p></li>
+        <li><span class="sales-num">02</span><p>Generic ads and stock content blend in. People trust real work, real customers and real results.</p></li>
+        <li><span class="sales-num">03</span><p>The Growth System turns one real project into a story, a content library and a funnel that turns attention into leads.</p></li>
+      </ul>
+      <p class="sales-kicker">Built once. Deployed everywhere. Still working long after the cameras pack up.</p>
+    </div>
+  </div>
+</section>
+<div class="po-sep"></div>

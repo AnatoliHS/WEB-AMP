@@ -1,0 +1,354 @@
+---
+layout: landing.njk
+permalink: /sales/how-options/
+title: "Sales page | How It Works: layout options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#h1" }
+  home: "#h1"
+  right: { label: "Back to Sales", href: "/sales/#how" }
+# The four phases, with a short list of what's in each (the capabilities-style sub-list)
+phases:
+  - name: "Discovery"
+    owner: "AMP"
+    text: "An AMP Deck™ session finds where your pipeline leaks. Then we pick the project and plan the story and the shoot."
+    out: "A roadmap and a shoot plan"
+    items: ["AMP Deck™ session", "Pipeline audit", "Project pick", "Story plan", "Shoot plan"]
+    img: "/images/deck.avif"
+  - name: "Media Day"
+    owner: "Mind Fusion"
+    text: "Mind Fusion, our production partner, captures the hero video, ad footage, behind the scenes and photography in one focused shoot."
+    out: "A raw content library"
+    items: ["Hero video", "Customer interview", "Ad footage", "Behind the scenes", "Photography"]
+    img: "/images/sales/hero-2-poster.jpg"
+  - name: "Edit & Build"
+    owner: "AMP"
+    text: "We write the case study and bring the hero film, cut-downs, frame grabs and landing page together."
+    out: "Final assets and a live page"
+    items: ["Case study", "Hero film edit", "Cut-downs", "Frame grabs", "Landing page"]
+    img: "/images/sales/how/industry-professionals.jpg"
+  - name: "Launch & Optimize"
+    owner: "AMP"
+    text: "Ads go live across the funnel. We track leads and refine what is working as results come in."
+    out: "A running funnel and reporting"
+    items: ["Paid ads", "Retargeting", "Lead tracking", "Reporting", "Refinement"]
+    img: "/images/bee-strong-web.avif"
+---
+{#- TEMPORARY comparison page: five simpler, capabilities-style layouts for How It Works (the call sheet part).
+    The funnel block underneath it on the sales page stays as it is. Delete once one is picked. -#}
+{%- macro head() -%}
+<div class="sales-eyebrow"><span>HOW IT WORKS</span></div>
+<h2 class="sales-title">Prove it. Produce it. Promote it.</h2>
+<p class="sales-intro">Four phases, each with a clear owner and a clear deliverable, from first call to first lead.</p>
+{%- endmacro -%}
+{%- macro meta(p) -%}
+<span class="hw-meta"><span class="hw-owner{% if p.owner == 'Mind Fusion' %} is-mf{% endif %}">{{ p.owner }}</span><span>→ {{ p.out }}</span></span>
+{%- endmacro -%}
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+
+  /* Shared bits */
+  .hw { --ink: #0F2B2C; --rule: rgba(15, 43, 44, 0.22); }
+  .hw-body { margin-top: 56px; }
+  .hw-num { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; color: #A83C27; }
+  .hw-name { font-family: var(--font-heading); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: var(--ink); }
+  .hw-items { list-style: none; padding: 0; margin: 0; }
+  .hw-items li { font-size: 1rem; line-height: 1.85; color: var(--ink); }
+  .hw-text { font-size: 1.05rem; line-height: 1.55; color: rgba(15, 43, 44, 0.78); max-width: 42ch; }
+  .hw-meta { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+  .hw-owner { padding: 5px 10px; border-radius: 4px; background: var(--ink); color: #DFD4A7; }
+  .hw-owner.is-mf { background: #A83C27; color: #f4efe6; }
+  .hw img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- 1: Editorial rows ---------- */
+  /* Closest to the reference: one row per phase, giant name, services list, description. A photo slides in on hover. */
+  .h1-row { position: relative; display: grid; grid-template-columns: 70px minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 1fr); gap: 32px; padding: 40px 0; border-top: 1px solid var(--rule); align-items: start; }
+  .h1-row:last-child { border-bottom: 1px solid var(--rule); }
+  .h1-row .hw-num { padding-top: 14px; }
+  .h1-row .hw-name { font-size: clamp(2.6rem, 5.4vw, 5rem); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s; }
+  .h1-side { display: grid; gap: 18px; }
+  .h1-photo { position: absolute; z-index: 2; right: 0; top: 50%; width: 240px; aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; box-shadow: 8px 8px 0 #A83C27; opacity: 0; transform: translate(20px, -50%) rotate(3deg); transition: opacity 0.3s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; }
+  @media (hover: hover) {
+    .h1-row:hover .hw-name { transform: translateX(14px); color: #A83C27; }
+    .h1-row:hover .h1-photo { opacity: 1; transform: translate(0, -50%) rotate(3deg); }
+    .h1-row:hover .h1-side { opacity: 0.15; }
+    .h1-side { transition: opacity 0.3s; }
+  }
+
+  /* ---------- 2: Accordion ---------- */
+  /* Big names stacked; one phase open at a time shows its list, text and photo. Native <details>, no script. */
+  .h2-item { border-top: 1px solid var(--rule); }
+  .h2-item:last-child { border-bottom: 1px solid var(--rule); }
+  .h2-item summary { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 24px; padding: 26px 0; cursor: pointer; list-style: none; }
+  .h2-item summary::-webkit-details-marker { display: none; }
+  .h2-item .hw-name { font-size: clamp(2.2rem, 4.6vw, 4.2rem); transition: color 0.3s; }
+  .h2-item summary:hover .hw-name, .h2-item[open] .hw-name { color: #A83C27; }
+  .h2-plus { position: relative; width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--ink); }
+  .h2-plus::before, .h2-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2px; background: var(--ink); transform: translate(-50%, -50%); transition: transform 0.3s; }
+  .h2-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .h2-item[open] .h2-plus { background: var(--ink); }
+  .h2-item[open] .h2-plus::before, .h2-item[open] .h2-plus::after { background: #DFD4A7; transform: translate(-50%, -50%) rotate(180deg); }
+  .h2-panel { display: grid; grid-template-columns: 70px minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1fr); gap: 32px; padding: 0 0 36px; animation: h2-in 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  .h2-panel > :first-child { grid-column: 2; }
+  .h2-copy { display: grid; gap: 18px; align-content: start; }
+  .h2-photo { aspect-ratio: 16 / 10; border-radius: 6px; overflow: hidden; }
+  @keyframes h2-in { from { opacity: 0; transform: translateY(-8px); } }
+
+  /* ---------- 3: Sticky photo ---------- */
+  /* The photo stays pinned on the left and swaps as each phase scrolls past on the right */
+  .h3-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; }
+  .h3-pin { position: sticky; top: 110px; height: calc(100svh - 170px); max-height: 640px; border-radius: 8px; overflow: hidden; box-shadow: 10px 10px 0 #0F2B2C; }
+  .h3-pin img { position: absolute; inset: 0; opacity: 0; transform: scale(1.06); transition: opacity 0.6s, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  .h3-pin img.is-on { opacity: 1; transform: none; }
+  .h3-count { position: absolute; z-index: 2; left: 18px; bottom: 16px; padding: 6px 12px; border-radius: 4px; background: #0F2B2C; color: #DFD4A7; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; }
+  .h3-step { min-height: 62svh; display: flex; flex-direction: column; justify-content: center; gap: 22px; border-top: 1px solid var(--rule); opacity: 0.3; transition: opacity 0.4s; }
+  .h3-step.is-on { opacity: 1; }
+  .h3-step .hw-name { font-size: clamp(2.4rem, 4.4vw, 4rem); }
+  .h3-step .hw-items { display: flex; flex-wrap: wrap; gap: 8px; }
+  .h3-step .hw-items li { padding: 4px 12px; border: 1px solid var(--rule); border-radius: var(--radius-full); font-size: 0.9rem; line-height: 1.5; }
+
+  /* ---------- 4: Four columns ---------- */
+  /* The whole process at a glance: four tall columns side by side, photo on top, arrows carrying you across */
+  .h4-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .h4-col { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 28px 26px 32px; border-left: 1px solid var(--rule); transition: background-color 0.3s; }
+  .h4-col:first-child { border-left: 0; }
+  .h4-col:hover { background: rgba(15, 43, 44, 0.05); }
+  /* Hover: the photo lifts off a hard burnt-orange shadow (like the site's buttons), zooms a touch inside its frame, and the name turns burnt orange */
+  .h4-photo { aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; box-shadow: 0 0 0 #A83C27; transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+  .h4-photo img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .h4-col .hw-name { transition: color 0.3s; }
+  .h4-col:hover .h4-photo { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 #A83C27; }
+  .h4-col:hover .h4-photo img { transform: scale(1.06); }
+  .h4-col:hover .hw-name { color: #A83C27; }
+  .h4-col .hw-name { font-size: clamp(1.7rem, 2.4vw, 2.3rem); }
+  .h4-col .hw-items { padding-top: 14px; border-top: 1px dashed var(--rule); }
+  .h4-col .hw-meta { margin-top: auto; }
+  .h4-arrow { position: absolute; z-index: 2; right: -15px; top: 50%; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 4px; background: #A83C27; color: #f4efe6; }
+  .h4-col:last-child .h4-arrow { display: none; }
+
+  /* ---------- 5: Big list + panel ---------- */
+  /* Giant phase names on the left act as tabs; the panel on the right shows the active one (hover or tap) */
+  .h5-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+  .h5-tabs { display: grid; }
+  .h5-tab { display: flex; align-items: baseline; gap: 18px; padding: 14px 0; border: 0; border-top: 1px solid var(--rule); background: none; text-align: left; cursor: pointer; }
+  .h5-tab:last-child { border-bottom: 1px solid var(--rule); }
+  .h5-tab .hw-name { font-size: clamp(2.2rem, 4.6vw, 4.4rem); color: rgba(15, 43, 44, 0.28); transition: color 0.3s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .h5-tab.is-on .hw-name { color: var(--ink); transform: translateX(10px); }
+  .h5-tab.is-on .hw-num { color: #A83C27; }
+  .h5-tab:focus-visible { outline: 3px solid #A83C27; outline-offset: 4px; }
+  .h5-panel { position: sticky; top: 110px; display: none; padding: 26px; border-radius: 8px; background: #0F2B2C; color: #f4efe6; box-shadow: 10px 10px 0 #A83C27; }
+  .h5-panel.is-on { display: grid; gap: 22px; animation: h2-in 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  .h5-photo { aspect-ratio: 16 / 10; border-radius: 4px; overflow: hidden; }
+  .h5-panel .hw-text { color: rgba(244, 239, 230, 0.8); }
+  .h5-panel .hw-items { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+  .h5-panel .hw-items li { color: #f4efe6; border-top: 1px solid rgba(244, 239, 230, 0.14); padding: 6px 0; line-height: 1.4; }
+  .h5-panel .hw-meta { color: #DFD4A7; }
+  .h5-panel .hw-owner { background: #DFD4A7; color: #0F2B2C; }
+  .h5-panel .hw-owner.is-mf { background: #A83C27; color: #f4efe6; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .h2-panel, .h5-panel.is-on { animation: none; }
+    .h4-photo, .h4-photo img { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .h1-row { grid-template-columns: 1fr; gap: 16px; padding: 30px 0; }
+    .h1-row .hw-num { padding-top: 0; }
+    .h1-photo { display: none; }
+    .h2-item summary { grid-template-columns: 1fr auto; }
+    .h2-item summary .hw-num { display: none; }
+    .h2-panel { grid-template-columns: 1fr; gap: 20px; }
+    .h2-panel > :first-child { grid-column: auto; }
+    .h3-grid { grid-template-columns: 1fr; gap: 0; }
+    /* Phones: a pinned photo would sit over the text being read, so it's dropped */
+    .h3-pin { display: none; }
+    .h3-step { min-height: 0; padding: 40px 0; opacity: 1; }
+    .h4-grid { grid-template-columns: 1fr 1fr; }
+    .h4-col { padding: 24px 18px; }
+    .h4-col:nth-child(odd) { border-left: 0; padding-left: 0; }
+    .h4-col:nth-child(n + 3) { border-top: 1px solid var(--rule); }
+    .h4-arrow { display: none; }
+    .h5-grid { grid-template-columns: 1fr; gap: 28px; }
+    .h5-panel { position: static; }
+  }
+
+  @media (max-width: 600px) {
+    .h4-grid { grid-template-columns: 1fr; }
+    .h4-col, .h4-col:nth-child(odd) { border-left: 0; padding: 26px 0; }
+    .h4-col + .h4-col { border-top: 1px solid var(--rule); }
+  }
+</style>
+
+<!-- ===================== 1 ===================== -->
+<div class="po-label" id="h1">
+  <div class="container">
+    <h2><strong>1</strong>Editorial rows</h2>
+    <p>Closest to Reform's capabilities: one row per phase with a giant name, the list of what's in it, and a one-line description. Hover a row and the name nudges over in burnt orange while a photo from that phase slides in. Everything is visible at once, with no table to read.</p>
+  </div>
+</div>
+<section class="sales-section is-sand hw">
+  <div class="container">
+    {{ head() }}
+    <div class="hw-body">
+      {%- for p in phases %}
+      <div class="h1-row">
+        <span class="hw-num">0{{ loop.index }}</span>
+        <h3 class="hw-name">{{ p.name }}</h3>
+        <ul class="hw-items">{% for i in p.items %}<li>{{ i }}</li>{% endfor %}</ul>
+        <div class="h1-side"><p class="hw-text">{{ p.text }}</p>{{ meta(p) }}</div>
+        <div class="h1-photo" aria-hidden="true"><img src="{{ p.img }}" alt="" loading="lazy"></div>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2 ===================== -->
+<div class="po-label" id="h2">
+  <div class="container">
+    <h2><strong>2</strong>Accordion</h2>
+    <p>The tidiest version: just the four big names stacked, with a plus button on each. Open one and its list, description and photo unfold underneath (one at a time). The first starts open so people see what's inside.</p>
+  </div>
+</div>
+<section class="sales-section is-sand hw">
+  <div class="container">
+    {{ head() }}
+    <div class="hw-body">
+      {%- for p in phases %}
+      <details class="h2-item" name="how-phase"{% if loop.first %} open{% endif %}>
+        <summary><span class="hw-num">0{{ loop.index }}</span><h3 class="hw-name">{{ p.name }}</h3><span class="h2-plus" aria-hidden="true"></span></summary>
+        <div class="h2-panel">
+          <ul class="hw-items">{% for i in p.items %}<li>{{ i }}</li>{% endfor %}</ul>
+          <div class="h2-copy"><p class="hw-text">{{ p.text }}</p>{{ meta(p) }}</div>
+          <div class="h2-photo"><img src="{{ p.img }}" alt="" loading="lazy"></div>
+        </div>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3 ===================== -->
+<div class="po-label" id="h3">
+  <div class="container">
+    <h2><strong>3</strong>Sticky photo</h2>
+    <p>Story-style: a large photo stays pinned on the left while you scroll through the phases on the right, and the photo crossfades to match the phase you're reading. The services become small pills. It takes more scrolling, but each phase gets the stage to itself.</p>
+  </div>
+</div>
+<section class="sales-section is-sand hw" data-sticky>
+  <div class="container">
+    {{ head() }}
+    <div class="hw-body h3-grid">
+      <div class="h3-pin" aria-hidden="true">
+        {%- for p in phases %}<img src="{{ p.img }}" alt=""{% if loop.first %} class="is-on"{% endif %} loading="lazy">{%- endfor %}
+        <span class="h3-count">PHASE <b data-count>01</b> / 04</span>
+      </div>
+      <div>
+        {%- for p in phases %}
+        <div class="h3-step{% if loop.first %} is-on{% endif %}">
+          <span class="hw-num">0{{ loop.index }}</span>
+          <h3 class="hw-name">{{ p.name }}</h3>
+          <p class="hw-text">{{ p.text }}</p>
+          <ul class="hw-items">{% for i in p.items %}<li>{{ i }}</li>{% endfor %}</ul>
+          {{ meta(p) }}
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4 ===================== -->
+<div class="po-label" id="h4">
+  <div class="container">
+    <h2><strong>4</strong>Four columns</h2>
+    <p>The whole process at a glance: four columns side by side, each with a photo, name, description and list, and small burnt-orange arrows carrying you from one phase to the next. Hover a column and its photo lifts onto a burnt-orange shadow while the name turns orange. The most compact option.</p>
+  </div>
+</div>
+<section class="sales-section is-sand hw">
+  <div class="container">
+    {{ head() }}
+    <div class="hw-body h4-grid">
+      {%- for p in phases %}
+      <div class="h4-col">
+        <div class="h4-photo"><img src="{{ p.img }}" alt="" loading="lazy"></div>
+        <span class="hw-num">0{{ loop.index }}</span>
+        <h3 class="hw-name">{{ p.name }}</h3>
+        <p class="hw-text">{{ p.text }}</p>
+        <ul class="hw-items">{% for i in p.items %}<li>{{ i }}</li>{% endfor %}</ul>
+        {{ meta(p) }}
+        <span class="h4-arrow" aria-hidden="true">→</span>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5 ===================== -->
+<div class="po-label" id="h5">
+  <div class="container">
+    <h2><strong>5</strong>Big list + panel</h2>
+    <p>Giant phase names on the left work as tabs: hover (or tap) one and it darkens and nudges over, while a dark green card on the right shows that phase's photo, description and services. Bold type like the reference, with the detail kept in one tidy card.</p>
+  </div>
+</div>
+<section class="sales-section is-sand hw" data-tabs>
+  <div class="container">
+    {{ head() }}
+    <div class="hw-body h5-grid">
+      <div class="h5-tabs" role="tablist">
+        {%- for p in phases %}
+        <button type="button" class="h5-tab{% if loop.first %} is-on{% endif %}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-controls="h5-p{{ loop.index }}"><span class="hw-num">0{{ loop.index }}</span><span class="hw-name">{{ p.name }}</span></button>
+        {%- endfor %}
+      </div>
+      <div>
+        {%- for p in phases %}
+        <div class="h5-panel{% if loop.first %} is-on{% endif %}" id="h5-p{{ loop.index }}" role="tabpanel">
+          <div class="h5-photo"><img src="{{ p.img }}" alt="" loading="lazy"></div>
+          <p class="hw-text">{{ p.text }}</p>
+          <ul class="hw-items">{% for i in p.items %}<li>{{ i }}</li>{% endfor %}</ul>
+          {{ meta(p) }}
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height: 120px; background: var(--bg-main);"></div>
+
+<script>
+  // 3: swap the pinned photo to the phase in the middle of the screen
+  document.querySelectorAll('[data-sticky]').forEach(section => {
+    const photos = [...section.querySelectorAll('.h3-pin img')];
+    const steps = [...section.querySelectorAll('.h3-step')];
+    const count = section.querySelector('[data-count]');
+    const seen = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const i = steps.indexOf(entry.target);
+        steps.forEach((s, j) => s.classList.toggle('is-on', j === i));
+        photos.forEach((p, j) => p.classList.toggle('is-on', j === i));
+        count.textContent = `0${i + 1}`;
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach(s => seen.observe(s));
+  });
+
+  // 5: hover or tap a phase name to show its panel
+  document.querySelectorAll('[data-tabs]').forEach(section => {
+    const tabs = [...section.querySelectorAll('.h5-tab')];
+    const panels = [...section.querySelectorAll('.h5-panel')];
+    function show(i) {
+      tabs.forEach((t, j) => { t.classList.toggle('is-on', j === i); t.setAttribute('aria-selected', j === i); });
+      panels.forEach((p, j) => p.classList.toggle('is-on', j === i));
+    }
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => show(i));
+      t.addEventListener('mouseenter', () => show(i));
+    });
+  });
+</script>

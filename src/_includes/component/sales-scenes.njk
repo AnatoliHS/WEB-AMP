@@ -1,0 +1,58 @@
+{#- The six "What you get" scenes, shared by the sales page and its comparison pages.
+    Usage: {% import "component/sales-scenes.njk" as scenes %} … {{ scenes.scene(1, pieces) }} -#}
+{% macro scene(n, pieces) %}
+{%- if n == 1 %}
+              <img class="sales-show-bg" src="{{ pieces[0].img }}" alt="" loading="lazy">
+              <span class="sales-show-chip sales-show-rec"><i></i>REC</span>
+              <div class="sales-show-wave">
+                {%- set heights = [0.3, 0.6, 0.9, 0.5, 0.75, 1, 0.4, 0.8, 0.55, 0.95, 0.35, 0.7, 0.5, 0.9, 0.65, 0.3, 0.85, 0.45, 0.7, 1, 0.4, 0.6, 0.8, 0.35] %}
+                {%- for h in heights %}<span style="--h: {{ h }}; animation-delay: -{{ (loop.index0 * 0.13) | round(2) }}s"></span>{% endfor %}
+              </div>
+              <span class="sales-show-word">{{ pieces[0].word }}</span>
+{%- elif n == 2 %}
+              <img class="sales-show-bg" src="{{ pieces[1].img }}" alt="" loading="lazy">
+              <span class="sales-show-progress"><i></i></span>
+              <span class="sales-show-chip sales-show-tc"></span>
+              <span class="sales-show-play"></span>
+              <span class="sales-show-word">{{ pieces[1].word }}</span>
+{%- elif n == 3 %}
+              <img class="sales-show-bg" src="{{ pieces[2].img }}" alt="" style="filter: brightness(0.35) blur(1px);" loading="lazy">
+              <div class="sales-show-crop"><img src="{{ pieces[2].img }}" alt="" loading="lazy"></div>
+              <span class="sales-show-chip sales-show-ratio"><b>16:9</b><b>9:16</b><b>1:1</b></span>
+              <span class="sales-show-word">{{ pieces[2].word }}</span>
+{%- elif n == 4 %}
+              <img class="sales-show-bg" src="/images/uploads/sequence.00_28_13_00.still030.jpg" alt="" style="filter: brightness(0.25) blur(2px);" loading="lazy">
+              <div class="sales-show-print" style="--r: -8deg; --x: -12%; --y: -4%; --drop: sales-show-drop-1"><img src="{{ pieces[3].img }}" alt="" loading="lazy"></div>
+              <div class="sales-show-print" style="--r: 6deg; --x: 14%; --y: 0%; --drop: sales-show-drop-2"><img src="/images/uploads/sequence.02_11_19_12.still089.jpg" alt="" loading="lazy"></div>
+              <div class="sales-show-print" style="--r: -2deg; --x: 0%; --y: 4%; --drop: sales-show-drop-3"><img src="/images/uploads/dss00124.jpg" alt="" loading="lazy"></div>
+              <span class="sales-show-chip sales-show-count">● STILLS + FRAME GRABS</span>
+              <span class="sales-show-word">{{ pieces[3].word }}</span>
+{%- elif n == 5 %}
+              <img class="sales-show-bg" src="{{ pieces[4].img }}" alt="" style="filter: brightness(0.3) blur(2px);" loading="lazy">
+              <div class="sales-show-browser">
+                <div class="sales-show-browser-bar"><i></i><i></i><i></i><span>yourcompany.com/case-study</span></div>
+                <div class="sales-show-browser-view">
+                  <div class="sales-show-page">
+                    <div class="sales-show-page-hero"><img src="/images/sales/onepage/bee-strong.jpg" alt="" loading="lazy"><div><b>How one project became a pipeline</b><span class="sales-show-page-btn">Book a call</span></div></div>
+                    <div class="sales-show-page-stats"><span><b>1</b>project</span><span><b>40+</b>assets</span><span><b>3</b>campaigns</span></div>
+                    <div class="sales-show-page-film"><img src="/images/sales/onepage/bee-strong-site.jpg" alt="" loading="lazy"><i></i></div>
+                    <span class="sales-show-page-line"></span><span class="sales-show-page-line is-short"></span>
+                    <div class="sales-show-page-quote">“They told our story better than we could.”</div>
+                    <div class="sales-show-page-cta"><b>Ready to grow beyond referrals?</b><span class="sales-show-page-btn">Book a call</span></div>
+                  </div>
+                </div>
+              </div>
+              <span class="sales-show-word">{{ pieces[4].word }}</span>
+{%- elif n == 6 %}
+              <img class="sales-show-bg" src="/images/sales/leads/bg-worker.jpg" alt="" style="filter: brightness(0.25) blur(2px);" loading="lazy">
+              {#- A working week filling up with calls and site visits booked from the ads -#}
+              <div class="sales-show-cal">
+                {%- for d in ["Mon", "Tue", "Wed", "Thu", "Fri"] %}<span class="sales-show-cal-day">{{ d }}</span>{% endfor %}
+                {%- for n in range(0, 15) %}<span class="sales-show-cal-slot" style="grid-column: {{ n % 5 + 1 }}; grid-row: {{ (n / 5) | int + 2 }}"></span>{% endfor %}
+                {%- set calls = [[2, 2, "0.3s", "Call", "Kitchen reno"], [4, 3, "1.1s", "Quote", "Site visit", true], [1, 3, "1.9s", "Call", "New build"], [5, 2, "2.7s", "Call", "Office fit-out"], [3, 4, "3.5s", "Quote", "Commercial", true], [2, 4, "4.3s", "Call", "Bathroom"], [4, 2, "5.1s", "Call", "Referral"]] %}
+                {%- for c in calls %}<span class="sales-show-cal-call{% if c[5] %} is-quote{% endif %}" style="grid-column: {{ c[0] }}; grid-row: {{ c[1] }}; animation-delay: {{ c[2] }}"><b>{{ c[3] }}</b>{{ c[4] }}</span>{% endfor %}
+              </div>
+              <span class="sales-show-chip sales-show-cal-chip">BOOKED FROM YOUR ADS</span>
+              <span class="sales-show-word">{{ pieces[5].word }}</span>
+{%- endif %}
+{% endmacro %}

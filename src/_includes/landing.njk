@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+  {#- Standalone landing page: no navigation or footer links, so the page's one action is the only way forward -#}
   {% include "component/head.njk" %}
-    <body style="--maxw-md: 100vw; 
-        
-        overflow-x: hidden;
-        
-        --m: auto;
-        --size: 1.2rem;
-        min-height: 100vh;
-        --ai: center;
-        --jc: center; 
-        --d: flex; 
-        --fd: column;">
-        
-      
+  <body class="landing-page">
+    {#- Same dock as the main site, but its links stay on this page (set with `nav` in the page's front matter) -#}
+    {% include "component/navbar.njk" %}
 
-      <main style="flex-grow: 1;">
+    <main id="main-content">
       {{ content | safe }}
-      </main>
+    </main>
 
-      {% include "component/footer.njk" %}
-      {% include "component/scripts.njk" %}
-    </body>
-  </html>
+    {#- For now: the main site footer (its "Book a session" band is skipped because these pages set hideFooterCta) -#}
+    {% include "component/footer.njk" %}
+
+    <script>
+      // Header scroll effect (the main site's copy lives in scripts.njk, which this layout doesn't load)
+      const header = document.querySelector('.site-header');
+      window.addEventListener('scroll', () => {
+        header?.classList.toggle('is-scrolled', window.scrollY > 20);
+      });
+    </script>
+  </body>
 </html>

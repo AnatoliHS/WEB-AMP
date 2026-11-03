@@ -35,6 +35,8 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("excludeUrl", (items, url) => items.filter(item => item.url !== url));
 
+  eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
   // YouTube video ID from a watch, youtu.be, shorts or embed link (or a bare ID)
   eleventyConfig.addFilter("youtubeId", url => {
     const match = String(url || "").trim().match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([\w-]{11})|^([\w-]{11})$/);
@@ -42,8 +44,10 @@ module.exports = function(eleventyConfig) {
   });
 
   // After build, if outputting to dist, also mirror to _site (or vice versa)
-  // so Cloudflare Pages succeeds whether Build Output Directory is set to 'dist' or '_site'
-  eleventyConfig.on("eleventy.after", async ({ dir }) => {
+  // so Cloudflare Pages succeeds whether Build Output Directory is set to 'dist' or '_site'.
+  // Only on one-off builds: under --serve/--watch the copy can overlap a rebuild and fail
+  eleventyConfig.on("eleventy.after", async ({ dir, runMode }) => {
+    if (runMode !== "build") return;
     const outDir = dir.output;
     const targetDir = outDir === "dist" ? "_site" : (outDir === "_site" ? "dist" : null);
     if (targetDir && fs.existsSync(outDir)) {

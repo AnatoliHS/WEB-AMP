@@ -1,0 +1,232 @@
+---
+layout: landing.njk
+permalink: /sales/leads-options/
+title: "Sales page | Leads in card: design options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#ld" }
+  home: "#ld"
+  right: { label: "Back to Sales", href: "/sales/#included" }
+# Only the sixth piece is used here (by the "current" reference card)
+pieces:
+  - {}
+  - {}
+  - {}
+  - {}
+  - {}
+  - word: "Leads in"
+    img: "/images/uploads/sequence.01_35_45_12.still077.jpg"
+---
+{#- TEMPORARY comparison page: five new designs for the "Leads in" (paid funnel) card in What You Get.
+    Each sits in the real card, so it reads exactly as it would on the sales page. Delete once one is picked. -#}
+{%- import "component/sales-scenes.njk" as scenes -%}
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false">
+  <filter id="sales-show-rough">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="4"/>
+  </filter>
+</svg>
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+  .ld-cards { margin-top: 0; }
+  .ld-body b { display: block; margin-bottom: 4px; color: #f4efe6; font-family: var(--font-heading); font-size: 1.05rem; }
+  .ld-mono { font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ---------- 1: Funnel drop ---------- */
+  /* People drop into a real funnel; most fall away at each stage, a few come out the bottom as amber leads */
+  .ld1-funnel { position: absolute; z-index: 3; left: 50%; top: 6cqh; display: grid; justify-items: center; gap: 1cqh; transform: translateX(-50%); }
+  .ld1-band { display: flex; align-items: center; justify-content: space-between; height: 11cqh; padding: 0 5cqw; color: #f4efe6; font-size: max(9px, 1.6cqw); }
+  .ld1-band b { font-family: var(--font-heading); font-size: max(13px, 2.6cqw); letter-spacing: -0.02em; }
+  .ld1-band:nth-child(1) { width: 72cqw; background: rgba(15, 43, 44, 0.92); clip-path: polygon(0 0, 100% 0, 93% 100%, 7% 100%); }
+  .ld1-band:nth-child(2) { width: 54cqw; background: rgba(107, 58, 36, 0.94); clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%); }
+  .ld1-band:nth-child(3) { width: 36cqw; background: #A83C27; clip-path: polygon(0 0, 100% 0, 86% 100%, 14% 100%); }
+  .ld1-dot { position: absolute; z-index: 4; left: var(--x); top: 3cqh; width: 1.4cqw; height: 1.4cqw; min-width: 6px; min-height: 6px; border-radius: 50%; background: #f4efe6; opacity: 0; animation: ld1-fall 3.6s cubic-bezier(0.45, 0, 0.8, 0.6) infinite; animation-delay: var(--d); }
+  @keyframes ld1-fall { 0% { opacity: 0; transform: translate(0, 0); } 8% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(calc((50cqw - var(--x)) * 0.7), var(--end)); } }
+  .ld1-dot.is-lead { background: #DE9E3B; box-shadow: 0 0 10px rgba(222, 158, 59, 0.9); animation-name: ld1-lead; }
+  @keyframes ld1-lead { 0% { opacity: 0; transform: translate(0, 0); } 8%, 85% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(50cqw - var(--x)), 44cqh); } }
+  .ld1-tray { position: absolute; z-index: 4; left: 50%; top: 47cqh; padding: 5px 12px; border-radius: 4px; background: #DE9E3B; color: #121212; font-size: max(10px, 1.6cqw); transform: translateX(-50%); animation: ld1-tray 1.8s ease infinite; }
+  @keyframes ld1-tray { 0%, 80% { transform: translateX(-50%) scale(1); } 88% { transform: translateX(-50%) scale(1.12); } 100% { transform: translateX(-50%) scale(1); } }
+
+  /* ---------- 2: Results dashboard ---------- */
+  /* A lead count ticks up while the chart draws itself upward */
+  @property --ld2-n { syntax: "<integer>"; inherits: false; initial-value: 0; }
+  .ld2-panel { position: absolute; z-index: 3; left: 5cqw; right: 5cqw; top: 6cqh; height: 56cqh; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 3cqw; padding: 3.5cqw; border: 1px solid rgba(244, 239, 230, 0.14); border-radius: 10px; background: rgba(8, 8, 8, 0.72); backdrop-filter: blur(4px); color: #f4efe6; }
+  .ld2-label { font-size: max(9px, 1.4cqw); color: rgba(244, 239, 230, 0.6); }
+  .ld2-num { display: block; margin: 1cqh 0; font-family: var(--font-heading); font-size: 13cqw; font-weight: 800; line-height: 0.9; letter-spacing: -0.05em; color: #DE9E3B; counter-reset: n var(--ld2-n); animation: ld2-count 7s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+  .ld2-num::after { content: counter(n); }
+  @keyframes ld2-count { 0%, 6% { --ld2-n: 0; } 55%, 92% { --ld2-n: 38; } 100% { --ld2-n: 0; } }
+  .ld2-up { display: inline-block; padding: 3px 8px; border-radius: 4px; background: rgba(61, 220, 132, 0.16); color: #6fe3a0; font-size: max(9px, 1.4cqw); }
+  .ld2-chart { width: 100%; height: 100%; overflow: visible; }
+  .ld2-chart .ld2-grid { stroke: rgba(244, 239, 230, 0.1); stroke-width: 1; }
+  .ld2-chart .ld2-line { fill: none; stroke: #DE9E3B; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 400; stroke-dashoffset: 400; animation: ld2-draw 7s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+  .ld2-chart .ld2-area { fill: url(#ld2-fill); opacity: 0; animation: ld2-area 7s ease infinite; }
+  .ld2-chart .ld2-end { fill: #DE9E3B; opacity: 0; animation: ld2-area 7s ease infinite; }
+  @keyframes ld2-draw { 0%, 6% { stroke-dashoffset: 400; opacity: 1; } 55%, 92% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes ld2-area { 0%, 40% { opacity: 0; } 60%, 92% { opacity: 1; } 100% { opacity: 0; } }
+
+  /* ---------- 3: Ad, click, call ---------- */
+  /* Three steps on a line: the ad, the landing page, the phone. Glowing dots travel along it; the phone rings when one arrives */
+  .ld3-row { position: absolute; z-index: 3; left: 6cqw; right: 6cqw; top: 8cqh; display: flex; align-items: flex-end; justify-content: space-between; }
+  .ld3-row::before { content: ""; position: absolute; left: 8%; right: 8%; top: 64%; border-top: 2px dashed rgba(222, 158, 59, 0.5); }
+  .ld3-node { position: relative; z-index: 1; display: grid; justify-items: center; gap: 1.2cqh; color: #f4efe6; }
+  .ld3-stat { font-size: max(9px, 1.5cqw); color: rgba(244, 239, 230, 0.65); }
+  .ld3-stat b { display: block; font-family: var(--font-heading); font-size: max(14px, 3.2cqw); letter-spacing: -0.03em; color: #f4efe6; text-align: center; }
+  .ld3-icon { display: grid; place-items: center; width: 15cqw; height: 15cqw; overflow: hidden; border: 2px solid rgba(244, 239, 230, 0.8); border-radius: 12px; background: #0F2B2C; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5); }
+  .ld3-icon img { width: 100%; height: 100%; object-fit: cover; }
+  .ld3-icon svg { width: 46%; height: 46%; color: #f4efe6; }
+  .ld3-node:last-child .ld3-icon { border-color: #DE9E3B; background: #A83C27; animation: ld3-ring 2.4s ease infinite; }
+  @keyframes ld3-ring { 0%, 78% { transform: rotate(0); } 82% { transform: rotate(-9deg) scale(1.06); } 86% { transform: rotate(8deg) scale(1.06); } 90% { transform: rotate(-6deg); } 94%, 100% { transform: rotate(0); } }
+  .ld3-dot { position: absolute; z-index: 2; left: 14%; top: calc(8cqh + 64% * 0); width: 12px; height: 12px; border-radius: 50%; background: #DE9E3B; box-shadow: 0 0 12px rgba(222, 158, 59, 1); opacity: 0; animation: ld3-travel 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite; animation-delay: var(--d, 0s); }
+  @keyframes ld3-travel { 0% { left: 18%; opacity: 0; } 8% { opacity: 1; } 76% { left: 80%; opacity: 1; } 82%, 100% { left: 80%; opacity: 0; } }
+  .ld3-booked { position: absolute; z-index: 4; right: 6cqw; top: calc(8cqh + 1.2cqh + 3.2cqw + 4cqh + 15cqw + 2.5cqh); padding: 4px 10px; border: 2px solid #DE9E3B; border-radius: 4px; color: #DE9E3B; font-size: max(10px, 1.6cqw); transform: rotate(8deg); opacity: 0; animation: ld3-stamp 2.4s ease infinite; }
+  @keyframes ld3-stamp { 0%, 80% { opacity: 0; transform: rotate(8deg) scale(1.4); } 86%, 96% { opacity: 1; transform: rotate(8deg) scale(1); } 100% { opacity: 0; } }
+
+  /* ---------- 4: Targeting radar ---------- */
+  /* A radar sweep over the local area: people light up as it passes, and a few turn into lead pins */
+  .ld4-radar { position: absolute; z-index: 3; right: 6cqw; top: 5cqh; width: 58cqh; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, transparent 0 24%, rgba(222, 158, 59, 0.22) 24.5% 25%, transparent 25.5% 49%, rgba(222, 158, 59, 0.22) 49.5% 50%, transparent 50.5% 74%, rgba(222, 158, 59, 0.22) 74.5% 75%, transparent 75.5%), rgba(8, 8, 8, 0.55); box-shadow: inset 0 0 0 1px rgba(222, 158, 59, 0.4); overflow: hidden; }
+  .ld4-radar::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, rgba(222, 158, 59, 0.45), transparent 22%); animation: ld4-sweep 4s linear infinite; }
+  @keyframes ld4-sweep { to { transform: rotate(1turn); } }
+  .ld4-radar::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: #f4efe6; }
+  .ld4-dot { position: absolute; left: var(--x); top: var(--y); width: 7px; height: 7px; margin: -3px; border-radius: 50%; background: rgba(244, 239, 230, 0.35); animation: ld4-ping 4s linear infinite; animation-delay: var(--d); }
+  @keyframes ld4-ping { 0% { background: #DE9E3B; box-shadow: 0 0 10px #DE9E3B; } 30%, 100% { background: rgba(244, 239, 230, 0.35); box-shadow: none; } }
+  .ld4-pin { position: absolute; z-index: 1; left: var(--x); top: var(--y); padding: 2px 6px; border-radius: 3px; background: #A83C27; color: #fff; font-size: max(8px, 1.3cqw); transform: translate(-50%, -140%); opacity: 0; animation: ld4-pin 4s ease infinite; animation-delay: var(--d); }
+  @keyframes ld4-pin { 0% { opacity: 0; transform: translate(-50%, -100%); } 5%, 60% { opacity: 1; transform: translate(-50%, -140%); } 75%, 100% { opacity: 0; transform: translate(-50%, -140%); } }
+  .ld4-chip { left: 5cqw; top: 6cqh; display: grid !important; gap: 4px; line-height: 1.5; }
+  .ld4-chip span { color: #DE9E3B; }
+
+  /* ---------- 5: Calendar filling up ---------- */
+  /* A week view where booked calls drop in one by one until the week is full, then it resets */
+  .ld5-cal { position: absolute; z-index: 3; left: 5cqw; right: 5cqw; top: 5cqh; height: 58cqh; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: auto repeat(3, 1fr); gap: 6px; padding: 10px; border: 1px solid rgba(244, 239, 230, 0.14); border-radius: 10px; background: rgba(8, 8, 8, 0.72); backdrop-filter: blur(4px); }
+  .ld5-day { padding-bottom: 4px; border-bottom: 1px solid rgba(244, 239, 230, 0.14); color: rgba(244, 239, 230, 0.6); font-size: max(9px, 1.4cqw); text-align: center; }
+  .ld5-slot { border-radius: 5px; background: rgba(244, 239, 230, 0.04); }
+  .ld5-call { grid-column: var(--c); grid-row: var(--r); display: flex; flex-direction: column; justify-content: center; padding: 0 1.2cqw; border-left: 3px solid #DE9E3B; border-radius: 5px; background: #A83C27; color: #f4efe6; font-size: max(9px, 1.4cqw); line-height: 1.25; opacity: 0; animation: ld5-drop 8s cubic-bezier(0.16, 1, 0.3, 1) infinite; animation-delay: var(--d); }
+  .ld5-call b { font-size: 1.05em; }
+  .ld5-call.is-quote { background: #0F2B2C; border-left-color: #6fe3a0; }
+  @keyframes ld5-drop { 0% { opacity: 0; transform: translateY(-14px) scale(0.92); } 4%, 80% { opacity: 1; transform: none; } 88%, 100% { opacity: 0; transform: none; } }
+  .ld5-chip { right: 5cqw; bottom: auto; top: calc(5cqh + 58cqh + 10px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sales-show-card-screen *, .sales-show-card-screen *::before, .sales-show-card-screen *::after { animation: none !important; }
+    .ld2-num { --ld2-n: 38; }
+    .ld2-chart .ld2-line { stroke-dashoffset: 0; }
+    .ld2-chart .ld2-area, .ld2-chart .ld2-end, .ld5-call { opacity: 1; }
+  }
+</style>
+
+<div class="po-label" id="ld">
+  <div class="container">
+    <h2><strong>06</strong>“Leads in” card: five new designs</h2>
+    <p>Each option is shown inside the real What You Get card, so it reads exactly as it would on the sales page. The current version is first, for reference. None of them reuse the phone-notification idea from the current one.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container">
+    <div class="sales-show-cards ld-cards">
+      {#- Current, for reference -#}
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active">
+{{ scenes.scene(6, pieces) }}
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">00</span><p class="ld-body"><b>Current</b>Three ad cards light up in turn, then lead notifications pop in.</p></div>
+      </article>
+
+      <!-- 1 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active">
+          <img class="sales-show-bg" src="/images/sales/leads/bg-worker.jpg" alt="" style="filter: brightness(0.25) blur(2px);">
+          <div class="ld1-funnel">
+            <div class="ld1-band"><span class="ld-mono">Awareness</span><b>12,400</b></div>
+            <div class="ld1-band"><span class="ld-mono">Interest</span><b>860</b></div>
+            <div class="ld1-band"><span class="ld-mono">Booked</span><b>42</b></div>
+          </div>
+          {%- set drops = [["20cqw", "0s", "16cqh"], ["34cqw", "0.3s", "28cqh"], ["62cqw", "0.6s", "16cqh"], ["76cqw", "0.9s", "16cqh"], ["44cqw", "1.2s", "39cqh"], ["28cqw", "1.5s", "16cqh"], ["68cqw", "1.8s", "28cqh"], ["54cqw", "2.1s", "39cqh"], ["40cqw", "2.4s", "28cqh"], ["72cqw", "2.7s", "16cqh"]] %}
+          {%- for d in drops %}<span class="ld1-dot" style="--x: {{ d[0] }}; --d: {{ d[1] }}; --end: {{ d[2] }}"></span>{% endfor %}
+          <span class="ld1-dot is-lead" style="--x: 48cqw; --d: 0.4s"></span>
+          <span class="ld1-dot is-lead" style="--x: 56cqw; --d: 2.2s"></span>
+          <span class="ld1-tray ld-mono">+ New lead</span>
+          <span class="sales-show-word">Leads in</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">01</span><p class="ld-body"><b>Funnel drop</b>People (little dots) drop into a real three-stage funnel with numbers on each band (12,400 → 860 → 42). Most fall away at each stage; a few glow amber and drop out the bottom into a “+ New lead” tag that pops each time.</p></div>
+      </article>
+
+      <!-- 2 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active">
+          <img class="sales-show-bg" src="/images/sales/leads/bg-crane.jpg" alt="" style="filter: brightness(0.25) blur(2px);">
+          <div class="ld2-panel">
+            <div>
+              <span class="ld2-label ld-mono">Leads this month</span>
+              <span class="ld2-num"></span>
+              <span class="ld2-up ld-mono">▲ From 3 campaigns</span>
+            </div>
+            <svg class="ld2-chart" viewBox="0 0 300 160" preserveAspectRatio="none">
+              <defs><linearGradient id="ld2-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DE9E3B" stop-opacity="0.35"/><stop offset="1" stop-color="#DE9E3B" stop-opacity="0"/></linearGradient></defs>
+              <line class="ld2-grid" x1="0" y1="40" x2="300" y2="40"/><line class="ld2-grid" x1="0" y1="80" x2="300" y2="80"/><line class="ld2-grid" x1="0" y1="120" x2="300" y2="120"/>
+              <path class="ld2-area" d="M0 150 L40 142 L80 138 L120 120 L160 112 L200 84 L240 60 L300 18 L300 160 L0 160 Z"/>
+              <path class="ld2-line" d="M0 150 L40 142 L80 138 L120 120 L160 112 L200 84 L240 60 L300 18"/>
+              <circle class="ld2-end" cx="300" cy="18" r="6"/>
+            </svg>
+          </div>
+          <span class="sales-show-word">Leads in</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">02</span><p class="ld-body"><b>Results dashboard</b>A clean reporting panel: “Leads this month” counts up from 0 to 38 in big amber numbers while a line chart draws itself climbing to the top-right. Says “this is measured and it works.”</p></div>
+      </article>
+
+      <!-- 3 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active">
+          <img class="sales-show-bg" src="/images/sales/leads/bg-worker.jpg" alt="" style="filter: brightness(0.25) blur(2px);">
+          <div class="ld3-row">
+            <div class="ld3-node"><span class="ld3-stat ld-mono"><b>12.4K</b>see the ad</span><span class="ld3-icon"><img src="/images/sales/funnel/cold.jpg" alt=""></span></div>
+            <div class="ld3-node"><span class="ld3-stat ld-mono"><b>860</b>visit the page</span><span class="ld3-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h10M7 16h6"/></svg></span></div>
+            <div class="ld3-node"><span class="ld3-stat ld-mono"><b>42</b>book a call</span><span class="ld3-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></span></div>
+          </div>
+          <span class="ld3-dot" style="top: calc(8cqh + 1.2cqh + 3.2cqw + 4cqh + 7.5cqw - 6px); --d: 0s"></span>
+          <span class="ld3-dot" style="top: calc(8cqh + 1.2cqh + 3.2cqw + 4cqh + 7.5cqw - 6px); --d: 0.8s"></span>
+          <span class="ld3-dot" style="top: calc(8cqh + 1.2cqh + 3.2cqw + 4cqh + 7.5cqw - 6px); --d: 1.6s"></span>
+          <span class="ld3-booked ld-mono">Call booked</span>
+          <span class="sales-show-word">Leads in</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">03</span><p class="ld-body"><b>Ad, click, call</b>The whole journey on one line: the ad (12.4K see it) → the landing page (860 visit) → the phone (42 book a call). Glowing dots travel along the line and the phone rings with a “Call booked” stamp each time one arrives.</p></div>
+      </article>
+
+      <!-- 4 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active">
+          <img class="sales-show-bg" src="/images/sales/leads/bg-crane.jpg" alt="" style="filter: brightness(0.25) blur(2px);">
+          <span class="sales-show-chip ld4-chip ld-mono"><span>● Targeting</span>Within 25 km<br>Homeowners 35–65<br>Watched your film</span>
+          <div class="ld4-radar">
+            {%- set pts = [["70%", "30%", "0.2s"], ["78%", "58%", "1.1s"], ["58%", "80%", "1.7s"], ["30%", "74%", "2.6s"], ["22%", "44%", "3.1s"], ["36%", "22%", "3.6s"], ["62%", "46%", "0.6s"], ["44%", "60%", "2.2s"], ["84%", "40%", "0.8s"], ["50%", "14%", "0s"]] %}
+            {%- for pt in pts %}<span class="ld4-dot" style="--x: {{ pt[0] }}; --y: {{ pt[1] }}; --d: {{ pt[2] }}"></span>{% endfor %}
+            <span class="ld4-pin ld-mono" style="--x: 78%; --y: 58%; --d: 1.1s">Lead</span>
+            <span class="ld4-pin ld-mono" style="--x: 30%; --y: 74%; --d: 2.6s">Lead</span>
+          </div>
+          <span class="sales-show-word">Leads in</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">04</span><p class="ld-body"><b>Targeting radar</b>A radar sweep over the local area, with the targeting written beside it (within 25 km, homeowners 35–65, watched your film). People light up amber as the sweep passes and a couple pop a “Lead” pin. Shows the ads reach the right people, not everyone.</p></div>
+      </article>
+
+      <!-- 5 -->
+      <article class="sales-show-card">
+        <div class="sales-show-card-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active">
+          <img class="sales-show-bg" src="/images/sales/leads/bg-worker.jpg" alt="" style="filter: brightness(0.25) blur(2px);">
+          <div class="ld5-cal">
+            {%- for d in ["Mon", "Tue", "Wed", "Thu", "Fri"] %}<span class="ld5-day ld-mono">{{ d }}</span>{% endfor %}
+            {%- for n in range(0, 15) %}<span class="ld5-slot" style="grid-column: {{ n % 5 + 1 }}; grid-row: {{ (n / 5) | int + 2 }}"></span>{% endfor %}
+            {%- set calls = [[2, 2, "0.3s", "Call", "Kitchen reno"], [4, 3, "1.1s", "Quote", "Site visit", true], [1, 3, "1.9s", "Call", "New build"], [5, 2, "2.7s", "Call", "Office fit-out"], [3, 4, "3.5s", "Quote", "Commercial", true], [2, 4, "4.3s", "Call", "Bathroom"], [4, 2, "5.1s", "Call", "Referral"]] %}
+            {%- for c in calls %}<span class="ld5-call{% if c[5] %} is-quote{% endif %}" style="--c: {{ c[0] }}; --r: {{ c[1] }}; --d: {{ c[2] }}"><b>{{ c[3] }}</b>{{ c[4] }}</span>{% endfor %}
+          </div>
+          <span class="sales-show-chip ld5-chip ld-mono">Booked from your ads</span>
+          <span class="sales-show-word">Leads in</span>
+        </div></div></div>
+        <div class="sales-show-card-body"><span class="sales-show-num">05</span><p class="ld-body"><b>Calendar filling up</b>A week view (Mon–Fri) where booked calls and site visits drop in one by one until the week is full, then it clears and starts again. The most relatable picture of “more leads” for a busy owner.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div style="height: 120px; background: var(--bg-main);"></div>

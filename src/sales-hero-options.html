@@ -1,0 +1,527 @@
+---
+layout: landing.njk
+permalink: /sales/hero-options/
+title: "Sales page | Hero video: layout options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#o5" }
+  home: "#o5"
+  right: { label: "Back to Sales", href: "/" }
+---
+{#- TEMPORARY comparison page: five ways to show the AMP hero video in the sales page hero. Delete once one is picked. -#}
+{%- set booking = "https://calendar.app.google/vc5qz2BpLdG4BEgq9" -%}
+{%- set arrow = '<svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true"><path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/></svg>' -%}
+{#- The reel: behind-the-scenes clip first, then the billboard clip, crossfading and looping (script at the bottom) -#}
+{%- macro video(cls="") -%}
+<div class="hv-reel {{ cls }}" aria-hidden="true">
+  <video class="hv-video is-on" muted playsinline preload="auto" poster="/images/sales/hero-2-poster.jpg"><source src="/images/sales/hero-2.mp4" type="video/mp4"></video>
+  <video class="hv-video" muted playsinline preload="auto" poster="/images/sales/hero-poster.jpg"><source src="/images/sales/hero.mp4" type="video/mp4"></video>
+</div>
+{%- endmacro -%}
+{%- macro copy(short=false) -%}
+<div class="sales-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+<h1 class="sales-hero-title">Turn your best work into your best <span class="sales-mark">salesperson.</span></h1>
+<p class="sales-hero-lead">
+  One great project, told well, can sell for years. We turn a single client win into a case study film,
+  a content library, a landing page and a paid funnel that keeps bringing in new leads.
+</p>
+{%- if not short %}
+<p class="sales-hero-for">For established service businesses, trades, manufacturers and B2B companies ready to grow beyond referrals.</p>
+{%- endif %}
+<div class="sales-actions">
+  <a href="{{ booking }}" target="_blank" rel="noopener noreferrer" class="hero-btn-primary"><span>Book a call</span>{{ arrow | safe }}</a>
+  <a href="#" class="sales-text-link">See it in action ↓</a>
+</div>
+{%- endmacro -%}
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+  .hv { position: relative; overflow: hidden; border-top: 1px solid var(--border-light); }
+  .hv-reel { position: relative; width: 100%; height: 100%; }
+  .hv-video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.6s ease; }
+  .hv-video.is-on { opacity: 1; }
+
+  /* ---------- 5: Diagonal split ---------- */
+  .h5 { min-height: 100svh; display: flex; align-items: center; padding: 120px 0 80px; }
+  .h5 .container { position: relative; z-index: 2; }
+  .h5-copy { max-width: 560px; }
+  .h5-panel, .h5-edge { position: absolute; top: 0; bottom: 0; right: 0; width: 56%; }
+  .h5-edge { background: #DE9E3B; clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); transform: translateX(-14px); }
+  .h5-panel { clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
+  .h5-panel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12, 4, 7, 0.35), transparent 40%); }
+  .h5-stamp {
+    position: absolute;
+    z-index: 3;
+    right: 5%;
+    bottom: 8%;
+    padding: 10px 16px;
+    border-radius: var(--radius-full);
+    background: rgba(12, 4, 7, 0.75);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #f4efe6;
+  }
+
+  /* Shared for the new options: full-height hero, copy on the left */
+  .hd { min-height: 100svh; display: flex; align-items: center; padding: 120px 0 80px; }
+  .hd .container { position: relative; z-index: 3; }
+  .hd-copy { max-width: 540px; }
+  .hd-chip {
+    position: absolute;
+    z-index: 4;
+    padding: 10px 16px;
+    border-radius: var(--radius-full);
+    background: rgba(12, 4, 7, 0.78);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #f4efe6;
+  }
+
+  /* ---------- 6: Slashes ---------- */
+  .h6-panel { position: absolute; top: 0; bottom: 0; right: 0; width: 60%; clip-path: polygon(24% 0, 100% 0, 100% 100%, 0 100%); }
+  /* Diagonal gaps cut through the film, so it reads as three bold slashes */
+  .h6-panel .hv-reel {
+    -webkit-mask-image: linear-gradient(105deg, transparent 0 4%, #000 4% 30%, transparent 30% 33%, #000 33% 58%, transparent 58% 61%, #000 61%);
+    mask-image: linear-gradient(105deg, transparent 0 4%, #000 4% 30%, transparent 30% 33%, #000 33% 58%, transparent 58% 61%, #000 61%);
+  }
+  .h6-line { position: absolute; z-index: 2; top: 0; bottom: 0; right: 0; width: 60%; background: #DE9E3B; clip-path: polygon(calc(24% - 18px) 0, calc(24% - 12px) 0, calc(0% - 12px) 100%, calc(0% - 18px) 100%); }
+  .h6 .hd-chip { right: 5%; bottom: 8%; }
+
+  /* ---------- 7: Arrow ---------- */
+  /* The panel is cut into the same forward arrow as the site's buttons */
+  .h7-panel, .h7-edge { position: absolute; top: 9%; bottom: 9%; right: 0; width: 58%; clip-path: polygon(22% 0, 100% 0, 100% 100%, 22% 100%, 0 50%); }
+  .h7-edge { background: #DE9E3B; transform: translateX(-16px); }
+  .h7-panel { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); }
+  .h7 .hd-chip { right: 5%; bottom: calc(9% + 22px); }
+
+  /* ---------- 8: Floating parallelogram ---------- */
+  .h8-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+  .h8-card { position: relative; aspect-ratio: 5 / 4; max-height: calc(100svh - 200px); }
+  .h8-frame { position: absolute; inset: 0; clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%); }
+  .h8-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translate(22px, 22px);
+    background: #A83C27;
+    clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
+  }
+  .h8 .hd-chip { left: 6%; bottom: -14px; }
+
+  /* ---------- 9: Diagonal wipe ---------- */
+  /* On load the cut sweeps in from the right, an amber line leading it, then settles where the split sits */
+  .h9-panel, .h9-edge { position: absolute; top: 0; bottom: 0; right: 0; width: 100%; }
+  .h9-panel { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); animation: h9-wipe 1.4s cubic-bezier(0.7, 0, 0.2, 1) 0.4s forwards; }
+  .h9-edge { background: #DE9E3B; clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); animation: h9-edge 1.4s cubic-bezier(0.7, 0, 0.2, 1) 0.32s forwards; }
+  @keyframes h9-wipe { to { clip-path: polygon(62% 0, 100% 0, 100% 100%, 48% 100%); } }
+  @keyframes h9-edge { to { clip-path: polygon(calc(62% - 10px) 0, 62% 0, 48% 100%, calc(48% - 10px) 100%); } }
+  /* A second, thin parallel line further left, for rhythm */
+  .h9-line { position: absolute; z-index: 2; top: 0; bottom: 0; left: 0; right: 0; background: rgba(222, 158, 59, 0.35); clip-path: polygon(calc(70% - 2px) 0, 70% 0, 56% 100%, calc(56% - 2px) 100%); opacity: 0; animation: h9-fade 0.8s ease 1.4s forwards; }
+  @keyframes h9-fade { to { opacity: 1; } }
+  .h9 .hd-chip { right: 5%; bottom: 8%; opacity: 0; animation: h9-fade 0.6s ease 1.6s forwards; }
+
+  /* ---------- 10: Diagonal ribbon ---------- */
+  .h10 { padding-bottom: 0; flex-direction: column; align-items: stretch; justify-content: center; }
+  .h10-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 48px 64px; align-items: end; }
+  .h10-top .sales-hero-title { margin-bottom: 0; }
+  .h10-ribbon { position: relative; z-index: 2; height: 46svh; margin: 56px -6vw -6svh; transform: rotate(-5deg); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55); }
+  .h10-ribbon::before, .h10-ribbon::after { content: ""; position: absolute; left: 0; right: 0; z-index: 2; height: 6px; background: #DE9E3B; }
+  .h10-ribbon::before { top: -6px; }
+  .h10-ribbon::after { bottom: -6px; }
+  .h10-ribbon .hv-reel { position: absolute; inset: 0; }
+  .h10-tape {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    top: -34px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: #DE9E3B;
+  }
+  .h10-tape span { display: inline-block; animation: h10-tape 30s linear infinite; }
+  @keyframes h10-tape { to { transform: translateX(-50%); } }
+
+
+  /* ================= Music-TV set (11–15): copy left, the visual right ================= */
+  .hm-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; align-items: center; }
+  .hm-stage { position: relative; aspect-ratio: 4 / 3; max-height: calc(100svh - 200px); justify-self: center; width: 100%; }
+
+  /* ---------- 11: CRT telly ---------- */
+  .h11-tv {
+    position: absolute;
+    inset: 0;
+    padding: 22px 22px 54px;
+    border-radius: 34px;
+    background: linear-gradient(160deg, #2a2421, #120e0c);
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08), 0 40px 80px rgba(0, 0, 0, 0.6);
+    transform: rotate(-2deg);
+  }
+  .h11-screen { position: relative; width: 100%; height: 100%; border-radius: 46px / 34px; overflow: hidden; box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9); }
+  .h11-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.28) 0 2px, transparent 2px 4px),
+      radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.7));
+  }
+  .h11-screen .hv-reel { animation: h11-jitter 5s steps(1) infinite; }
+  @keyframes h11-jitter { 0%, 92% { transform: none; filter: none; } 93% { transform: translateX(-6px); filter: saturate(2) hue-rotate(-20deg); } 95% { transform: translateX(5px); } 97% { transform: none; filter: saturate(1.6); } }
+  .h11-osd { position: absolute; z-index: 3; font-family: var(--font-mono); font-weight: 700; color: #8dff9a; text-shadow: 0 0 8px rgba(141, 255, 154, 0.7); letter-spacing: 0.08em; }
+  .h11-osd.is-play { top: 26px; left: 30px; font-size: 1rem; }
+  .h11-osd.is-time { bottom: 22px; left: 30px; font-size: 0.85rem; }
+  .h11-bug { position: absolute; z-index: 3; top: 22px; right: 26px; width: 54px; opacity: 0.75; }
+  .h11-knobs { position: absolute; bottom: 16px; right: 34px; display: flex; gap: 12px; }
+  .h11-knobs i { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #6b5f56, #221c18); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); }
+  .h11-knobs b { width: 70px; height: 8px; margin-top: 7px; border-radius: 4px; background: repeating-linear-gradient(90deg, #0b0807 0 3px, #2c2420 3px 6px); }
+
+  /* ---------- 12: Sticker zine ---------- */
+  .h12-photo { position: absolute; inset: 6% 6% 10% 4%; padding: 14px 14px 54px; background: #f4efe6; transform: rotate(-3deg); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55); }
+  .h12-photo .hv-reel { overflow: hidden; }
+  .h12-caption { position: absolute; left: 96px; bottom: 14px; font-family: "Comic Sans MS", "Marker Felt", "Segoe Print", cursive; font-size: 1.15rem; color: #0F2B2C; transform: rotate(-1deg); }
+  .h12-tape { position: absolute; z-index: 2; width: 120px; height: 32px; background: rgba(228, 215, 169, 0.78); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
+  .h12-tape.is-a { top: -12px; left: 10%; transform: rotate(-8deg); }
+  .h12-tape.is-b { top: -10px; right: 8%; transform: rotate(10deg); }
+  .h12-sticker { position: absolute; z-index: 3; display: grid; place-items: center; text-align: center; font-family: var(--font-heading); font-weight: 800; line-height: 0.95; text-transform: uppercase; animation: h12-bob 3s ease-in-out infinite; }
+  .h12-sticker.is-star { right: -2%; top: -4%; width: 150px; height: 150px; background: #DE9E3B; color: #111; font-size: 1.05rem; clip-path: polygon(50% 0, 61% 18%, 82% 10%, 80% 32%, 100% 40%, 84% 56%, 96% 76%, 74% 78%, 70% 100%, 52% 86%, 32% 100%, 28% 78%, 6% 78%, 16% 58%, 0 42%, 20% 32%, 16% 10%, 38% 18%); --r: 12deg; }
+  .h12-sticker.is-dot { left: -3%; bottom: 2%; width: 110px; height: 110px; border-radius: 50%; background: #A83C27; color: #fff; font-size: 1.5rem; border: 4px solid #f4efe6; --r: -14deg; animation-delay: -1.2s; }
+  .h12-sticker.is-pill { right: 6%; bottom: -2%; padding: 10px 16px; border-radius: var(--radius-full); background: #0B1E1C; color: #DE9E3B; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; --r: -4deg; animation-delay: -2s; }
+  @keyframes h12-bob { 0%, 100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(calc(var(--r) + 4deg)) translateY(-6px); } }
+  .h12-arrow { position: absolute; z-index: 3; left: -16%; top: 30%; width: 120px; transform: rotate(8deg); }
+
+  /* ---------- 13: Pop-art grid ---------- */
+  /* One film, split into a 2 x 2 grid, each quarter tinted a different brand colour */
+  .h13-grid { position: absolute; inset: 0; transform: rotate(2deg); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55); }
+  .h13-grid .hv-reel {
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - 5px), transparent calc(50% - 5px) calc(50% + 5px), #000 calc(50% + 5px)), linear-gradient(#000 calc(50% - 5px), transparent calc(50% - 5px) calc(50% + 5px), #000 calc(50% + 5px));
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, #000 calc(50% - 5px), transparent calc(50% - 5px) calc(50% + 5px), #000 calc(50% + 5px)), linear-gradient(#000 calc(50% - 5px), transparent calc(50% - 5px) calc(50% + 5px), #000 calc(50% + 5px));
+    mask-composite: intersect;
+  }
+  .h13-tint { position: absolute; z-index: 2; width: calc(50% - 5px); height: calc(50% - 5px); mix-blend-mode: color; pointer-events: none; opacity: 0; transition: opacity 0.6s ease; }
+  /* Tints only while the second clip (the billboard) is playing */
+  .h13-grid:has(.hv-video:nth-child(2).is-on) .h13-tint { opacity: 1; }
+  .h13-tint.is-1 { top: 0; left: 0; background: #ef4540; }
+  .h13-tint.is-2 { top: 0; right: 0; background: #DE9E3B; }
+  .h13-tint.is-3 { bottom: 0; left: 0; background: #1f8f86; }
+  .h13-tint.is-4 { bottom: 0; right: 0; background: #e85cc4; }
+  .h13-grid .h13-tint { animation: h13-swap 6s steps(1) infinite; }
+  @keyframes h13-swap { 50% { filter: hue-rotate(180deg); } }
+  /* Bigger stage: the grid takes more of the row and a little more of the screen height */
+  .h13 .hm-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr); gap: 60px; }
+  .h13 .hm-stage { max-height: calc(100svh - 175px); width: 100%; }
+  .h13-label { position: absolute; z-index: 3; left: -18px; bottom: 26px; padding: 8px 14px; background: #f4efe6; color: #111; font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em; transform: rotate(-4deg); box-shadow: 6px 6px 0 #111; }
+
+  /* ---------- 14: On air (brutalist frame) ---------- */
+  .h14-frame { position: absolute; inset: 4% 6% 8% 2%; border: 4px solid #f4efe6; box-shadow: 16px 16px 0 #DE9E3B, 32px 32px 0 #A83C27; transform: rotate(1.5deg); background: #000; }
+  .h14-frame .hv-reel { overflow: hidden; }
+  .h14-onair { position: absolute; z-index: 3; top: -20px; left: 24px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border: 3px solid #f4efe6; background: #ef4540; color: #fff; font-family: var(--font-heading); font-size: 1rem; font-weight: 800; letter-spacing: 0.04em; }
+  .h14-onair i { width: 10px; height: 10px; border-radius: 50%; background: #fff; animation: hv-blink 1s steps(1) infinite; }
+  .h14-strip { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; overflow: hidden; padding: 8px 0; border-top: 3px solid #f4efe6; background: #111; white-space: nowrap; font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; letter-spacing: 0.02em; color: #DE9E3B; }
+  .h14-strip span { display: inline-block; animation: h10-tape 18s linear infinite; }
+
+  /* ---------- 15: Lyric flash ---------- */
+  .h15-frame { position: absolute; inset: 0; border-radius: 22px; overflow: hidden; box-shadow: 0 0 0 1px rgba(244, 239, 230, 0.15), 0 40px 80px rgba(0, 0, 0, 0.6); }
+  .h15-words { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; pointer-events: none; }
+  .h15-words span {
+    grid-area: 1 / 1;
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 7.5vw, 7rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.85;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    mix-blend-mode: difference;
+    opacity: 0;
+    animation: h15-flash 4.5s steps(1) infinite;
+  }
+  .h15-words span:nth-child(2) { animation-delay: 1.5s; }
+  .h15-words span:nth-child(3) { animation-delay: 3s; }
+  @keyframes h15-flash { 0% { opacity: 1; transform: scale(1.08) rotate(-3deg); } 6% { transform: scale(1) rotate(-3deg); } 33.3% { opacity: 0; } }
+  .h15-frame::after { content: ""; position: absolute; inset: 0; z-index: 3; background: #fff; opacity: 0; animation: h15-pop 1.5s steps(1) infinite; pointer-events: none; }
+  @keyframes h15-pop { 0% { opacity: 0.35; } 4% { opacity: 0; } }
+  .h15-count { position: absolute; z-index: 4; right: 18px; top: 16px; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .h9-panel { animation: none; clip-path: polygon(62% 0, 100% 0, 100% 100%, 48% 100%); }
+    .h9-edge { animation: none; clip-path: polygon(calc(62% - 10px) 0, 62% 0, 48% 100%, calc(48% - 10px) 100%); }
+    .h9-line, .h9 .hd-chip { animation: none; opacity: 1; }
+    .h10-tape span { animation: none; }
+    .h11-screen .hv-reel, .h12-sticker, .h13-grid .h13-tint, .h14-onair i, .h14-strip span, .h15-frame::after { animation: none; }
+    .h15-words span { animation: none; }
+    .h15-words span:first-child { opacity: 1; }
+  }
+
+  /* Phones: every option puts the film on top with a slanted bottom edge, copy underneath */
+  @media (max-width: 900px) {
+    .h5, .hd { min-height: 0; display: block; padding-top: 0; }
+    .h5-panel, .h5-edge, .h6-panel, .h7-panel, .h7-edge, .h9-panel { position: relative; top: auto; width: 100%; height: 56svh; }
+    .h5-edge, .h7-edge { position: absolute; top: 0; transform: translateY(12px); }
+    .h5-panel, .h5-edge, .h6-panel, .h7-panel, .h7-edge { clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
+    .h6-line, .h9-edge, .h9-line { display: none; }
+    .h9-panel { animation: none; clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
+    .h9 .hd-chip { animation: none; opacity: 1; }
+    .h5-stamp, .hd-chip { top: 44svh; bottom: auto; right: 5%; left: auto; }
+    .h5 .container, .hd .container { padding-top: 48px; }
+    .h8 { padding-top: 110px; }
+    .h8-grid, .h10-top { grid-template-columns: 1fr; gap: 40px; }
+    .h8-card { order: -1; width: 92%; }
+    .h8 .hd-chip { top: auto; bottom: -14px; left: 6%; }
+    .h10 { padding-top: 110px; }
+    .h10-ribbon { height: 34svh; margin: 48px -10vw 0; }
+    .hm { padding-top: 110px; }
+    .hm-grid { grid-template-columns: 1fr; gap: 56px; }
+    .hm-stage { order: -1; width: 92%; }
+    .h12-arrow { display: none; }
+    .h13 .hm-grid { grid-template-columns: 1fr; gap: 56px; }
+    .h13 .hm-stage { width: 92%; max-height: none; }
+    .h12-sticker.is-star { width: 110px; height: 110px; font-size: 0.8rem; }
+  }
+</style>
+
+<!-- ===================== 5 ===================== -->
+<div class="po-label" id="o5">
+  <div class="container">
+    <h2><strong>5</strong>Diagonal split (your pick, for reference)</h2>
+    <p>The video takes the right half of the hero, cut on a sharp diagonal with an amber edge running along the cut. Dynamic and modern, and the copy keeps a clean dark side to itself.</p>
+  </div>
+</div>
+<section class="hv h5">
+  <div class="h5-edge" aria-hidden="true"></div>
+  <div class="h5-panel">{{ video() }}</div>
+  <span class="h5-stamp">BUILT ONCE · DEPLOYED EVERYWHERE</span>
+  <div class="container"><div class="h5-copy">{{ copy() }}</div></div>
+</section>
+
+<!-- ===================== 6 ===================== -->
+<div class="po-label" id="o6">
+  <div class="container">
+    <h2><strong>6</strong>Slashes</h2>
+    <p>The diagonal split, but the film is cut into three bold parallel slashes, with a thin amber line just ahead of the first cut. More graphic and energetic, like a sports or fashion campaign.</p>
+  </div>
+</div>
+<section class="hv hd h6">
+  <div class="h6-line" aria-hidden="true"></div>
+  <div class="h6-panel">{{ video() }}</div>
+  <span class="hd-chip">BUILT ONCE · DEPLOYED EVERYWHERE</span>
+  <div class="container"><div class="hd-copy">{{ copy() }}</div></div>
+</section>
+
+<!-- ===================== 7 ===================== -->
+<div class="po-label" id="o7">
+  <div class="container">
+    <h2><strong>7</strong>Arrow</h2>
+    <p>The video panel is cut into a forward-pointing arrow, the same shape as the arrows in the site's buttons, with an amber edge trailing it. It literally points the story forward, and ties into the AMP brand marks.</p>
+  </div>
+</div>
+<section class="hv hd h7">
+  <div class="h7-edge" aria-hidden="true"></div>
+  <div class="h7-panel">{{ video() }}</div>
+  <span class="hd-chip">FROM ONE PROJECT TO A PIPELINE</span>
+  <div class="container"><div class="hd-copy">{{ copy() }}</div></div>
+</section>
+
+<!-- ===================== 8 ===================== -->
+<div class="po-label" id="o8">
+  <div class="container">
+    <h2><strong>8</strong>Floating parallelogram</h2>
+    <p>A contained version: the film sits in a slanted card beside the copy, with a burnt-orange slab offset behind it and an amber rule above. Keeps the diagonal energy but feels tidier and more premium.</p>
+  </div>
+</div>
+<section class="hv hd h8">
+  <div class="container h8-grid">
+    <div class="hd-copy">{{ copy() }}</div>
+    <div class="h8-card">
+      <div class="h8-frame">{{ video() }}</div>
+      <span class="hd-chip">BEHIND THE SCENES → ON THE BILLBOARD</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9 ===================== -->
+<div class="po-label" id="o9">
+  <div class="container">
+    <h2><strong>9</strong>Diagonal wipe</h2>
+    <p>Your diagonal split, animated: when the page opens, the cut sweeps in from the right with the amber edge leading it, then settles. A second thin line fades in alongside. Same layout as 5, with an entrance. (Reload the page to see it again.)</p>
+  </div>
+</div>
+<section class="hv hd h9">
+  <div class="h9-line" aria-hidden="true"></div>
+  <div class="h9-edge" aria-hidden="true"></div>
+  <div class="h9-panel">{{ video() }}</div>
+  <span class="hd-chip">BUILT ONCE · DEPLOYED EVERYWHERE</span>
+  <div class="container"><div class="hd-copy">{{ copy() }}</div></div>
+</section>
+
+<!-- ===================== 10 ===================== -->
+<div class="po-label" id="o10">
+  <div class="container">
+    <h2><strong>10</strong>Diagonal ribbon</h2>
+    <p>The headline and copy sit up top, and the film runs underneath as a wide tilted ribbon across the full screen, edged in amber with a slow ticker of the tagline above it. Like a banner unrolled across the page.</p>
+  </div>
+</div>
+<section class="hv hd h10">
+  <div class="container h10-top">
+    <div>
+      <div class="sales-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+      <h1 class="sales-hero-title">Turn your best work into your best <span class="sales-mark">salesperson.</span></h1>
+    </div>
+    <div>
+      <p class="sales-hero-lead">One great project, told well, can sell for years. We turn a single client win into a case study film, a content library, a landing page and a paid funnel.</p>
+      <div class="sales-actions">
+        <a href="{{ booking }}" target="_blank" rel="noopener noreferrer" class="hero-btn-primary"><span>Book a call</span>{{ arrow | safe }}</a>
+        <a href="#" class="sales-text-link">See it in action ↓</a>
+      </div>
+    </div>
+  </div>
+  <div class="h10-ribbon">
+    <div class="h10-tape" aria-hidden="true"><span>{% for n in range(0, 8) %}MORE SIGNAL. LESS NOISE. · BUILT ONCE · DEPLOYED EVERYWHERE · {% endfor %}</span></div>
+    {{ video() }}
+  </div>
+</section>
+<!-- ===================== 11 ===================== -->
+<div class="po-label" id="o11">
+  <div class="container">
+    <h2><strong>11</strong>CRT telly</h2>
+    <p>The reel plays on a chunky old TV, tilted, with rounded glass, scanlines, a green VHS-style “PLAY ▶” and timecode, the AMP logo as the channel bug, and a little picture jump every few seconds. Saturday-morning YTV energy.</p>
+  </div>
+</div>
+<section class="hv hd hm h11">
+  <div class="container hm-grid">
+    <div class="hd-copy">{{ copy() }}</div>
+    <div class="hm-stage">
+      <div class="h11-tv">
+        <div class="h11-screen">
+          {{ video() }}
+          <span class="h11-osd is-play">PLAY ▶</span>
+          <span class="h11-osd is-time">SP 0:00:12</span>
+          <img class="h11-bug" src="/images/amp-logo.png" alt="">
+        </div>
+        <div class="h11-knobs" aria-hidden="true"><b></b><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 12 ===================== -->
+<div class="po-label" id="o12">
+  <div class="container">
+    <h2><strong>12</strong>Sticker zine</h2>
+    <p>Taped onto the page like a zine: the reel in a cream photo border with masking tape, a hand-written caption, and bobbing stickers (an amber starburst, a red AMP badge, a “100% real work” pill). Playful and hand-made.</p>
+  </div>
+</div>
+<section class="hv hd hm h12">
+  <div class="container hm-grid">
+    <div class="hd-copy">{{ copy() }}</div>
+    <div class="hm-stage">
+      <div class="h12-photo">
+        <span class="h12-tape is-a"></span><span class="h12-tape is-b"></span>
+        {{ video() }}
+        <span class="h12-caption">our latest shoot ✶</span>
+      </div>
+      <span class="h12-sticker is-star">Proof<br>sells!</span>
+      <span class="h12-sticker is-dot">AMP</span>
+      <span class="h12-sticker is-pill">100% REAL WORK</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 13 ===================== -->
+<div class="po-label" id="o13">
+  <div class="container">
+    <h2><strong>13</strong>Pop-art grid</h2>
+    <p>Warhol-style: one film split into a 2 × 2 grid. The behind-the-scenes clip plays in its own colours; when the billboard clip comes on, each quarter turns a different colour, and the colours flip every few seconds. A cream label with a hard black shadow sits on the corner.</p>
+  </div>
+</div>
+<section class="hv hd hm h13">
+  <div class="container hm-grid">
+    <div class="hd-copy">{{ copy() }}</div>
+    <div class="hm-stage">
+      <div class="h13-grid">
+        {{ video() }}
+        <span class="h13-tint is-1"></span><span class="h13-tint is-2"></span><span class="h13-tint is-3"></span><span class="h13-tint is-4"></span>
+        <span class="h13-label">REAL WORK. REAL PEOPLE.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 14 ===================== -->
+<div class="po-label" id="o14">
+  <div class="container">
+    <h2><strong>14</strong>On air</h2>
+    <p>Bold and brutalist: a thick cream frame with two stacked hard shadows in amber and burnt orange, a flashing red “ON AIR” tag breaking the frame, and a ticker running along the bottom of the screen.</p>
+  </div>
+</div>
+<section class="hv hd hm h14">
+  <div class="container hm-grid">
+    <div class="hd-copy">{{ copy() }}</div>
+    <div class="hm-stage">
+      <div class="h14-frame">
+        {{ video() }}
+        <span class="h14-onair"><i></i>ON AIR</span>
+        <div class="h14-strip" aria-hidden="true"><span>{% for n in range(0, 8) %}TURN YOUR BEST WORK INTO YOUR BEST SALESPERSON ✶ {% endfor %}</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 15 ===================== -->
+<div class="po-label" id="o15">
+  <div class="container">
+    <h2><strong>15</strong>Lyric flash</h2>
+    <p>Music-video style: giant words slam in over the film one at a time, “PROVE IT.”, “PRODUCE IT.”, “PROMOTE IT.”, in inverted colour, with a white flash on every beat.</p>
+  </div>
+</div>
+<section class="hv hd hm h15">
+  <div class="container hm-grid">
+    <div class="hd-copy">{{ copy() }}</div>
+    <div class="hm-stage">
+      <div class="h15-frame">
+        {{ video() }}
+        <div class="h15-words" aria-hidden="true"><span>Prove<br>it.</span><span>Produce<br>it.</span><span>Promote<br>it.</span></div>
+        <span class="h15-count">AMP · REEL 01</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height: 120px; background: var(--bg-main);"></div>
+
+<script>
+  // Each reel plays its clips in order (behind the scenes, then the billboard), crossfades between them and loops.
+  // Reduced motion: no playback, the first clip's poster frame stays up.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.hv-reel').forEach(reel => {
+    const clips = [...reel.querySelectorAll('video')];
+    if (reduceMotion) return;
+    let index = 0;
+    function play(i) {
+      index = i;
+      clips.forEach((clip, j) => clip.classList.toggle('is-on', j === i));
+      clips[i].currentTime = 0;
+      const started = clips[i].play();
+      if (started && started.catch) started.catch(() => {});
+    }
+    clips.forEach(clip => clip.addEventListener('ended', () => play((index + 1) % clips.length)));
+    play(0);
+  });
+</script>

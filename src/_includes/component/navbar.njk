@@ -1,14 +1,19 @@
+{#- Site dock. Pages can override its links in front matter (nav.left, nav.home, nav.right), e.g. the home page
+    points at its own sections. "#cta" is the contact section or footer CTA on the same page. -#}
+{%- set navLeft = nav.left if nav and nav.left else { label: "How It Works", href: "/#how" } -%}
+{%- set navHome = nav.home if nav and nav.home else "/" -%}
+{%- set navRight = nav.right if nav and nav.right else { label: "Book a Call", href: "#cta" } -%}
 <header class="site-header">
   <div class="dock-container">
     <nav class="curved-dock" aria-label="Main Navigation">
       <!-- Left Wing: Editorial How It Works with Cards Icon -->
       <div class="dock-wing dock-wing-left">
-        <a href="/#thedeck" class="dock-link-explore">
+        <a href="{{ navLeft.href }}" class="dock-link-explore">
           <svg class="dock-icon-deck" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2" y="6" width="13" height="15" rx="2"></rect>
             <path d="M7 2h11a2 2 0 0 1 2 2v13"></path>
           </svg>
-          <span>How It Works</span>
+          <span>{{ navLeft.label }}</span>
         </a>
       </div>
 
@@ -25,15 +30,15 @@
         </svg>
 
         <!-- Center Raised Circular AMP Logo Button -->
-        <a href="/" class="dock-popout-btn" aria-label="AMP Home">
+        <a href="{{ navHome }}" class="dock-popout-btn" aria-label="{{ 'Back to top' if navHome.startsWith('#') else 'AMP Home' }}">
           <img src="/images/amp-logo.png" alt="AMP Visual Media Logo" class="dock-popout-logo">
         </a>
       </div>
 
-      <!-- Right Wing: Book A Session -->
+      <!-- Right Wing: Book a Call -->
       <div class="dock-wing dock-wing-right">
-        <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="dock-link-explore">
-          <span>Book a Session</span>
+        <a href="{{ navRight.href }}"{% if navRight.href.startsWith("http") %} target="_blank" rel="noopener noreferrer"{% endif %} class="dock-link-explore">
+          <span>{{ navRight.label }}</span>
           <svg class="dock-icon-arrow" width="11" height="9" viewBox="0 0 16 14" fill="currentColor" aria-hidden="true">
             <path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/>
           </svg>
@@ -42,55 +47,3 @@
     </nav>
   </div>
 </header>
-
-<!-- Fullscreen Drawer Menu -->
-<div class="menu-drawer" id="menuDrawer" aria-hidden="true">
-  <div class="menu-header">
-    <a href="/" class="nav-brand" onclick="closeMenu()">
-      <img src="/images/amp-logo.png" alt="AMP Visual Media Logo">
-    </a>
-    <button type="button" class="menu-close-btn" id="menuClose" aria-label="Close navigation menu">
-      <span>CLOSE</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-    </button>
-  </div>
-
-  <div class="menu-content">
-    <nav class="menu-nav-links">
-      <a href="/">Home</a>
-      <a href="/#thedeck">How it works</a>
-      <a href="/#offer">The Roadmap</a>
-      <a href="/#standalone">The Deck</a>
-      <a href="/#proof">Client Stories</a>
-      <a href="/#faq">FAQ</a>
-      <a href="/services/">Services</a>
-      <a href="https://amp-visual-media-250.bloom.io/login" target="_blank" rel="noopener noreferrer">Client Login</a>
-    </nav>
-
-    <div class="menu-side-col">
-      <div class="menu-side-section">
-        <h4>Connect</h4>
-        <div class="menu-social-links">
-          <a href="https://www.instagram.com/ampvisualmedia/" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://www.linkedin.com/company/amptheagency" target="_blank" rel="noopener noreferrer">Linkedin</a>
-          <a href="https://www.facebook.com/AMPVisualMedia" target="_blank" rel="noopener noreferrer">Facebook</a>
-          <a href="https://www.youtube.com/@ampvisualmedia" target="_blank" rel="noopener noreferrer">YouTube</a>
-        </div>
-      </div>
-
-      <div class="menu-footer-info">
-        <h4>Email Us</h4>
-        <p><a href="mailto:hi@ampvisualmedia.com">hi@ampvisualmedia.com</a></p>
-        <div style="margin-top: 24px;">
-          <a href="https://calendar.app.google/vc5qz2BpLdG4BEgq9" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 12px 24px; font-size: 14px;">
-            <span>Book a Session</span>
-          </a>
-        </div>
-        <p style="margin-top: 24px; color: var(--text-subtle); font-size: 13px;">© 2026 AMP. All rights reserved.</p>
-      </div>
-    </div>
-  </div>
-</div>

@@ -1,0 +1,614 @@
+---
+layout: landing.njk
+permalink: /sales/included-options/
+title: "Sales page | What You Get: layout options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#current" }
+  home: "#current"
+  right: { label: "Back to Sales", href: "/" }
+---
+{#- TEMPORARY comparison page for the Sales page "What you get" section. Delete once an option is picked. -#}
+{%- set intro = "Each piece works on its own. Together they turn a single project into a steady flow of new leads. With our sister company Mind Fusion, we handle the whole process end to end." -%}
+<style>
+  .po-label { padding: 140px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 72ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+  .po-sep { height: 60px; background: var(--bg-main); }
+
+  /* Shared bits */
+  .io-muted { color: rgba(244, 239, 230, 0.68); line-height: 1.55; }
+  .sales-section .io-h { font-size: 1.15rem; font-weight: 700; color: var(--accent-sand); margin-bottom: 8px; }
+  .io-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #DE9E3B;
+  }
+
+  /* ---------- A: Engine hub ---------- */
+  .ia-engine {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px minmax(0, 1fr);
+    gap: 40px 56px;
+    align-items: center;
+    margin-top: 64px;
+  }
+  .ia-col { display: grid; gap: 28px; }
+  .ia-col.is-left { text-align: right; }
+  .ia-item { position: relative; padding: 4px 0; }
+  .ia-col.is-left .ia-item::after,
+  .ia-col.is-right .ia-item::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    width: 40px;
+    height: 1px;
+    background: rgba(222, 158, 59, 0.5);
+  }
+  .ia-col.is-left .ia-item::after { right: -50px; }
+  .ia-col.is-right .ia-item::before { left: -50px; }
+  .ia-core {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 10px rgba(222, 158, 59, 0.12), 0 0 0 22px rgba(222, 158, 59, 0.06);
+  }
+  .ia-core img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55); }
+  .ia-core div {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    padding: 24px;
+  }
+  .ia-core strong { font-size: 1.6rem; line-height: 1.1; letter-spacing: -0.02em; }
+  .ia-core span { margin-top: 8px; font-size: 0.9rem; color: rgba(244, 239, 230, 0.8); }
+
+  /* ---------- B: Bento ---------- */
+  .ib-bento {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+    gap: 16px;
+    margin-top: 56px;
+  }
+  .ib-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 26px;
+    border-radius: var(--radius-lg);
+    background: rgba(244, 239, 230, 0.05);
+    border: 1px solid rgba(244, 239, 230, 0.1);
+    overflow: hidden;
+  }
+  .ib-tile p { max-width: 36ch; }
+  .ib-video { grid-column: span 2; grid-row: span 2; padding: 0; }
+  .ib-video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ib-video .ib-copy {
+    position: relative;
+    padding: 120px 28px 28px;
+    background: linear-gradient(to top, rgba(11, 30, 28, 0.95) 30%, transparent);
+  }
+  .ib-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 76px;
+    height: 76px;
+    margin: -60px 0 0 -38px;
+    border-radius: 50%;
+    background: #A83C27;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+  .ib-play::after {
+    content: "";
+    margin-left: 5px;
+    border-left: 20px solid #fff;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+  }
+  .ib-case { background: #A83C27; border: 0; }
+  .sales-section .ib-case .io-h { color: #fff; }
+  .ib-case .io-muted { color: rgba(255, 255, 255, 0.85); }
+  .ib-quote { font-size: 4.5rem; line-height: 0.6; font-weight: 800; color: rgba(255, 255, 255, 0.35); }
+  .ib-cuts { flex-direction: row; gap: 10px; align-items: flex-end; justify-content: flex-start; }
+  .ib-cuts-frames { display: flex; gap: 6px; }
+  .ib-cuts-frames { align-items: center; }
+  .ib-cuts-frames img { width: 56px; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 6px; }
+  .ib-cuts-frames img:nth-child(2) { width: 110px; aspect-ratio: 16 / 9; }
+  .ib-stack { flex-direction: column; }
+  .ib-photos { grid-column: span 4; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; align-items: end; }
+  .ib-photos-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .ib-photos-strip img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+  .ib-browser { border-radius: 8px; background: #F5F2EB; overflow: hidden; }
+  .ib-browser i { display: block; height: 14px; background: #e4ddcf; }
+  .ib-browser b { display: block; height: 8px; margin: 10px 12px 0; border-radius: 4px; background: #0F2B2C; width: 70%; }
+  .ib-browser b + b { width: 45%; background: #c9c1b1; }
+  .ib-browser em { display: block; width: 52px; height: 14px; margin: 12px 12px 12px; border-radius: 3px; background: #A83C27; }
+  .ib-funnel { display: grid; gap: 5px; justify-items: center; }
+  .ib-funnel span { height: 16px; border-radius: 3px; }
+  .ib-funnel span:nth-child(1) { width: 100%; background: #A83C27; }
+  .ib-funnel span:nth-child(2) { width: 72%; background: var(--accent-copper); }
+  .ib-funnel span:nth-child(3) { width: 44%; background: #DE9E3B; }
+  .ib-head { margin-bottom: 14px; }
+  /* Clear space between each tile's visual and its heading */
+  .ib-stack > [aria-hidden="true"],
+  .ib-quote { margin-bottom: auto; }
+  .ib-stack .io-h,
+  .ib-case .io-h { margin-top: 28px; }
+  .ib-stack { min-height: 240px; }
+  .ib-tile .io-h { margin-bottom: 10px; }
+
+  /* ---------- C: Prove / Produce / Promote columns ---------- */
+  .ic-cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 56px;
+  }
+  .ic-col {
+    border-radius: var(--radius-lg);
+    background: rgba(244, 239, 230, 0.05);
+    border: 1px solid rgba(244, 239, 230, 0.1);
+    overflow: hidden;
+  }
+  .ic-col > img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .ic-col-body { padding: 26px; }
+  .ic-stage { display: flex; align-items: baseline; gap: 12px; margin-bottom: 22px; }
+  .ic-stage b { font-size: 1.7rem; letter-spacing: -0.03em; color: #f4efe6; }
+  .ic-piece { padding: 18px 0; border-top: 1px solid rgba(244, 239, 230, 0.12); }
+  .ic-piece:last-child { padding-bottom: 0; }
+
+  /* ---------- D: Interactive showcase ---------- */
+  .id-show {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 48px;
+    align-items: stretch;
+    margin-top: 56px;
+  }
+  .id-list { list-style: none; border-top: 1px solid rgba(244, 239, 230, 0.14); }
+  .id-list button {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 6px 14px;
+    width: 100%;
+    padding: 18px 0;
+    border: 0;
+    border-bottom: 1px solid rgba(244, 239, 230, 0.14);
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .id-list .id-num { font-family: var(--font-mono); font-weight: 700; color: rgba(244, 239, 230, 0.4); padding-top: 3px; }
+  .id-list .id-name { font-size: 1.3rem; font-weight: 700; color: rgba(244, 239, 230, 0.55); transition: color 0.2s ease; }
+  .id-list .id-desc { grid-column: 2; display: none; color: rgba(244, 239, 230, 0.7); line-height: 1.55; }
+  .id-list button.is-active .id-num { color: #DE9E3B; }
+  .id-list button.is-active .id-name { color: #f4efe6; }
+  .id-list button.is-active .id-desc { display: block; }
+  .id-list button:hover .id-name { color: #f4efe6; }
+  .id-stage {
+    position: relative;
+    min-height: 460px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #000;
+  }
+  .id-stage img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .id-stage img.is-active { opacity: 1; }
+  .id-caption {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    background: rgba(11, 30, 28, 0.85);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- E: Package receipt ---------- */
+  .ie-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+  }
+  .ie-photos { position: relative; height: 480px; margin-top: 48px; }
+  .ie-photos img {
+    position: absolute;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+  }
+  .ie-photos img:nth-child(1) { left: 0; top: 0; width: 62%; height: 58%; transform: rotate(-3deg); }
+  .ie-photos img:nth-child(2) { right: 0; top: 18%; width: 46%; height: 52%; transform: rotate(4deg); }
+  .ie-photos img:nth-child(3) { left: 14%; bottom: 0; width: 54%; height: 42%; transform: rotate(1.5deg); }
+  .ie-receipt {
+    position: relative;
+    padding: 36px 34px 30px;
+    background: #F5F2EB;
+    color: #0F2B2C;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  }
+  /* Torn bottom edge */
+  .ie-receipt::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -12px;
+    height: 12px;
+    background: linear-gradient(135deg, #F5F2EB 50%, transparent 50%) 0 0 / 16px 12px repeat-x,
+                linear-gradient(225deg, #F5F2EB 50%, transparent 50%) 0 0 / 16px 12px repeat-x;
+  }
+  .ie-receipt-head {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+    border-bottom: 2px dashed rgba(15, 43, 44, 0.25);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .ie-line { display: flex; align-items: baseline; gap: 10px; padding: 14px 0 0; }
+  .ie-line strong { font-size: 1.08rem; }
+  .ie-line::after { content: ""; order: 1; flex: 1; border-bottom: 2px dotted rgba(15, 43, 44, 0.3); }
+  .ie-line span {
+    order: 2;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #A83C27;
+  }
+  .ie-desc { margin-top: 4px; font-size: 0.92rem; line-height: 1.5; color: rgba(15, 43, 44, 0.65); max-width: 44ch; }
+  .ie-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 2px dashed rgba(15, 43, 44, 0.25);
+    font-weight: 700;
+  }
+  .ie-total span { color: #A83C27; }
+
+  .ib-photos-dots { display: none; }
+
+  @media (max-width: 900px) {
+    .ia-engine { grid-template-columns: 1fr; gap: 28px; }
+    .ia-col.is-left { text-align: left; }
+    .ia-col .ia-item::after, .ia-col .ia-item::before { display: none; }
+    .ia-core { width: 240px; justify-self: center; order: -1; }
+    .ib-bento { grid-template-columns: 1fr 1fr; }
+    .ib-video, .ib-photos { grid-column: span 2; }
+    .ib-photos { grid-template-columns: 1fr; }
+    .ic-cols, .id-show, .ie-grid { grid-template-columns: 1fr; }
+    .id-stage { min-height: 300px; order: -1; }
+    .ie-photos { height: 360px; }
+  }
+  @media (max-width: 600px) {
+    .ib-bento { grid-template-columns: 1fr; }
+    .ib-video { grid-column: auto; grid-row: auto; min-height: 380px; }
+    .ib-photos { grid-column: auto; gap: 22px; }
+    /* One photo at a time, full width, crossfading every 2s (script below) */
+    .ib-photos-strip { position: relative; display: block; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; }
+    .ib-photos-strip img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; border-radius: 0; opacity: 0; transition: opacity 0.6s ease; }
+    .ib-photos-strip img.is-on { opacity: 1; }
+    .ib-photos-dots { display: flex; gap: 6px; position: absolute; left: 12px; bottom: 12px; z-index: 1; }
+    .ib-photos-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.45); transition: background 0.3s ease; }
+    .ib-photos-dots i.is-on { background: #fff; }
+  }
+</style>
+
+<!-- ===================== CURRENT ===================== -->
+<div class="po-label" id="current">
+  <div class="container">
+    <h2><strong>NOW</strong>Current version</h2>
+    <p>For reference: the six-cell grid with three photos underneath.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container">
+    <div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+    <h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+    <p class="sales-intro">{{ intro }}</p>
+    <div class="sales-pieces">
+      <div class="sales-piece"><h3>The Case Study</h3><p>We find the project worth telling, interview you and your customer, and shape the story of what you did and why it mattered.</p></div>
+      <div class="sales-piece"><h3>Hero Video</h3><p>The main case study film. Featured on your landing page and built to make a stranger trust you.</p></div>
+      <div class="sales-piece"><h3>Cut-Downs &amp; Ads</h3><p>Short edits of the hero video in vertical and horizontal formats, cut to run as paid ads.</p></div>
+      <div class="sales-piece"><h3>Photo Library</h3><p>Stills from the shoot plus high-res frame grabs, ready for your website, socials and print.</p></div>
+      <div class="sales-piece"><h3>The Landing Page</h3><p>A focused sales page built around the case study. Visitors see what you can do, then get a clear path to get in touch.</p></div>
+      <div class="sales-piece"><h3>The Paid Funnel</h3><p>Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions.</p></div>
+    </div>
+    <div class="sales-library">
+      <img src="/images/uploads/dss00026.jpg" alt="" loading="lazy">
+      <img src="/images/uploads/sequence.01_35_45_12.still077.jpg" alt="" loading="lazy">
+      <img src="/images/uploads/sequence.02_11_19_12.still089.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OPTION A ===================== -->
+<div class="po-label" id="a">
+  <div class="container">
+    <h2><strong>A</strong>Engine hub</h2>
+    <p>Takes "one engine" literally: the project sits in the middle as a glowing circle, and the six pieces branch off it, three on each side, the way the system actually works.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container">
+    <div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+    <h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+    <p class="sales-intro">{{ intro }}</p>
+    <div class="ia-engine">
+      <div class="ia-col is-left">
+        <div class="ia-item"><h3 class="io-h">The Case Study</h3><p class="io-muted">We find the project worth telling, interview you and your customer, and shape the story.</p></div>
+        <div class="ia-item"><h3 class="io-h">Hero Video</h3><p class="io-muted">The main case study film, built to make a stranger trust you.</p></div>
+        <div class="ia-item"><h3 class="io-h">Cut-Downs &amp; Ads</h3><p class="io-muted">Short vertical and horizontal edits, cut to run as paid ads.</p></div>
+      </div>
+      <div class="ia-core">
+        <img src="/images/sales/interview.jpg" alt="" loading="lazy">
+        <div><strong>One real project</strong><span>at the centre of everything</span></div>
+      </div>
+      <div class="ia-col is-right">
+        <div class="ia-item"><h3 class="io-h">Photo Library</h3><p class="io-muted">Stills and high-res frame grabs for your website, socials and print.</p></div>
+        <div class="ia-item"><h3 class="io-h">The Landing Page</h3><p class="io-muted">A focused sales page built around the case study, with one clear path to get in touch.</p></div>
+        <div class="ia-item"><h3 class="io-h">The Paid Funnel</h3><p class="io-muted">Top, middle and bottom of funnel campaigns that turn attention into leads.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OPTION B ===================== -->
+<div class="po-label" id="b">
+  <div class="container">
+    <h2><strong>B</strong>Bento grid</h2>
+    <p>Each piece gets a tile that shows what it is: the hero video as a big playable still, cut-downs as vertical and wide frames, a photo strip, a mini landing page, a funnel. Most visual of the five.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container">
+    <div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+    <h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+    <p class="sales-intro">{{ intro }}</p>
+    <div class="ib-bento">
+      <div class="ib-tile ib-video">
+        <img src="/images/uploads/sequence-01.00_03_41_07.still005.jpg" alt="" loading="lazy">
+        <span class="ib-play" aria-hidden="true"></span>
+        <div class="ib-copy">
+          <h3 class="io-h">Hero Video</h3>
+          <p class="io-muted">The main case study film. Featured on your landing page and built to make a stranger trust you.</p>
+        </div>
+      </div>
+      <div class="ib-tile ib-case">
+        <span class="ib-quote" aria-hidden="true">“</span>
+        <h3 class="io-h">The Case Study</h3>
+        <p class="io-muted">We find the project worth telling, interview you and your customer, and shape the story.</p>
+      </div>
+      <div class="ib-tile ib-stack">
+        <div class="ib-cuts-frames" aria-hidden="true">
+          <img src="/images/uploads/dss00349.jpg" alt="">
+          <img src="/images/uploads/sequence.01_35_45_12.still077.jpg" alt="">
+          <img src="/images/uploads/dss00124.jpg" alt="">
+        </div>
+        <h3 class="io-h">Cut-Downs &amp; Ads</h3>
+        <p class="io-muted">Short vertical and horizontal edits, cut to run as paid ads.</p>
+      </div>
+      <div class="ib-tile ib-stack">
+        <div class="ib-browser" aria-hidden="true"><i></i><b></b><b></b><em></em></div>
+        <h3 class="io-h">The Landing Page</h3>
+        <p class="io-muted">A focused sales page with one clear path to get in touch.</p>
+      </div>
+      <div class="ib-tile ib-stack">
+        <div class="ib-funnel" aria-hidden="true"><span></span><span></span><span></span></div>
+        <h3 class="io-h">The Paid Funnel</h3>
+        <p class="io-muted">Campaigns that build awareness, nurture interest and drive conversions.</p>
+      </div>
+      <div class="ib-tile ib-photos">
+        <div class="ib-photos-strip" aria-hidden="true" data-cycle>
+          <span class="ib-photos-dots"><i class="is-on"></i><i></i><i></i><i></i></span>
+          <img src="/images/uploads/dss00026.jpg" alt="">
+          <img src="/images/uploads/sequence.02_11_19_12.still089.jpg" alt="">
+          <img src="/images/uploads/sequence.00_28_13_00.still030.jpg" alt="">
+          <img src="/images/uploads/sequence.02_05_07_14.still083.jpg" alt="">
+        </div>
+        <div>
+          <h3 class="io-h">Photo Library</h3>
+          <p class="io-muted">Stills from the shoot plus high-res frame grabs, ready for your website, socials and print.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Photo Library tile: on phones, show one photo at a time and switch every 2s
+  document.querySelectorAll('[data-cycle]').forEach(strip => {
+    const photos = strip.querySelectorAll('img');
+    const dots = strip.querySelectorAll('.ib-photos-dots i');
+    const mobile = window.matchMedia('(max-width: 600px)');
+    let index = 0;
+    let timer = null;
+    let visible = false;
+
+    function show(i) {
+      index = i;
+      photos.forEach((img, j) => img.classList.toggle('is-on', j === i));
+      dots.forEach((dot, j) => dot.classList.toggle('is-on', j === i));
+    }
+    function update() {
+      clearInterval(timer);
+      timer = null;
+      if (mobile.matches && visible) {
+        timer = setInterval(() => show((index + 1) % photos.length), 2000);
+      }
+    }
+
+    show(0);
+    mobile.addEventListener('change', update);
+    // Only cycles while the tile is on screen
+    new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      update();
+    }).observe(strip);
+  });
+</script>
+
+<!-- ===================== OPTION C ===================== -->
+<div class="po-label" id="c">
+  <div class="container">
+    <h2><strong>C</strong>Prove · Produce · Promote</h2>
+    <p>Groups the six pieces into the three jobs from the Growth System deck, two per column, each topped with a photo. Easier to scan than six equal cells, and it tells the story in order.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container">
+    <div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+    <h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+    <p class="sales-intro">{{ intro }}</p>
+    <div class="ic-cols">
+      <div class="ic-col">
+        <img src="/images/sales/interview.jpg" alt="" loading="lazy">
+        <div class="ic-col-body">
+          <div class="ic-stage"><span class="io-tag">01</span><b>Prove it</b></div>
+          <div class="ic-piece"><h3 class="io-h">The Case Study</h3><p class="io-muted">We find the project worth telling, interview you and your customer, and shape the story of what you did and why it mattered.</p></div>
+          <div class="ic-piece"><h3 class="io-h">Hero Video</h3><p class="io-muted">The main case study film. Featured on your landing page and built to make a stranger trust you.</p></div>
+        </div>
+      </div>
+      <div class="ic-col">
+        <img src="/images/uploads/dss00026.jpg" alt="" loading="lazy">
+        <div class="ic-col-body">
+          <div class="ic-stage"><span class="io-tag">02</span><b>Produce it</b></div>
+          <div class="ic-piece"><h3 class="io-h">Cut-Downs &amp; Ads</h3><p class="io-muted">Short edits of the hero video in vertical and horizontal formats, cut to run as paid ads.</p></div>
+          <div class="ic-piece"><h3 class="io-h">Photo Library</h3><p class="io-muted">Stills from the shoot plus high-res frame grabs, ready for your website, socials and print.</p></div>
+        </div>
+      </div>
+      <div class="ic-col">
+        <img src="/images/uploads/dss00349.jpg" alt="" loading="lazy">
+        <div class="ic-col-body">
+          <div class="ic-stage"><span class="io-tag">03</span><b>Promote it</b></div>
+          <div class="ic-piece"><h3 class="io-h">The Landing Page</h3><p class="io-muted">A focused sales page built around the case study. Visitors see what you can do, then get a clear path to get in touch.</p></div>
+          <div class="ic-piece"><h3 class="io-h">The Paid Funnel</h3><p class="io-muted">Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OPTION D ===================== -->
+<div class="po-label" id="d">
+  <div class="container">
+    <h2><strong>D</strong>Interactive showcase</h2>
+    <p>A list of the six pieces next to one large photo. Hover or tap a piece and it opens its description while the photo changes to match. Compact, and it rewards people who explore.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container">
+    <div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+    <h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+    <p class="sales-intro">{{ intro }}</p>
+    <div class="id-show" data-showcase>
+      <ul class="id-list">
+        <li><button type="button" class="is-active" data-i="0"><span class="id-num">01</span><span class="id-name">The Case Study</span><span class="id-desc">We find the project worth telling, interview you and your customer, and shape the story of what you did and why it mattered.</span></button></li>
+        <li><button type="button" data-i="1"><span class="id-num">02</span><span class="id-name">Hero Video</span><span class="id-desc">The main case study film. Featured on your landing page and built to make a stranger trust you.</span></button></li>
+        <li><button type="button" data-i="2"><span class="id-num">03</span><span class="id-name">Cut-Downs &amp; Ads</span><span class="id-desc">Short edits of the hero video in vertical and horizontal formats, cut to run as paid ads.</span></button></li>
+        <li><button type="button" data-i="3"><span class="id-num">04</span><span class="id-name">Photo Library</span><span class="id-desc">Stills from the shoot plus high-res frame grabs, ready for your website, socials and print.</span></button></li>
+        <li><button type="button" data-i="4"><span class="id-num">05</span><span class="id-name">The Landing Page</span><span class="id-desc">A focused sales page built around the case study. Visitors see what you can do, then get a clear path to get in touch.</span></button></li>
+        <li><button type="button" data-i="5"><span class="id-num">06</span><span class="id-name">The Paid Funnel</span><span class="id-desc">Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions.</span></button></li>
+      </ul>
+      <div class="id-stage" aria-hidden="true">
+        <img class="is-active" src="/images/sales/interview.jpg" alt="" loading="lazy">
+        <img src="/images/uploads/sequence-01.00_03_41_07.still005.jpg" alt="" loading="lazy">
+        <img src="/images/uploads/dss00349.jpg" alt="" loading="lazy">
+        <img src="/images/uploads/dss00026.jpg" alt="" loading="lazy">
+        <img src="/images/uploads/sequence.02_05_07_14.still083.jpg" alt="" loading="lazy">
+        <img src="/images/uploads/sequence.01_35_45_12.still077.jpg" alt="" loading="lazy">
+        <span class="id-caption">From the Davidson Smart Solutions shoot</span>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('[data-showcase]').forEach(show => {
+    const buttons = show.querySelectorAll('button[data-i]');
+    const images = show.querySelectorAll('.id-stage img');
+    function select(i) {
+      buttons.forEach((b, j) => b.classList.toggle('is-active', j === i));
+      images.forEach((img, j) => img.classList.toggle('is-active', j === i));
+    }
+    buttons.forEach((b, i) => {
+      b.addEventListener('click', () => select(i));
+      b.addEventListener('mouseenter', () => select(i));
+      b.addEventListener('focus', () => select(i));
+    });
+  });
+</script>
+
+<!-- ===================== OPTION E ===================== -->
+<div class="po-label" id="e">
+  <div class="container">
+    <h2><strong>E</strong>Package receipt</h2>
+    <p>Everything listed like an itemised receipt, each line marked "Included", next to a scattered pile of shoot photos. Makes "one engagement covers all of it" feel concrete, and leads nicely into the pricing questions.</p>
+  </div>
+</div>
+<section class="sales-section is-forest">
+  <div class="container ie-grid">
+    <div>
+      <div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+      <h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+      <p class="sales-intro">{{ intro }}</p>
+      <div class="ie-photos" aria-hidden="true">
+        <img src="/images/uploads/dss00026.jpg" alt="" loading="lazy">
+        <img src="/images/sales/interview.jpg" alt="" loading="lazy">
+        <img src="/images/uploads/sequence.02_11_19_12.still089.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+    <div class="ie-receipt">
+      <div class="ie-receipt-head"><span>AMP Growth System</span><span>One engagement</span></div>
+      <div class="ie-line"><strong>The Case Study</strong><span>INCLUDED</span></div>
+      <p class="ie-desc">We find the project worth telling, interview you and your customer, and shape the story.</p>
+      <div class="ie-line"><strong>Hero Video</strong><span>INCLUDED</span></div>
+      <p class="ie-desc">The main case study film, built to make a stranger trust you.</p>
+      <div class="ie-line"><strong>Cut-Downs &amp; Ads</strong><span>INCLUDED</span></div>
+      <p class="ie-desc">Short vertical and horizontal edits, cut to run as paid ads.</p>
+      <div class="ie-line"><strong>Photo Library</strong><span>INCLUDED</span></div>
+      <p class="ie-desc">Stills and high-res frame grabs for your website, socials and print.</p>
+      <div class="ie-line"><strong>The Landing Page</strong><span>INCLUDED</span></div>
+      <p class="ie-desc">A focused sales page with one clear path to get in touch.</p>
+      <div class="ie-line"><strong>The Paid Funnel</strong><span>INCLUDED</span></div>
+      <p class="ie-desc">Top, middle and bottom of funnel campaigns that turn attention into leads.</p>
+      <div class="ie-total"><span>6 pieces</span>One engine</div>
+    </div>
+  </div>
+</section>
+<div class="po-sep"></div>

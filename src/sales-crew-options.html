@@ -1,0 +1,119 @@
+---
+layout: landing.njk
+permalink: /sales/crew-options/
+title: "Sales page | Why AMP: image treatments"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#c1" }
+  home: "#c1"
+  right: { label: "Back to Sales", href: "/" }
+---
+{#- TEMPORARY comparison page for the Sales page "Why AMP" strips. Same layout and movement as the live page
+    (two tilted rows running in opposite directions); only the film background goes and the photos are treated
+    five different ways. Each option uses the same ten team photos. Delete once one is picked. -#}
+{%- set crew = [] -%}
+{%- for n in ["01", "03", "04", "02", "06", "05", "08", "10", "09", "12"] %}{% set crew = (crew.push("/images/sales/team/people-" + n + ".jpg"), crew) %}{% endfor %}
+{#- The live strips, unchanged apart from the extra class that sets the treatment -#}
+{%- macro rows(cls) -%}
+<div class="sales-film kx {{ cls }}" role="img" aria-label="The AMP team at work on shoots and in the studio">
+  <div class="sales-film-row"><div class="sales-film-track">{% for r in range(0, 2) %}{% for p in crew %}<figure><img src="{{ p }}" alt="" loading="lazy"></figure>{% endfor %}{% endfor %}</div></div>
+  <div class="sales-film-row is-back"><div class="sales-film-track">{% for r in range(0, 2) %}{% for p in crew | reverse %}<figure><img src="{{ p }}" alt="" loading="lazy"></figure>{% endfor %}{% endfor %}</div></div>
+</div>
+{%- endmacro -%}
+{%- macro copy() -%}
+<div class="sales-crew-copy">
+  <div class="sales-eyebrow"><span>WHY AMP</span></div>
+  <h2 class="sales-title">We don't just make content. We build <span class="sales-gold">systems that bring in business.</span></h2>
+  <p class="sales-intro">
+    AMP Visual Media is a strategy-driven creative agency based in Belleville, Ontario. Strategy, production, web
+    and ads live under one roof, so your story stays sharp from the first interview to the final click.
+  </p>
+  <p class="sales-intro">We built this system because we have seen what real proof can do for a business. Now we build it for yours.</p>
+</div>
+{%- endmacro -%}
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+
+  /* Shared: no film. The black band and sprocket holes go; rows get room for shadows and tilts */
+  .sales-film.kx { padding: 0; background: none; }
+  .kx .sales-film-row::before, .kx .sales-film-row::after { display: none; }
+  .kx .sales-film-row { padding: 14px 0; }
+  .kx .sales-film-row + .sales-film-row { margin-top: 0; }
+  .kx .sales-film-track { gap: 18px; }
+  .kx figure { position: relative; flex: none; }
+
+  /* ---------- 1: Just the photos. Bigger, rounded, in colour at the centre and fading to nothing at the edges ---------- */
+  .k1 { -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent); }
+  .k1 figure { width: 270px; border-radius: 14px; }
+  .k1 img { border-radius: 14px; filter: grayscale(1) contrast(1.08); transition: filter 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .k1 figure:hover img { filter: none; transform: scale(1.04); }
+  .k1 .sales-film-row:hover .sales-film-track { animation-play-state: paused; }
+
+  /* ---------- 2: Prints. White-bordered photo prints, each at its own slight angle, casting a soft shadow ---------- */
+  .k2 .sales-film-row { padding: 30px 0; }
+  .k2 .sales-film-track { gap: 26px; }
+  .k2 figure { width: 220px; aspect-ratio: auto; padding: 9px 9px 34px; background: #f7f3ea; box-shadow: 0 18px 30px rgba(0, 0, 0, 0.45); transform: rotate(var(--r, 0deg)); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .k2 figure:nth-child(4n + 1) { --r: -3deg; }
+  .k2 figure:nth-child(4n + 2) { --r: 2deg; }
+  .k2 figure:nth-child(4n + 3) { --r: -1deg; }
+  .k2 figure:nth-child(4n) { --r: 3.5deg; }
+  .k2 figure:hover { transform: rotate(0deg) scale(1.06); z-index: 1; }
+  .k2 img { height: auto; aspect-ratio: 1; filter: grayscale(1) contrast(1.05) sepia(0.12); }
+
+  /* ---------- 3: Natural sizes. Every photo keeps its own shape (tall, wide, square) at one height, so the rows feel like a real camera roll ---------- */
+  .k3 figure { width: auto; height: 210px; aspect-ratio: auto; overflow: hidden; border-radius: 10px; }
+  .k3 img { width: auto; height: 100%; filter: grayscale(1) contrast(1.08); transition: filter 0.5s ease; }
+  .k3 .is-back figure { height: 170px; }
+  .k3 figure:hover img { filter: none; }
+  .k3 .sales-film-row:hover .sales-film-track { animation-play-state: paused; }
+
+  /* ---------- 4: Duotone. Forest shadows, amber highlights, in the site's own colours; hover shows the real photo ---------- */
+  .k4 figure { width: 250px; overflow: hidden; border-radius: 6px; background: #DE9E3B; isolation: isolate; }
+  .k4 img { filter: grayscale(1) contrast(1.15) brightness(1.05); mix-blend-mode: multiply; transition: filter 0.5s ease; }
+  .k4 figure::after { content: ""; position: absolute; inset: 0; background: #0B1E1C; mix-blend-mode: lighten; transition: opacity 0.5s ease; }
+  .k4 figure:hover::after { opacity: 0; }
+  .k4 figure:hover img { mix-blend-mode: normal; filter: none; }
+
+  /* ---------- 5: Shapes. Circles, pills, arches and rounded squares, one height, in a repeating rhythm ---------- */
+  .k5 .sales-film-track { align-items: center; gap: 16px; }
+  .k5 figure { height: 190px; width: auto; overflow: hidden; }
+  .k5 figure:nth-child(4n + 1) { aspect-ratio: 1; border-radius: 50%; }
+  .k5 figure:nth-child(4n + 2) { aspect-ratio: 2 / 1; border-radius: 999px; }
+  .k5 figure:nth-child(4n + 3) { aspect-ratio: 3 / 4; border-radius: 999px 999px 14px 14px; }
+  .k5 figure:nth-child(4n) { aspect-ratio: 1; border-radius: 28px; }
+  .k5 img { filter: grayscale(1) contrast(1.08); transition: filter 0.5s ease; }
+  .k5 figure:hover img { filter: none; }
+
+  @media (max-width: 900px) {
+    .k1 figure, .k4 figure { width: 200px; }
+    .k2 figure { width: 160px; }
+    .k3 figure { height: 150px; }
+    .k3 .is-back figure { height: 120px; }
+    .k5 figure { height: 140px; }
+  }
+</style>
+
+<!-- 1 -->
+<div class="po-label" id="c1"><div class="container"><h2><strong>1</strong>Just the photos</h2><p>No film, no band: bigger black-and-white photos with rounded corners, floating straight on the green and fading out at both edges. Hover pauses the row, and the photo under the cursor goes to full colour and zooms slightly.</p></div></div>
+<section class="sales-section is-forest sales-crew"><div class="container">{{ copy() }}</div>{{ rows("k1") }}</section>
+
+<!-- 2 -->
+<div class="po-label" id="c2"><div class="container"><h2><strong>2</strong>Prints</h2><p>Each photo is a white-bordered print with a slightly warm black-and-white tone, set at its own small angle with a soft shadow, like prints laid out on a table. Hover straightens a print and lifts it.</p></div></div>
+<section class="sales-section is-forest sales-crew"><div class="container">{{ copy() }}</div>{{ rows("k2") }}</section>
+
+<!-- 3 -->
+<div class="po-label" id="c3"><div class="container"><h2><strong>3</strong>Natural sizes</h2><p>Every photo keeps its real shape (tall, wide or square) instead of being cropped to the same box, so the rows have an uneven, camera-roll rhythm. The back row is a little shorter for depth. Hover pauses and shows colour.</p></div></div>
+<section class="sales-section is-forest sales-crew"><div class="container">{{ copy() }}</div>{{ rows("k3") }}</section>
+
+<!-- 4 -->
+<div class="po-label" id="c4"><div class="container"><h2><strong>4</strong>Duotone</h2><p>The photos are recoloured in the site's own palette: forest-green shadows and amber highlights. The team becomes part of the brand. Hover shows the real photo underneath.</p></div></div>
+<section class="sales-section is-forest sales-crew"><div class="container">{{ copy() }}</div>{{ rows("k4") }}</section>
+
+<!-- 5 -->
+<div class="po-label" id="c5"><div class="container"><h2><strong>5</strong>Shapes</h2><p>The photos are cut into a repeating rhythm of shapes (circle, pill, arch, rounded square) at one height. Hover shows colour. The most playful, more design-led than photographic.</p></div></div>
+<section class="sales-section is-forest sales-crew"><div class="container">{{ copy() }}</div>{{ rows("k5") }}</section>
+<div style="height: 40vh; background: var(--bg-main);"></div>

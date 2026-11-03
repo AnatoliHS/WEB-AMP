@@ -1,0 +1,214 @@
+---
+layout: landing.njk
+permalink: /sales/fit-options/
+title: "Sales page | Who It's For: best-kept secret"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#w1" }
+  home: "#w1"
+  right: { label: "Back to Sales", href: "/" }
+fitYes:
+  - "You run a service business, trade, manufacturer or B2B company"
+  - "You have a standout project with real results"
+  - "You have a customer happy to talk about it"
+  - "You are ready to grow beyond referrals"
+fitNo:
+  - "You don't have a finished project to show yet"
+  - "You want one-off content with no plan to put it to work"
+  - "You would rather run stock footage and generic ads"
+leads:
+  - ["New lead", "Kitchen reno · from your case study"]
+  - ["Quote request", "Office fit-out · from Instagram"]
+  - ["New lead", "Commercial build · from Google"]
+  - ["Call booked", "Thu 10:00 · from your landing page"]
+---
+{#- TEMPORARY comparison page for the Sales page "Who it's for" section: the "best-kept secret" panel,
+    once with a photo and once with an animated loop (word of mouth → the story told properly → new leads).
+    Delete once one is picked. -#}
+{%- set book = "/sales/#cta" -%}
+{#- The copy half of the panel, shared by both versions -#}
+{%- macro body() -%}
+<div class="w4-body">
+  <span class="wf-mono">Who it's for</span>
+  <h2 class="w4-now wf-rough">Made for the best-kept secrets.</h2>
+  <p class="w4-star">Built for businesses that do great work but still rely on word of mouth. If that's you, we turn one project into a <b>steady flow of new leads.</b></p>
+  <div class="w4-cols">
+    <div><span class="wf-mono">You're a fit if</span><ul>{% for y in fitYes %}<li>{{ y }}</li>{% endfor %}</ul></div>
+    <div class="w4-no"><span class="wf-mono">Not yet if</span><ul>{% for n in fitNo %}<li>{{ n }}</li>{% endfor %}</ul></div>
+  </div>
+  <div class="w4-cta"><a href="{{ book }}" class="wf-btn">Sounds like you? Book a call →</a><span>Not ready? Start with an AMP Deck™ session.</span></div>
+  <p class="w4-credits"><b>One project</b> · one story · <b>every channel</b> · new leads</p>
+</div>
+{%- endmacro -%}
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false">
+  <filter id="sales-show-rough">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="4"/>
+  </filter>
+</svg>
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+
+  .wf-rough { font-family: var(--font-heading); font-weight: 800; line-height: 0.88; letter-spacing: -0.03em; text-transform: uppercase; filter: url(#sales-show-rough); }
+  .wf-mono { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .wf-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border-radius: var(--radius-full); background: #DE9E3B; color: #0c0407; font-weight: 700; text-decoration: none; white-space: nowrap; transition: transform 0.2s ease, background-color 0.2s ease; }
+  .wf-btn:hover { transform: translateY(-2px); background: #ecb050; }
+
+  /* The panel: picture on the left, the copy on the right */
+  .w4-poster { position: relative; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); overflow: hidden; border-radius: 24px; background: #050505; color: #f4efe6; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.35); }
+  .w4-body { position: relative; padding: 56px 56px 48px 24px; }
+  .w4-body > .wf-mono { color: rgba(244, 239, 230, 0.55); }
+  .sales-section .w4-now { margin: 14px 0 18px; color: #DE9E3B; font-size: clamp(3rem, 5.6vw, 5.2rem); }
+  .w4-star { font-family: var(--font-heading); font-size: 1.3rem; line-height: 1.4; color: rgba(244, 239, 230, 0.8); max-width: 34ch; }
+  .w4-star b { color: #f4efe6; }
+  .w4-cols { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; margin-top: 34px; padding-top: 26px; border-top: 1px solid rgba(244, 239, 230, 0.16); }
+  .w4-cols .wf-mono { color: #DE9E3B; }
+  .w4-cols .w4-no .wf-mono { color: rgba(244, 239, 230, 0.45); }
+  .w4-cols ul { margin-top: 12px; list-style: none; display: grid; gap: 10px; font-size: 0.95rem; line-height: 1.4; }
+  .w4-cols li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
+  .w4-cols li::before { content: "✓"; color: #DE9E3B; font-weight: 700; }
+  .w4-cols .w4-no li { color: rgba(244, 239, 230, 0.5); }
+  .w4-cols .w4-no li::before { content: "✕"; color: rgba(244, 239, 230, 0.4); }
+  .w4-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 34px; }
+  .w4-cta span { font-size: 0.85rem; color: rgba(244, 239, 230, 0.5); }
+  .w4-credits { margin-top: 30px; padding-top: 18px; border-top: 1px solid rgba(244, 239, 230, 0.12); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244, 239, 230, 0.4); }
+  .w4-credits b { color: #DE9E3B; }
+
+  /* ---------- 1: the photo ---------- */
+  .w4-still { position: relative; min-height: 640px; }
+  .w4-still img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: contrast(1.05) saturate(0.85); }
+  .w4-still::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 55%, #050505), linear-gradient(transparent 60%, rgba(5, 5, 5, 0.8)); }
+
+  /* ---------- 2: the animation. One 12s loop in four beats:
+     word of mouth (a thank-you text one person saw) → told properly (a film frame, then its cut-downs)
+     → out to work (new-lead notifications stack up) → "Best-kept secret? Not anymore." Runs only while on screen ---------- */
+  .w5-stage { position: relative; min-height: 640px; overflow: hidden; background: radial-gradient(ellipse at 50% 45%, #13231f, #050505 72%); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  .w5-stage * { animation-duration: 12s; animation-iteration-count: infinite; animation-play-state: paused; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  .w5-stage.is-on * { animation-play-state: running; }
+  .w5-stage::after { content: ""; position: absolute; inset: 0; z-index: 8; pointer-events: none; background: linear-gradient(90deg, transparent 72%, #050505), repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px); }
+  .w5-tag { position: absolute; left: 28px; top: 26px; z-index: 6; display: grid; color: rgba(244, 239, 230, 0.55); }
+  .w5-tag span { grid-area: 1 / 1; opacity: 0; }
+  .w5-tag span:nth-child(1) { animation-name: w5-b1; }
+  .w5-tag span:nth-child(2) { animation-name: w5-b2; }
+  .w5-tag span:nth-child(3) { animation-name: w5-b3; }
+  .w5-tag span:nth-child(4) { animation-name: w5-b4; }
+  .w5-tag b { color: #DE9E3B; margin-right: 8px; }
+  @keyframes w5-b1 { 0%, 24% { opacity: 1; } 26%, 100% { opacity: 0; } }
+  @keyframes w5-b2 { 0%, 25% { opacity: 0; } 27%, 47% { opacity: 1; } 49%, 100% { opacity: 0; } }
+  @keyframes w5-b3 { 0%, 48% { opacity: 0; } 50%, 76% { opacity: 1; } 78%, 100% { opacity: 0; } }
+  @keyframes w5-b4 { 0%, 77% { opacity: 0; } 79%, 97% { opacity: 1; } 99%, 100% { opacity: 0; } }
+
+  /* Beat 1: word of mouth */
+  .w5-text { position: absolute; left: 12%; right: 18%; top: 34%; opacity: 0; animation-name: w5-text; }
+  .w5-bubble { width: fit-content; max-width: 100%; padding: 12px 16px; border-radius: 20px 20px 20px 6px; background: #e9e9eb; color: #000000; font-size: 1.05rem; line-height: 1.35; }
+  .w5-seen { margin: 8px 0 0 6px; font-size: 0.78rem; color: rgba(244, 239, 230, 0.5); }
+  .w5-ref { display: inline-block; margin-top: 26px; padding: 7px 12px; border: 1px dashed rgba(244, 239, 230, 0.3); border-radius: 8px; color: rgba(244, 239, 230, 0.5); opacity: 0; animation-name: w5-ref; }
+  @keyframes w5-text { 0% { opacity: 0; transform: translateY(20px) scale(0.95); } 4%, 20% { opacity: 1; transform: none; } 26%, 100% { opacity: 0; transform: scale(0.6) translateY(-30px); } }
+  @keyframes w5-ref { 0%, 8% { opacity: 0; } 11%, 100% { opacity: 1; } }
+
+  /* Beat 2: told properly. The film frame lands, then the vertical and square cut-downs fan out */
+  .w5-film { position: absolute; left: 50%; top: 40%; width: 64%; aspect-ratio: 16 / 9; margin-left: -32%; border-radius: 10px; background: linear-gradient(160deg, #2a3a35, #0d1513); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); opacity: 0; animation-name: w5-film; }
+  .w5-film::before { content: ""; position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: #ef4540 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M9 7l8 5-8 5z'/%3E%3C/svg%3E") center / 26px no-repeat; }
+  .w5-film i { position: absolute; left: 10px; top: 9px; display: flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 0.62rem; font-style: normal; font-weight: 700; letter-spacing: 0.08em; color: #f4efe6; }
+  .w5-film i::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #ef4540; }
+  .w5-film u { position: absolute; left: 10px; right: 10px; bottom: 9px; height: 3px; border-radius: 2px; background: rgba(244, 239, 230, 0.25); text-decoration: none; overflow: hidden; }
+  .w5-film u::after { content: ""; position: absolute; inset: 0; background: #DE9E3B; transform-origin: left; animation: w5-scrub 12s linear infinite paused; }
+  .w5-stage.is-on .w5-film u::after { animation-play-state: running; }
+  .w5-cut { position: absolute; top: 40%; border: 2px solid #DE9E3B; border-radius: 8px; background: rgba(222, 158, 59, 0.08); opacity: 0; }
+  .w5-cut b { position: absolute; left: 0; right: 0; bottom: -22px; text-align: center; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em; color: #DE9E3B; }
+  .w5-cut.is-tall { left: 6%; width: 16%; aspect-ratio: 9 / 16; margin-top: -2%; animation-name: w5-cut-l; }
+  .w5-cut.is-square { right: 6%; width: 22%; aspect-ratio: 1; margin-top: 3%; animation-name: w5-cut-r; }
+  .w5-told { position: absolute; left: 0; right: 0; top: 22%; text-align: center; color: #f4efe6; font-size: 2.6rem; opacity: 0; animation-name: w5-told; }
+  @keyframes w5-film { 0%, 24% { opacity: 0; transform: scale(0.5); } 29%, 45% { opacity: 1; transform: none; } 50%, 100% { opacity: 0; transform: translateY(-40px) scale(0.85); } }
+  @keyframes w5-scrub { 0%, 27% { transform: scaleX(0); } 47%, 100% { transform: scaleX(1); } }
+  @keyframes w5-cut-l { 0%, 31% { opacity: 0; transform: translateX(80px) rotate(0); } 35%, 45% { opacity: 1; transform: rotate(-6deg); } 50%, 100% { opacity: 0; transform: translateY(-40px) rotate(-6deg); } }
+  @keyframes w5-cut-r { 0%, 33% { opacity: 0; transform: translateX(-80px) rotate(0); } 37%, 45% { opacity: 1; transform: rotate(5deg); } 50%, 100% { opacity: 0; transform: translateY(-40px) rotate(5deg); } }
+  @keyframes w5-told { 0%, 30% { opacity: 0; transform: translateY(12px); } 34%, 45% { opacity: 1; transform: none; } 49%, 100% { opacity: 0; } }
+
+  /* Beat 3: out to work. Lead notifications arrive one after another and stack */
+  .w5-leads { position: absolute; left: 9%; right: 16%; top: 17%; display: grid; gap: 12px; }
+  .w5-lead { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 11px 13px; border-radius: 16px; background: rgba(244, 239, 230, 0.92); color: #000000; font-size: 0.8rem; line-height: 1.3; box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4); opacity: 0; }
+  .w5-lead i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: #A83C27; color: #f4efe6; font-family: var(--font-heading); font-size: 0.8rem; font-style: normal; font-weight: 800; }
+  .w5-lead b { display: block; font-size: 0.86rem; }
+  .w5-lead small { color: rgba(60, 60, 67, 0.6); font-size: 0.7rem; }
+  /* Each card arrives a beat after the last; all four leave together before the end card */
+  {%- for i in range(0, 4) %}
+  .w5-lead:nth-child({{ i + 1 }}) { animation-name: w5-lead{{ i }}; }
+  @keyframes w5-lead{{ i }} { 0%, {{ 48 + i * 5 }}% { opacity: 0; transform: translateY(40px) scale(0.95); } {{ 51 + i * 5 }}%, 73% { opacity: 1; transform: none; } 77%, 100% { opacity: 0; transform: translateY(-20px); } }
+  {%- endfor %}
+
+  /* Beat 4: the end card */
+  .w5-end { position: absolute; left: 0; right: 0; top: 36%; display: grid; gap: 14px; text-align: center; }
+  .w5-end span { opacity: 0; font-size: 2.6rem; color: rgba(244, 239, 230, 0.75); animation-name: w5-end1; }
+  .w5-end span + span { font-size: 4.2rem; color: #DE9E3B; animation-name: w5-end2; }
+  @keyframes w5-end1 { 0%, 78% { opacity: 0; transform: translateY(14px); } 81%, 96% { opacity: 1; transform: none; } 99%, 100% { opacity: 0; } }
+  @keyframes w5-end2 { 0%, 83% { opacity: 0; transform: scale(1.6) rotate(-4deg); } 86%, 96% { opacity: 1; transform: rotate(-4deg); } 99%, 100% { opacity: 0; } }
+
+  /* Reduced motion: no loop, just the leads stacked up */
+  @media (prefers-reduced-motion: reduce) {
+    .w5-stage * { animation: none !important; }
+    .w5-lead, .w5-tag span:nth-child(3) { opacity: 1; }
+  }
+
+  @media (max-width: 900px) {
+    .w4-poster, .w4-cols { grid-template-columns: 1fr; }
+    .w4-still, .w5-stage { min-height: 460px; }
+    .w4-still::after { background: linear-gradient(transparent 50%, #050505); }
+    .w5-stage::after { background: linear-gradient(transparent 80%, #050505), repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px); }
+    .w5-leads { left: 6%; right: 6%; }
+    .w5-text { left: 8%; right: 8%; }
+    .w4-body { padding: 8px 24px 32px; }
+  }
+</style>
+
+<!-- 1 -->
+<div class="po-label" id="w1"><div class="container"><h2><strong>1</strong>Best-kept secret, with a photo</h2><p>The dark panel with a client photo on the left and the new copy on the right: "Made for the best-kept secrets."</p></div></div>
+<section class="sales-section is-cream"><div class="container">
+  <div class="w4-poster">
+    <div class="w4-still"><img src="/images/DSS00587.jpg" alt="" loading="lazy"></div>
+    {{ body() }}
+  </div>
+</div></section>
+
+<!-- 2 -->
+<div class="po-label" id="w2"><div class="container"><h2><strong>2</strong>Best-kept secret, animated</h2><p>The same panel with a 12-second loop that tells the AMP story in four beats. <b>Word of mouth:</b> the customer's thank-you text, seen by one person, "2 leads this month, all referrals". <b>Told properly:</b> it becomes a film frame, then the vertical and square cut-downs fan out. <b>Out to work:</b> lead notifications stack up. <b>End card:</b> "Best-kept secret? Not anymore." It only plays on screen. With reduced motion, it shows the stacked leads.</p></div></div>
+<section class="sales-section is-cream"><div class="container">
+  <div class="w4-poster">
+    <div class="w5-stage" aria-hidden="true" data-stage>
+      <p class="w5-tag wf-mono"><span><b>01</b>Word of mouth</span><span><b>02</b>Told properly</span><span><b>03</b>Out to work</span><span><b>04</b>The result</span></p>
+
+      <div class="w5-text">
+        <p class="w5-bubble">The install looks amazing. Thank you so much!</p>
+        <p class="w5-seen">Seen by 1 person</p>
+        <span class="w5-ref wf-mono">Leads this month: 2 · all referrals</span>
+      </div>
+
+      <span class="w5-told wf-rough">Told properly.</span>
+      <span class="w5-cut is-tall"><b>9:16</b></span>
+      <span class="w5-cut is-square"><b>1:1</b></span>
+      <div class="w5-film"><i>REC</i><u></u></div>
+
+      <div class="w5-leads">
+        {%- for l in leads %}
+        <div class="w5-lead"><i>AMP</i><div><b>{{ l[0] }}</b><small>{{ l[1] }}</small></div><small>now</small></div>
+        {%- endfor %}
+      </div>
+
+      <p class="w5-end"><span class="wf-rough">Best-kept secret?</span><span class="wf-rough">Not anymore.</span></p>
+    </div>
+    {{ body() }}
+  </div>
+</div></section>
+<div style="height: 30vh; background: var(--bg-main);"></div>
+
+<script>
+  // The loop only runs while it's on screen
+  (() => {
+    const watch = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('is-on', e.isIntersecting)), { threshold: 0.2 });
+    document.querySelectorAll('[data-stage]').forEach(stage => watch.observe(stage));
+  })();
+</script>

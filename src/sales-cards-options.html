@@ -1,0 +1,135 @@
+---
+layout: landing.njk
+permalink: /sales/cards-options/
+title: "Sales page | What You Get: desktop card layouts"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#o1" }
+  home: "#o1"
+  right: { label: "Back to Sales", href: "/" }
+pieces:
+  - name: "The Case Study"
+    desc: "We find the project worth telling, interview you and your customer, and shape the story of what you did and why it mattered."
+    word: "The story"
+    img: "/images/sales/interview.jpg"
+  - name: "Hero Video"
+    desc: "The main case study film. Featured on your landing page and built to make a stranger trust you."
+    word: "Hero film"
+    img: "/images/uploads/sequence-01.00_03_41_07.still005.jpg"
+  - name: "Cut-Downs & Ads"
+    desc: "Short edits of the hero video in vertical and horizontal formats, cut to run as paid ads."
+    word: "Cut it down"
+    img: "/images/uploads/dss00349.jpg"
+  - name: "Photo Library"
+    desc: "Stills from the shoot plus high-res frame grabs, ready for your website, socials and print."
+    word: "Every frame"
+    img: "/images/uploads/dss00026.jpg"
+  - name: "The Landing Page"
+    desc: "A focused sales page built around the case study. Visitors see what you can do, then get a clear path to get in touch."
+    word: "One page"
+    img: "/images/uploads/sequence.02_05_07_14.still083.jpg"
+  - name: "The Paid Funnel"
+    desc: "Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions."
+    word: "Leads in"
+    img: "/images/uploads/sequence.01_35_45_12.still077.jpg"
+---
+{#- TEMPORARY comparison page: five desktop layouts where each piece of What You Get is a card
+    (animated screen + number + description, as on phones). Delete once one is picked. -#}
+{% import "component/sales-scenes.njk" as scenes %}
+{%- set extra = ["", " sales-show-letterbox", "", "", "", ""] -%}
+{%- macro card(i, cls="") -%}
+<article class="co-card {{ cls }}">
+  <div class="co-screen" aria-hidden="true"><div class="sales-show-stage"><div class="sales-show-scene is-active{{ extra[i] }}">{{ scenes.scene(i + 1, pieces) }}</div></div></div>
+  <div class="co-body"><span class="co-num">0{{ i + 1 }}</span><p>{{ pieces[i].desc }}</p></div>
+</article>
+{%- endmacro -%}
+{%- macro head() -%}
+<div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+<h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+<p class="sales-intro">
+  Each piece works on its own. Together they turn a single project into a steady flow of new leads.
+  With our sister company Mind Fusion, we handle the whole process end to end.
+</p>
+{%- endmacro -%}
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+
+  /* Shared card: the animated screen, then number + description */
+  .co-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(244, 239, 230, 0.12); border-radius: var(--radius-lg); background: rgba(244, 239, 230, 0.04); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease; }
+  .co-card:hover { transform: translateY(-4px); border-color: rgba(222, 158, 59, 0.5); }
+  .co-screen { display: grid; aspect-ratio: 4 / 3.4; background: #050505; }
+  .co-body { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 20px 22px 24px; flex: 1; }
+  .co-num { padding-top: 3px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; color: #DE9E3B; }
+  .co-body p { line-height: 1.55; color: rgba(244, 239, 230, 0.7); }
+  .co-cards { margin-top: 56px; }
+
+  /* 1: Three across */
+  .c1 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+
+  /* 2: Two across, bigger screens */
+  .c2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .c2 .co-screen { aspect-ratio: 16 / 10; }
+
+  /* 3: Bento: Case Study and Paid Funnel take the big tiles */
+  .c3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .c3 .is-big { grid-column: span 2; }
+  .c3 .is-big .co-screen { aspect-ratio: auto; flex: 1; min-height: 340px; }
+  .c3 .co-card:not(.is-big) .co-screen { aspect-ratio: 4 / 3; }
+
+  /* 4: Carousel: one row you scroll or drag sideways, with arrows */
+  .c4-wrap { position: relative; }
+  .c4 { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(340px, 30%); gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 16px; scrollbar-width: thin; scrollbar-color: rgba(222, 158, 59, 0.5) transparent; }
+  .c4 .co-card { scroll-snap-align: start; }
+  .c4-nav { display: flex; justify-content: flex-end; gap: 10px; margin-top: -30px; margin-bottom: 20px; }
+  .c4-nav button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(244, 239, 230, 0.3); background: none; color: #f4efe6; font-size: 1.1rem; cursor: pointer; }
+  .c4-nav button:hover { border-color: #DE9E3B; color: #DE9E3B; }
+
+  /* 5: Stacking cards: each card pins and the next one slides over it as you scroll */
+  .c5 { display: grid; gap: 28px; }
+  .c5 .co-card { position: sticky; top: calc(100px + var(--i) * 18px); flex-direction: row; min-height: 360px; box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.45); background: #102422; }
+  .c5 .co-card:hover { transform: none; }
+  .c5 .co-screen { flex: 0 0 52%; aspect-ratio: auto; }
+  .c5 .co-body { align-content: center; padding: 40px; grid-template-columns: 1fr; }
+  .c5 .co-num { font-family: var(--font-heading); font-size: 3.4rem; letter-spacing: -0.04em; line-height: 1; }
+  .c5 .co-body p { font-size: 1.25rem; max-width: 30ch; }
+</style>
+
+<div class="po-label" id="o1"><div class="container"><h2><strong>1</strong>Three across</h2><p>The phone cards, laid out three across in two rows. Simple and scannable; every animation plays at once.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}<div class="co-cards c1">{% for i in range(0, 6) %}{{ card(i) }}{% endfor %}</div></div></section>
+
+<div class="po-label" id="o2"><div class="container"><h2><strong>2</strong>Two across</h2><p>Bigger cards, two per row, with wider screens so each animation has more room to read. Longer section, but each piece gets more attention.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}<div class="co-cards c2">{% for i in range(0, 6) %}{{ card(i) }}{% endfor %}</div></div></section>
+
+<div class="po-label" id="o3"><div class="container"><h2><strong>3</strong>Bento</h2><p>Mixed sizes: The Case Study (where it starts) and The Paid Funnel (where the leads come from) get wide feature tiles, the other four sit beside them. More editorial.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}<div class="co-cards c3">
+  {{ card(0, "is-big") }}{{ card(1) }}
+  {{ card(2) }}{{ card(3) }}{{ card(4) }}
+  {{ card(5, "is-big") }}
+</div></div></section>
+
+<div class="po-label" id="o4"><div class="container"><h2><strong>4</strong>Carousel</h2><p>One row of cards that scrolls sideways (trackpad, drag, or the arrows), snapping to each card. Compact, and feels like flicking through a reel.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}
+  <div class="c4-wrap co-cards">
+    <div class="c4-nav"><button type="button" aria-label="Previous" data-dir="-1">←</button><button type="button" aria-label="Next" data-dir="1">→</button></div>
+    <div class="c4" data-carousel>{% for i in range(0, 6) %}{{ card(i) }}{% endfor %}</div>
+  </div>
+</div></section>
+
+<div class="po-label" id="o5"><div class="container"><h2><strong>5</strong>Stacking cards</h2><p>Wide cards, screen on the left and a big number + description on the right. As you scroll, each card pins and the next slides up over it, building a deck. The most cinematic.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}<div class="co-cards c5">{% for i in range(0, 6) %}<div style="display: contents; --i: {{ i }}">{{ card(i) }}</div>{% endfor %}</div></div></section>
+<div style="height: 50vh; background: var(--bg-main);"></div>
+
+<script>
+  document.querySelectorAll('[data-carousel]').forEach(track => {
+    track.closest('.c4-wrap').querySelectorAll('button[data-dir]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = track.querySelector('.co-card').offsetWidth + 20;
+        track.scrollBy({ left: step * Number(btn.dataset.dir), behavior: 'smooth' });
+      });
+    });
+  });
+</script>

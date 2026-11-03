@@ -1,0 +1,345 @@
+---
+layout: landing.njk
+permalink: /sales/focus-options/
+title: "Sales page | What You Get: one piece at a time"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#f1" }
+  home: "#f1"
+  right: { label: "Back to Sales", href: "/" }
+pieces:
+  - name: "The Case Study"
+    desc: "We find the project worth telling, interview you and your customer, and shape the story of what you did and why it mattered."
+    word: "The story"
+    img: "/images/sales/interview.jpg"
+  - name: "Hero Video"
+    desc: "The main case study film. Featured on your landing page and built to make a stranger trust you."
+    word: "Hero film"
+    img: "/images/uploads/sequence-01.00_03_41_07.still005.jpg"
+  - name: "Cut-Downs & Ads"
+    desc: "Short edits of the hero video in vertical and horizontal formats, cut to run as paid ads."
+    word: "Cut it down"
+    img: "/images/uploads/dss00349.jpg"
+  - name: "Photo Library"
+    desc: "Stills from the shoot plus high-res frame grabs, ready for your website, socials and print."
+    word: "Every frame"
+    img: "/images/uploads/dss00026.jpg"
+  - name: "The Landing Page"
+    desc: "A focused sales page built around the case study. Visitors see what you can do, then get a clear path to get in touch."
+    word: "One page"
+    img: "/images/uploads/sequence.02_05_07_14.still083.jpg"
+  - name: "The Paid Funnel"
+    desc: "Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions."
+    word: "Leads in"
+    img: "/images/uploads/sequence.01_35_45_12.still077.jpg"
+---
+{#- TEMPORARY comparison page: five desktop layouts that show What You Get one piece at a time,
+    so only one scene animates at once (the rest sit still). Delete once one is picked. -#}
+{% import "component/sales-scenes.njk" as scenes %}
+{#- One scene layer. Piece 02 is the Crimson Cider clip, as on the live page; the rest are the animated scenes.
+    Scenes only animate while they carry is-active, which the script below hands to one piece at a time. -#}
+{%- macro layer(i, alwaysOn=false) -%}
+<div class="sales-show-scene{% if alwaysOn %} is-shown{% endif %}{% if i == 1 %} fo-film{% endif %}" data-scene="{{ i }}">
+{%- if i == 1 %}
+  <video class="sales-show-video" muted loop playsinline preload="none" poster="/images/sales/film/crimson-15s-poster.jpg">
+    <source src="/images/DSS_Crimson_AUDIO_15sec-ezgif.com-video-compressor.mp4" type="video/mp4">
+  </video>
+  <span class="sales-show-word">{{ pieces[1].word }}</span>
+{%- else %}
+{{ scenes.scene(i + 1, pieces) }}
+{%- endif %}
+</div>
+{%- endmacro -%}
+{#- A screen holding all six layers stacked (only the active one shows) -#}
+{%- macro stack(cls="") -%}
+<div class="sales-show-card-screen fo-screen {{ cls }}" aria-hidden="true"><div class="sales-show-stage">
+{%- for i in range(0, 6) %}{{ layer(i) }}{% endfor %}
+</div></div>
+{%- endmacro -%}
+{#- A screen holding just one piece, shown even when paused -#}
+{%- macro single(i, cls="") -%}
+<div class="sales-show-card-screen fo-screen {{ cls }}" aria-hidden="true"><div class="sales-show-stage">{{ layer(i, true) }}</div></div>
+{%- endmacro -%}
+{%- macro head() -%}
+<div class="sales-eyebrow"><span>WHAT YOU GET</span></div>
+<h2 class="sales-title">Six pieces, <span class="sales-gold">one engine.</span></h2>
+<p class="sales-intro">
+  Each piece works on its own. Together they turn a single project into a steady flow of new leads.
+  With our sister company Mind Fusion, we handle the whole process end to end.
+</p>
+{%- endmacro -%}
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+
+  /* Shared */
+  .fo-screen { aspect-ratio: 16 / 10; border-radius: var(--radius-lg); overflow: hidden; }
+  .fo-screen .sales-show-stage { height: 100%; }
+  .sales-show-scene.is-shown { opacity: 1; visibility: visible; }
+  .sales-show-scene { transition: opacity 0.5s ease, visibility 0.5s; }
+  .fo-film::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(5, 5, 5, 0.35), rgba(5, 5, 5, 0.65)); }
+  .fo-film .sales-show-word { z-index: 2; }
+  .fo-num { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; color: #DE9E3B; }
+  .sales-section .fo-name { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .fo-desc { line-height: 1.55; color: rgba(244, 239, 230, 0.7); }
+  .fo-body { margin-top: 56px; }
+
+  /* 1: Scroll story. Text scrolls on the left, one sticky screen on the right swaps to match */
+  .f1 { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; }
+  .f1-step { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; gap: 12px; opacity: 0.28; transition: opacity 0.4s ease; }
+  .f1-step.is-on { opacity: 1; }
+  .f1-step .fo-name { font-size: 2.2rem; }
+  .f1-step .fo-desc { font-size: 1.1rem; max-width: 34ch; }
+  .f1-pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-self: start; }
+  .f1-pin .fo-screen { aspect-ratio: 4 / 3.2; }
+  .f1-dots { display: flex; gap: 8px; margin-top: 16px; }
+  .f1-dots i { flex: 1; height: 2px; background: rgba(244, 239, 230, 0.18); transition: background 0.3s; }
+  .f1-dots i.is-on { background: #DE9E3B; }
+
+  /* 2: Tabbed player. A numbered index on the left, one big screen on the right, auto-advancing */
+  .f2 { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 48px; align-items: start; }
+  .f2-tabs { display: grid; border-top: 1px solid rgba(244, 239, 230, 0.14); }
+  .f2-tab { position: relative; display: grid; grid-template-columns: 40px 1fr; align-items: baseline; padding: 20px 0; border: 0; border-bottom: 1px solid rgba(244, 239, 230, 0.14); background: none; color: rgba(244, 239, 230, 0.45); font: inherit; font-size: 1.15rem; font-weight: 600; text-align: left; cursor: pointer; transition: color 0.3s; }
+  .f2-tab:hover, .f2-tab.is-on { color: #f4efe6; }
+  .f2-tab .fo-num { color: inherit; }
+  .f2-tab.is-on .fo-num { color: #DE9E3B; }
+  .f2-tab::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: #DE9E3B; transform: scaleX(0); transform-origin: left; }
+  .f2-tab.is-on::after { animation: f2-fill var(--dur, 7s) linear forwards; }
+  .f2.is-paused .f2-tab.is-on::after { animation: none; transform: scaleX(1); }
+  @keyframes f2-fill { to { transform: scaleX(1); } }
+  .f2-caption { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; margin-top: 22px; }
+  .f2-caption .fo-desc { font-size: 1.15rem; max-width: 52ch; color: rgba(244, 239, 230, 0.8); }
+
+  /* 3: Chapters. Each piece gets its own full-height row; only the one on screen plays */
+  .f3 { display: grid; gap: 0; }
+  .f3-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 64px; align-items: center; min-height: 78vh; border-top: 1px solid rgba(244, 239, 230, 0.1); opacity: 0.35; transition: opacity 0.6s ease; }
+  .f3-row.is-on { opacity: 1; }
+  .f3-row:nth-child(even) { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); }
+  .f3-row:nth-child(even) .fo-screen { order: 2; }
+  .f3-text { display: grid; gap: 14px; }
+  .f3-big { font-family: var(--font-heading); font-size: 5.5rem; font-weight: 700; line-height: 0.9; letter-spacing: -0.05em; color: #DE9E3B; }
+  .f3-text .fo-desc { font-size: 1.15rem; max-width: 34ch; }
+
+  /* 4: Pinned reel. Scrolling down moves a row of cards sideways; the centre card plays, its neighbours rest */
+  .f4-track-wrap { height: 520vh; }
+  .f4-pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+  .f4-track { display: flex; gap: 40px; padding-left: calc(50vw - 27vw); will-change: transform; }
+  .f4-card { flex: 0 0 54vw; transform: scale(0.82); opacity: 0.35; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease; }
+  .f4-card.is-on { transform: none; opacity: 1; }
+  .f4-card .fo-screen { aspect-ratio: 16 / 9; }
+  .f4-cap { display: grid; grid-template-columns: 44px 1fr; gap: 6px 12px; margin-top: 20px; }
+  .f4-cap .fo-num { padding-top: 6px; }
+  .f4-cap .fo-desc { grid-column: 2; max-width: 56ch; }
+  .f4-count { margin: 0 auto 28px; width: min(1200px, 90vw); font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(244, 239, 230, 0.55); }
+  .f4-count b { color: #DE9E3B; }
+
+  /* 5: Expanding panels. Six strips side by side; the open one plays, the others show their number and name */
+  .f5 { display: flex; gap: 12px; height: 560px; }
+  .f5-panel { position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; border: 1px solid rgba(244, 239, 230, 0.12); border-radius: var(--radius-lg); background: #050505; cursor: pointer; transition: flex-grow 0.7s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s; }
+  .f5-panel.is-on { flex-grow: 6; border-color: rgba(222, 158, 59, 0.5); cursor: default; }
+  .f5-panel .fo-screen { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; }
+  .f5-panel:not(.is-on) .fo-screen { filter: grayscale(1) brightness(0.45); }
+  .f5-panel:not(.is-on) .sales-show-word, .f5-panel:not(.is-on) .sales-show-chip, .f5-panel:not(.is-on) .sales-show-browser, .f5-panel:not(.is-on) .sales-show-cal { opacity: 0; }
+  .f5-spine { position: absolute; inset: 22px 0; z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 16px; pointer-events: none; transition: opacity 0.3s; }
+  .f5-spine span:last-child { writing-mode: vertical-rl; transform: rotate(180deg); font-weight: 700; font-size: 1.05rem; white-space: nowrap; color: #f4efe6; }
+  .f5-panel.is-on .f5-spine { opacity: 0; }
+  .f5-info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 6; display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 60px 32px 28px; background: linear-gradient(transparent, rgba(5, 5, 5, 0.92) 45%); opacity: 0; transform: translateY(12px); transition: opacity 0.4s ease, transform 0.4s ease; }
+  .f5-panel.is-on .f5-info { opacity: 1; transform: none; transition-delay: 0.35s; }
+  .f5-info .fo-num { padding-top: 7px; }
+  .f5-info .fo-desc { grid-column: 2; max-width: 52ch; color: rgba(244, 239, 230, 0.8); }
+
+  /* Phones: every option falls back to a plain stack (the live page keeps its own phone cards) */
+  @media (max-width: 900px) {
+    .f1, .f2, .f3-row, .f3-row:nth-child(even) { grid-template-columns: 1fr; gap: 24px; }
+    .f1-pin { display: none; }
+    .f1-step { min-height: 0; opacity: 1; }
+    .f3-row { min-height: 0; padding: 32px 0; opacity: 1; }
+    .f3-row:nth-child(even) .fo-screen { order: 0; }
+    .f4-track-wrap { height: auto; }
+    .f4-pin { position: static; height: auto; }
+    .f4-track { flex-direction: column; padding: 0; transform: none !important; }
+    .f4-card { flex: none; transform: none; opacity: 1; }
+    .f5 { flex-direction: column; height: auto; }
+    .f5-panel { flex: none; height: 76px; }
+    .f5-panel.is-on { height: 420px; }
+    .f5-spine { inset: 0 20px; flex-direction: row; }
+    .f5-spine span:last-child { writing-mode: horizontal-tb; transform: none; }
+  }
+</style>
+
+<div class="po-label" id="f1"><div class="container"><h2><strong>1</strong>Scroll story</h2><p>One sticky screen on the right; the six pieces scroll past on the left. Whichever piece is in the middle of the screen lights up and the screen cuts to its scene. Only one animation is on screen at a time, and reading and watching stay side by side.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}
+  <div class="fo-body f1" data-focus="scroll">
+    <div>
+      {%- for p in pieces %}
+      <div class="f1-step" data-item="{{ loop.index0 }}"><span class="fo-num">0{{ loop.index }}</span><h3 class="fo-name">{{ p.name }}</h3><p class="fo-desc">{{ p.desc }}</p></div>
+      {%- endfor %}
+    </div>
+    <div class="f1-pin">{{ stack() }}<div class="f1-dots">{% for p in pieces %}<i data-item="{{ loop.index0 }}"></i>{% endfor %}</div></div>
+  </div>
+</div></section>
+
+<div class="po-label" id="f2"><div class="container"><h2><strong>2</strong>Tabbed player</h2><p>A numbered index on the left, one large screen on the right. Moves to the next piece every 7 seconds (the gold line fills as it counts down), and stops on any piece you hover or click. The shortest option: the whole section fits in one screen.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}
+  <div class="fo-body f2" data-focus="tabs">
+    <div class="f2-tabs" role="tablist">
+      {%- for p in pieces %}
+      <button type="button" class="f2-tab" role="tab" data-item="{{ loop.index0 }}"><span class="fo-num">0{{ loop.index }}</span>{{ p.name }}</button>
+      {%- endfor %}
+    </div>
+    <div>
+      {{ stack() }}
+      <div class="f2-caption"><p class="fo-desc" data-caption>{{ pieces[0].desc }}</p></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="po-label" id="f3"><div class="container"><h2><strong>3</strong>Chapters</h2><p>Each piece gets a near-full-height row of its own, with the screen and text swapping sides each time and a large number. Only the row on screen plays; the rows above and below fade back and stop. The longest option, and the most magazine-like.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}
+  <div class="fo-body f3" data-focus="inview">
+    {%- for p in pieces %}
+    <div class="f3-row" data-item="{{ loop.index0 }}">
+      {{ single(loop.index0) }}
+      <div class="f3-text"><span class="f3-big">0{{ loop.index }}</span><h3 class="fo-name">{{ p.name }}</h3><p class="fo-desc">{{ p.desc }}</p></div>
+    </div>
+    {%- endfor %}
+  </div>
+</div></section>
+
+<div class="po-label" id="f4"><div class="container"><h2><strong>4</strong>Pinned reel</h2><p>The section locks in place and scrolling down moves a row of wide cards sideways, like a film strip. The card in the middle is full size and playing; the ones beside it shrink, dim and stop. A 01 / 06 counter shows how far through you are.</p></div></div>
+<section class="sales-section is-forest" style="padding-bottom: 0;"><div class="container">{{ head() }}</div>
+  <div class="f4-track-wrap" data-focus="reel">
+    <div class="f4-pin">
+      <div class="f4-count"><b data-count>01</b> / 06</div>
+      <div class="f4-track">
+        {%- for p in pieces %}
+        <div class="f4-card" data-item="{{ loop.index0 }}">
+          {{ single(loop.index0) }}
+          <div class="f4-cap"><span class="fo-num">0{{ loop.index }}</span><h3 class="fo-name">{{ p.name }}</h3><p class="fo-desc">{{ p.desc }}</p></div>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="po-label" id="f5"><div class="container"><h2><strong>5</strong>Expanding panels</h2><p>Six strips side by side. One is open: wide, playing, with its description. The other five are narrow, greyed out and still, showing only their number and name. Hover or click a strip to open it. Shows that there are six pieces while only playing one.</p></div></div>
+<section class="sales-section is-forest"><div class="container">{{ head() }}
+  <div class="fo-body f5" data-focus="panels">
+    {%- for p in pieces %}
+    <div class="f5-panel" data-item="{{ loop.index0 }}" tabindex="0" role="button" aria-label="{{ p.name }}">
+      {{ single(loop.index0) }}
+      <div class="f5-spine"><span class="fo-num">0{{ loop.index }}</span><span>{{ p.name }}</span></div>
+      <div class="f5-info"><span class="fo-num">0{{ loop.index }}</span><h3 class="fo-name">{{ p.name }}</h3><p class="fo-desc">{{ p.desc }}</p></div>
+    </div>
+    {%- endfor %}
+  </div>
+</div></section>
+<div style="height: 40vh; background: var(--bg-main);"></div>
+
+<script>
+  (() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const desktop = window.matchMedia('(min-width: 901px)');
+
+    // Turn on piece n in a group: its item gets is-on, its scene gets is-active (which starts the animation),
+    // every other scene loses it (and stops). The clip in piece 02 plays only while active.
+    function setActive(group, n) {
+      if (group.dataset.active === String(n)) return;
+      group.dataset.active = n;
+      group.querySelectorAll('[data-item]').forEach(el => el.classList.toggle('is-on', el.dataset.item === String(n)));
+      group.querySelectorAll('[data-scene]').forEach(scene => {
+        const isStack = !scene.classList.contains('is-shown');
+        const on = isStack ? scene.dataset.scene === String(n) : Boolean(scene.closest('[data-item].is-on'));
+        scene.classList.remove('is-active');
+        if (on) { void scene.offsetWidth; scene.classList.add('is-active'); }
+        const video = scene.querySelector('video');
+        if (video) {
+          if (on && !reduced) { const p = video.play(); if (p && p.catch) p.catch(() => {}); } else video.pause();
+        }
+      });
+      const caption = group.querySelector('[data-caption]');
+      if (caption) caption.textContent = descs[n];
+      const count = group.querySelector('[data-count]');
+      if (count) count.textContent = '0' + (Number(n) + 1);
+    }
+    const descs = {{ pieces | dump | safe }}.map(p => p.desc);
+
+    // Groups only play while the section itself is on screen
+    const visible = new Map();
+    const sectionWatch = new IntersectionObserver(entries => entries.forEach(e => {
+      visible.set(e.target, e.isIntersecting);
+      if (!e.isIntersecting) {
+        e.target.querySelectorAll('[data-scene]').forEach(s => s.classList.remove('is-active'));
+        e.target.querySelectorAll('video').forEach(v => v.pause());
+        delete e.target.dataset.active;
+      }
+    }));
+
+    document.querySelectorAll('[data-focus]').forEach(group => {
+      sectionWatch.observe(group);
+      const kind = group.dataset.focus;
+      const items = [...group.querySelectorAll('[data-item]')].filter(el => !el.matches('.f1-dots i'));
+
+      if (kind === 'scroll' || kind === 'inview') {
+        // The item crossing the middle band of the viewport is the active one
+        const io = new IntersectionObserver(entries => entries.forEach(e => {
+          if (e.isIntersecting) setActive(group, e.target.dataset.item);
+        }), { rootMargin: '-45% 0px -45% 0px' });
+        items.forEach(el => io.observe(el));
+      }
+
+      if (kind === 'tabs') {
+        const DUR = 7000;
+        let n = 0, timer = null;
+        const next = () => { setActive(group, n); timer = setTimeout(() => { n = (n + 1) % items.length; next(); }, DUR); };
+        const stop = () => { clearTimeout(timer); group.classList.add('is-paused'); };
+        items.forEach((tab, i) => {
+          const pick = () => { stop(); n = i; setActive(group, i); };
+          tab.addEventListener('mouseenter', pick);
+          tab.addEventListener('click', pick);
+          tab.addEventListener('focus', pick);
+        });
+        new IntersectionObserver(([e]) => {
+          clearTimeout(timer);
+          if (!e.isIntersecting) return;
+          delete group.dataset.active;
+          if (reduced || group.classList.contains('is-paused')) setActive(group, n); else next();
+        }, { threshold: 0.4 }).observe(group);
+      }
+
+      if (kind === 'reel') {
+        // Vertical scroll through the tall wrapper maps to sideways travel of the track
+        const track = group.querySelector('.f4-track');
+        const update = () => {
+          if (!desktop.matches) { track.style.transform = ''; return; }
+          const rect = group.getBoundingClientRect();
+          const span = group.offsetHeight - window.innerHeight;
+          const t = Math.min(1, Math.max(0, -rect.top / span));
+          const step = items[0].offsetWidth + 40;
+          track.style.transform = `translateX(${-t * step * (items.length - 1)}px)`;
+          if (rect.top < window.innerHeight && rect.bottom > 0) setActive(group, Math.round(t * (items.length - 1)));
+        };
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+        if (!desktop.matches) {
+          const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) setActive(group, e.target.dataset.item); }), { rootMargin: '-45% 0px -45% 0px' });
+          items.forEach(el => io.observe(el));
+        }
+      }
+
+      if (kind === 'panels') {
+        items.forEach((panel, i) => {
+          panel.addEventListener('mouseenter', () => desktop.matches && setActive(group, i));
+          panel.addEventListener('click', () => setActive(group, i));
+          panel.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(group, i); } });
+        });
+        new IntersectionObserver(([e]) => { if (e.isIntersecting && group.dataset.active === undefined) setActive(group, 0); }, { threshold: 0.3 }).observe(group);
+      }
+    });
+  })();
+</script>

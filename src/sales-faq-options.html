@@ -1,0 +1,340 @@
+---
+layout: landing.njk
+permalink: /sales/faq-options/
+title: "Sales page | Questions: layout options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#q1" }
+  home: "#q1"
+  right: { label: "Back to Sales", href: "/" }
+faqs:
+  - q: "What does it cost?"
+    a: "The full system starts at $20,000. One engagement covers the story and strategy, media production, the landing page, ad creative and the funnel launch. Pricing is exclusive of HST."
+    stat: "$20K"
+    label: "Starting price, + HST"
+    think: "This sounds expensive."
+    search: "how much does amp growth system cost"
+  - q: "Is ad spend included?"
+    a: "No. Ad spend is additional and set to your goals, so you stay in control of the budget."
+    stat: "Extra"
+    label: "Ad spend, set to your goals"
+    think: "What about the ad budget?"
+    search: "is ad spend included"
+  - q: "How do we start?"
+    a: "Every engagement starts with an AMP Deck™ session ($750), so we diagnose where your pipeline is leaking before we build anything. The fee is credited toward your package when you move forward within 60 days."
+    stat: "$750"
+    label: "AMP Deck™, credited back"
+    think: "I'm not ready to commit to the full system."
+    search: "how to start with amp"
+  - q: "How long does it take?"
+    a: "Four phases: Discovery, Media Day, Edit & Build, then Launch & Optimize. Each phase has a clear owner and deliverable, and exact dates are set together at kickoff."
+    stat: "4"
+    label: "Phases, dates set at kickoff"
+    think: "We don't have time for a long project."
+    search: "how long does it take"
+  - q: "What do we need to bring?"
+    a: "A standout project and a customer who is happy to talk about it. We plan the story, the shoot and everything after it."
+    stat: "1"
+    label: "Project + a happy customer"
+    think: "We wouldn't know what to film."
+    search: "what do we need to bring"
+  - q: "Who does the filming?"
+    a: "Our sister company Mind Fusion captures the media in one focused shoot. AMP turns it into proof and gets your message in front of the people who buy."
+    stat: "1"
+    label: "Focused shoot by Mind Fusion"
+    think: "Another vendor to manage?"
+    search: "who does the filming"
+---
+{#- TEMPORARY comparison page for the Sales page Questions section: five marketing-flavoured treatments,
+    each beside the same intro column. Delete once one is picked. -#}
+{%- macro intro() -%}
+<div class="qx-intro">
+  <div class="sales-eyebrow"><span>QUESTIONS</span></div>
+  <h2 class="sales-title">Cost, time and risk, answered <span class="sales-mark is-ink">up front.</span></h2>
+  <p class="sales-faq-lead">No surprises later. Here's what people ask us before they book.</p>
+  <div class="sales-faq-ask">
+    <span class="sales-faq-ask-label">Still have a question?</span>
+    <a href="mailto:hi@ampvisualmedia.com">hi@ampvisualmedia.com</a>
+    <a href="tel:+16138892770">(613) 889-2770</a>
+  </div>
+</div>
+{%- endmacro -%}
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false">
+  <filter id="sales-show-rough">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="4"/>
+  </filter>
+</svg>
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+
+  .qx-rough { font-family: var(--font-heading); font-weight: 800; line-height: 0.88; letter-spacing: -0.03em; text-transform: uppercase; filter: url(#sales-show-rough); }
+  .qx-mono { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ---------- 1: Stat ads. Each question carries its key number in the big rough lettering, visible before you open it ---------- */
+  .q1 summary { grid-template-columns: 52px 1fr auto 34px; gap: 16px; }
+  .q1-stat { display: grid; justify-items: end; gap: 4px; text-align: right; }
+  .q1-stat b { color: #A83C27; font-size: 2.4rem; }
+  .q1-stat small { font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(15, 43, 44, 0.5); white-space: nowrap; }
+  .q1 [open] .q1-stat b { color: #DE9E3B; }
+  .q1 [open] .q1-stat small { color: rgba(244, 239, 230, 0.5); }
+
+  /* ---------- 2: Search results. A search bar typing the question, then a "People also ask" box. Our own ad sits on top ---------- */
+  .q2 { overflow: hidden; border-radius: 22px; background: #ffffff; box-shadow: 0 30px 60px rgba(15, 43, 44, 0.12); font-family: Arial, "Helvetica Neue", sans-serif; color: #202124; }
+  .q2-bar { display: flex; align-items: center; gap: 12px; margin: 22px 22px 0; padding: 13px 20px; border: 1px solid #dfe1e5; border-radius: 999px; box-shadow: 0 1px 6px rgba(32, 33, 36, 0.12); font-size: 1rem; }
+  .q2-bar svg { flex: none; width: 18px; fill: none; stroke: #9aa0a6; stroke-width: 2.4; }
+  .q2-typed { overflow: hidden; white-space: nowrap; border-right: 2px solid #202124; animation: q2-caret 0.8s steps(1) infinite; }
+  @keyframes q2-caret { 50% { border-color: transparent; } }
+  .q2-meta { margin: 14px 26px 0; font-size: 0.8rem; color: #70757a; }
+  .q2-ad { margin: 16px 26px 0; padding-bottom: 18px; border-bottom: 1px solid #ebebeb; }
+  .q2-ad small { font-size: 0.78rem; color: #202124; }
+  .q2-ad small b { margin-right: 6px; }
+  .q2-ad a { display: block; margin: 4px 0; font-size: 1.25rem; color: #1a0dab; text-decoration: none; }
+  .q2-ad a:hover { text-decoration: underline; }
+  .q2-ad p { font-size: 0.9rem; line-height: 1.5; color: #4d5156; }
+  .q2-paa { padding: 18px 26px 10px; }
+  .q2-paa h3 { margin-bottom: 8px; font-size: 1.2rem; font-weight: 400; color: #202124; }
+  .q2 details { border-bottom: 1px solid #ebebeb; }
+  .q2 summary { display: flex; justify-content: space-between; align-items: center; padding: 15px 2px; font-size: 1rem; cursor: pointer; list-style: none; }
+  .q2 summary::-webkit-details-marker { display: none; }
+  .q2 summary::after { content: ""; width: 8px; height: 8px; margin-right: 6px; border-right: 2px solid #5f6368; border-bottom: 2px solid #5f6368; transform: rotate(45deg); transition: transform 0.25s ease; }
+  .q2 [open] summary::after { transform: rotate(-135deg); }
+  .q2-snip { padding: 0 2px 18px; font-size: 0.92rem; line-height: 1.55; color: #4d5156; animation: sales-faq-open 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+  .q2-snip b { color: #202124; }
+  .q2-snip span { display: block; margin-top: 10px; font-size: 0.78rem; color: #202124; }
+  .q2-snip span::before { content: ""; display: inline-block; width: 16px; height: 16px; margin-right: 8px; border-radius: 50%; background: #A83C27; vertical-align: -3px; }
+
+  /* ---------- 3: Messages. Tap a question chip; it sends as your message and AMP replies after the typing dots ---------- */
+  .q3 { display: flex; flex-direction: column; height: 600px; overflow: hidden; border-radius: 28px; background: #ffffff; box-shadow: 0 30px 60px rgba(15, 43, 44, 0.12); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  .q3-head { display: grid; justify-items: center; gap: 4px; padding: 16px; border-bottom: 1px solid #ececec; font-size: 0.75rem; color: rgba(60, 60, 67, 0.6); }
+  .q3-head i { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: #0B1E1C; color: #DE9E3B; font-family: var(--font-heading); font-size: 0.75rem; font-style: normal; font-weight: 800; }
+  .q3-head b { font-size: 0.9rem; color: #000000; }
+  .q3-log { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 20px 22px; overflow-y: auto; scroll-behavior: smooth; }
+  .q3-msg { max-width: 80%; padding: 10px 15px; border-radius: 20px; font-size: 0.98rem; line-height: 1.4; animation: q3-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .q3-msg.is-you { align-self: flex-end; border-bottom-right-radius: 6px; background: #0a84ff; color: #ffffff; }
+  .q3-msg.is-amp { align-self: flex-start; border-bottom-left-radius: 6px; background: #e9e9eb; color: #000000; }
+  .q3-msg.is-amp b { color: #A83C27; }
+  .q3-typing { align-self: flex-start; display: flex; gap: 4px; padding: 13px 15px; border-radius: 20px; background: #e9e9eb; }
+  .q3-typing i { width: 7px; height: 7px; border-radius: 50%; background: #8e8e93; animation: q3-dot 1s infinite; }
+  .q3-typing i:nth-child(2) { animation-delay: 0.15s; }
+  .q3-typing i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes q3-dot { 50% { opacity: 0.3; transform: translateY(-2px); } }
+  @keyframes q3-in { from { opacity: 0; transform: translateY(8px) scale(0.96); } }
+  .q3-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 18px 18px; border-top: 1px solid #ececec; }
+  .q3-chips button { padding: 8px 14px; border: 1px solid #0a84ff; border-radius: 999px; background: #ffffff; color: #0a84ff; font: inherit; font-size: 0.85rem; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+  .q3-chips button:hover { background: #0a84ff; color: #ffffff; }
+  .q3-chips button[disabled] { opacity: 0.35; cursor: default; background: #ffffff; color: #0a84ff; }
+
+  /* ---------- 4: Objections. Cards show what the buyer is thinking; flip one for the straight answer ---------- */
+  .q4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .q4-card { position: relative; min-height: 220px; border: 0; padding: 0; background: none; font: inherit; text-align: left; cursor: pointer; perspective: 1200px; }
+  .q4-face { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 22px 22px 20px; border-radius: 18px; backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+  .q4-front { border: 1px solid rgba(15, 43, 44, 0.12); background: #ffffff; color: #0F2B2C; }
+  .q4-front .qx-mono { color: rgba(15, 43, 44, 0.45); }
+  .q4-front q { display: block; margin-top: 12px; font-family: var(--font-heading); font-size: 1.45rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+  .q4-front small { display: block; margin-top: auto; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; color: #A83C27; }
+  .q4-back { background: #0B1E1C; color: #f4efe6; transform: rotateY(180deg); }
+  .q4-back .qx-mono { color: #DE9E3B; }
+  .q4-a { display: block; margin-top: 10px; font-size: 0.92rem; line-height: 1.5; color: rgba(244, 239, 230, 0.82); }
+  .q4-card.is-flipped .q4-front { transform: rotateY(-180deg); }
+  .q4-card.is-flipped .q4-back { transform: rotateY(0deg); }
+  .q4-card:hover .q4-front { border-color: rgba(222, 158, 59, 0.6); box-shadow: 0 14px 30px rgba(15, 43, 44, 0.1); }
+  .q4-card:focus-visible { outline: 2px solid #DE9E3B; outline-offset: 4px; border-radius: 18px; }
+
+  /* ---------- 5: Rich answers. The same accordion, but answers show the thing itself: the price breakdown, the credit, the timeline ---------- */
+  .q5 .sales-faq details > div { padding: 0 40px 28px 88px; animation: sales-faq-open 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+  .q5 .sales-faq details > div > p { padding: 0; animation: none; }
+  .q5-bars { display: grid; gap: 8px; margin-top: 18px; }
+  .q5-bars span { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 9px 12px; border-radius: 8px; background: rgba(244, 239, 230, 0.07); font-size: 0.88rem; color: rgba(244, 239, 230, 0.85); animation: q5-bar 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i) * 0.08s); }
+  .q5-bars span b { color: #DE9E3B; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; }
+  .q5-bars .is-total { background: #DE9E3B; color: #0c0407; font-weight: 700; }
+  .q5-bars .is-total b { color: #0c0407; }
+  @keyframes q5-bar { from { opacity: 0; transform: translateX(-12px); } }
+  .q5-credit { display: flex; align-items: center; gap: 14px; margin-top: 18px; }
+  .q5-credit span { padding: 10px 14px; border: 1px dashed rgba(244, 239, 230, 0.35); border-radius: 10px; font-size: 0.85rem; color: rgba(244, 239, 230, 0.8); }
+  .q5-credit span b { display: block; color: #DE9E3B; font-size: 1.3rem; }
+  .q5-credit i { color: #DE9E3B; font-style: normal; font-size: 1.3rem; }
+  .q5-line { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 20px; }
+  .q5-line span { position: relative; padding-top: 16px; font-size: 0.8rem; line-height: 1.35; color: rgba(244, 239, 230, 0.85); }
+  .q5-line span::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; border-radius: 2px; background: #DE9E3B; transform-origin: left; animation: q5-fill 0.5s ease both; animation-delay: calc(var(--i) * 0.15s); }
+  .q5-line span small { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em; color: rgba(244, 239, 230, 0.5); text-transform: uppercase; }
+  @keyframes q5-fill { from { transform: scaleX(0); } }
+  .q5-chip { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 8px 12px; border-radius: 999px; background: rgba(222, 158, 59, 0.14); color: #DE9E3B; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @media (max-width: 900px) {
+    .q1 summary { grid-template-columns: 1fr auto 34px; }
+    .q1 .sales-faq-num { display: none; }
+    .q1-stat b { font-size: 1.8rem; }
+    .q4 { grid-template-columns: 1fr; }
+    .q5 .sales-faq details > div { padding: 0 22px 24px; }
+    .q5-line { grid-template-columns: 1fr 1fr; row-gap: 14px; }
+  }
+</style>
+
+<!-- 1 -->
+<div class="po-label" id="q1"><div class="container"><h2><strong>1</strong>Stat ads</h2><p>Today's accordion, but every question carries its key number in the big rough lettering, like the headline of an ad: $20K, $750, 4 phases, 1 shoot. Skimmers get the answer without opening anything. Burnt orange when closed, amber when open on the dark card.</p></div></div>
+<section class="sales-section is-cream"><div class="container sales-faq-grid">
+  {{ intro() }}
+  <div class="sales-faq q1">
+    {%- for f in faqs %}
+    <details>
+      <summary><span class="sales-faq-num">Q.0{{ loop.index }}</span><span class="sales-faq-q">{{ f.q }}</span><span class="q1-stat"><b class="qx-rough">{{ f.stat }}</b><small>{{ f.label }}</small></span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+      <p>{{ f.a }}</p>
+    </details>
+    {%- endfor %}
+  </div>
+</div></section>
+
+<!-- 2 -->
+<div class="po-label" id="q2"><div class="container"><h2><strong>2</strong>Search results</h2><p>The questions are shown the way buyers really ask them: in a search engine. A search bar types out the query, AMP's own sponsored result sits on top (that's the Book a Call link), and the questions sit in a "People also ask" box that opens into answer snippets. It shows the marketing in action. It's a generic search page with no search engine's name or logo.</p></div></div>
+<section class="sales-section is-cream"><div class="container sales-faq-grid">
+  {{ intro() }}
+  <div class="q2">
+    <div class="q2-bar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><span class="q2-typed" data-type="growth system for service businesses">growth system for service businesses</span></div>
+    <p class="q2-meta">About 6 answers (0.42 seconds)</p>
+    <div class="q2-ad">
+      <small><b>Sponsored</b>ampvisualmedia.com</small>
+      <a href="/#cta">AMP Growth System | Turn Your Best Work Into Leads</a>
+      <p>One real project becomes a case study film, a landing page and a funnel that keeps bringing in new leads. Book a call.</p>
+    </div>
+    <div class="q2-paa">
+      <h3>People also ask</h3>
+      {%- for f in faqs %}
+      <details>
+        <summary>{{ f.q }}</summary>
+        <div class="q2-snip"><b>{{ f.label }}.</b> {{ f.a }}<span>AMP Visual Media · ampvisualmedia.com › sales</span></div>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</div></section>
+
+<!-- 3 -->
+<div class="po-label" id="q3"><div class="container"><h2><strong>3</strong>Messages</h2><p>The questions are reply chips under a message thread with AMP. Tap one and it sends as your message; AMP "types" and answers, with the key figure in bold. It picks up the phone from The Problem, so the page opens and closes on a conversation. Interactive and personal.</p></div></div>
+<section class="sales-section is-cream"><div class="container sales-faq-grid">
+  {{ intro() }}
+  <div class="q3" data-chat>
+    <div class="q3-head"><i>AMP</i><b>AMP Visual Media</b>Usually replies in a few hours</div>
+    <div class="q3-log" data-log>
+      <p class="q3-msg is-amp">Hi! Ask us anything before you book. Tap a question below 👇</p>
+    </div>
+    <div class="q3-chips">
+      {%- for f in faqs %}<button type="button" data-q="{{ f.q }}" data-a="{{ f.a }}" data-stat="{{ f.label }}">{{ f.q }}</button>{% endfor %}
+    </div>
+  </div>
+</div></section>
+
+<!-- 4 -->
+<div class="po-label" id="q4"><div class="container"><h2><strong>4</strong>Objections</h2><p>A classic sales-page device. Each card shows what the buyer is really thinking ("This sounds expensive.", "Another vendor to manage?"), and a click flips it to the straight answer on the dark green. It meets objections head on, in the buyer's own words.</p></div></div>
+<section class="sales-section is-cream"><div class="container sales-faq-grid">
+  {{ intro() }}
+  <div class="q4">
+    {%- for f in faqs %}
+    <button type="button" class="q4-card" aria-pressed="false" data-flip>
+      <span class="q4-face q4-front"><span class="qx-mono">You're thinking</span><q>{{ f.think }}</q><small>Q.0{{ loop.index }} · {{ f.q }} Flip →</small></span>
+      <span class="q4-face q4-back"><span class="qx-mono">Straight answer</span><span class="q4-a">{{ f.a }}</span></span>
+    </button>
+    {%- endfor %}
+  </div>
+</div></section>
+
+<!-- 5 -->
+<div class="po-label" id="q5"><div class="container"><h2><strong>5</strong>Rich answers</h2><p>Today's accordion, but answers show the thing itself. Cost opens into a breakdown of what the $20,000 covers, building line by line. "How do we start?" shows the $750 being credited to the package. "How long?" fills a four-phase timeline with who owns each phase. The rest get a short summary tag. Same look as today, much more convincing.</p></div></div>
+<section class="sales-section is-cream q5"><div class="container sales-faq-grid">
+  {{ intro() }}
+  <div class="sales-faq">
+    <details>
+      <summary><span class="sales-faq-num">Q.01</span><span class="sales-faq-q">What does it cost?</span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+      <div>
+        <p>The full system starts at $20,000, exclusive of HST. One engagement covers everything:</p>
+        <div class="q5-bars">
+          {%- for item in ["Story & strategy", "Media production", "Landing page", "Ad creative", "Funnel launch"] %}<span style="--i: {{ loop.index0 }}">{{ item }}<b>INCLUDED</b></span>{% endfor %}
+          <span class="is-total" style="--i: 5">The full system<b>FROM $20,000</b></span>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="sales-faq-num">Q.02</span><span class="sales-faq-q">Is ad spend included?</span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+      <div><p>{{ faqs[1].a }}</p><span class="q5-chip">● You control the budget</span></div>
+    </details>
+    <details>
+      <summary><span class="sales-faq-num">Q.03</span><span class="sales-faq-q">How do we start?</span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+      <div>
+        <p>With an AMP Deck™ session, so we find where your pipeline is leaking before we build anything.</p>
+        <div class="q5-credit"><span><b>$750</b>AMP Deck™ session</span><i>→</i><span><b>Credited</b>to your package within 60 days</span></div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="sales-faq-num">Q.04</span><span class="sales-faq-q">How long does it take?</span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+      <div>
+        <p>Four phases, each with a clear owner and deliverable. Exact dates are set together at kickoff.</p>
+        <div class="q5-line">
+          {%- for ph in [["Discovery", "AMP"], ["Media Day", "Mind Fusion"], ["Edit & Build", "AMP"], ["Launch & Optimize", "AMP"]] %}<span style="--i: {{ loop.index0 }}">{{ ph[0] }}<small>{{ ph[1] }}</small></span>{% endfor %}
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="sales-faq-num">Q.05</span><span class="sales-faq-q">What do we need to bring?</span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+      <div><p>{{ faqs[4].a }}</p><span class="q5-chip">● 1 project · 1 happy customer</span></div>
+    </details>
+    <details>
+      <summary><span class="sales-faq-num">Q.06</span><span class="sales-faq-q">Who does the filming?</span><span class="sales-faq-icon" aria-hidden="true"></span></summary>
+      <div><p>{{ faqs[5].a }}</p><span class="q5-chip">● 1 focused shoot day</span></div>
+    </details>
+  </div>
+</div></section>
+<div style="height: 30vh; background: var(--bg-main);"></div>
+
+<script>
+  (() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wait = ms => new Promise(r => setTimeout(r, reduced ? 0 : ms));
+
+    // 2: the search bar types its query once, when it comes into view
+    document.querySelectorAll('[data-type]').forEach(el => {
+      const text = el.dataset.type;
+      if (reduced) return;
+      el.textContent = '';
+      new IntersectionObserver(async ([e], io) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        for (const ch of text) { el.textContent += ch; await wait(55); }
+      }, { threshold: 0.5 }).observe(el);
+    });
+
+    // 3: chips send the question, then AMP types and answers. Each chip can be used once
+    document.querySelectorAll('[data-chat]').forEach(chat => {
+      const log = chat.querySelector('[data-log]');
+      let busy = false;
+      const add = (cls, html) => { const p = document.createElement('p'); p.className = 'q3-msg ' + cls; p.innerHTML = html; log.appendChild(p); log.scrollTop = log.scrollHeight; return p; };
+      chat.querySelectorAll('button[data-q]').forEach(btn => btn.addEventListener('click', async () => {
+        if (busy) return;
+        busy = true;
+        btn.disabled = true;
+        add('is-you', btn.dataset.q);
+        await wait(400);
+        const typing = document.createElement('span');
+        typing.className = 'q3-typing';
+        typing.innerHTML = '<i></i><i></i><i></i>';
+        log.appendChild(typing);
+        log.scrollTop = log.scrollHeight;
+        await wait(1100);
+        typing.remove();
+        const reply = add('is-amp', '');
+        reply.append(Object.assign(document.createElement('b'), { textContent: btn.dataset.stat + '. ' }), btn.dataset.a);
+        log.scrollTop = log.scrollHeight;
+        busy = false;
+      }));
+    });
+
+    // 4: flip cards
+    document.querySelectorAll('[data-flip]').forEach(card => card.addEventListener('click', () => {
+      const on = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', on);
+    }));
+  })();
+</script>

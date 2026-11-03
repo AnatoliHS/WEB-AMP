@@ -1,0 +1,426 @@
+---
+layout: landing.njk
+permalink: /sales/hero-concepts/
+title: "Sales page | Hero: motion concepts"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Concepts", href: "#c1" }
+  home: "#c1"
+  right: { label: "Back to Sales", href: "/" }
+---
+{#- TEMPORARY comparison page: five motion-led hero concepts built around the portfolio images. Delete once one is picked. -#}
+{%- set booking = "https://calendar.app.google/vc5qz2BpLdG4BEgq9" -%}
+{%- set arrow = '<svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true"><path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/></svg>' -%}
+{#- Portfolio images the concepts draw from (kept to the lighter files) -#}
+{%- set work = [
+  "bee-strong-identity.avif", "rose-scale-truck.avif", "girl-camera.avif", "basketball-player.avif",
+  "biq.avif", "rose-scale-cap.avif", "deck.avif", "rose-scale-mug.avif",
+  "eco-dev.avif", "bee-strong-mobile.avif", "rose-scale-site.avif", "boat.avif",
+  "brand-identity.avif", "rose-scale-building.avif", "economic-dev.avif", "deck-cards.jpg",
+  "rose-scale.avif", "bee-strong-web.avif", "site-selection.avif", "websites.jpg"
+] -%}
+{%- macro actions() -%}
+<div class="sales-actions">
+  <a href="{{ booking }}" target="_blank" rel="noopener noreferrer" class="hero-btn-primary"><span>Book a call</span>{{ arrow | safe }}</a>
+  <a href="#" class="sales-text-link">See it in action ↓</a>
+</div>
+{%- endmacro -%}
+<style>
+  .po-label { padding: 120px 0 26px; background: var(--bg-main); }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+  .hc { position: relative; overflow: hidden; min-height: 100svh; border-top: 1px solid var(--border-light); background: #060304; }
+  .hc img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .hc .container { position: relative; z-index: 4; }
+  .hc-center { text-align: center; }
+  .hc-center .sales-hero-lead { margin-left: auto; margin-right: auto; }
+  .hc-center .sales-actions { justify-content: center; }
+
+  /* ---------- 1: Corridor + sound halo ---------- */
+  /* Cards ride two tracks out of the vanishing point towards the viewer; the halo pulses behind where they appear */
+  .c1 { display: flex; flex-direction: column; justify-content: space-between; padding: 120px 0 56px; background: radial-gradient(ellipse 70% 55% at 50% 52%, #1a0d08, #060304 70%); }
+  .c1 .sales-hero-title { margin-bottom: 0; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8); }
+  .c1 .sales-hero-lead { font-size: 1.1rem; color: var(--text-muted); text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9); }
+  .c1-halo { position: absolute; z-index: 1; left: 50%; top: 55%; width: min(68svh, 72vw); aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none; }
+  .c1-stage { position: absolute; inset: 0; z-index: 2; perspective: 900px; perspective-origin: 50% 55%; pointer-events: none; }
+  .c1-card {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    width: clamp(130px, 14vw, 230px);
+    aspect-ratio: 3 / 4;
+    margin: calc(clamp(130px, 14vw, 230px) * -2 / 3) 0 0 calc(clamp(130px, 14vw, 230px) / -2);
+    border-radius: 6px;
+    overflow: hidden;
+    opacity: 0;
+    will-change: transform, opacity;
+    -webkit-box-reflect: below 6px linear-gradient(transparent 72%, rgba(255, 255, 255, 0.18));
+  }
+  /* Distance fog, set per frame */
+  .c1-card::after { content: ""; position: absolute; inset: 0; background: #060304; opacity: var(--fog, 0); }
+  .c1-floor { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 40%; background: linear-gradient(transparent, rgba(6, 3, 4, 0.85) 70%); pointer-events: none; }
+
+  /* ---------- 2: Orbit ---------- */
+  .c2 { display: flex; align-items: center; padding: 120px 0 80px; background: radial-gradient(ellipse 60% 50% at 50% 60%, #1b1009, #060304 70%); }
+  .c2-stage { position: absolute; inset: 0; z-index: 1; perspective: 1400px; perspective-origin: 50% 30%; }
+  .c2-tilt { position: absolute; left: 50%; top: 64%; transform-style: preserve-3d; transform: rotateX(-12deg); }
+  .c2-ring { transform-style: preserve-3d; animation: c2-spin 48s linear infinite; }
+  @keyframes c2-spin { to { transform: rotateY(-360deg); } }
+  .c2-card {
+    --r: clamp(320px, 40vw, 640px);
+    position: absolute;
+    width: clamp(120px, 12vw, 200px);
+    aspect-ratio: 4 / 5;
+    margin: calc(clamp(120px, 12vw, 200px) * -5 / 8) 0 0 calc(clamp(120px, 12vw, 200px) / -2);
+    border-radius: 10px;
+    overflow: hidden;
+    transform: rotateY(calc(var(--i) * 30deg)) translateZ(var(--r));
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  }
+  .c2-shade { position: absolute; inset: 0; z-index: 2; background: radial-gradient(ellipse 44% 36% at 50% 46%, rgba(6, 3, 4, 0.92) 40%, transparent); pointer-events: none; }
+  .c2-orbit { position: absolute; z-index: 1; left: 50%; top: 64%; width: 96vw; height: 22vw; transform: translate(-50%, -50%); border: 1px solid rgba(222, 158, 59, 0.22); border-radius: 50%; pointer-events: none; }
+
+  /* ---------- 3: Equaliser reveal ---------- */
+  /* One photo sliced into columns that bounce like a level meter; amber caps hold each peak */
+  .c3 { display: flex; align-items: center; padding: 120px 0 80px; }
+  .c3-copy { max-width: 540px; }
+  .c3-eq { position: absolute; z-index: 1; top: 0; bottom: 0; right: 0; width: 64%; display: flex; gap: 4px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%); mask-image: linear-gradient(90deg, transparent, #000 22%); }
+  .c3-col { position: relative; flex: 1; overflow: hidden; --h: 0.5; --p: 0.5; }
+  .c3-col i { position: absolute; top: 0; bottom: 0; left: calc(var(--i) * -100% - var(--i) * 4px); width: calc(var(--n) * 100% + (var(--n) - 1) * 4px); background: var(--img) center / cover no-repeat; clip-path: inset(calc((1 - var(--h)) * 100%) 0 0 0); transition: background-image 0.4s; }
+  .c3-col b { position: absolute; left: 0; right: 0; height: 4px; top: calc((1 - var(--p)) * 100% - 10px); background: var(--accent-amber); box-shadow: 0 0 10px rgba(222, 158, 59, 0.8); }
+  .c3::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, #060304 28%, transparent 54%); pointer-events: none; }
+
+  /* ---------- 4: Tilted wall ---------- */
+  .c4 { display: flex; align-items: center; padding: 120px 0 80px; }
+  .c4-copy { max-width: 540px; }
+  .c4-view { position: absolute; z-index: 1; inset: 0; perspective: 1600px; overflow: hidden; }
+  .c4-wall { position: absolute; top: -40%; right: -16%; width: 78%; height: 180%; display: flex; gap: 18px; transform: rotateX(32deg) rotateZ(-22deg) rotateY(-10deg); transform-origin: center; }
+  .c4-col { flex: 1; display: flex; flex-direction: column; gap: 18px; animation: c4-up 70s linear infinite; }
+  .c4-col:nth-child(even) { animation-direction: reverse; animation-duration: 90s; }
+  .c4-col:nth-child(3) { animation-duration: 60s; }
+  @keyframes c4-up { to { transform: translateY(-50%); } }
+  .c4-col figure { margin: 0; aspect-ratio: 4 / 5; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+  .c4::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, #060304 32%, rgba(6, 3, 4, 0.4) 62%, rgba(6, 3, 4, 0.1)), linear-gradient(#060304, transparent 20%, transparent 80%, #060304); }
+
+  /* ---------- 5: Spotlight ---------- */
+  /* The work sits in the dark; a light follows the pointer (and wanders on its own when idle) to show it in full colour */
+  .c5 { display: flex; align-items: flex-end; padding: 120px 0 72px; --x: 60%; --y: 45%; }
+  .c5-grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 1fr; gap: 6px; }
+  .c5-grid.is-dark { filter: grayscale(1) brightness(0.2); }
+  .c5-grid.is-lit { z-index: 1; -webkit-mask-image: radial-gradient(circle clamp(140px, 17vw, 260px) at var(--x) var(--y), #000 30%, transparent); mask-image: radial-gradient(circle clamp(140px, 17vw, 260px) at var(--x) var(--y), #000 30%, transparent); }
+  .c5-ring { position: absolute; z-index: 2; left: var(--x); top: var(--y); width: clamp(220px, 26vw, 400px); aspect-ratio: 1; border: 1px solid rgba(222, 158, 59, 0.45); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .c5::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(transparent 40%, rgba(6, 3, 4, 0.92) 85%); }
+  .c5-copy { max-width: 620px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .c2-ring, .c4-col { animation: none; }
+  }
+
+  @media (max-width: 900px) {
+    .c1 { padding-top: 110px; }
+    .c1-card { width: 110px; margin: -73px 0 0 -55px; }
+    .c2 { align-items: flex-end; }
+    .c2-tilt, .c2-orbit { top: 30%; }
+    .c2-card { --r: 170px; width: 90px; margin: -56px 0 0 -45px; }
+    .c2-orbit { height: 40vw; }
+    .c2-shade { background: linear-gradient(transparent 42%, rgba(6, 3, 4, 0.92) 58%); }
+    .c3, .c4 { align-items: flex-end; }
+    .c3-eq { width: 100%; height: 60%; bottom: auto; }
+    .c3::after { background: linear-gradient(transparent 25%, #060304 62%); }
+    .c4-wall { top: -60%; right: -30%; width: 140%; }
+    .c4::after { background: linear-gradient(transparent 10%, rgba(6, 3, 4, 0.6) 40%, #060304 68%); }
+    .c5-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+
+<!-- ===================== 1 ===================== -->
+<div class="po-label" id="c1">
+  <div class="container">
+    <h2><strong>1</strong>Corridor + sound halo (your brief)</h2>
+    <p>The work rides two tracks out of the distance towards you, angled like a gallery corridor, fading out of the dark and sliding past the edges. Behind the vanishing point a large halo of straight bars pulses like a circular level meter, with a kick on every beat.</p>
+  </div>
+</div>
+<section class="hc c1" data-scene="corridor">
+  <canvas class="c1-halo" aria-hidden="true"></canvas>
+  <div class="c1-stage" aria-hidden="true">
+    {%- for n in range(0, 18) %}
+    <div class="c1-card"><img src="/images/{{ work[n % work.length] }}" alt="" decoding="async"></div>
+    {%- endfor %}
+  </div>
+  <div class="c1-floor" aria-hidden="true"></div>
+  <div class="container hc-center">
+    <div class="sales-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+    <h1 class="sales-hero-title">Your best work,<br><span class="sales-mark">front and centre.</span></h1>
+  </div>
+  <div class="container hc-center">
+    <p class="sales-hero-lead">One great project, told well, can sell for years. We turn a single client win into a film, a content library and a funnel that keeps bringing in leads.</p>
+    {{ actions() }}
+  </div>
+</section>
+
+<!-- ===================== 2 ===================== -->
+<div class="po-label" id="c2">
+  <div class="container">
+    <h2><strong>2</strong>Orbit</h2>
+    <p>The headline sits still in the middle while a ring of twelve projects slowly orbits around it in 3D, passing behind the words and swinging out towards you at the sides. Calm, confident, and the copy is never fighting the motion.</p>
+  </div>
+</div>
+<section class="hc c2">
+  <div class="c2-orbit" aria-hidden="true"></div>
+  <div class="c2-stage" aria-hidden="true">
+    <div class="c2-tilt"><div class="c2-ring">
+      {%- for n in range(0, 12) %}
+      <div class="c2-card" style="--i: {{ n }}"><img src="/images/{{ work[(n * 3) % work.length] }}" alt="" decoding="async"></div>
+      {%- endfor %}
+    </div></div>
+  </div>
+  <div class="c2-shade" aria-hidden="true"></div>
+  <div class="container hc-center">
+    <div class="sales-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+    <h1 class="sales-hero-title">Turn your best work into your best <span class="sales-mark">salesperson.</span></h1>
+    <p class="sales-hero-lead">One great project, told well, can sell for years.</p>
+    {{ actions() }}
+  </div>
+</section>
+
+<!-- ===================== 3 ===================== -->
+<div class="po-label" id="c3">
+  <div class="container">
+    <h2><strong>3</strong>Equaliser reveal</h2>
+    <p>A sister to the halo: a shoot photo is sliced into vertical bars that bounce like a graphic equaliser, so the picture is only ever partly revealed, with amber peak caps hanging above each bar. The photo changes every few seconds.</p>
+  </div>
+</div>
+<section class="hc c3" data-scene="eq" style="--img: url('/images/sales/hero-poster.jpg')" data-images="/images/sales/hero-poster.jpg,/images/sales/hero-2-poster.jpg,/images/sales/interview.jpg">
+  <div class="c3-eq" aria-hidden="true">
+    {%- for n in range(0, 28) %}
+    <div class="c3-col" style="--i: {{ n }}; --n: 28"><i></i><b></b></div>
+    {%- endfor %}
+  </div>
+  <div class="container">
+    <div class="c3-copy">
+      <div class="sales-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+      <h1 class="sales-hero-title">Make your work <span class="sales-mark">louder.</span></h1>
+      <p class="sales-hero-lead">One great project, told well, can sell for years. We turn a single client win into a case study film, a content library, a landing page and a paid funnel.</p>
+      {{ actions() }}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4 ===================== -->
+<div class="po-label" id="c4">
+  <div class="container">
+    <h2><strong>4</strong>Tilted wall</h2>
+    <p>The whole portfolio as a wall laid back in perspective on the right, its columns drifting up and down at different speeds. Reads as “there's a lot of real work here” at a glance, and the copy keeps a clean dark side.</p>
+  </div>
+</div>
+<section class="hc c4">
+  <div class="c4-view" aria-hidden="true">
+    <div class="c4-wall">
+      {%- for c in range(0, 5) %}
+      <div class="c4-col">
+        {%- for r in range(0, 12) %}
+        <figure><img src="/images/{{ work[(c * 4 + (r % 6)) % work.length] }}" alt="" loading="lazy" decoding="async"></figure>
+        {%- endfor %}
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+  <div class="container">
+    <div class="c4-copy">
+      <div class="sales-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+      <h1 class="sales-hero-title">Turn your best work into your best <span class="sales-mark">salesperson.</span></h1>
+      <p class="sales-hero-lead">One great project, told well, can sell for years. We turn a single client win into a case study film, a content library, a landing page and a paid funnel.</p>
+      {{ actions() }}
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5 ===================== -->
+<div class="po-label" id="c5">
+  <div class="container">
+    <h2><strong>5</strong>Spotlight</h2>
+    <p>A grid of the work sits almost black, and a soft spotlight follows the pointer to show it in full colour. When nobody's moving the mouse (and on phones) the light wanders on its own. The idea: great work that nobody can see yet.</p>
+  </div>
+</div>
+<section class="hc c5" data-scene="spotlight">
+  {%- for layer in ["is-dark", "is-lit"] %}
+  <div class="c5-grid {{ layer }}" aria-hidden="true">
+    {%- for n in range(0, 24) %}<img src="/images/{{ work[n % work.length] }}" alt="" loading="lazy" decoding="async">{%- endfor %}
+  </div>
+  {%- endfor %}
+  <div class="c5-ring" aria-hidden="true"></div>
+  <div class="container">
+    <div class="c5-copy">
+      <div class="sales-eyebrow"><span>AMP GROWTH SYSTEM</span></div>
+      <h1 class="sales-hero-title">Great work nobody sees doesn't <span class="sales-mark">sell.</span></h1>
+      <p class="sales-hero-lead">We put the spotlight on it: a case study film, a content library, a landing page and a paid funnel built from one client win.</p>
+      {{ actions() }}
+    </div>
+  </div>
+</section>
+
+<div style="height: 120px; background: var(--bg-main);"></div>
+
+<script>
+  // One animation loop drives the scripted scenes; each only runs while it's on screen.
+  // Reduced motion: every scene draws a single still frame.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
+
+  // A fake 118 bpm track: a kick on every beat, a snare on the off-beats, and a wandering texture for the highs
+  function signal(t, p, i) {
+    const beat = 60 / 118;
+    const kick = Math.exp(-(t % beat) * 7);
+    const snare = Math.exp(-((t + beat / 2) % (beat * 2)) * 9);
+    const wave = 0.5 + 0.5 * Math.sin(t * 2.3 + i * 0.7) * Math.sin(t * 1.1 + i * 0.31);
+    return clamp(0.12 + kick * (1 - p) ** 2 * 0.85 + snare * p * 0.45 + wave * 0.35 + Math.random() * 0.12);
+  }
+
+  const scenes = {
+    corridor(section) {
+      const stage = section.querySelector('.c1-stage');
+      const cards = [...stage.querySelectorAll('.c1-card')];
+      const canvas = section.querySelector('.c1-halo');
+      const ctx = canvas.getContext('2d');
+      const BARS = 120, DEPTH = 4800, NEAR = 600, SPEED = 150, perSide = cards.length / 2;
+      const level = new Float32Array(BARS);
+      let width = 0, size = 0, dpr = 1;
+      function resize() {
+        width = stage.clientWidth;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        size = canvas.clientWidth;
+        canvas.width = size * dpr;
+        canvas.height = size * dpr;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      // Alternate sides, the right track half a step behind the left
+      cards.forEach((card, i) => {
+        card.side = i % 2 ? 1 : -1;
+        card.offset = (Math.floor(i / 2) + (i % 2) * 0.5) * (DEPTH / perSide);
+      });
+
+      return t => {
+        // Cards: z runs from deep in the distance up past the viewer, then wraps
+        const lane = width < 700 ? width * 0.46 : Math.min(width * 0.3, 560);
+        cards.forEach(card => {
+          const z = ((card.offset + t * SPEED) % DEPTH) - (DEPTH - NEAR);
+          const far = (z + DEPTH - NEAR) / (DEPTH - NEAR);
+          card.style.opacity = Math.min(clamp(far / 0.18), clamp((NEAR - z) / 200));
+          card.style.setProperty('--fog', (0.85 * (1 - far) ** 1.4).toFixed(3));
+          card.style.transform = `translate3d(${card.side * lane}px, 0, ${z}px) rotateY(${-card.side * 38}deg)`;
+        });
+
+        // Halo: bars radiate from a ring; bass sits at the bottom, highs at the top, mirrored left and right
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, size, size);
+        const c = size / 2, r0 = size * 0.3, maxLen = size * 0.17;
+        let total = 0;
+        for (let i = 0; i < BARS; i++) {
+          const p = 1 - Math.abs((i / BARS) * 2 - 1);
+          const target = signal(t, 1 - p, i % (BARS / 2));
+          level[i] += (target - level[i]) * (target > level[i] ? 0.55 : 0.12);
+          total += level[i];
+        }
+        const avg = total / BARS;
+        const glow = ctx.createRadialGradient(c, c, r0 * 0.6, c, c, r0 + maxLen);
+        glow.addColorStop(0, 'rgba(222, 158, 59, 0)');
+        glow.addColorStop(0.55, `rgba(239, 69, 64, ${0.08 + avg * 0.18})`);
+        glow.addColorStop(1, 'rgba(222, 158, 59, 0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, size, size);
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.lineCap = 'round';
+        const thick = Math.max(2, ((Math.PI * 2 * r0) / BARS) * 0.34);
+        for (let i = 0; i < BARS; i++) {
+          const a = (i / BARS) * Math.PI * 2 - Math.PI / 2;
+          const cos = Math.cos(a), sin = Math.sin(a);
+          const p = 1 - Math.abs((i / BARS) * 2 - 1);
+          const len = 4 + level[i] * maxLen;
+          const hue = 38 - p * 34;
+          // Outer bar with a soft wide pass for glow, then a short faint echo pointing inwards
+          ctx.strokeStyle = `hsla(${hue}, 85%, 58%, ${0.12 + level[i] * 0.15})`;
+          ctx.lineWidth = thick * 3;
+          ctx.beginPath(); ctx.moveTo(c + cos * r0, c + sin * r0); ctx.lineTo(c + cos * (r0 + len), c + sin * (r0 + len)); ctx.stroke();
+          ctx.strokeStyle = `hsla(${hue}, 90%, ${60 + level[i] * 20}%, ${0.55 + level[i] * 0.45})`;
+          ctx.lineWidth = thick;
+          ctx.stroke();
+          ctx.strokeStyle = `hsla(${hue}, 80%, 55%, 0.22)`;
+          ctx.beginPath(); ctx.moveTo(c + cos * (r0 - 10), c + sin * (r0 - 10)); ctx.lineTo(c + cos * (r0 - 10 - len * 0.35), c + sin * (r0 - 10 - len * 0.35)); ctx.stroke();
+        }
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.strokeStyle = `rgba(244, 239, 230, ${0.08 + avg * 0.2})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(c, c, r0 - 5, 0, Math.PI * 2); ctx.stroke();
+      };
+    },
+
+    eq(section) {
+      const cols = [...section.querySelectorAll('.c3-col')];
+      const images = section.dataset.images.split(',');
+      const peak = new Float32Array(cols.length), level = new Float32Array(cols.length);
+      let shown = 0;
+      return (t, dt) => {
+        const next = Math.floor(t / 6) % images.length;
+        if (next !== shown) {
+          shown = next;
+          section.style.setProperty('--img', `url('${images[next]}')`);
+        }
+        cols.forEach((col, i) => {
+          const p = i / (cols.length - 1);
+          const target = 0.25 + signal(t, p, i) * 0.75;
+          level[i] += (target - level[i]) * (target > level[i] ? 0.5 : 0.1);
+          peak[i] = Math.max(level[i], peak[i] - dt * 0.35);
+          col.style.setProperty('--h', level[i].toFixed(3));
+          col.style.setProperty('--p', peak[i].toFixed(3));
+        });
+      };
+    },
+
+    spotlight(section) {
+      const pos = { x: 0.62, y: 0.42 }, aim = { ...pos };
+      let lastMove = -10, now = 0;
+      section.addEventListener('pointermove', e => {
+        const box = section.getBoundingClientRect();
+        aim.x = (e.clientX - box.left) / box.width;
+        aim.y = (e.clientY - box.top) / box.height;
+        lastMove = now;
+      });
+      return t => {
+        now = t;
+        // Idle: wander on a slow figure-of-eight across the top of the grid
+        if (t - lastMove > 2.5) {
+          aim.x = 0.66 + Math.sin(t * 0.35) * 0.26;
+          aim.y = 0.38 + Math.sin(t * 0.7) * 0.18;
+        }
+        pos.x += (aim.x - pos.x) * 0.08;
+        pos.y += (aim.y - pos.y) * 0.08;
+        section.style.setProperty('--x', `${(pos.x * 100).toFixed(2)}%`);
+        section.style.setProperty('--y', `${(pos.y * 100).toFixed(2)}%`);
+      };
+    },
+  };
+
+  const running = new Set();
+  const frames = [...document.querySelectorAll('[data-scene]')].map(section => {
+    const frame = scenes[section.dataset.scene](section);
+    new IntersectionObserver(([entry]) => {
+      entry.isIntersecting ? running.add(frame) : running.delete(frame);
+    }).observe(section);
+    return frame;
+  });
+
+  if (reduceMotion) {
+    window.addEventListener('load', () => frames.forEach(frame => frame(4, 0)));
+  } else {
+    let last = performance.now();
+    requestAnimationFrame(function tick(ms) {
+      const dt = Math.min((ms - last) / 1000, 0.1);
+      last = ms;
+      running.forEach(frame => frame(ms / 1000, dt));
+      requestAnimationFrame(tick);
+    });
+  }
+</script>
