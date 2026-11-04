@@ -1,0 +1,200 @@
+---
+layout: default
+permalink: /services/hero-options/
+title: "Services page | Hero: layout options"
+noindex: true
+hideFooterCta: true
+nav:
+  left: { label: "Options", href: "#compare" }
+  home: "#compare"
+  right: { label: "Back to Services", href: "/services/" }
+---
+{#- TEMPORARY comparison page: five alternative layouts for the Services hero. Delete once one is picked. -#}
+{%- set arrow = '<svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor" class="hero-btn-arrow" aria-hidden="true"><path d="M 0 6 L 0 8 L 12 8 L 12 10 L 14 10 L 14 8 L 16 8 L 16 6 L 14 6 L 14 4 L 12 4 L 12 6 Z M 10 2 L 12 2 L 12 4 L 10 4 Z M 10 2 L 8 2 L 8 0 L 10 0 Z M 10 12 L 12 12 L 12 10 L 10 10 Z M 10 12 L 8 12 L 8 14 L 10 14 Z"/></svg>' -%}
+{%- macro title() -%}<h1 class="services-hero-title">Services Built to Grow Your Brand</h1>{%- endmacro -%}
+{%- macro lead() -%}<p class="services-hero-lead">Services that connect strategy, storytelling, and scalable systems.</p>{%- endmacro -%}
+{%- macro desc() -%}<p class="services-hero-desc">We don’t just deliver services, we build systems for growth. From strategy to execution, every offering is designed to clarify your voice, attract the right audience, and scale your impact.</p>{%- endmacro -%}
+{%- macro cta(icon) -%}<div class="services-hero-actions"><a href="/services/#cta" class="hero-btn-primary"><span>Let's talk strategy for growth</span>{{ icon | safe }}</a></div>{%- endmacro -%}
+<style>
+  .po-intro { padding: 130px 0 40px; background: var(--bg-main); }
+  .po-intro h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--text-warm-white); letter-spacing: -0.02em; }
+  .po-intro > .container > p { margin-top: 10px; color: var(--text-muted); max-width: 70ch; line-height: 1.5; }
+  .po-table-wrap { margin-top: 32px; overflow-x: auto; }
+  .po-table { width: 100%; min-width: 780px; border-collapse: collapse; color: var(--text-main); font-size: 0.95rem; line-height: 1.45; }
+  .po-table th { padding: 12px 16px 12px 0; text-align: left; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-card); }
+  .po-table td { padding: 14px 16px 14px 0; vertical-align: top; border-bottom: 1px solid var(--border-light); }
+  .po-table a { color: var(--accent-amber); font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .po-table a:hover { color: var(--text-pure-white); }
+  .po-label { padding: 90px 0 26px; background: var(--bg-main); scroll-margin-top: 0; }
+  .po-label h2 { font-size: 1.5rem; color: var(--text-warm-white); }
+  .po-label p { margin-top: 6px; color: var(--text-muted); max-width: 76ch; line-height: 1.5; }
+  .po-label strong { font-family: var(--font-mono); color: var(--accent-amber); margin-right: 10px; }
+
+  /* Shared: every option is a full-height hero on the page's dark background */
+  .sh { position: relative; overflow: hidden; min-height: 100svh; box-sizing: border-box; display: flex; align-items: center; background: var(--bg-main); border-top: 1px solid var(--border-light); }
+  .sh > .container { position: relative; z-index: 2; }
+  .sh img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .sh .services-hero-title, .sh .services-hero-lead, .sh .services-hero-desc { text-shadow: none; }
+
+  /* ---------- 1: Split screen ---------- */
+  .s1 { padding: 130px 0 80px; }
+  .s1-copy { width: 46%; }
+  .s1 .services-hero-title { font-size: clamp(2.6rem, 4.4vw, 4.2rem); }
+  .s1-photo { position: absolute; top: 0; right: 0; bottom: 0; width: 50%; }
+  .s1-photo img { object-position: 45% center; }
+
+  /* ---------- 2: Service directory ---------- */
+  .s2 { padding: 130px 0 80px; }
+  .s2-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 72px; align-items: center; }
+  .s2 .services-hero-title { font-size: clamp(2.6rem, 4.6vw, 4.4rem); }
+  .s2-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-card); }
+  .s2-list li { border-bottom: 1px solid var(--border-card); }
+  .s2-list a { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 12px; padding: 30px 4px; color: var(--text-warm-white); text-decoration: none; font-family: var(--font-heading); font-size: clamp(1.5rem, 2.6vw, 2.4rem); font-weight: 600; letter-spacing: -0.02em; transition: var(--transition); }
+  .s2-num { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; color: var(--accent-amber); }
+  .s2-list .hero-btn-arrow { color: var(--accent-amber); transition: var(--transition); }
+  .s2-list a:hover { color: var(--accent-amber); padding-left: 14px; }
+  .s2-list a:hover .hero-btn-arrow { transform: translateX(4px); }
+
+  /* ---------- 3: Editorial stack ---------- */
+  .s3 { flex-direction: column; align-items: stretch; padding-top: 125px; }
+  .s3 .services-hero-title { font-size: clamp(2.8rem, 7.6vw, 7.4rem); line-height: 1; margin-bottom: 36px; }
+  .s3-row { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
+  .s3 .services-hero-lead { margin: 0; }
+  .s3 .services-hero-desc { margin-bottom: 24px; font-size: 1.05rem; }
+  .s3-band { position: relative; flex: 1 1 280px; min-height: 280px; margin-top: 40px; }
+  .s3-band img { position: absolute; inset: 0; object-position: center 20%; }
+
+  /* ---------- 4: Centred statement ---------- */
+  .s4 { justify-content: center; padding: 130px 0 90px; text-align: center; }
+  .s4 .services-hero-title { font-size: clamp(2.8rem, 5.5vw, 4.8rem); }
+  .s4-photo { position: absolute; inset: 0; }
+  .s4-photo img { object-position: center 30%; }
+  .s4-photo::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(10, 4, 6, 0.82) 0%, rgba(10, 4, 6, 0.6) 55%, rgba(10, 4, 6, 0.4) 100%); }
+  .s4-copy { max-width: 900px; margin: 0 auto; }
+  .s4 .services-hero-lead, .s4 .services-hero-desc { margin-left: auto; margin-right: auto; }
+  .s4 .services-hero-actions { justify-content: center; }
+
+  /* ---------- 5: Work collage ---------- */
+  .s5 { padding: 130px 0 80px; }
+  .s5-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  .s5 .services-hero-title { font-size: clamp(2.6rem, 4.4vw, 4.2rem); }
+  .s5-collage { position: relative; aspect-ratio: 1 / 0.92; max-height: calc(100svh - 200px); width: 100%; }
+  .s5-tile { position: absolute; overflow: hidden; border-radius: var(--radius-lg); border: 1px solid var(--border-card); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55); }
+  .s5-tile.is-a { top: 0; left: 0; width: 60%; height: 62%; transform: rotate(-2deg); }
+  .s5-tile.is-a img { object-position: 12% center; }
+  .s5-tile.is-b { top: 7%; right: 0; width: 46%; height: 48%; transform: rotate(2.5deg); z-index: 1; }
+  .s5-tile.is-c { bottom: 0; left: 21%; width: 62%; height: 50%; transform: rotate(1deg); z-index: 2; }
+
+  @media (max-width: 900px) {
+    .s1, .s2, .s4, .s5 { padding: 110px 0 60px; }
+    .s1 { flex-direction: column; align-items: stretch; padding-bottom: 0; }
+    .s1-copy { width: auto; }
+    .s1-photo { position: relative; width: 100%; height: 340px; margin-top: 40px; }
+    .s2-grid, .s3-row, .s5-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+    .s2-list a { padding: 22px 4px; grid-template-columns: 44px 1fr auto; }
+    .s3 { padding-top: 110px; }
+    .s3-row { gap: 20px; }
+    .s5-collage { max-height: none; }
+  }
+</style>
+
+<section class="po-intro" id="compare">
+  <div class="container">
+    <h2>Services hero: 5 layout options</h2>
+    <p>Every option uses the same headline, copy and button, so you're only comparing layout. Your current hero comes first for reference. Each layout has its own image, and the photos are easy to swap.</p>
+    <div class="po-table-wrap">
+      <table class="po-table">
+        <thead><tr><th>Layout</th><th>First thing you notice</th><th>Works best for</th><th>Trade-off</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#current">Current</a></td><td>The photo, with text over it</td><td>Mood and atmosphere</td><td>Text depends on a dark overlay; no hint of what the services are</td></tr>
+          <tr><td><a href="#o1">1. Split screen</a></td><td>Headline and photo equally</td><td>Clean reading with a strong photo</td><td>A familiar, safer look</td></tr>
+          <tr><td><a href="#o2">2. Service directory</a></td><td>The three services</td><td>Getting visitors to the right service fast</td><td>No photo, so less personality</td></tr>
+          <tr><td><a href="#o3">3. Editorial stack</a></td><td>The oversized headline</td><td>Confident, magazine-style impact</td><td>Photo gets a shorter crop; needs short headlines</td></tr>
+          <tr><td><a href="#o4">4. Centred statement</a></td><td>The message</td><td>A single focused idea</td><td>Longer copy is harder to read centred</td></tr>
+          <tr><td><a href="#o5">5. Work collage</a></td><td>Your portfolio</td><td>Showing proof of work straight away</td><td>Busiest option; images need upkeep</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="po-label" id="current"><div class="container">
+  <h2><strong>Current</strong>Full-bleed photo</h2>
+  <p>What's live on the Services page now, for reference.</p>
+</div></div>
+<section class="services-page-hero">
+  <div class="container">
+    <div class="services-hero-content">
+      {{ title() }}{{ lead() }}{{ desc() }}{{ cta(arrow) }}
+    </div>
+  </div>
+</section>
+
+<div class="po-label" id="o1"><div class="container">
+  <h2><strong>1</strong>Split screen</h2>
+  <p>Copy on solid dark, photo on its own half. The text no longer competes with the image, and no overlay is needed.</p>
+</div></div>
+<section class="sh s1">
+  <div class="container"><div class="s1-copy">
+    {{ title() }}{{ lead() }}{{ desc() }}{{ cta(arrow) }}
+  </div></div>
+  <div class="s1-photo"><img src="/images/industry-professionals.jpg" alt="" loading="lazy"></div>
+</section>
+
+<div class="po-label" id="o2"><div class="container">
+  <h2><strong>2</strong>Service directory</h2>
+  <p>Type only. The right side lists your three services as large links, numbered like the 01 / 02 / 03 section just below the hero.</p>
+</div></div>
+<section class="sh s2">
+  <div class="container"><div class="s2-grid">
+    <div>{{ title() }}{{ lead() }}{{ desc() }}{{ cta(arrow) }}</div>
+    <ul class="s2-list">
+      <li><a href="/brand-identity/"><span class="s2-num">01</span>Brand Identity{{ arrow | safe }}</a></li>
+      <li><a href="/websites/"><span class="s2-num">02</span>Websites{{ arrow | safe }}</a></li>
+      <li><a href="/services-seo/"><span class="s2-num">03</span>Services SEO{{ arrow | safe }}</a></li>
+    </ul>
+  </div></div>
+</section>
+
+<div class="po-label" id="o3"><div class="container">
+  <h2><strong>3</strong>Editorial stack</h2>
+  <p>An oversized headline across the full width, the copy in two columns below it, and a wide photo running edge to edge at the bottom.</p>
+</div></div>
+<section class="sh s3">
+  <div class="container">
+    {{ title() }}
+    <div class="s3-row">
+      {{ lead() }}
+      <div>{{ desc() }}{{ cta(arrow) }}</div>
+    </div>
+  </div>
+  <div class="s3-band"><img src="/images/sales/interview.jpg" alt="" loading="lazy"></div>
+</section>
+
+<div class="po-label" id="o4"><div class="container">
+  <h2><strong>4</strong>Centred statement</h2>
+  <p>Everything sits on one centre line over a dark, moody photo, with the button straight below the message.</p>
+</div></div>
+<section class="sh s4">
+  <div class="s4-photo"><img src="/images/basketball-player.avif" alt="" loading="lazy"></div>
+  <div class="container"><div class="s4-copy">
+    {{ title() }}{{ lead() }}{{ desc() }}{{ cta(arrow) }}
+  </div></div>
+</section>
+
+<div class="po-label" id="o5"><div class="container">
+  <h2><strong>5</strong>Work collage</h2>
+  <p>Copy on the left, three overlapping pieces of client work on the right, slightly tilted so they feel like prints on a table.</p>
+</div></div>
+<section class="sh s5">
+  <div class="container"><div class="s5-grid">
+    <div>{{ title() }}{{ lead() }}{{ desc() }}{{ cta(arrow) }}</div>
+    <div class="s5-collage">
+      <div class="s5-tile is-a"><img src="/images/boat.avif" alt="" loading="lazy"></div>
+      <div class="s5-tile is-b"><img src="/images/bee-strong-identity.avif" alt="" loading="lazy"></div>
+      <div class="s5-tile is-c"><img src="/images/rose-scale-truck.avif" alt="" loading="lazy"></div>
+    </div>
+  </div></div>
+</section>
+
+<div style="height: 120px; background: var(--bg-main);"></div>

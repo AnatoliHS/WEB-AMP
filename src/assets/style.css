@@ -2733,7 +2733,7 @@ h3 {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding: 165px 0 105px;
+  padding: 130px 0 80px;
   position: relative;
   border-bottom: 1px solid var(--border-light);
   overflow: hidden;
@@ -2764,14 +2764,15 @@ h3 {
 }
 
 .services-hero-content {
-  max-width: 980px;
+  /* Left half of the container, less half of a 64px gutter */
+  max-width: calc((100% - 64px) / 2);
   position: relative;
   z-index: 2;
 }
 
 .services-hero-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+  font-size: clamp(2.6rem, 4.4vw, 4.2rem);
   font-weight: 700;
   color: var(--text-warm-white);
   line-height: 1.08;
@@ -2807,23 +2808,6 @@ h3 {
   align-items: center;
   flex-wrap: wrap;
   gap: 24px;
-}
-
-.services-hero-deck-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 13.5px;
-  color: #DE9E3B;
-  text-decoration: none;
-  transition: var(--transition);
-  padding: 8px 12px;
-}
-
-.services-hero-deck-link:hover {
-  color: #ffffff;
-  transform: translateX(4px);
 }
 
 /* Core Engine Section (Dark Showcase matching reference screenshots) */
@@ -2862,176 +2846,202 @@ h3 {
   margin: 0;
 }
 
-/* Scroll Track Container */
-.engine-scroll-container {
-  position: relative;
-  min-height: 260vh;
+/* Core Offerings (desktop): big service names beside a rotating-slat photo.
+   Mobile uses .engine-mobile-feed instead. */
+@media (min-width: 1025px) {
+  .services-engine-header {
+    margin-bottom: 24px;
+  }
 }
 
-/* Showcase Grid Layout - Pins inside scroll container */
-.engine-showcase-wrap {
+.engine-words {
   display: grid;
-  grid-template-columns: 460px 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 48px;
-  align-items: start;
-  position: sticky;
-  /* Clear the floating navbar with room to breathe; grows on tall (full-screen) windows.
-     The scroll script in services.html reads this value. */
-  top: clamp(110px, 14vh, 170px);
+  align-items: stretch;
 }
 
-/* Left Sidebar - inside sticky wrap */
-.engine-showcase-sidebar {
-  display: flex;
-  flex-direction: column;
+.engine-words-list {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
 }
 
-/* Odometer Count-Up Ticker (01. -> 02. -> 03.) */
-.engine-big-number-wrap {
-  height: 72px;
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 12px;
+.engine-word-heading {
+  margin: 0;
+  font: inherit;
 }
 
-.engine-number-ticker {
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.engine-number-item {
-  height: 72px;
+.engine-word-btn {
+  --word-size: min(5.2vw, 8vh, 80px);
   display: flex;
   align-items: center;
-  font-family: var(--font-heading);
-  font-size: clamp(3.6rem, 5.5vw, 4.8rem);
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.22);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.engine-nav-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 22px;
-}
-
-.engine-nav-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  padding: 2px 0;
+  border: 0;
   background: none;
-  border: none;
-  padding: 4px 0;
-  color: rgba(255, 255, 255, 0.38);
-  font-family: var(--font-sans);
-  font-size: 1.05rem;
-  font-weight: 500;
   cursor: pointer;
   text-align: left;
-  transition: color 0.25s ease, transform 0.25s ease;
 }
 
-.engine-nav-dash {
-  font-weight: 700;
-  color: #ffffff;
+/* Triangle pointing at an unselected service, to show it can be clicked.
+   It closes up when selected, so the highlighted word sits flush with the copy. */
+.engine-word-btn::before {
+  content: "";
+  flex: none;
+  width: calc(var(--word-size) * 0.26);
+  height: calc(var(--word-size) * 0.34);
+  margin-right: calc(var(--word-size) * 0.18);
+  background-color: #DE9E3B;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-right 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, transform 0.25s ease;
+}
+
+.engine-word-btn:hover::before {
+  transform: translateX(4px);
+}
+
+.engine-word-btn.is-on::before {
+  width: 0;
+  margin-right: 0;
   opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transform: none;
 }
 
-.engine-nav-btn.is-active {
-  color: #ffffff;
-  font-weight: 700;
+/* The home hero's highlight (.sales-hero-title .sales-mark), sweeping in from the left.
+   The negative margin keeps the text flush with the copy below. */
+.engine-word {
+  display: inline-block;
+  margin-left: -14px;
+  padding: 0 14px;
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: var(--word-size);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  white-space: nowrap;
+  color: rgba(245, 242, 235, 0.42);
+  background-image: linear-gradient(#DE9E3B, #DE9E3B);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 0% 100%;
+  transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
 }
 
-.engine-nav-btn.is-active .engine-nav-dash {
+.engine-word-btn:hover .engine-word {
+  color: #f4efe6;
+}
+
+.engine-word-btn.is-on {
+  cursor: default;
+}
+
+.engine-word-btn.is-on .engine-word {
+  color: #0c0407;
+  background-size: 100% 100%;
+}
+
+.engine-word-btn:focus-visible {
+  outline: none;
+}
+
+.engine-word-btn:focus-visible .engine-word {
+  outline: 2px solid #f4efe6;
+  outline-offset: 3px;
+}
+
+/* All panels share one cell, so the height never jumps when switching */
+.engine-words-copy {
+  display: grid;
+}
+
+.engine-words-panel {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+}
+
+.engine-words-panel.is-on {
   opacity: 1;
-  transform: translateX(0);
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.35s ease 0.1s, transform 0.35s ease 0.1s, visibility 0s;
 }
 
-.engine-nav-btn:hover {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-/* Content Panels (Slide Out Up / Slide In Up) */
-.engine-panels-container {
+/* Rotating-slat photo: vertical three-sided slats turning one after another */
+.engine-words-stage {
+  --turns: 0;
   position: relative;
-  min-height: 360px;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+  border-radius: var(--radius-lg);
+  background: #050505;
+  perspective: 2200px;
 }
 
-.engine-panel {
+.engine-words-poster {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Before the script cuts the slats, show only the first photo */
+.engine-words-stage > .engine-words-poster:not(:first-child) {
+  display: none;
+}
+
+.engine-words-slat {
+  position: relative;
+  flex: 1 1 0;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--slat-depth) * -1)) rotateY(calc(var(--turns) * -120deg));
+  transition: transform 1s cubic-bezier(0.65, 0, 0.25, 1);
+  transition-delay: calc(var(--i) * 46ms);
+}
+
+.engine-words-face {
+  position: absolute;
+  inset: 0 -0.5px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform: rotateY(calc(var(--side) * 120deg)) translateZ(var(--slat-depth));
+}
+
+.engine-words-slice {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(32px);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.45s;
+  bottom: 0;
+  left: calc(var(--i) * var(--slat-w) * -1);
+  width: var(--stage-w);
 }
 
-.engine-panel.is-active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0);
-  position: relative;
+/* Keep it all on one screen on short or narrow desktops */
+@media (min-width: 1025px) and (max-height: 760px) {
+  .engine-word-btn {
+    --word-size: min(5.2vw, 6.8vh);
+  }
 }
 
-.engine-panel.prepare-bottom {
-  transform: translateY(32px) !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  transition: none !important;
+@media (min-width: 1025px) and (max-width: 1240px) {
+  .engine-words {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 36px;
+  }
 }
 
-.engine-panel.prepare-top {
-  transform: translateY(-32px) !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  transition: none !important;
-}
-
-.engine-panel.slide-out-up {
-  transform: translateY(-32px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  position: absolute;
-}
-
-.engine-panel.slide-out-down {
-  transform: translateY(32px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  position: absolute;
-}
-
-.engine-panel.slide-in-up,
-.engine-panel.slide-in-down {
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  position: relative;
-}
-
-.engine-panel-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.9rem, 2.7vw, 2.5rem);
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.03em;
-  margin: 0 0 6px;
-  line-height: 1.15;
+@media (prefers-reduced-motion: reduce) {
+  .engine-word,
+  .engine-word-btn::before,
+  .engine-words-panel,
+  .engine-words-panel.is-on,
+  .engine-words-slat {
+    transition: none;
+  }
 }
 
 .engine-panel-tagline {
@@ -3048,6 +3058,7 @@ h3 {
   line-height: 1.5;
   color: rgba(245, 242, 235, 0.76);
   margin: 0 0 16px;
+  max-width: 54ch;
 }
 
 .engine-bullet-list {
@@ -3087,156 +3098,15 @@ h3 {
   font-size: 0.92rem;
 }
 
-/* Right Column Display Stage */
-.engine-showcase-display {
-  position: relative;
-  width: 100%;
-  height: min(560px, calc(100vh - 130px));
-  min-height: 460px;
-  border-radius: 28px;
-  overflow: hidden;
-  background-color: #0c0d0e;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
-}
-
-.engine-showcase-layer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 28px;
-  overflow: hidden;
-  background-color: #0c0d0e;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
-}
-
-.engine-showcase-layer[data-layer="0"] {
-  z-index: 1;
-  transform: translateY(0);
-}
-
-.engine-showcase-layer[data-layer="1"] {
-  z-index: 2;
-  transform: translateY(100%);
-  box-shadow: 0 -16px 36px rgba(0, 0, 0, 0.65);
-}
-
-.engine-showcase-layer[data-layer="1"].is-active,
-.engine-showcase-layer[data-layer="1"].is-passed {
-  transform: translateY(0);
-}
-
-.engine-showcase-layer[data-layer="2"] {
-  z-index: 3;
-  transform: translateY(100%);
-  box-shadow: 0 -16px 36px rgba(0, 0, 0, 0.65);
-}
-
-.engine-showcase-layer[data-layer="2"].is-active,
-.engine-showcase-layer[data-layer="2"].is-passed {
-  transform: translateY(0);
-}
-
-.engine-mockup-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-/* Floating Badges in bottom right corner (from reference screenshot) */
-.engine-floating-actions {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-end;
-}
-
-.engine-pill-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #E83F33;
-  color: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 13.5px;
-  font-weight: 700;
-  padding: 10px 18px;
-  border-radius: 9999px;
-  text-decoration: none;
-  box-shadow: 0 4px 16px rgba(232, 63, 51, 0.45);
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.engine-pill-btn-primary:hover {
-  background-color: #f74d41;
-  transform: translateY(-2px);
-  color: #ffffff;
-}
-
-.engine-pill-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: #0a0a0a;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 9999px;
-  text-decoration: none;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.engine-pill-btn-secondary:hover {
-  background: #ffffff;
-  transform: translateY(-2px);
-  color: #000000;
-}
-
-.engine-pill-badge-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.88);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 9999px;
-}
-
-.engine-pill-brand-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #DE9E3B;
-}
-
 /* Mobile Natural Scroll Feed */
 .engine-mobile-feed {
   display: none;
 }
 
 @media (max-width: 1024px) {
-  /* Hide desktop interactive sticky scroll container on mobile */
-  .engine-scroll-container {
-    display: none !important;
+  /* Mobile uses its own vertical feed instead of the desktop layout */
+  .engine-words {
+    display: none;
   }
 
   /* Display natural mobile vertical column feed */
@@ -3691,6 +3561,10 @@ h3 {
 
   .services-page-hero::before {
     background-position: center top;
+  }
+
+  .services-hero-content {
+    max-width: none;
   }
 
   .services-banner-card {
@@ -5816,109 +5690,6 @@ h3 {
 }
 
 /* ========================================================
-   PAGE TRANSITIONS (card-fan clip)
-   Leaving: .is-leaving shows the overlay and plays a clip.
-   Arriving: html.is-arriving starts covered, then fades out.
-   ======================================================== */
-.page-transition {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background-color: #0c0407;
-  container-type: size;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
-}
-
-.page-transition-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.page-transition.is-leaving {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transition: opacity 0.25s ease, visibility 0s;
-}
-
-.page-transition-video.is-playing {
-  opacity: 1;
-}
-
-/* Logo: large at top center while the clip plays, then shrinks onto the
-   navbar's .dock-popout-btn (same spot, size, border and glow) as the clip
-   fades, so the next page's navbar logo takes over seamlessly */
-.page-transition-logo {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  z-index: 1;
-  box-sizing: border-box;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  /* Same cream border as the navbar logo, with a softer glow; both scale with the logo */
-  border: 2px solid rgba(245, 242, 235, 0.9);
-  box-shadow: 0 0 14px rgba(222, 158, 59, 0.45), 0 6px 12px rgba(0, 0, 0, 0.4);
-  /* Start large in the top-left corner (50cqw = half the overlay's width,
-     so this cancels left: 50% and leaves a 32px gutter) */
-  transform: translate(calc(-50vw + 32px), 22px) scale(1.8);
-  transform: translate(calc(-50cqw + 32px), 22px) scale(1.8);
-  transform-origin: 0 0;
-}
-
-/* card-fan: sit on the hands at the base of the fan instead of the corner.
-   The clip is 16:9 with object-fit: cover, so its rendered size is
-   max(100cqw, 177.78cqh) x max(56.25cqw, 100cqh). The hands sit at 50% across,
-   74% down the frame. With a 2.2x scale from the top-left origin, the logo is
-   118.8px wide, so subtract 59.4px to center it (plus the 10px base top). */
-.page-transition[data-clip="fan"] .page-transition-logo {
-  transform: translate(-59.4px, calc(50vh + max(13.5vw, 24vh) - 69.4px)) scale(2.2);
-  transform: translate(-59.4px, calc(50cqh + max(13.5cqw, 24cqh) - 69.4px)) scale(2.2);
-}
-
-/* Only animate the shrink; growing back happens while hidden, so it snaps */
-.page-transition.is-done .page-transition-logo,
-html.is-arriving .page-transition-logo {
-  transition:
-    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.45s ease,
-    box-shadow 0.45s ease;
-  transform: translate(-50%, 0) scale(1);
-  border-color: rgba(245, 242, 235, 0.9);
-  box-shadow: 0 0 22px rgba(222, 158, 59, 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
-}
-
-/* Clip has finished: fade the video out to solid dark before navigating */
-.page-transition.is-done .page-transition-video {
-  opacity: 0;
-}
-
-html.is-arriving .page-transition,
-html.is-intro .page-transition {
-  opacity: 1;
-  visibility: visible;
-  transition: none;
-  /* Failsafe: uncover the page even if the script never runs */
-  animation: page-transition-failsafe 0.4s ease 4s forwards;
-}
-
-@keyframes page-transition-failsafe {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-/* ========================================================
    CONTACT SECTION (Services): form over a retro TV
    The TV screen overlay is positioned on tv-scene.webp's screen.
    ======================================================== */
@@ -6661,6 +6432,7 @@ html.is-intro .page-transition {
 
 /* Highlighted words in the hero and section titles */
 .sales-hero-title .sales-mark,
+.services-hero-title .sales-mark,
 .sales-title .sales-mark,
 .sales-title .sales-gold {
   font-weight: 800;
@@ -6672,16 +6444,23 @@ html.is-intro .page-transition {
   line-height: 1.16;
 }
 
-.sales-hero-title:has(.sales-mark) {
+.sales-hero-title:has(.sales-mark),
+.services-hero-title:has(.sales-mark) {
   line-height: 1.12;
 }
 
 /* Hero highlight in burnt yellow, dark text */
-.sales-hero-title .sales-mark {
+.sales-hero-title .sales-mark,
+.services-hero-title .sales-mark {
   padding: 0 14px;
   margin-left: -4px;
   background-color: #DE9E3B;
   color: #0c0407;
+}
+
+.services-hero-title .sales-mark {
+  white-space: nowrap; /* Keep the highlight as one box */
+  text-shadow: none;
 }
 
 /* Headings follow the section's text colour instead of the global warm white */
