@@ -2,11 +2,10 @@
 client: Operation BeeStrong
 card_title: BeeStrong
 order: 4
-title: Operation BeeStrong | Brand Strategy & Identity System | AMP Visual Media
+title: Operation BeeStrong | Brand Identity System | AMP Visual Media
 description: Designing a Brand Identity for a Nonprofit Supporting Wellness and
   Community Through Beekeeping. Case study on brand strategy, visual identity
   system, and messaging framework.
-custom_url: /case-study-three/
 heading: Operation BeeStrong | Brand Strategy & Identity System
 lead: Designing a Brand Identity for a Nonprofit Supporting Wellness and
   Community Through Beekeeping

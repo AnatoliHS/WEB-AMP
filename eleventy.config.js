@@ -13,8 +13,6 @@ module.exports = function(eleventyConfig) {
     "./src/assets/": "/",
   });
 
-  eleventyConfig.addPassthroughCopy("src/**/*.{png,jpg,jpeg,gif,svg,otf,mp4,webm,avif}");
-
   eleventyConfig.addPlugin(sectionizePlugin);
 
   eleventyConfig.addTemplateFormats("md");

@@ -1,0 +1,7 @@
+# Old case study addresses → current ones (Cloudflare Pages, permanent)
+/case-study-one   /case-studies/rose-scale/   301
+/case-study-one/  /case-studies/rose-scale/   301
+/case-study-two   /case-studies/belleville-economic-development/   301
+/case-study-two/  /case-studies/belleville-economic-development/   301
+/case-study-three   /case-studies/operation-beestrong/   301
+/case-study-three/  /case-studies/operation-beestrong/   301

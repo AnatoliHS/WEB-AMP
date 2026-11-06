@@ -2,12 +2,11 @@
 client: Belleville Economic Development
 card_title: Belleville Ec-Dev
 order: 3
-title: Belleville Economic Development | Strategic Brand Identity System | AMP
+title: Belleville Economic Development Brand | AMP Visual Media
   Visual Media
 description: Building a Municipal Brand Platform Designed to Attract Investment
   and Support Regional Growth. Case study on brand positioning, naming, and
   visual identity architecture.
-custom_url: /case-study-two/
 heading: Belleville Economic Development | Strategic Brand Identity System
 lead: Building a Municipal Brand Platform Designed to Attract Investment and
   Support Regional Growth

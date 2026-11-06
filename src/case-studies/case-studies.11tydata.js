@@ -3,8 +3,9 @@ module.exports = {
   layout: "case-study.njk",
   // The contact form at the bottom of the layout replaces the footer CTA
   hideFooterCta: true,
+  ogType: "article",
   eleventyComputed: {
-    // Older case studies keep their original URLs; new ones live at /case-studies/<file-name>/
+    // Every case study lives at /case-studies/<file-name>/ (old /case-study-one/ style URLs 301 via _redirects)
     permalink: data => data.custom_url || `/case-studies/${data.page.fileSlug}/`,
   },
 };

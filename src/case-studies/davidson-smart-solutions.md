@@ -2,7 +2,7 @@
 client: Davidson Smart Solutions
 card_title: Davidson
 order: 2
-title: Davidson Smart Solutions | From Diagnosis to Growth Build | AMP Visual Media
+title: Davidson Smart Solutions | Growth Build | AMP Visual Media
 description: How AMP helped a smart home and smart business installer find where
   growth stalled, then rebuilt its brand, website, ads and media.
 heading: Davidson Smart Solutions | From Amp Deck™ Diagnosis to Growth Build
