@@ -1,4 +1,5 @@
-<!-- Contact section: form over a retro TV that flips through AMP videos (replaces the footer CTA on Services) -->
+<!-- Contact section: form over a retro TV that flips through AMP videos (replaces the footer CTA on Services).
+     A page on the dark theme sets contactTheme = "dark" before including it, so the Turnstile check matches. -->
 <section class="contact-section" id="cta">
   <div class="container">
     <h2 class="contact-title">Amplify <em>your brand.</em></h2>
@@ -23,7 +24,7 @@
             <p class="contact-error" aria-live="polite"></p>
           </div>
           <!-- Cloudflare Turnstile: adds a cf-turnstile-response field the server checks -->
-          <div class="cf-turnstile" data-sitekey="{{ contact.turnstileSiteKey }}" data-theme="light" data-size="flexible"
+          <div class="cf-turnstile" data-sitekey="{{ contact.turnstileSiteKey }}" data-theme="{{ contactTheme or 'light' }}" data-size="flexible"
                data-callback="contactTurnstileDone" data-expired-callback="contactTurnstileExpired"
                data-timeout-callback="contactTurnstileExpired" data-error-callback="contactTurnstileFailed"></div>
           <div class="contact-form-error" role="alert" hidden></div>
