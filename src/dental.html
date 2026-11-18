@@ -251,7 +251,9 @@ requests:
   .dk-back .dk-stage::before, .dk-back .dk-stage::after { background: var(--a); }
 
   /* ---------- 1. Hero ---------- */
-  .fl-hero { position: relative; height: 100vh; height: 100svh; min-height: 600px; overflow: hidden; background: var(--bg); }
+  /* The hero is a column: eyebrow, the headline (wraps over a few lines), the cards just overlapping its last line,
+     then the intro and buttons at the bottom */
+  .fl-hero { position: relative; display: flex; flex-direction: column; align-items: center; height: 100vh; height: 100svh; min-height: 640px; padding: 88px 3% 22px; overflow: hidden; background: var(--bg); }
 
   /* Hero background: the photo, darkened and warmed so the headline and cards stay on top; it settles in slowly.
      Shades: from the left and the bottom (where the intro sits), and a vignette round the edges */
@@ -263,19 +265,30 @@ requests:
       linear-gradient(90deg, rgba(12, 4, 7, 0.6), rgba(12, 4, 7, 0.05) 55%, rgba(12, 4, 7, 0.3)),
       radial-gradient(120% 90% at 60% 35%, transparent 55%, rgba(12, 4, 7, 0.6)); }
   @keyframes fl-settle { to { transform: scale(1); } }
-  .fl-name { position: absolute; left: 0; right: 0; top: 22%; margin: 0; font-family: var(--display); font-weight: 400; font-size: min(14.5vw, 29vh); line-height: 0.86; text-align: center; text-transform: uppercase; color: var(--cream); }
+  .fl-name { position: relative; max-width: 30ch; margin: 0; font-family: var(--display); font-weight: 400; font-size: min(8vw, 13.5vh); line-height: 1; text-align: center; text-transform: uppercase; text-wrap: balance; color: var(--cream); }
+  .fl-name em { display: block; font-style: normal; color: var(--amber); }  /* the punchline always starts its own line */
   /* the eyebrow sits centred just above the headline */
-  .fl-eyebrow { position: absolute; left: 0; right: 0; top: calc(22% - 52px); margin: 0; text-align: center; color: var(--cream); }
+  /* auto above the eyebrow and above the buttons: the eyebrow, headline and cards sit centred in the space between the menu and the buttons */
+  .fl-eyebrow { position: relative; margin: auto 0 18px; text-align: center; color: var(--cream); }
   /* the cards fly over the intro and the buttons as they scatter; clicks pass through them to the buttons */
-  .fl-hero-cards { z-index: 2; pointer-events: none; position: absolute; left: 50%; top: calc(22% + min(14.5vw, 29vh) * 0.78); display: flex; gap: 14px; transform: translateX(-50%); --w: clamp(110px, 12vw, 200px); }
+  /* the cards sit just under the headline, clear of its last (amber) line */
+  .fl-hero-cards { position: relative; z-index: 2; pointer-events: none; display: flex; gap: 14px; margin-top: 20px; --w: clamp(90px, min(11vw, 15vh), 190px); }
+  /* shorter screens (laptops): everything a touch tighter so the intro and buttons stay on the first screen */
+  @media (min-width: 761px) and (max-height: 800px) {
+    .fl-hero { padding-top: 90px; }
+    .fl-eyebrow { margin-bottom: 12px; }
+    .fl-name { font-size: min(8vw, 11.6vh); }
+    .fl-hero-cards { margin-top: 20px; --w: clamp(84px, min(11vw, 15vh), 170px); }
+    .fl-hero-foot { padding-top: 20px; }
+  }
   /* outer: moves with the scroll (scatter); inner: the entrance */
   .fl-hero-card { width: var(--w); transform: rotate(var(--tilt)); will-change: transform; }
   /* hero cards: the title only, no description */
   .fl-hero-card .dk-line { display: none; }
   .fl-hero-card .dk { animation: fl-pop 0.9s var(--ease) both; animation-delay: calc(0.25s + var(--i) * 0.16s); }
   @keyframes fl-pop { from { opacity: 0; transform: translateY(50px) scale(0.55) rotate(-8deg); } }
-  .fl-hero-foot { position: absolute; left: 3%; right: 3%; bottom: 26px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
-  .fl-hero-foot p { max-width: 44ch; font-size: 1.2rem; line-height: 1.5; color: rgba(245, 242, 235, 0.72); }
+  /* the buttons, centred under the cards */
+  .fl-hero-foot { position: relative; align-self: stretch; margin-top: auto; padding-top: 18px; display: flex; justify-content: center; align-items: center; gap: 24px; }
   .fl-hero-links { display: flex; align-items: center; gap: 24px; }
 
   /* ---------- 2. The problem: headline on the left, four problems on the right, each tagged with the step that fixes it ---------- */
@@ -517,15 +530,14 @@ requests:
     .fl-faq-list details p { padding: 0 0 22px; font-size: 0.95rem; }
     /* the hero in normal flow: whatever height the browser bars leave, nothing overlaps */
     .fl-hero { height: auto; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; padding: 100px 4% 22px; }
-    .fl-name, .fl-eyebrow, .fl-hero-cards, .fl-hero-foot { position: relative; top: auto; left: auto; right: auto; bottom: auto; }
-    .fl-eyebrow { margin-bottom: 12px; }
-    .fl-name { font-size: 24vw; }
+    /* phones: the eyebrow, the four cards in a row, then the headline; the group centred above the buttons */
+    .fl-eyebrow { order: 0; margin: auto 0 18px; }
+    .fl-name { order: 1; font-size: 11vw; line-height: 0.92; }
     .fl-bg img { object-position: 70% 30%; }
     .fl-eyebrow span { font-size: 0.68rem; }
     /* phones: the hero cards two by two under the headline */
-    .fl-hero-cards { margin-top: -2vw; transform: none; display: grid; grid-template-columns: repeat(2, var(--w)); gap: 10px; --w: 31vw; }
-    .fl-hero-foot { width: 100%; margin-top: auto; padding-top: 40px; flex-direction: column; align-items: flex-start; gap: 14px; }
-    .fl-hero-foot p { font-size: 1rem; }
+    .fl-hero-cards { order: 0; margin: 0 0 26px; gap: 8px; --w: 20vw; }
+    .fl-hero-foot { order: 2; width: 100%; padding-top: 28px; }
     .fl-done { grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding-top: 100px; }
     .fl-done-side { gap: 40px; }
     .fl-count-num { font-size: 8rem; }
@@ -543,7 +555,7 @@ requests:
   }
   /* Short phones (iPhone SE and the like): the cards a little smaller so more of the hero fits on screen */
   @media (max-width: 760px) and (max-height: 740px) {
-    .fl-hero-cards { --w: min(31vw, calc((100svh - 330px) / 2.9)); }
+    .fl-hero-cards { --w: min(20vw, calc((100svh - 560px) / 1.4)); }
   }
   @media (prefers-reduced-motion: reduce) {
     .fl-hero-card .dk, .fl-bg img { animation: none; }
@@ -661,7 +673,7 @@ requests:
 <section class="fl-hero" data-fl-hero>
   <div class="fl-bg" aria-hidden="true"><img src="/images/dental/hero-smile-2400.jpg" srcset="/images/dental/hero-smile-1200.jpg 1200w, /images/dental/hero-smile-2400.jpg 2400w" sizes="100vw" alt="" fetchpriority="high" decoding="async"></div>
   <div class="sales-eyebrow fl-eyebrow"><span>AMP · FOR DENTAL PRACTICES</span></div>
-  <h1 class="fl-name">More smiles.<span class="fl-sr"> Films, pages and local ads that bring dental practices new patients.</span></h1>
+  <h1 class="fl-name">Patients who find you through your best work don’t ask for a discount. <em>They ask for an appointment.</em></h1>
   <div class="fl-hero-cards" aria-hidden="true">
     {#- where each card flies to as the hero scrolls away (x in vw, y in vh, rotation in degrees), and its resting tilt -#}
     {%- set fly = [[-18, 30, -14, -3], [-4, 44, -8, 1.5], [10, 34, 6, -1.5], [24, 24, 16, 3]] %}
@@ -672,7 +684,6 @@ requests:
     {%- endfor %}
   </div>
   <div class="fl-hero-foot">
-    <p>New patients pick a dentist online before they ever call. We film your team, build a page that books and run the local ads that bring them in, so the practice they choose is yours. You keep seeing patients.</p>
     <div class="fl-hero-links">
       <a href="#cta" class="hero-btn-primary"><span>Book a call</span>{{ arrow | safe }}</a>
       <a href="#long" class="sales-text-link">How it works ↓</a>
