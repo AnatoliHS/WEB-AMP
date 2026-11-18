@@ -172,7 +172,7 @@ requests:
 ---
 {#- The dental sales page (/dental/), on the dark theme. A giant condensed headline with the four step cards over it; the
     cards scatter as the next section slides up ("done it so you don't have to", four tiles); then a pinned long
-    scroll: the cards rise as a fanned stack, grow, then (desktop) spread into a row and flip one by one, or (phones)
+    scroll: the cards sit ready as a fanned stack, grow, then (desktop) spread into a row and flip one by one, or (phones)
     are dealt one at a time, each flipping large in the middle before sliding away. Their backs carry each step's
     checklist. The cards are built like the AMP Deck's: poker proportions, white border, black keyline, stripes,
     footer band with a pill, the logo in the corner; every size is in card widths (cqw) so labels scale with the card.
@@ -336,15 +336,17 @@ requests:
   /* the camera */
   .fl-device-lid::before { content: ""; position: absolute; top: 1.1%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: #3a3d45; transform: translateX(-50%); }
   .fl-device-screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 6px; background: #0b0d12; }
-  /* "you can scroll this": a quiet pill over the screen (a mouse with a rolling wheel; a swipe dot on phones).
-     It lets clicks through, and fades for good once the site has been scrolled. */
-  .fl-scroll-hint { position: absolute; z-index: 2; left: 50%; top: 64%; display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 99px; background: rgba(10, 12, 16, 0.5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-    color: rgba(245, 242, 235, 0.85); font-size: 0.62rem; pointer-events: none; transform: translateX(-50%); transition: opacity 0.6s ease, transform 0.6s var(--ease); }
-  .fl-scroll-hint i { position: relative; width: 14px; height: 21px; border: 1.5px solid currentColor; border-radius: 8px; }
+  /* "you can scroll this": a cue above the device (a mouse with a rolling wheel; a swipe dot on phones), pointing down
+     at the screen. It fades for good once the site has been scrolled, keeping its space so nothing jumps. */
+  .fl-scroll-hint { display: flex; align-items: center; justify-content: center; gap: 10px; width: fit-content; margin: 0 auto 18px; padding: 9px 16px 9px 12px;
+    border: 1px solid color-mix(in srgb, var(--amber) 55%, transparent); border-radius: 99px; background: color-mix(in srgb, var(--amber) 12%, transparent);
+    color: var(--amber); font-size: 0.68rem; transition: opacity 0.6s ease, transform 0.6s var(--ease); }
+  .fl-scroll-hint i { position: relative; flex: none; width: 14px; height: 21px; border: 1.5px solid currentColor; border-radius: 8px; }
   .fl-scroll-hint i::after { content: ""; position: absolute; left: 50%; top: 4px; width: 2px; height: 5px; margin-left: -1px; border-radius: 2px; background: currentColor; animation: fl-wheel 1.8s ease-in-out infinite; }
+  .fl-scroll-hint b { display: inline-block; font-weight: 600; animation: fl-nudge 1.8s ease-in-out infinite; }
   .fl-scroll-hint .is-swipe { display: none; }
-  .fl-device.is-scrolled .fl-scroll-hint { opacity: 0; transform: translate(-50%, 8px); }
+  .fl-show-main:has(.is-scrolled) .fl-scroll-hint { opacity: 0; transform: translateY(6px); }
+  @keyframes fl-nudge { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
   @keyframes fl-wheel { 0% { opacity: 0; transform: translateY(-2px); } 30% { opacity: 1; } 70% { opacity: 1; transform: translateY(5px); } 100% { opacity: 0; transform: translateY(7px); } }
   .fl-device iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background: #fff; transform-origin: 0 0; }
   /* the script renders the site at a real screen width (--w px) and scales it to fit (--s), so it shows its true layout */
@@ -535,7 +537,7 @@ requests:
     .fl-device-lid::before { top: calc(3.6% + 10px); z-index: 1; width: 30%; height: 22px; border-radius: 99px; background: #000; }
     .fl-device-screen { aspect-ratio: 390 / 844; border-radius: 36px; }
     /* on the phone: a fingertip dot sliding up, and "Swipe" */
-    .fl-scroll-hint { top: 31%; }
+    .fl-scroll-hint { margin-bottom: 14px; }
     .fl-scroll-hint i { width: 8px; height: 8px; border: 0; border-radius: 50%; background: currentColor; animation: fl-swipe 1.8s ease-in-out infinite; }
     .fl-scroll-hint i::after { content: none; }
     .fl-scroll-hint .is-wheel { display: none; }
@@ -544,7 +546,8 @@ requests:
     .fl-device-base { display: none; }
     /* the caption moves above the phone, small */
     .fl-show-main { display: flex; flex-direction: column; }
-    .fl-show-cap { order: -1; justify-content: center; margin: 0 0 12px; font-size: 0.6rem; }
+    .fl-show-cap { order: -2; justify-content: center; margin: 0 0 12px; font-size: 0.6rem; }
+    .fl-scroll-hint { order: -1; }
     .fl-fit-cols { grid-template-columns: minmax(0, 1fr); margin-top: 36px; }
     .fl-fit-body { grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 36px; }
     .fl-fit-photo { min-height: 0; aspect-ratio: 4 / 3; }
@@ -588,7 +591,7 @@ requests:
     .fl-hero-cards { --w: min(20vw, calc((100svh - 560px) / 1.4)); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .fl-hero-card .dk, .fl-bg img, .fl-scroll-hint i, .fl-scroll-hint i::after { animation: none; }
+    .fl-hero-card .dk, .fl-bg img, .fl-scroll-hint i, .fl-scroll-hint i::after, .fl-scroll-hint b { animation: none; }
     .fl-bg img { transform: none; }
     .fl-tile::before { transition: none; }
   }
@@ -860,11 +863,11 @@ requests:
   </div>
   <div class="fl-show">
     <div class="fl-show-main">
+    <span class="fl-scroll-hint fl-mono" aria-hidden="true"><i></i><span class="is-wheel">Scroll inside the screen</span><span class="is-swipe">Swipe inside the screen</span><b>↓</b></span>
     <div class="fl-device" data-device>
       <div class="fl-device-lid">
         <div class="fl-device-screen">
-          <iframe src="/showcase/aura-dental/" title="Aura Dental, a sample dental practice website" loading="lazy"></iframe>
-          <span class="fl-scroll-hint fl-mono" aria-hidden="true"><i></i><span class="is-wheel">Scroll</span><span class="is-swipe">Swipe</span></span>
+          <iframe src="/showcase/aura-dental/" title="Aura Dental, a sample dental practice website" loading="lazy" tabindex="-1"></iframe>
         </div>
       </div>
       <div class="fl-device-base" aria-hidden="true"></div>
@@ -974,19 +977,18 @@ requests:
     const wide = matchMedia('(min-width: 761px)');
 
     // Where card i sits at progress p. x/y in card widths/heights, r and flip in degrees, s = scale.
-    // Desktop: rise as a fanned stack → grow and straighten → spread into a row → flip one after another.
+    // Desktop: start as a fanned stack (already on stage) → grow and straighten → spread into a row → flip one after another.
     const desk = (i, p) => {
-      const rise = seg(p, 0, 0.18), grow = seg(p, 0.18, 0.34), spread = seg(p, 0.34, 0.52);
-      const flip = seg(p, 0.54 + i * 0.07, 0.68 + i * 0.07);
-      const fanX = -0.08 + i * 0.07, fanR = -7 + i * 5;
-      let x = mix(-0.1 + i * 0.12, fanX, rise), y = mix(2.4, 0.02 * (i % 2), rise), r = mix(-12 + i * 8, fanR, rise), s = 1;
+      const grow = seg(p, 0, 0.18), spread = seg(p, 0.18, 0.4);
+      const flip = seg(p, 0.44 + i * 0.08, 0.6 + i * 0.08);
+      let x = -0.08 + i * 0.07, y = 0.02 * (i % 2), r = -7 + i * 5, s = 1;
       x = mix(x, -0.03 + i * 0.04, grow); r = mix(r, -3 + i * 2.5, grow); s = mix(1, 1.35, grow);
       x = mix(x, (i - 1.5) * 1.12, spread); y = mix(y, 0, spread); r = mix(r, 0, spread); s = mix(s, 1, spread);
       return { x, y, r, s, flip: flip * 180, lift: Math.sin(flip * Math.PI) };
     };
     // Phones: rise as a stack, then each card in turn flips big in the middle, holds, and slides off to the left.
     const phone = (i, p) => {
-      const rise = seg(p, 0, 0.14);
+      const rise = 1;                                             // already stacked when the section arrives
       const w0 = 0.2 + i * 0.19;                                  // this card's turn
       const flip = seg(p, w0, w0 + 0.07), leave = i < 3 ? seg(p, w0 + 0.15, w0 + 0.19) : 0;
       const depth = Math.max(0, i - Math.max(0, Math.floor((p - 0.2) / 0.19)));  // place in the remaining stack
@@ -1268,6 +1270,13 @@ requests:
         targets = items.map(b => w.document.querySelector(b.dataset.at));
         win = w;
       } catch (e) { return; }
+      // the site is for looking at and scrolling, not using: stop its links, buttons and forms (caught before the
+      // site's own handlers see them) and drop the pointer cursor so nothing looks clickable
+      ['click', 'dblclick', 'auxclick', 'mousedown', 'pointerdown', 'submit', 'keydown'].forEach(type =>
+        win.addEventListener(type, e => { e.preventDefault(); e.stopImmediatePropagation(); }, { capture: true }));
+      const calm = win.document.createElement('style');
+      calm.textContent = '*, *::before, *::after { cursor: default !important; }';
+      win.document.head.appendChild(calm);
       // the scroll hint goes once the site has been scrolled a little
       const dev = frame.closest('[data-device]');
       win.addEventListener('scroll', () => {

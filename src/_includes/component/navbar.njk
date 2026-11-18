@@ -1,8 +1,8 @@
-{#- Site dock. Pages can override its links in front matter (nav.left, nav.home, nav.right), e.g. Home and Services
-    link to each other on the left. The logo scrolls back to the top of the current page by default.
+{#- Site dock. Pages can override its links in front matter (nav.left, nav.home, nav.right). Book a Call stays on the
+    right everywhere; the left link points to the most useful next place on that page. The logo always goes to the home page.
     "#cta" is the contact section or footer CTA on the same page. -#}
 {%- set navLeft = nav.left if nav and nav.left else { label: "How It Works", href: "/#how" } -%}
-{%- set navHome = nav.home if nav and nav.home else "#top" -%}
+{%- set navHome = nav.home if nav and nav.home else "/" -%}
 {%- set navRight = nav.right if nav and nav.right else { label: "Book a Call", href: "#cta" } -%}
 <header class="site-header">
   <div class="dock-container">
