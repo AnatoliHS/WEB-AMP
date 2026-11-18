@@ -152,13 +152,17 @@ faqs:
     stat: "1"
     statLabel: "Team, one roof"
     a: "Our sister company Mind Fusion captures everything on Media Day. AMP turns it into your page and your ads, so strategy, filming, web and ads stay under one roof."
-# Proof reel: a second picture from each case study (by file name), for its thumbnail. The reel's backgrounds are
-# each case study's hero image, so no picture shows twice on the page.
-reelThumbs:
-  davidson-smart-solutions: "/images/uploads/dss00124.jpg"
-  rose-scale: "/images/uploads/_.00_08_39_05.still015.jpg"
-  belleville-economic-development: "/images/biq.avif"
-  operation-beestrong: "/images/bee-strong-web.avif"
+# Proof: the notes beside the laptop, one per part of the sample site. `at` is that part's selector inside the site:
+# its note opens as it scrolls into the laptop, and clicking the note scrolls the laptop there.
+showcase:
+  - { at: ".hero", t: "Booking above the fold", d: "Pick a clinic and the hours and phone number change to match. The Book button is there before anyone scrolls." }
+  - { at: "#about", t: "The practice on film", d: "Patients see the rooms and the team before they walk in, playing quietly behind the headline." }
+  - { at: ".stats", t: "Trust at a glance", d: "Founding year, patients seen and emergency response time, in numbers a nervous patient can take in at once." }
+  - { at: "#treatments", t: "Every treatment explained", d: "Seven treatments, each with its own photo and plain-language description, one tap from the menu." }
+  - { at: "#team", t: "Faces before the first visit", d: "The team one by one, so a new patient knows who they'll meet." }
+  - { at: "#locations", t: "Three clinics, one page", d: "Address, phone, daily hours and directions for each location, without leaving the page." }
+  - { at: "#testimonials", t: "Patients in their own words", d: "Reviews from real visits, right before the ask." }
+  - { at: "#book", t: "Every path ends in a booking", d: "Call the nearest clinic, request a time online or book an emergency visit within 48 hours." }
 # The Ads view's illustration: requests arriving, each tagged with the ad that brought it in
 requests:
   - { what: "Cleaning & exam", when: "Tue 9:00", source: "Instagram reel" }
@@ -320,54 +324,53 @@ requests:
   .fl-problems p { max-width: 52ch; font-size: 0.98rem; line-height: 1.55; color: var(--muted); }
   .fl-fix { justify-self: start; margin-top: 10px; padding: 5px 11px; border-radius: 99px; background: var(--a); color: var(--afg); font-size: 0.66rem; }
 
-  /* ---------- Proof: the headline, the reel of case studies (full width), then the film and a client in their own words ---------- */
-  .fl-proof { background: var(--bg-2); border-top: 1px solid var(--line); }
+  /* ---------- Proof: a sample practice site, live inside a laptop (a phone on small screens). Scroll inside the screen.
+     One device and one iframe: the media query below turns the laptop into a phone. ---------- */
+  .fl-proof { background: var(--bg-2); border-top: 1px solid var(--line); overflow-x: clip; }
   .fl-proof > .fl-head { max-width: 1040px; padding: 120px 3% 56px; }
-  .fl-proof-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; align-items: center; padding: 72px 3% 110px; }
-  .fl-proof .sales-video { margin: 0; }
-  .fl-proof .sales-quote { margin-top: 0; }
-  .fl-proof .sales-quote figcaption strong { color: var(--cream); }
-  .fl-proof .sales-quote figcaption { color: var(--muted); }
-
-  /* The reel: a case study's photo full screen, its name huge across it, the thumbnails down the left edge.
-     Hover (or tap) a thumbnail to switch; otherwise it moves on every 5 seconds. */
-  .fr { position: relative; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; background: #000; --rail: 110px; }
-  .fr-bg { position: absolute; inset: 0; }
-  .fr-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity 0.9s ease, transform 2.4s var(--ease); }
-  .fr-bg img.is-on { opacity: 1; transform: scale(1); }
-  /* darkened so the name reads; deeper at the bottom (the details) and the left (the thumbnails) */
-  .fr-bg::after { content: ""; position: absolute; inset: 0;
-    background: linear-gradient(rgba(10, 5, 4, 0.36), rgba(10, 5, 4, 0.36)), linear-gradient(180deg, transparent 55%, rgba(10, 5, 4, 0.85)), linear-gradient(90deg, rgba(10, 5, 4, 0.5), transparent 22%); }
-  /* the names, centred in the space right of the thumbnails, sized so the longest still fits on one line (--len = its letters);
-     the current one rises into place, the last one rises out */
-  .fr-names { position: absolute; inset: 0 3% 0 var(--rail); display: grid; place-items: center; pointer-events: none; }
-  .fr-name { grid-area: 1 / 1; margin: 0; font-family: var(--display); font-weight: 400; font-size: min(14vw, 30vh, calc(165vw / var(--len))); line-height: 0.9; text-align: center; text-transform: uppercase; white-space: nowrap; color: var(--cream);
-    clip-path: inset(0 0 100% 0); transform: translateY(18%); transition: clip-path 0.8s var(--ease), transform 0.8s var(--ease); }
-  .fr-name.is-on { clip-path: inset(-5% 0 -5% 0); transform: none; transition-delay: 0.12s; }
-  .fr-name.is-off { clip-path: inset(0 0 100% 0); transform: translateY(-18%); }
-  /* the thumbnails: a dark pill on the left edge, clear of the name */
-  .fr-strip { position: absolute; z-index: 3; left: 3%; top: 50%; display: grid; gap: 8px; padding: 8px; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 14px;
-    background: rgba(12, 4, 7, 0.45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transform: translateY(-50%); list-style: none; }
-  .fr-thumb { display: block; width: 58px; height: 58px; padding: 0; overflow: hidden; border: 0; border-radius: 8px; background: #222; cursor: pointer; opacity: 0.55;
-    transition: opacity 0.3s ease, transform 0.4s var(--ease), box-shadow 0.3s ease; }
-  .fr-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .fr-thumb:hover { opacity: 0.9; }
-  .fr-thumb.is-on { opacity: 1; transform: scale(1.1); box-shadow: 0 0 0 2px var(--a); }
-  .fr-thumb:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
-  /* bottom: what the project was (left), where we are in the reel (right) */
-  .fr-foot { position: absolute; z-index: 2; left: 3%; right: 3%; bottom: 28px; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
-  .fr-info { display: grid; max-width: 560px; }
-  .fr-card { grid-area: 1 / 1; display: grid; gap: 10px; justify-items: start; opacity: 0; transform: translateY(10px); visibility: hidden; transition: opacity 0.5s ease, transform 0.6s var(--ease), visibility 0.5s; }
-  .fr-card.is-on { opacity: 1; transform: none; visibility: visible; transition-delay: 0.25s; }
-  .fr-card > .fl-mono { color: var(--a); }
-  .fr-card p { font-size: 1.05rem; line-height: 1.5; color: rgba(245, 242, 235, 0.85); }
-  .fr-link { display: inline-flex; gap: 8px; color: var(--cream); text-decoration: none; }
-  .fr-link span { color: var(--a); transition: transform 0.3s var(--ease); }
-  .fr-link:hover span { transform: translate(2px, -2px); }
-  .fr-count { display: grid; gap: 10px; justify-items: end; color: var(--muted); }
-  .fr-count b { color: var(--cream); }
-  .fr-bar { width: 160px; height: 2px; background: var(--line); }
-  .fr-bar i { display: block; height: 100%; background: var(--cream); transform-origin: 0 50%; transform: scaleX(0); }
+  /* laptop on the left, the notes on the right */
+  .fl-show { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.75fr); gap: 72px; align-items: center; max-width: 1280px; margin: 0 auto; padding: 0 3% 110px; }
+  .fl-device { --w: 1440; --s: 1; position: relative; margin: 0 auto; }
+  .fl-device-lid { position: relative; padding: 2.4% 2.4% 3%; border-radius: 22px 22px 0 0; background: linear-gradient(#2a2c32, #16171b);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09), 0 50px 90px -40px rgba(0, 0, 0, 0.8); }
+  /* the camera */
+  .fl-device-lid::before { content: ""; position: absolute; top: 1.1%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: #3a3d45; transform: translateX(-50%); }
+  .fl-device-screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 6px; background: #0b0d12; }
+  /* "you can scroll this": a quiet pill over the screen (a mouse with a rolling wheel; a swipe dot on phones).
+     It lets clicks through, and fades for good once the site has been scrolled. */
+  .fl-scroll-hint { position: absolute; z-index: 2; left: 50%; top: 64%; display: flex; align-items: center; gap: 10px; padding: 8px 14px 8px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 99px; background: rgba(10, 12, 16, 0.5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    color: rgba(245, 242, 235, 0.85); font-size: 0.62rem; pointer-events: none; transform: translateX(-50%); transition: opacity 0.6s ease, transform 0.6s var(--ease); }
+  .fl-scroll-hint i { position: relative; width: 14px; height: 21px; border: 1.5px solid currentColor; border-radius: 8px; }
+  .fl-scroll-hint i::after { content: ""; position: absolute; left: 50%; top: 4px; width: 2px; height: 5px; margin-left: -1px; border-radius: 2px; background: currentColor; animation: fl-wheel 1.8s ease-in-out infinite; }
+  .fl-scroll-hint .is-swipe { display: none; }
+  .fl-device.is-scrolled .fl-scroll-hint { opacity: 0; transform: translate(-50%, 8px); }
+  @keyframes fl-wheel { 0% { opacity: 0; transform: translateY(-2px); } 30% { opacity: 1; } 70% { opacity: 1; transform: translateY(5px); } 100% { opacity: 0; transform: translateY(7px); } }
+  .fl-device iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background: #fff; transform-origin: 0 0; }
+  /* the script renders the site at a real screen width (--w px) and scales it to fit (--s), so it shows its true layout */
+  .fl-device.is-scaled iframe { width: calc(var(--w) * 1px); height: calc(100% / var(--s)); transform: scale(var(--s)); }
+  .fl-device-base { position: relative; height: 18px; margin: 0 -6.5%; border-radius: 2px 2px 26px 26px / 2px 2px 16px 16px;
+    background: linear-gradient(#d4d6db, #9a9da4 55%, #5d6067); box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.9); }
+  /* the thumb notch for opening the lid */
+  .fl-device-base::before { content: ""; position: absolute; top: 0; left: 50%; width: 15%; height: 7px; border-radius: 0 0 10px 10px; background: #7b7e86; transform: translateX(-50%); }
+  .fl-show-cap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; margin-top: 40px; color: var(--muted); }
+  /* the notes: the one for the part on screen opens, the rest are just their titles */
+  .fl-feats-label { display: block; margin-bottom: 18px; color: var(--muted); }
+  .fl-feats-nav { display: none; }
+  .fl-feats { display: grid; border-top: 1px solid var(--line); list-style: none; }
+  .fl-feats li { border-bottom: 1px solid var(--line); }
+  .fl-feat { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); width: 100%; padding: 15px 0; border: 0; background: none; color: var(--muted); font: inherit; text-align: left; cursor: pointer; transition: color 0.3s ease; }
+  .fl-feat > .fl-mono { padding-top: 4px; transition: color 0.3s ease; }
+  .fl-feat b { font-size: 1.05rem; font-weight: 600; }
+  .fl-feat-d { grid-column: 2; display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.5s var(--ease), opacity 0.4s ease; }
+  .fl-feat-d > span { overflow: hidden; }
+  .fl-feat-d > span > span { display: block; padding-top: 8px; font-size: 0.95rem; line-height: 1.5; color: var(--muted); }
+  .fl-feat:hover, .fl-feat.is-on { color: var(--cream); }
+  .fl-feat.is-on > .fl-mono { color: var(--amber); }
+  .fl-feat.is-on .fl-feat-d { grid-template-rows: 1fr; opacity: 1; }
+  .fl-feat:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+  /* not enough room beside the laptop: the notes go under it */
+  @media (max-width: 1060px) { .fl-show { grid-template-columns: minmax(0, 1fr); gap: 56px; max-width: 860px; } }
   /* ---------- Who it's for ---------- */
   .fl-fit { padding: 120px 3% 110px; background: var(--bg); border-top: 1px solid var(--line); }
   .fl-fit-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 52px; border: 1px solid var(--line); }
@@ -504,17 +507,44 @@ requests:
     .fl-problems li { grid-template-columns: 3rem minmax(0, 1fr); gap: 4px 14px; padding: 22px 0; }
     .fl-problems li > b { font-size: 2.6rem; }
     .fl-problems h3 { font-size: 1.15rem; }
-    .fl-proof-row { grid-template-columns: minmax(0, 1fr); gap: 40px; padding: 48px 5% 80px; }
-    /* the reel on phones: the name in the middle, the thumbnails in a row under it, the details at the bottom */
-    .fr { --rail: 3%; }
-    .fr-names { inset: 0 5%; }
-    .fr-name { font-size: min(19vw, calc(200vw / var(--len))); }
-    .fr-strip { left: 5%; top: calc(50% + 15vw); grid-auto-flow: column; gap: 6px; padding: 6px; transform: none; }
-    .fr-thumb { width: 46px; height: 46px; }
-    .fr-foot { left: 5%; right: 5%; flex-direction: column; align-items: stretch; gap: 16px; }
-    .fr-count { justify-items: start; }
-    .fr-bar { width: 100%; }
-    .fr-card p { font-size: 0.95rem; }
+    /* the laptop becomes a phone: the site at 390px wide, and short enough to leave room to scroll the page past it */
+    .fl-show { display: block; padding: 0 5% 80px; }
+    /* the notes on phones: one card under the phone, for the part on screen, with arrows to step through them.
+       The notes are stacked in one cell so the card is as tall as the longest and nothing jumps as they change. */
+    .fl-feats-wrap { display: flex; flex-direction: column; max-width: 340px; margin: 16px auto 0; padding: 12px 16px 14px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255, 255, 255, 0.03); }
+    .fl-feats-label { display: none; }
+    .fl-feats { border-top: 0; }
+    .fl-feats li { grid-area: 1 / 1; border-bottom: 0; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.5s var(--ease), visibility 0.4s; }
+    .fl-feats li:has(.is-on) { opacity: 1; visibility: visible; transform: none; }
+    .fl-feat { grid-template-columns: minmax(0, 1fr); padding: 0; }
+    .fl-feat > .fl-mono { display: none; }
+    .fl-feat b { font-size: 1rem; }
+    .fl-feat .fl-feat-d { grid-column: 1; grid-template-rows: 1fr; opacity: 1; }
+    .fl-feat .fl-feat-d > span > span { padding-top: 4px; font-size: 0.86rem; line-height: 1.45; }
+    /* the counter and arrows sit on top of the card, so it stays short */
+    .fl-feats-nav { order: -1; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: var(--muted); }
+    .fl-feats-nav > span { order: -1; margin-right: auto; font-size: 0.66rem; }
+    .fl-feats-nav b { color: var(--amber); font-weight: 600; }
+    .fl-feats-nav button { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; background: none; color: var(--cream); font-size: 0.9rem; cursor: pointer; }
+    .fl-feats-nav button:active { background: rgba(255, 255, 255, 0.08); }
+    /* sized from the screen height, so the phone and the card under it fit on screen together */
+    .fl-device { --w: 390; width: clamp(210px, calc((100svh - 300px) * 390 / 844), min(320px, 80vw)); }
+    .fl-device-lid { padding: 3.6%; border-radius: 46px; background: #121317;
+      box-shadow: inset 0 0 0 2px #34363d, inset 0 0 0 4px #0a0a0c, 0 40px 70px -30px rgba(0, 0, 0, 0.85); }
+    /* the island */
+    .fl-device-lid::before { top: calc(3.6% + 10px); z-index: 1; width: 30%; height: 22px; border-radius: 99px; background: #000; }
+    .fl-device-screen { aspect-ratio: 390 / 844; border-radius: 36px; }
+    /* on the phone: a fingertip dot sliding up, and "Swipe" */
+    .fl-scroll-hint { top: 31%; }
+    .fl-scroll-hint i { width: 8px; height: 8px; border: 0; border-radius: 50%; background: currentColor; animation: fl-swipe 1.8s ease-in-out infinite; }
+    .fl-scroll-hint i::after { content: none; }
+    .fl-scroll-hint .is-wheel { display: none; }
+    .fl-scroll-hint .is-swipe { display: inline; }
+    @keyframes fl-swipe { 0% { opacity: 0; transform: translateY(6px); } 30% { opacity: 1; } 80% { opacity: 1; transform: translateY(-6px); } 100% { opacity: 0; transform: translateY(-8px); } }
+    .fl-device-base { display: none; }
+    /* the caption moves above the phone, small */
+    .fl-show-main { display: flex; flex-direction: column; }
+    .fl-show-cap { order: -1; justify-content: center; margin: 0 0 12px; font-size: 0.6rem; }
     .fl-fit-cols { grid-template-columns: minmax(0, 1fr); margin-top: 36px; }
     .fl-fit-body { grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 36px; }
     .fl-fit-photo { min-height: 0; aspect-ratio: 4 / 3; }
@@ -558,8 +588,7 @@ requests:
     .fl-hero-cards { --w: min(20vw, calc((100svh - 560px) / 1.4)); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .fl-hero-card .dk, .fl-bg img { animation: none; }
-    .fr-bg img, .fr-name, .fr-card { transition: none; }
+    .fl-hero-card .dk, .fl-bg img, .fl-scroll-hint i, .fl-scroll-hint i::after { animation: none; }
     .fl-bg img { transform: none; }
     .fl-tile::before { transition: none; }
   }
@@ -822,70 +851,45 @@ requests:
   {%- endfor %}
 </dialog>
 
-<!-- 5. Proof: the brands and sectors we've worked across (a reel of the case studies), then a film and a client in their own words -->
+<!-- 5. Proof: a sample site for a dental practice, live in a laptop (a phone on small screens), to scroll through -->
 <section class="fl-proof" id="proof">
   <div class="fl-head">
     <span class="fl-mono">● Proof</span>
-    <h2>Different brands. Different sectors. <em>The same system.</em></h2>
-    <p>We've worked with brands across very different sectors, from a 50-year industrial manufacturer to a city's economic development office. The work changes. The way we find the story and put it to work doesn't.</p>
+    <h2>A page that books, <em>built for a practice.</em></h2>
+    <p>This is a sample site we built for a dental practice. It's live, so scroll through it inside the screen the way a new patient would.</p>
   </div>
-  {%- set studies = collections.caseStudies %}
-  <div class="fr" data-reel>
-    <div class="fr-bg" aria-hidden="true">
-      {%- for cs in studies %}
-      <img src="{{ cs.data.hero_image }}" alt=""{% if loop.first %} class="is-on"{% endif %} loading="lazy" decoding="async">
-      {%- endfor %}
-    </div>
-    <div class="fr-names">
-      {%- for cs in studies %}
-      <h3 class="fr-name{% if loop.first %} is-on{% endif %}" style="--len: {{ cs.data.card_title | length }}"{% if not loop.first %} aria-hidden="true"{% endif %}>{{ cs.data.card_title }}</h3>
-      {%- endfor %}
-    </div>
-    <ul class="fr-strip" aria-label="Case studies">
-      {%- for cs in studies %}
-      <li><button type="button" class="fr-thumb{% if loop.first %} is-on{% endif %}" style="--a: {{ cs.data.theme.dark_accent }}" aria-label="{{ cs.data.client }}"{% if loop.first %} aria-current="true"{% endif %}><img src="{{ reelThumbs[cs.fileSlug] }}" alt="" loading="lazy" decoding="async"></button></li>
-      {%- endfor %}
-    </ul>
-    <div class="fr-foot">
-      <div class="fr-info">
-        {%- for cs in studies %}
-        <div class="fr-card{% if loop.first %} is-on{% endif %}" style="--a: {{ cs.data.theme.dark_accent }}">
-          <span class="fl-mono">{{ cs.data.details[0].value }}</span>
-          <p>{{ cs.data.lead }}</p>
-          <a class="fr-link fl-mono" href="{{ cs.url }}">Read the case study <span aria-hidden="true">↗</span></a>
+  <div class="fl-show">
+    <div class="fl-show-main">
+    <div class="fl-device" data-device>
+      <div class="fl-device-lid">
+        <div class="fl-device-screen">
+          <iframe src="/showcase/aura-dental/" title="Aura Dental, a sample dental practice website" loading="lazy"></iframe>
+          <span class="fl-scroll-hint fl-mono" aria-hidden="true"><i></i><span class="is-wheel">Scroll</span><span class="is-swipe">Swipe</span></span>
         </div>
-        {%- endfor %}
       </div>
-      <div class="fr-count fl-mono">
-        <span><b data-reel-n>01</b> / {{ "0" if studies | length < 10 }}{{ studies | length }}</span>
-        <span class="fr-bar" aria-hidden="true"><i data-reel-bar></i></span>
+      <div class="fl-device-base" aria-hidden="true"></div>
+    </div>
+    <div class="fl-show-cap">
+      <span class="fl-mono">Aura Dental · sample site</span>
+    </div>
+    </div>
+    <div class="fl-feats-wrap">
+      <span class="fl-feats-label fl-mono">What the page is doing</span>
+      <ol class="fl-feats" data-features>
+        {%- for f in showcase %}
+        <li><button type="button" class="fl-feat{% if loop.first %} is-on{% endif %}" data-at="{{ f.at }}" aria-expanded="{{ 'true' if loop.first else 'false' }}">
+          <span class="fl-mono">{{ "0" if loop.index < 10 }}{{ loop.index }}</span><b>{{ f.t }}</b>
+          <span class="fl-feat-d"><span><span>{{ f.d }}</span></span></span>
+        </button></li>
+        {%- endfor %}
+      </ol>
+      {#- phones only: step through the notes, and the phone scrolls with them #}
+      <div class="fl-feats-nav">
+        <button type="button" data-feat-step="-1" aria-label="Previous feature">←</button>
+        <span class="fl-mono"><b data-feat-n>01</b> / {{ "0" if showcase | length < 10 }}{{ showcase | length }}</span>
+        <button type="button" data-feat-step="1" aria-label="Next feature">→</button>
       </div>
     </div>
-  </div>
-  <div class="fl-proof-row">
-    {#- HEVC first (needs the full codec string, or browsers skip it), H.264 as the fallback.
-        Without JS the native controls stay and the big play button stays hidden. -#}
-    <figure class="sales-video" data-film>
-      <video controls playsinline preload="metadata" poster="/images/sales/film/crimson-poster.jpg" aria-label="Crimson Cider case study film">
-        <source src="/images/sales/film/Crimson-Cider-Case-Study.mp4" type='video/mp4; codecs="hvc1.1.6.L120.90, mp4a.40.2"'>
-        <source src="/images/sales/film/Crimson-Cider-Case-Study-h264.mp4" type="video/mp4">
-      </video>
-      <button type="button" class="sales-video-play" hidden>
-        <span class="sales-video-icon"><svg viewBox="0 0 12 14" fill="currentColor" aria-hidden="true"><path d="M0 0h2v14H0zM2 1h2v12H2zM4 3h2v8H4zM6 4h2v6H6zM8 5h2v4H8zM10 6h2v2h-2z"/></svg></span>
-        <span class="sales-video-icon is-pause"><svg viewBox="0 0 12 14" fill="currentColor" aria-hidden="true"><path d="M1 0h4v14H1zM7 0h4v14H7z"/></svg></span>
-        <span class="sales-video-label"><b data-film-title>Watch the film</b><span data-film-sub>Crimson Cider case study · 1:10</span></span>
-      </button>
-    </figure>
-    <figure class="sales-quote">
-      <blockquote>
-        “Thanks to Amp, we went from creative chaos to total strategic clarity. I am now completely confident that we are
-        executing what is best for our business.”
-      </blockquote>
-      <figcaption>
-        <img src="/images/justin-davidson.jpg" alt="" width="56" height="56" loading="lazy">
-        <span><strong>Justin Davidson</strong> Davidson Smart Solutions</span>
-      </figcaption>
-    </figure>
   </div>
 </section>
 
@@ -1218,73 +1222,70 @@ requests:
 </script>
 
 <script>
-  // Proof reel: hover (or tap, or focus) a thumbnail to switch case study; otherwise it moves on every 5 seconds while
-  // it's on screen, and the bar under the counter fills as it waits. Hovering the thumbnails holds it.
+  // Proof: render the sample site at a real screen width (--w: 1440 on the laptop, 390 on the phone) and scale it to
+  // fit the screen, so it shows the layout a patient would see. Without JS it simply fills the screen unscaled.
   (() => {
-    const root = document.querySelector('[data-reel]');
-    if (!root) return;
-    const thumbs = [...root.querySelectorAll('.fr-thumb')];
-    const sets = ['.fr-bg img', '.fr-name', '.fr-card'].map(s => [...root.querySelectorAll(s)]);
-    const n = root.querySelector('[data-reel-n]'), bar = root.querySelector('[data-reel-bar]');
-    const wait = 5000;
-    let at = 0, t0 = performance.now(), held = false, seen = false;
-    const go = i => {
-      if (i === at) return;
-      sets.forEach(list => list.forEach((el, k) => {
-        el.classList.toggle('is-on', k === i);
-        el.classList.toggle('is-off', k === at);
-        if (el.matches('.fr-name')) el.toggleAttribute('aria-hidden', k !== i);
-      }));
-      thumbs.forEach((b, k) => { b.classList.toggle('is-on', k === i); b.toggleAttribute('aria-current', k === i); });
-      n.textContent = String(i + 1).padStart(2, '0');
-      at = i; t0 = performance.now();
-    };
-    thumbs.forEach((b, i) => ['mouseenter', 'focus', 'click'].forEach(ev => b.addEventListener(ev, () => go(i))));
-    const strip = root.querySelector('.fr-strip');
-    strip.addEventListener('mouseenter', () => { held = true; });
-    strip.addEventListener('mouseleave', () => { held = false; t0 = performance.now(); });
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    // only count down while the reel is on screen, so nobody misses the first case study
-    new IntersectionObserver(([e]) => { seen = e.isIntersecting; t0 = performance.now(); }, { threshold: 0.5 }).observe(root);
-    const tick = now => {
-      if (held || !seen) t0 = now;
-      const p = Math.min(1, (now - t0) / wait);
-      bar.style.transform = `scaleX(${p})`;
-      if (p >= 1) go((at + 1) % thumbs.length);
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+    const dev = document.querySelector('[data-device]');
+    if (!dev || !('ResizeObserver' in window)) return;
+    const screen = dev.querySelector('.fl-device-screen');
+    new ResizeObserver(() => {
+      const w = parseFloat(getComputedStyle(dev).getPropertyValue('--w'));
+      if (!w || !screen.clientWidth) return;
+      dev.style.setProperty('--s', screen.clientWidth / w);
+      dev.classList.add('is-scaled');
+    }).observe(screen);
   })();
-</script>
 
-<script>
-  // Big play cue over the film's poster: the native button is too small to notice. Paused mid-film, the cue comes back
-  // with the pause icon and where you stopped. After the film ends, reload it so the poster and the cue come back.
-  document.querySelectorAll('[data-film]').forEach(film => {
-    const video = film.querySelector('video');
-    const play = film.querySelector('.sales-video-play');
-    const title = film.querySelector('[data-film-title]');
-    const sub = film.querySelector('[data-film-sub]');
-    const start = { title: title.textContent, sub: sub.textContent };
-    const clock = t => Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0');
-    video.controls = false;
-    play.hidden = false;
-    play.addEventListener('click', () => {
-      video.controls = true;
-      const started = video.play();
-      if (started && started.catch) started.catch(() => {});
-    });
-    video.addEventListener('play', () => { film.classList.add('is-playing'); film.classList.remove('is-paused'); });
-    video.addEventListener('pause', () => {
-      if (video.ended) return;
-      film.classList.remove('is-playing'); film.classList.add('is-paused');
-      title.textContent = 'Paused';
-      sub.textContent = clock(video.currentTime) + ' / ' + clock(video.duration || 70) + ' · Click to resume';
-    });
-    video.addEventListener('ended', () => {
-      film.classList.remove('is-playing', 'is-paused');
-      title.textContent = start.title; sub.textContent = start.sub;
-      video.controls = false; video.load();
-    });
-  });
+  // The notes beside the laptop: the one for the part of the site on screen opens as it's scrolled, and clicking a
+  // note scrolls the site there (with the site's own smooth scroll when it has one). Same origin, so the page can
+  // read the frame; if it can't, the notes just stay as a list.
+  (() => {
+    const frame = document.querySelector('[data-device] iframe'), list = document.querySelector('[data-features]');
+    if (!frame || !list) return;
+    const items = [...list.querySelectorAll('[data-at]')];
+    const num = document.querySelector('[data-feat-n]');
+    let win = null, targets = [], hold = 0, at = 0;
+    const set = i => {
+      at = i;
+      items.forEach((b, k) => { b.classList.toggle('is-on', k === i); b.setAttribute('aria-expanded', k === i); });
+      if (num) num.textContent = String(i + 1).padStart(2, '0');
+    };
+    // the phone's arrows: the next or previous note, wrapping round, as if it had been tapped
+    document.querySelectorAll('[data-feat-step]').forEach(btn => btn.addEventListener('click', () => {
+      items[(at + +btn.dataset.featStep + items.length) % items.length].click();
+    }));
+    const sync = () => {
+      if (!win || performance.now() < hold) return;
+      const line = win.innerHeight * 0.45;
+      let on = 0;
+      targets.forEach((el, k) => { if (el && el.getBoundingClientRect().top < line) on = k; });
+      set(on);
+    };
+    const init = () => {
+      try {
+        const w = frame.contentWindow;
+        if (w.location.href === 'about:blank') return;
+        targets = items.map(b => w.document.querySelector(b.dataset.at));
+        win = w;
+      } catch (e) { return; }
+      // the scroll hint goes once the site has been scrolled a little
+      const dev = frame.closest('[data-device]');
+      win.addEventListener('scroll', () => {
+        if (win.scrollY > 60) dev.classList.add('is-scrolled');
+        requestAnimationFrame(sync);
+      }, { passive: true });
+      sync();
+    };
+    frame.addEventListener('load', init);
+    if (frame.contentDocument && frame.contentDocument.readyState === 'complete') init();
+    items.forEach((b, k) => b.addEventListener('click', () => {
+      const el = targets[k];
+      set(k);
+      if (!win || !el) return;
+      // keep the clicked note open while the site scrolls past the others on the way
+      hold = performance.now() + 1500;
+      if (win.auraScrollTo) win.auraScrollTo(el, -20);
+      else win.scrollTo({ top: el.getBoundingClientRect().top + win.scrollY - 20, behavior: 'smooth' });
+    }));
+  })();
 </script>
