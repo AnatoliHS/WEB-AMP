@@ -92,21 +92,37 @@ nav:
 <section class="sales-hero" id="hero">
   {#- The portfolio as a wall laid back in perspective, its strips drifting up and down.
       Each strip holds the same set of images twice, so moving it up by half loops without a seam.
-      Wall images are 4:5 WebP tiles (480x600 at most) in sales/wall, cut to the size they display at; the originals elsewhere are full size.
+      One list per strip (11, 11, 11, 10, 10 images), so no image shows in more than one strip.
+      Wall images are 4:5 WebP tiles (480x600) in sales/wall, cut from the original photos (not kept in the repo).
       The wall stays hidden until its images are decoded, then fades in as one piece (script below). -#}
   {%- set wall = [
-    "bee-strong-identity", "rose-scale-truck", "girl-camera", "basketball-player",
-    "sequence.01_35_45_12.still077", "rose-scale-cap", "deck", "rose-scale-mug",
-    "dss00124", "bee-strong-mobile", "rose-scale-site", "boat",
-    "brand-identity", "rose-scale-building", "sequence-01.00_03_41_07.still005", "deck-cards",
-    "rose-scale", "bee-strong-web", "dss00026", "websites"
+    [
+      "1fachfoq", "dsc00253", "biq00014", "dss00124", "563xf_va", "dsc00320",
+      "biq00217", "dss00240", "7pipsjca", "dsc00408", "biq00223"
+    ],
+    [
+      "dss00578", "9t7kyaia", "dsc00449", "biq00689", "sequence-01.00_02_10_10.still003", "d5kljqya",
+      "dsc00466", "biq00704", "sequence-01.00_04_48_01.still007", "dss00022", "dsc00551"
+    ],
+    [
+      "biq00775", "sequence-01.00_21_49_07.still022", "dss00065", "dsc00584", "biq00894", "sequence-01.00_23_22_03.still016",
+      "dss00109", "dsc00587", "biq00937", "dss00129", "dsc00763"
+    ],
+    [
+      "biq01068", "k-nytkua", "dsc00774", "biq01159", "levxx6la", "dsc00818",
+      "biq01177", "lqd-b4ta", "_.00_02_35_23.still008", "x7xy3guw"
+    ],
+    [
+      "_.00_04_31_11.still009", "_a-9nymq", "_.00_07_54_20.still013", "bhdguvww", "_.00_08_58_12.still016", "glxhj3qw",
+      "_.00_20_38_08.still001", "iwll6-aq", "qacluzoq", "xxkb-g-q"
+    ]
   ] %}
   <div class="sales-hero-wall" aria-hidden="true" data-hero-wall>
     <div class="sales-hero-wall-plane">
-      {%- for c in range(0, 5) %}
+      {%- for strip in wall %}
       <div class="sales-hero-strip">
-        {%- for copy in range(0, 2) %}{%- for r in range(0, 10) %}
-        <figure><img src="/images/sales/wall/{{ wall[(c * 7 + r) % wall.length] }}.webp" alt="" decoding="sync" fetchpriority="high"></figure>
+        {%- for copy in range(0, 2) %}{%- for name in strip %}
+        <figure><img src="/images/sales/wall/{{ name }}.webp" alt="" decoding="sync" fetchpriority="high"></figure>
         {%- endfor %}{%- endfor %}
       </div>
       {%- endfor %}

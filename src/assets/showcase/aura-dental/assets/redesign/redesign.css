@@ -427,22 +427,6 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .member__end-text { font-size: clamp(1.8rem, 2.4vw, 2.5rem); line-height: 1.02; letter-spacing: -0.04em; }
 .member--end .btn { align-self: flex-start; --bg: var(--ink); --fg: var(--bone); }
 
-/* floating teeth inside the team end card */
-.member--end a { position: relative; overflow: hidden; isolation: isolate; }
-.member__end-text, .member--end .btn { position: relative; z-index: 1; }
-.member__teeth { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.member__teeth i {
-  position: absolute; top: 100%; left: var(--left, 50%);
-  width: var(--size, 24px); height: var(--size, 24px);
-  background: url(../tooth.png) center / contain no-repeat;
-  opacity: 0; will-change: transform, opacity;
-  animation: floatTooth var(--duration, 15s) linear var(--delay, 0s) infinite;
-}
-@keyframes floatTooth {
-  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
-  10%, 90% { opacity: 0.15; }
-  100% { transform: translate(var(--drift-x, 30px), -640px) rotate(var(--rot, 360deg)); opacity: 0; }
-}
 
 /* ── Locations (kept) ──────────────────────────────────────── */
 .locs { padding-block: clamp(110px, 11vw, 170px) var(--section); }

@@ -13,6 +13,10 @@ module.exports = function(eleventyConfig) {
     "./src/assets/": "/",
   });
 
+  // Assets are copied as-is, never built as pages (otherwise the showcase site's index.html
+  // was also rendered to /assets/showcase/..., a second copy with broken relative links)
+  eleventyConfig.ignores.add("src/assets/**");
+
   eleventyConfig.addPlugin(sectionizePlugin);
 
   eleventyConfig.addTemplateFormats("md");
