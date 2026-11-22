@@ -3,28 +3,108 @@ layout: landing.njk
 title: "AMP Visual Media | Turn Your Best Work Into Your Best Salesperson"
 description: "AMP turns one real client project into a case study film, a content library, a landing page and a paid funnel that keeps bringing in new leads."
 hideFooterCta: true
-# How It Works: the four phases (items = what each one includes)
+# How It Works: copied as-is from /dental ("The process"): steps, details and requests
+# The four steps. Each is a card in the main site's colours (color = face, fg = text on it; accent/afg = the same
+# for its dark back, lighter where the face colour would vanish on near-black), and on its back,
+# at the end of the long scroll, the checklist of what the step covers (items).
 steps:
   - name: "Discovery"
-    text: "An AMP Deck™ session finds where your pipeline leaks. Then we pick the project and plan the story and the shoot."
-    out: "A roadmap and a shoot plan"
-    items: ["AMP Deck™ session", "Pipeline audit", "Project pick", "Story plan", "Shoot plan"]
-    img: "/images/deck.avif"
+    verb: "Find the gap"
+    color: "#DFD4A7"
+    fg: "#140F11"
+    accent: "#DFD4A7"
+    afg: "#140F11"
+    line: "We map how patients find you and where they slip away."
+    items: ["AMP Deck™ session", "Patient journey audit", "Local competitor scan", "Treatment focus", "Story plan", "Shoot plan"]
   - name: "Media Day"
-    text: "Mind Fusion, our production partner, captures the hero video, ad footage, behind the scenes and photography in one focused shoot."
+    verb: "Film your practice"
+    color: "#DE9E3B"
+    fg: "#140F11"
+    accent: "#DE9E3B"
+    afg: "#140F11"
+    line: "One focused shoot of your team, rooms and technology."
+    items: ["Practice film", "Team interviews", "Team portraits", "Operatories & tech", "Ad footage", "Behind the scenes"]
+  - name: "Website"
+    verb: "Build the page"
+    color: "#A83C27"
+    fg: "#F5F2EB"
+    accent: "#D2553A"
+    afg: "#F5F2EB"
+    line: "A new-patient page built around your film, made to book."
+    items: ["New-patient page", "Treatments", "Locations & hours", "Online requests", "Click to call", "Speed & search"]
+  - name: "Ads"
+    verb: "Fill the chairs"
+    color: "#0B1E1C"
+    fg: "#F5F2EB"
+    accent: "#6FB3A5"
+    afg: "#0B1E1C"
+    line: "Local campaigns that turn nearby people into bookings."
+    items: ["Local campaigns", "Reels & cut-downs", "Retargeting", "Request tracking", "Monthly reporting", "Refinement"]
+# The open-card view: what each card says when it's opened (click a card in the long scroll).
+# Sources: the homepage's How It Works and FAQ, the Website and Ads service pages, and "The Sales Page" client guide.
+# Timings and the practice's own time aren't stated anywhere yet, so the view says dates are set at kickoff.
+details:
+  - what: "Every engagement starts here. An AMP Deck™ session finds where new patients slip away before anything is built. Then we pick the focus and plan the story and the shoot."
+    out: "A roadmap and a shoot plan"
+    chips: ["$750, credited back", "Dates set at kickoff"]
+    visual: "photo"
+    includes:
+      - "A working session that finds where new patients slip away. $750, credited back if you go ahead within 60 days."
+      - "How patients find you today, from first search to first call, and where they drop off."
+      - "What nearby practices show online, so your story stands apart from theirs."
+      - "The treatments worth leading with, so the shoot and the ads point at the work you want more of."
+      - "What the film says and who says it: your dentists and team, in their own words."
+      - "Who, where and when for Media Day, planned around your schedule."
+  - what: "Our sister company Mind Fusion captures everything in one focused shoot, planned around your schedule. One media day makes a library: the same footage is cut for every stage of the funnel."
     out: "A raw content library"
-    items: ["Hero video", "Customer interview", "Ad footage", "Behind the scenes", "Photography"]
-    img: "/images/sales/hero-2-poster.jpg"
-  - name: "Edit & Build"
-    text: "We write the case study and bring the hero film, cut-downs, frame grabs and landing page together."
-    out: "Final assets and a live page"
-    items: ["Case study", "Hero film edit", "Cut-downs", "Frame grabs", "Landing page"]
-    img: "/images/sales/how/industry-professionals.jpg"
-  - name: "Launch & Optimize"
-    text: "Ads go live across the funnel. We track leads and refine what is working as results come in."
+    chips: ["One focused shoot", "No appointments move"]
+    visual: "film"
+    includes:
+      - "The hero film: your team, your rooms and how you care for patients. It leads your page."
+      - "Your dentists and team on camera, telling the story in their own words."
+      - "Clean portraits of everyone a patient will meet, for the page, your Google profile and socials."
+      - "Your rooms and equipment, shot so a nervous patient knows what to expect."
+      - "Extra shots planned for the ads, so every cut-down has what it needs."
+      - "Candid moments from the day, for posts that feel real."
+  - what: "We cut the footage for each stage and build one page with one job: turn a stranger into a booking. No menu, no side roads. It answers their questions in order, then asks them to book."
+    out: "Final edits and a live page"
+    chips: ["One page, one action", "2.5s mobile target"]
+    visual: "site"
+    cutsTitle: "The cuts, by stage"
+    cuts:
+      - { t: "Hook cut-downs", d: "15–30s · vertical & square" }
+      - { t: "Story cuts", d: "45–90s" }
+      - { t: "Process explainer", d: "About 60s" }
+      - { t: "Offer video", d: "About 30s, with the ask" }
+    includes:
+      - "One page built for someone who has never visited: who you are, what you do, how to book."
+      - "What you offer, in plain language, each with one clear next step."
+      - "Where to find you and when you're open, one tap from directions."
+      - "A booking request that works at 10 pm, not just when the front desk picks up."
+      - "A call button always in reach on a phone, where 60%+ of visitors arrive."
+      - "Built to load in about 2.5 seconds on mobile, with search basics done from day one."
+  - what: "Ads and posts bring people in, and every one points to your page. Each audience gets its own cut, from a short hook for strangers to the offer for people ready to book. We track every request and refine what's working."
     out: "A running funnel and reporting"
-    items: ["Paid ads", "Retargeting", "Lead tracking", "Reporting", "Refinement"]
-    img: "/images/bee-strong-web.avif"
+    chips: ["Ad spend set by you", "Dates set at kickoff"]
+    visual: "feed"
+    stagesTitle: "Every audience, its own cut"
+    stages:
+      - { t: "Seen", d: "Cold · never heard of you · stop the scroll" }
+      - { t: "Trusted", d: "Warm · seen you, not yet sure · show the proof" }
+      - { t: "Booked", d: "Ready · visited, not booked · ask for the call" }
+    includes:
+      - "Google search and Meta ads aimed at people near your clinics."
+      - "Short vertical and square edits that stop the scroll and earn the click."
+      - "Longer story cuts for people who watched, so you feel familiar before they call."
+      - "Every new-patient request traced back to the ad that brought it in."
+      - "A clear dashboard, so you always see where the money goes and what it brought."
+      - "Ongoing tests and tweaks, so results improve over time."
+# The Ads view's illustration: requests arriving, each tagged with the ad that brought it in
+requests:
+  - { what: "Cleaning & exam", when: "Tue 9:00", source: "Instagram reel" }
+  - { what: "Invisalign consult", when: "Wed 4:30", source: "Google search" }
+  - { what: "Emergency visit", when: "Today", source: "Retargeting", urgent: true }
+  - { what: "Family check-ups (3)", when: "Thu 3:15", source: "Practice film" }
 # Pieces shown in What You Get (word = the big lettering on the screen)
 pieces:
   - name: "The Case Study"
@@ -302,53 +382,8 @@ nav:
   })();
 </script>
 
-<!-- 4. How it works: the four phases as columns, left to right -->
-<section class="sales-section is-sand" id="how">
-  <div class="container">
-    <div class="sales-eyebrow"><span>HOW IT WORKS</span></div>
-    <h2 class="sales-title">Prove it. Produce it. Promote it.</h2>
-    <p class="sales-intro">
-      Every phase has a clear owner and a clear deliverable, from first call to first lead. Exact dates are set together at kickoff.
-    </p>
-    <div class="sales-phases">
-      {%- for st in steps %}
-      <div class="sales-phase">
-        <div class="sales-phase-photo"><img src="{{ st.img }}" alt="" loading="lazy" decoding="async"></div>
-        <span class="sales-phase-num">0{{ loop.index }}</span>
-        <h3 class="sales-phase-name">{{ st.name }}</h3>
-        <p class="sales-phase-text">{{ st.text }}</p>
-        <ul class="sales-phase-items">
-          {%- for item in st.items %}<li>{{ item }}</li>{% endfor %}
-        </ul>
-        <div class="sales-phase-meta">
-          <span>→ {{ st.out }}</span>
-        </div>
-        {%- if not loop.last %}<span class="sales-phase-arrow" aria-hidden="true">→</span>{% endif %}
-      </div>
-      {%- endfor %}
-    </div>
-
-    <h3 class="sales-subtitle">Every ad points to one place: your landing page.</h3>
-    {#- Three big words that read as one sentence, each with its funnel stage underneath -#}
-    <div class="sales-funnel">
-      <div class="sales-stage">
-        <span class="sales-stage-word">Seen.</span>
-        <span class="sales-stage-label">Top of funnel · Awareness</span>
-        <p>Short, scroll-stopping cut-downs put your work in front of the right audience for the first time.</p>
-      </div>
-      <div class="sales-stage">
-        <span class="sales-stage-word">Trusted.</span>
-        <span class="sales-stage-label">Middle of funnel · Interest</span>
-        <p>Longer edits, photos and customer moments retarget warm viewers and build trust in your work.</p>
-      </div>
-      <div class="sales-stage">
-        <span class="sales-stage-word">Booked.</span>
-        <span class="sales-stage-label">Bottom of funnel · Conversion</span>
-        <p>Direct offers send ready buyers to the landing page to book, buy or get in touch.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- 4. How it works: the four steps as flip cards in a pinned scroll (built like /dental's "The process") -->
+{% include "component/process.njk" %}
 
 <!-- 5. Proof -->
 <section class="sales-section is-dark" id="proof">

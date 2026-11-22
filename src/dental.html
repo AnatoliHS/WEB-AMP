@@ -467,7 +467,7 @@ requests:
   .fl-long-card { --flip: 180deg; }
 
   /* Animated: a tall track, the stage pinned while the cards move */
-  .fl-long.is-live { height: 560vh; padding: 0; }
+  .fl-long.is-live { height: 420vh; padding: 0; }  /* the spread plays on its own; scroll only drives the flips */
   .is-live .fl-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; --cw: min(19vw, 280px); }
   .is-live .fl-stage-title { position: absolute; top: 100px; left: 0; right: 0; margin: 0; }
   .is-live .fl-stage-foot { position: absolute; left: 3%; right: 3%; bottom: 22px; display: flex; justify-content: space-between; color: var(--muted); }
@@ -977,10 +977,12 @@ requests:
     const wide = matchMedia('(min-width: 761px)');
 
     // Where card i sits at progress p. x/y in card widths/heights, r and flip in degrees, s = scale.
-    // Desktop: start as a fanned stack (already on stage) → grow and straighten → spread into a row → flip one after another.
-    const desk = (i, p) => {
-      const grow = seg(p, 0, 0.18), spread = seg(p, 0.18, 0.4);
-      const flip = seg(p, 0.44 + i * 0.08, 0.6 + i * 0.08);
+    // Desktop: start as a fanned stack (already on stage) → grow and straighten → spread into a row (a = the auto-play,
+    // 0 to 1, run on a timer once the section reaches mid-screen) → flip one after another as the section scrolls.
+    const desk = (i, p, a) => {
+      const grow = ease(clamp(a / 0.45)), spread = ease(clamp((a - 0.35) / 0.65));
+      // no flipping until the row has formed, even on a fast scroll
+      const flip = seg(p, 0.1 + i * 0.17, 0.3 + i * 0.17) * clamp((a - 0.6) / 0.4);
       let x = -0.08 + i * 0.07, y = 0.02 * (i % 2), r = -7 + i * 5, s = 1;
       x = mix(x, -0.03 + i * 0.04, grow); r = mix(r, -3 + i * 2.5, grow); s = mix(1, 1.35, grow);
       x = mix(x, (i - 1.5) * 1.12, spread); y = mix(y, 0, spread); r = mix(r, 0, spread); s = mix(s, 1, spread);
@@ -1004,6 +1006,22 @@ requests:
     const memo = cards.map(() => ({ t: '', f: '', l: '', back: null, flipped: null }));
     const put = (m, key, value, write) => { if (m[key] !== value) { m[key] = value; write(value); } };
 
+    // The auto-play: `a` eases toward `goal` over AUTO ms. It plays once the long scroll's top passes mid-screen,
+    // and resets to the fan once the section is back below the screen, so it plays again next time.
+    const AUTO = 1400;
+    let a = 0, goal = 0, from = 0, t0 = 0, playing = false;
+    const tick = now => {
+      const t = clamp((now - t0) / (AUTO * Math.abs(goal - from) || 1));
+      a = mix(from, goal, t);
+      frame();
+      if (t < 1) requestAnimationFrame(tick); else playing = false;
+    };
+    const aim = g => {
+      if (g === goal) return;
+      goal = g; from = a; t0 = performance.now();
+      if (!playing) { playing = true; requestAnimationFrame(tick); }
+    };
+
     const frame = () => {
       const h = hero.getBoundingClientRect();
       if (h.bottom > 0 && wide.matches) {     // phones: the cards pop in but don't scatter on scroll
@@ -1017,12 +1035,14 @@ requests:
 
       if (!wide.matches) return;    // phones: the cards just sit in the list
       const b = long.getBoundingClientRect();
+      if (b.top < innerHeight * 0.5) aim(1);
+      else if (b.top >= innerHeight) aim(0);
       const p = clamp(-b.top / (b.height - innerHeight));
       const narrow = innerWidth <= 760;
       const w = cards[0].offsetWidth, ht = w * 1.4;
       let step = 1;
       cards.forEach((c, i) => {
-        const q = (narrow ? phone : desk)(i, p), m = memo[i];
+        const q = (narrow ? phone : desk)(i, p, a), m = memo[i];
         // lifted off the table mid-flip: a touch bigger and higher
         put(m, 't', `translate(${(q.x * w).toFixed(1)}px, ${(q.y * ht - q.lift * 18).toFixed(1)}px) rotate(${q.r.toFixed(2)}deg) scale(${(q.s * (1 + q.lift * 0.06)).toFixed(3)})`, v => { c.style.transform = v; });
         put(m, 'f', `rotateY(${q.flip.toFixed(1)}deg)`, v => { inners[i].style.transform = v; });

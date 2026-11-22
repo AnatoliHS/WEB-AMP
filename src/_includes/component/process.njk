@@ -1,0 +1,461 @@
+{#- How it works, as flip cards (the homepage's copy of /dental's "The process"). Reads `steps` from the page's front matter.
+    The four cards sit as a fanned stack, grow, spread into a row and flip one by one as the section scrolls (pinned);
+    their backs carry each step's checklist. Phones and reduced motion get a plain list of the backs.
+    Clicking a card (or "See details") grows it into a panel with what the step includes. -#}
+{%- macro card(s, n) %}
+<div class="dk" style="--c: {{ s.color }}; --fg: {{ s.fg }}; --a: {{ s.accent }}; --afg: {{ s.afg }}">
+  <div class="dk-inner">
+    <div class="dk-face dk-front">
+      <span class="dk-tag">Step 0{{ n }}</span>
+      <span class="dk-name">{{ s.name }}</span>
+      <span class="dk-line">{{ s.line }}</span>
+      <span class="dk-stage"><span>{{ s.verb }}</span></span>
+      <img class="dk-logo" src="/images/amp-logo.png" alt="">
+    </div>
+    <div class="dk-face dk-back">
+      <span class="dk-corner">0{{ n }} · What's inside</span>
+      <span class="dk-name">{{ s.name }}</span>
+      <ul class="dk-list">
+        {%- for item in s.items %}
+        <li style="--k: {{ loop.index0 }}"><svg class="dk-tick" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5"/><path d="M6 10.4l2.7 2.6L14.2 7.4"/></svg>{{ item }}</li>
+        {%- endfor %}
+      </ul>
+      <span class="dk-stage"><span>{{ s.items | length }} deliverables</span></span>
+      <img class="dk-logo" src="/images/amp-logo.png" alt="">
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+<style>
+  .fl { --bg: #0c0407; --bg-2: #15100d; --cream: #F5F2EB; --muted: rgba(245, 242, 235, 0.6); --line: rgba(245, 242, 235, 0.14);
+    --orange: #A83C27; --amber: #DE9E3B; --display: "Anton", "Geist", sans-serif; --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    background: var(--bg); color: var(--cream); }
+  .fl-mono { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ---------- The card (after the AMP Deck): sizes in cqw, so everything scales with the card's width ---------- */
+  .dk { container-type: inline-size; position: relative; width: 100%; aspect-ratio: 5 / 7; perspective: 1600px; }
+  .dk-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateY(var(--flip, 0deg)); }
+  .dk-face { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 3.5cqw; padding: 15cqw 8cqw 30cqw;
+    border: 2.9cqw solid #fff; border-radius: 5.5cqw; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    box-shadow: inset 0 0 0 1.3cqw #140F11, 0 9cqw 12cqw -5cqw rgba(0, 0, 0, 0.6); }
+  .dk-front { padding-top: 9cqw; background: var(--c); color: var(--fg); }
+  /* fronts: tag, title and description centred, the title a touch larger */
+  .dk-front { justify-content: center; text-align: center; }  /* centred both ways in the space above the band */
+  .dk-front .dk-name { font-size: 14.5cqw; }
+  /* the black band along the bottom, inside the keyline, with the pill sitting on its seam */
+  .dk-front::before, .dk-back::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 19cqw; background: #050609; }
+  .dk-corner { position: absolute; top: 4.8cqw; left: 5cqw; font-family: var(--font-mono); font-size: 5.6cqw; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; }
+  .dk-tag { font-family: var(--font-mono); font-size: 6cqw; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.72; }
+  .dk-name { font-family: var(--font-heading); font-size: 13.5cqw; font-weight: 800; line-height: 1; letter-spacing: -0.035em; text-wrap: balance; }
+  /* three touching stripes under the name, darkest on top */
+  .dk-name::after { content: ""; display: block; height: 4.4cqw; margin-top: 5cqw; background: linear-gradient(#7b1e00 0 33.3%, #a64400 33.3% 66.6%, #be6e0e 66.6%); }
+  .dk-line { margin-top: 2cqw; font-size: 6.6cqw; font-weight: 600; line-height: 1.3; opacity: 0.85; text-wrap: pretty; }
+  .dk-stage { position: absolute; z-index: 1; left: 0; right: 0; bottom: 19cqw; display: flex; align-items: center; transform: translateY(50%); }
+  .dk-stage::before, .dk-stage::after { content: ""; flex: 1; height: 0.6cqw; background: #c66802; }
+  .dk-stage span { padding: 2cqw 5cqw 1.7cqw; border-radius: 99px; background: #c66802; color: #050609; font-family: var(--font-mono); font-size: 5.6cqw; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .dk-logo { position: absolute; z-index: 1; right: 5cqw; bottom: 3.4cqw; width: 12.4cqw; height: 12.4cqw; border-radius: 50%; box-shadow: 0 0 0 0.75cqw #fff; }
+
+  /* The back: near-black, lit from the top by the card's own colour, the checklist ticking off */
+  .dk-back { transform: rotateY(180deg); gap: 4cqw; padding: 14cqw 7cqw 26cqw; color: var(--cream);
+    background: radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--a) 40%, transparent), transparent 62%), #0d0a0b; }
+  .dk-back .dk-name { font-size: 11cqw; }
+  .dk-back .dk-name::after { height: 3.6cqw; margin-top: 4cqw; background: linear-gradient(90deg, var(--a) 0 34%, color-mix(in srgb, var(--a) 55%, #000) 34% 67%, color-mix(in srgb, var(--a) 30%, #000) 67%); }
+  .dk-back .dk-corner { color: color-mix(in srgb, var(--a) 75%, #fff); }
+  .dk-list { display: grid; flex: 1; align-content: start; list-style: none; }
+  .dk-list li { display: flex; align-items: center; gap: 3.6cqw; padding: 2.15cqw 0; border-bottom: 0.45cqw solid rgba(245, 242, 235, 0.12); font-size: 5.6cqw; font-weight: 600; line-height: 1.15;
+    --r: clamp(0, calc(var(--l, 1) * 8 - var(--k) * 1.1), 1); opacity: calc(0.25 + var(--r) * 0.75); transform: translateX(calc((1 - var(--r)) * 3cqw)); }
+  .dk-tick { flex: none; width: 7cqw; height: 7cqw; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .dk-tick circle { stroke: var(--a); opacity: calc(0.35 + var(--r) * 0.65); fill: color-mix(in srgb, var(--a) calc(var(--r) * 100%), transparent); }
+  .dk-tick path { stroke: var(--afg); stroke-dasharray: 14; stroke-dashoffset: calc(14 - var(--r) * 14); }
+  .dk-back .dk-stage span { background: var(--a); color: var(--afg); }
+  .dk-back .dk-stage::before, .dk-back .dk-stage::after { background: var(--a); }
+
+  /* ---------- 3. The long scroll ---------- */
+  /* Static (no JS / reduced motion): the four backs in a grid */
+  .fl-long { position: relative; padding: 140px 3% 80px; }
+  .fl-stage-foot { display: none; }
+  .fl-stage-title { margin-bottom: 40px; text-align: center; font-size: 1.3rem; font-weight: 700; }
+  .fl-stage-title .fl-mono { display: block; margin-bottom: 8px; color: var(--amber); }
+  .fl-stage-title small { display: block; margin-top: 4px; font-size: 0.85rem; font-weight: 400; color: var(--muted); }
+  .fl-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 280px)); justify-content: center; gap: 24px; }
+  .fl-long-card { --flip: 180deg; }
+
+  /* Animated: a tall track, the stage pinned while the cards move */
+  .fl-long.is-live { height: 420vh; padding: 0; }  /* shorter than dental's 560vh: the spread plays on its own, scroll only drives the flips */
+  .is-live .fl-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; --cw: min(19vw, 280px); }
+  .is-live .fl-stage-title { position: absolute; top: 100px; left: 0; right: 0; margin: 0; }
+  .is-live .fl-stage-foot { position: absolute; left: 3%; right: 3%; bottom: 22px; display: flex; justify-content: space-between; color: var(--muted); }
+  .is-live .fl-cards { display: block; }
+  .is-live .fl-long-card { position: absolute; left: 50%; top: 56%; width: var(--cw); margin: calc(var(--cw) * -0.7) 0 0 calc(var(--cw) / -2); will-change: transform; --flip: 0deg; }
+  /* Which face shows is also set outright (show-back, from the script), so a phone can never show the front's
+     text mirrored through the back. Static grid: the back. */
+  .fl-long-card .dk-front { visibility: hidden; }
+  .is-live .fl-long-card .dk-front { visibility: visible; }
+  .is-live .fl-long-card .dk-back { visibility: hidden; }
+  .is-live .fl-long-card.show-back .dk-front { visibility: hidden; }
+  .is-live .fl-long-card.show-back .dk-back { visibility: visible; }
+  @media (max-width: 760px) {
+    .fl-long { padding: 96px 5% 64px; }
+    .fl-cards { grid-template-columns: minmax(0, 340px); gap: 44px; }
+    .is-live .fl-stage { --cw: min(72vw, 330px); }
+    .is-live .fl-long-card { top: 55%; }
+  }
+
+  /* ---------- The open card ---------- */
+  .fl-long-card { cursor: pointer; }
+  /* "See details": a button in the card's colour under each card. In the animated scroll it appears once its card has flipped */
+  .fl-open { position: relative; display: flex; align-items: center; gap: 8px; margin: 18px auto 0; padding: 12px 22px; border: 0; border-radius: 99px;
+    background: var(--a); color: var(--afg); font: 700 0.8rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; cursor: pointer;
+    box-shadow: 0 12px 26px -10px rgba(0, 0, 0, 0.7); transition: transform 0.3s var(--ease), opacity 0.4s ease, visibility 0.4s; }
+  .fl-open span { font-size: 1.05em; transition: transform 0.3s var(--ease); }
+  .fl-open:hover span { transform: translate(2px, -2px); }
+  .fl-open:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+  .is-live .fl-open { position: absolute; left: 50%; top: calc(100% + 18px); margin: 0; opacity: 0; visibility: hidden; transform: translate(-50%, 8px); }
+  .is-live .fl-long-card.is-flipped .fl-open { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  .is-live .fl-long-card.is-flipped .fl-open:hover { transform: translate(-50%, -2px); }
+  .fl-sheet { width: min(1100px, 94vw); max-width: none; max-height: min(88vh, 900px); margin: auto; padding: 0; border: 0; background: none; color: var(--cream); overflow: visible; }
+  .fl-sheet::backdrop { background: rgba(6, 3, 4, 0.78); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.45s ease; }
+  .fl-sheet.is-open::backdrop { opacity: 1; }
+  /* Close: a black disc with the cards' white border, a drawn cross; on hover it takes the step's colour and turns */
+  .fl-sheet-x { position: absolute; z-index: 3; top: -20px; right: -20px; display: grid; place-items: center; width: 48px; height: 48px; padding: 0;
+    border: 4px solid #fff; border-radius: 50%; background: #0d0a0b; color: #F5F2EB; cursor: pointer;
+    box-shadow: inset 0 0 0 1.5px #140F11, 0 10px 24px rgba(0, 0, 0, 0.5);
+    opacity: 0; transition: opacity 0.3s ease 0.25s, background-color 0.25s ease, color 0.25s ease, transform 0.35s var(--ease); }
+  .fl-sheet-x svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; transition: transform 0.35s var(--ease); }
+  .fl-sheet-x:hover { background: var(--sa, #DE9E3B); color: var(--safg, #140F11); }
+  .fl-sheet-x:hover svg { transform: rotate(90deg); }
+  .fl-sheet-x:active { transform: scale(0.94); }
+  .fl-sheet-x:focus-visible { outline: 2px solid var(--sa, #DE9E3B); outline-offset: 4px; }
+  .fl-sheet.is-open .fl-sheet-x { opacity: 1; }
+  /* the panel keeps the card's build: white border, black keyline, lit from the top by the step's colour */
+  .fl-sheet-card { position: relative; display: grid; grid-template-rows: auto 1fr auto; max-height: min(88vh, 900px); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin;
+    border: 10px solid #fff; border-radius: 22px; box-shadow: inset 0 0 0 4px #140F11, 0 50px 100px -30px rgba(0, 0, 0, 0.8);
+    background: radial-gradient(90% 50% at 15% 0%, color-mix(in srgb, var(--a) 30%, transparent), transparent 60%), #0d0a0b; transform-origin: 0 0; }
+  .fl-sheet-card[hidden] { display: none; }   /* only the current step shows (display: grid would otherwise override hidden) */
+  .fl-sheet-card > * { transition: opacity 0.35s ease; }
+  .fl-sheet.is-growing .fl-sheet-card > * { opacity: 0; transition: none; }
+  .fl-sheet-bar { position: sticky; top: 0; z-index: 2; display: block; height: 10px; margin: 4px 4px 0;
+    background: linear-gradient(var(--a) 0 33.3%, color-mix(in srgb, var(--a) 60%, #000) 33.3% 66.6%, color-mix(in srgb, var(--a) 35%, #000) 66.6%); }
+  .fl-sheet-head { padding: clamp(24px, 3.5vw, 44px) clamp(22px, 4vw, 52px) 8px; }
+  .fl-sheet-head .fl-mono { color: var(--a); }
+  .fl-sheet-head h2 { margin: 10px 0 14px; font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 7vw, 6.4rem); line-height: 0.88; text-transform: uppercase; color: inherit; }
+  .fl-sheet-head p { max-width: 62ch; font-size: 1.12rem; line-height: 1.55; color: rgba(245, 242, 235, 0.82); }
+  .fl-sheet-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; list-style: none; }
+  .fl-sheet-chips li { padding: 6px 12px; border-radius: 99px; background: color-mix(in srgb, var(--a) 18%, transparent); border: 1px solid color-mix(in srgb, var(--a) 45%, transparent); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--a) 70%, #fff); }
+  .fl-sheet-body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(22px, 3.5vw, 48px); padding: 24px clamp(22px, 4vw, 52px) 28px; }
+  .fl-sheet-side { display: grid; gap: 16px; align-content: start; }
+  .fl-sheet-visual { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 12px; background: #16201e; }
+  .fl-sheet-visual > img, .fl-sheet-visual > video { width: 100%; height: 100%; object-fit: cover; }
+  .fl-sheet-rec { position: absolute; top: 12px; left: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 4px; background: rgba(0, 0, 0, 0.6); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; }
+  .fl-sheet-rec i { width: 7px; height: 7px; border-radius: 50%; background: #ef4540; animation: sales-show-blink 1.4s steps(1) infinite; }
+  .fl-sheet-devices { position: absolute; inset: 0; background: radial-gradient(70% 70% at 30% 20%, rgba(168, 60, 39, 0.35), transparent 70%); }
+  .fl-sheet-browser { position: absolute; top: 12%; left: 6%; width: 78%; overflow: hidden; border-radius: 8px; background: #1a1a1a; box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.6); }
+  .fl-sheet-browser > div { display: flex; align-items: center; gap: 4px; height: 20px; padding: 0 8px; background: #222; }
+  .fl-sheet-browser > div i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
+  .fl-sheet-browser > div span { margin: 0 auto; font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255, 255, 255, 0.5); }
+  .fl-sheet-browser img, .fl-sheet-phone img { display: block; width: 100%; height: auto; }
+  .fl-sheet-phone { position: absolute; right: 6%; bottom: -10%; width: 23%; margin: 0; padding: 4px; border-radius: 20px; background: #0a0a0a; box-shadow: 0 24px 50px -16px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.14); }
+  .fl-sheet-phone img { border-radius: 16px; }
+  .fl-sheet-feed { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 6%; }
+  .fl-sheet-feed > p { display: flex; justify-content: space-between; margin-bottom: 10px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245, 242, 235, 0.55); }
+  .fl-sheet-feed > p b { color: var(--cream); }
+  .fl-sheet-feed ul { display: grid; gap: 7px; list-style: none; }
+  .fl-sheet-feed li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 9px 12px; border: 1px solid rgba(245, 242, 235, 0.12); border-radius: 9px; background: rgba(245, 242, 235, 0.05); font-size: 0.76rem; color: rgba(245, 242, 235, 0.6);
+    animation: fl-ping 0.6s var(--ease) both; animation-delay: calc(0.35s + var(--k, 0) * 0.25s); }
+  .fl-sheet-feed li:nth-child(2) { --k: 1; } .fl-sheet-feed li:nth-child(3) { --k: 2; } .fl-sheet-feed li:nth-child(4) { --k: 3; }
+  .fl-sheet-feed li > i { width: 7px; height: 7px; border-radius: 50%; background: #3f9a5a; }
+  .fl-sheet-feed li.is-urgent > i { background: #ef4540; }
+  .fl-sheet-feed li b { display: block; font-size: 0.9rem; color: var(--cream); }
+  .fl-sheet-feed li em { padding: 3px 8px; border-radius: 99px; background: rgba(222, 158, 59, 0.14); font-family: var(--font-mono); font-size: 0.62rem; font-style: normal; color: var(--amber); white-space: nowrap; }
+  @keyframes fl-ping { from { opacity: 0; transform: translateY(-10px); } }
+  .fl-sheet-out { display: grid; gap: 6px; padding: 16px 18px; border-radius: 12px; background: var(--a); color: var(--afg); }
+  .fl-sheet-out b { font-family: var(--display); font-weight: 400; font-size: 1.7rem; line-height: 1; text-transform: uppercase; }
+  .fl-sheet-extra { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; }
+  .fl-sheet-extra .fl-mono, .fl-sheet-main > .fl-mono { color: var(--muted); }
+  .fl-sheet-extra ul { display: grid; gap: 8px; margin-top: 10px; list-style: none; }
+  .fl-sheet-extra li { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); font-size: 0.92rem; }
+  .fl-sheet-extra li:last-child { padding-bottom: 0; border: 0; }
+  .fl-sheet-extra li span { color: var(--muted); text-align: right; }
+  .fl-sheet-list { display: grid; margin-top: 12px; list-style: none; }
+  .fl-sheet-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .fl-sheet-list li:first-child { padding-top: 4px; }
+  .fl-sheet-list svg { width: 24px; height: 24px; margin-top: 1px; fill: var(--a); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .fl-sheet-list circle { stroke: var(--a); }
+  .fl-sheet-list path { fill: none; stroke: var(--afg); }
+  .fl-sheet-list b { display: block; font-size: 1.08rem; }
+  .fl-sheet-list p { margin-top: 4px; font-size: 0.95rem; line-height: 1.5; color: var(--muted); }
+  .fl-sheet-foot { position: sticky; bottom: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px clamp(22px, 4vw, 52px); margin: 0 4px 4px; border-radius: 0 0 12px 12px; background: #050609; }
+  .fl-sheet-foot .fl-mono { color: var(--muted); }
+  .fl-sheet-nav { padding: 10px 16px; border: 1px solid var(--line); border-radius: 99px; background: none; color: var(--cream); font: 600 0.95rem var(--font-sans); cursor: pointer; }
+  .fl-sheet-nav:hover:not(:disabled) { border-color: var(--a); color: var(--a); }
+  .fl-sheet-nav:disabled { opacity: 0.3; cursor: default; }
+  .fl-sheet-foot .hero-btn-primary { padding: 11px 20px; }
+  html.fl-locked { overflow: hidden; }
+  @media (max-width: 760px) {
+    /* phones: a full-screen sheet that slides up; swipe sideways between steps */
+    .fl-sheet { width: 100vw; height: 100dvh; max-height: none; margin: 0; }
+    .fl-sheet-card { height: 100dvh; max-height: none; border-width: 6px; border-radius: 0; }
+    .fl-sheet-x { top: 12px; right: 12px; width: 46px; height: 46px; border-width: 3px; }
+    .fl-sheet-head { padding-top: 26px; padding-right: 64px; }
+    .fl-sheet-head p { font-size: 1rem; }
+    .fl-sheet-body { grid-template-columns: minmax(0, 1fr); padding-top: 16px; }
+    .fl-sheet-nav { padding: 9px 12px; font-size: 0.85rem; }
+    .fl-sheet-foot { margin: 0; border-radius: 0; }
+  }
+</style>
+
+<div class="fl">
+<section class="fl-long" id="how" data-fl-long>
+  <div class="fl-stage">
+    <h2 class="fl-stage-title"><span class="fl-mono">● How it works</span>Four steps, start to finish<small>Open any card to see what happens in it</small></h2>
+    <div class="fl-cards">
+      {%- for s in steps %}
+      <div class="fl-long-card" style="z-index: {{ 10 - loop.index }}; --a: {{ s.accent }}; --afg: {{ s.afg }}" data-fl-card data-open="{{ loop.index0 }}">{{ card(s, loop.index) }}<button type="button" class="fl-open" aria-label="See details: {{ s.name }}">See details <span aria-hidden="true">↗</span></button></div>
+      {%- endfor %}
+    </div>
+    <div class="fl-stage-foot fl-mono"><span>● AMP · How it works</span><span data-fl-count>[ Step 01 / 04 ]</span></div>
+  </div>
+</section>
+
+<!-- The open card: clicking a card in the long scroll grows it into this panel (one view per step; arrows,
+     swipes and the footer move between them). Content: `details` in the front matter. -->
+<dialog class="fl-sheet" aria-label="Step details" data-sheet>
+  <button type="button" class="fl-sheet-x" data-sheet-close aria-label="Close"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+  {%- for s in steps %}{% set d = details[loop.index0] %}{% set n = loop.index %}
+  <article class="fl-sheet-card" style="--c: {{ s.color }}; --fg: {{ s.fg }}; --a: {{ s.accent }}; --afg: {{ s.afg }}" data-view="{{ loop.index0 }}" hidden>
+    <span class="fl-sheet-bar" aria-hidden="true"></span>
+    <header class="fl-sheet-head">
+      <span class="fl-mono">Step 0{{ n }} · {{ s.verb }}</span>
+      <h2>{{ s.name }}</h2>
+      <p>{{ d.what }}</p>
+      <ul class="fl-sheet-chips">{% for c in d.chips %}<li>{{ c }}</li>{% endfor %}</ul>
+    </header>
+    <div class="fl-sheet-body">
+      <div class="fl-sheet-side">
+        <div class="fl-sheet-visual">
+          {%- if d.visual == "photo" %}
+          <img src="/images/dental/reception.jpg" alt="" loading="lazy" decoding="async">
+          {%- elif d.visual == "film" %}
+          <video muted loop playsinline preload="none" poster="/images/dental/film-poster.jpg" data-sheet-film><source src="/images/dental/film.mp4" type="video/mp4"></video>
+          <span class="fl-sheet-rec"><i></i>REC · Media Day</span>
+          {%- elif d.visual == "site" %}
+          <div class="fl-sheet-devices">
+            <div class="fl-sheet-browser"><div><i></i><i></i><i></i><span>yourpractice.ca</span></div><img src="/images/dental/build/home.jpg" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
+            <figure class="fl-sheet-phone"><img src="/images/dental/build/phone-book.jpg" alt="" width="780" height="1688" loading="lazy" decoding="async"></figure>
+          </div>
+          {%- else %}
+          <div class="fl-sheet-feed">
+            <p><b>New patient requests</b><span>This week</span></p>
+            <ul>{% for r in requests %}<li{% if r.urgent %} class="is-urgent"{% endif %}><i></i><span><b>{{ r.what }}</b>{{ r.when }}</span><em>{{ r.source }}</em></li>{% endfor %}</ul>
+          </div>
+          {%- endif %}
+        </div>
+        <div class="fl-sheet-out"><span class="fl-mono">You leave with</span><b>{{ d.out }}</b></div>
+        {%- if d.cuts %}
+        <div class="fl-sheet-extra"><span class="fl-mono">{{ d.cutsTitle }}</span>
+          <ul>{% for c in d.cuts %}<li><b>{{ c.t }}</b><span>{{ c.d }}</span></li>{% endfor %}</ul></div>
+        {%- endif %}
+        {%- if d.stages %}
+        <div class="fl-sheet-extra"><span class="fl-mono">{{ d.stagesTitle }}</span>
+          <ul>{% for c in d.stages %}<li><b>{{ c.t }}.</b><span>{{ c.d }}</span></li>{% endfor %}</ul></div>
+        {%- endif %}
+      </div>
+      <div class="fl-sheet-main">
+        <span class="fl-mono">What's included</span>
+        <ol class="fl-sheet-list">
+          {%- for item in s.items %}
+          <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5"/><path d="M6 10.4l2.7 2.6L14.2 7.4"/></svg><div><b>{{ item }}</b><p>{{ d.includes[loop.index0] }}</p></div></li>
+          {%- endfor %}
+        </ol>
+      </div>
+    </div>
+    <footer class="fl-sheet-foot">
+      <button type="button" class="fl-sheet-nav" data-sheet-go="-1"{% if n == 1 %} disabled{% endif %}>← {% if n > 1 %}{{ steps[n - 2].name }}{% else %}Back{% endif %}</button>
+      <span class="fl-mono">0{{ n }} / 04</span>
+      {%- if n < 4 %}
+      <button type="button" class="fl-sheet-nav" data-sheet-go="1">{{ steps[n].name }} →</button>
+      {%- else %}
+      <a href="#cta" class="hero-btn-primary">Book a call</a>
+      {%- endif %}
+    </footer>
+  </article>
+  {%- endfor %}
+</dialog>
+</div>
+
+<script>
+  // The pinned scroll: where each card sits as the section scrolls (wide screens only; phones keep the plain list)
+  (() => {
+    const long = document.querySelector('[data-fl-long]');
+    if (!long || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const seg = (p, a, b) => ease(clamp((p - a) / (b - a)));
+    const mix = (a, b, t) => a + (b - a) * t;
+    const cards = [...long.querySelectorAll('[data-fl-card]')];
+    const count = long.querySelector('[data-fl-count]');
+    const wide = matchMedia('(min-width: 761px)');
+
+    // Card i: a fanned stack → grow and straighten → spread into a row (a = the auto-play, 0 to 1, run on a timer once
+    // the section reaches mid-screen) → flip one after another (p = scroll progress through the pinned section).
+    // x/y in card widths/heights, r in degrees, s = scale.
+    const desk = (i, p, a) => {
+      const grow = ease(clamp(a / 0.45)), spread = ease(clamp((a - 0.35) / 0.65));
+      // no flipping until the row has formed, even on a fast scroll
+      const flip = seg(p, 0.1 + i * 0.17, 0.3 + i * 0.17) * clamp((a - 0.6) / 0.4);
+      let x = -0.08 + i * 0.07, y = 0.02 * (i % 2), r = -7 + i * 5, s = 1;
+      x = mix(x, -0.03 + i * 0.04, grow); r = mix(r, -3 + i * 2.5, grow); s = mix(1, 1.35, grow);
+      x = mix(x, (i - 1.5) * 1.12, spread); y = mix(y, 0, spread); r = mix(r, 0, spread); s = mix(s, 1, spread);
+      return { x, y, r, s, flip: flip * 180, lift: Math.sin(flip * Math.PI) };
+    };
+
+    const inners = cards.map(c => c.querySelector('.dk-inner'));
+    const memo = cards.map(() => ({ t: '', f: '', l: '', back: null, flipped: null }));
+    const put = (m, key, value, write) => { if (m[key] !== value) { m[key] = value; write(value); } };
+
+    // The auto-play: `a` eases toward `goal` over AUTO ms. It plays once the section's top passes mid-screen,
+    // and resets to the fan once the section is back below the screen, so it plays again next time.
+    const AUTO = 1400;
+    let a = 0, goal = 0, from = 0, t0 = 0, playing = false;
+    const tick = now => {
+      const t = clamp((now - t0) / (AUTO * Math.abs(goal - from) || 1));
+      a = mix(from, goal, t);
+      frame();
+      if (t < 1) requestAnimationFrame(tick); else playing = false;
+    };
+    const aim = g => {
+      if (g === goal) return;
+      goal = g; from = a; t0 = performance.now();
+      if (!playing) { playing = true; requestAnimationFrame(tick); }
+    };
+
+    const frame = () => {
+      if (!wide.matches) return;
+      const b = long.getBoundingClientRect();
+      if (b.top < innerHeight * 0.5) aim(1);
+      else if (b.top >= innerHeight) aim(0);
+      if (b.bottom < 0 || b.top > innerHeight) return;
+      const p = clamp(-b.top / (b.height - innerHeight));
+      const w = cards[0].offsetWidth, ht = w * 1.4;
+      let step = 1;
+      cards.forEach((c, i) => {
+        const q = desk(i, p, a), m = memo[i];
+        put(m, 't', `translate(${(q.x * w).toFixed(1)}px, ${(q.y * ht - q.lift * 18).toFixed(1)}px) rotate(${q.r.toFixed(2)}deg) scale(${(q.s * (1 + q.lift * 0.06)).toFixed(3)})`, v => { c.style.transform = v; });
+        put(m, 'f', `rotateY(${q.flip.toFixed(1)}deg)`, v => { inners[i].style.transform = v; });
+        put(m, 'back', q.flip > 90, v => c.classList.toggle('show-back', v));
+        put(m, 'flipped', q.flip > 150, v => c.classList.toggle('is-flipped', v));
+        put(m, 'l', clamp((q.flip - 100) / 80).toFixed(2), v => c.style.setProperty('--l', v));
+        if (q.flip > 90) step = i + 1;
+      });
+      const label = `[ Step 0${step} / 0${cards.length} ]`;
+      if (count.textContent !== label) count.textContent = label;
+    };
+
+    let queued = false;
+    const request = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; frame(); }); } };
+    const mode = () => {
+      long.classList.toggle('is-live', wide.matches);
+      if (!wide.matches) cards.forEach((c, i) => {
+        c.style.transform = ''; c.style.removeProperty('--l'); c.classList.remove('show-back', 'is-flipped');
+        inners[i].style.transform = ''; Object.assign(memo[i], { t: '', f: '', l: '', back: null, flipped: null });
+      });
+      frame();
+    };
+    wide.addEventListener('change', mode);
+    addEventListener('scroll', request, { passive: true });
+    addEventListener('resize', request);
+    mode();
+  })();
+</script>
+
+<script>
+  // The open card. Clicking a card in the long scroll, or the "See details" button under it, grows that card into the panel:
+  // the panel starts exactly over the card and scales up to its place; closing shrinks it back onto the card.
+  // ← → keys, the footer buttons and (phones) sideways swipes move between steps. The page behind is locked.
+  (() => {
+    const sheet = document.querySelector('[data-sheet]');
+    if (!sheet || !sheet.showModal) return;
+    const views = [...sheet.querySelectorAll('[data-view]')];
+    const cards = [...document.querySelectorAll('[data-open]')];
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const phone = () => innerWidth <= 760;
+    let at = 0, from = null, busy = false;
+
+    const film = () => sheet.querySelectorAll('[data-sheet-film]').forEach(v => {
+      if (!v.closest('[hidden]') && sheet.open && !reduced) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
+    });
+    const show = i => {
+      at = i; views.forEach((v, n) => { v.hidden = n !== i; }); views[i].scrollTop = 0; film();
+      // the close button takes the current step's colour on hover
+      sheet.style.setProperty('--sa', views[i].style.getPropertyValue('--a'));
+      sheet.style.setProperty('--safg', views[i].style.getPropertyValue('--afg'));
+    };
+
+    // move the visible panel so it sits over rect r (the card), then let it ease to its own place
+    const grow = (panel, r, back) => new Promise(done => {
+      if (reduced || !r) { done(); return; }
+      const p = panel.getBoundingClientRect();
+      const t = `translate(${r.left - p.left}px, ${r.top - p.top}px) scale(${r.width / p.width}, ${r.height / p.height})`;
+      if (phone()) {   // phones: slide up from the bottom instead
+        panel.animate(back ? [{ transform: 'none' }, { transform: 'translateY(100%)' }] : [{ transform: 'translateY(100%)' }, { transform: 'none' }],
+          { duration: 450, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }).onfinish = done;
+        return;
+      }
+      panel.animate(back ? [{ transform: 'none' }, { transform: t }] : [{ transform: t }, { transform: 'none' }],
+        { duration: back ? 420 : 620, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }).onfinish = done;
+    });
+
+    const open = async i => {
+      if (busy) return; busy = true;
+      from = cards[i];
+      show(i);
+      document.documentElement.classList.add('fl-locked');
+      sheet.classList.add('is-growing');
+      sheet.showModal();
+      requestAnimationFrame(() => sheet.classList.add('is-open'));
+      await grow(views[i], from.getBoundingClientRect(), false);
+      sheet.classList.remove('is-growing');
+      film();
+      busy = false;
+    };
+    const close = async () => {
+      if (busy || !sheet.open) return; busy = true;
+      sheet.classList.add('is-growing');
+      sheet.classList.remove('is-open');
+      await grow(views[at], cards[at].getBoundingClientRect(), true);
+      sheet.close();
+      sheet.classList.remove('is-growing');
+      document.documentElement.classList.remove('fl-locked');
+      film();
+      cards[at].querySelector('.fl-open').focus({ preventScroll: true });
+      busy = false;
+    };
+    const go = d => {
+      const n = at + d;
+      if (n < 0 || n >= views.length) return;
+      show(n);
+      if (!reduced) views[n].animate([{ opacity: 0, transform: `translateX(${d * 40}px)` }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+    };
+
+    cards.forEach((c, i) => {
+      c.addEventListener('click', () => open(i));
+    });
+    sheet.addEventListener('cancel', e => { e.preventDefault(); close(); });          // Escape
+    sheet.addEventListener('click', e => { if (e.target === sheet) close(); });        // the backdrop
+    sheet.querySelector('[data-sheet-close]').addEventListener('click', close);
+    sheet.querySelectorAll('[data-sheet-go]').forEach(b => b.addEventListener('click', () => go(+b.dataset.sheetGo)));
+    sheet.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
+    let x0 = null, y0 = null;
+    sheet.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    sheet.addEventListener('touchend', e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+      x0 = null;
+    });
+  })();
+</script>
