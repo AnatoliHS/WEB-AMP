@@ -162,9 +162,25 @@ layout: default.njk
 <div class="cs-spec-phases">
   {%- for phase in phases %}
   <article class="cs-spec-phase{% if loop.index is even %} is-reversed{% endif %}">
+    {%- if phase.website %}
+    {#- The client's live site in a laptop (a phone on small screens), scrollable inside the screen -#}
+    <div class="cs-spec-phase-media is-device">
+      <div class="cs-device" data-cs-device>
+        <div class="cs-device-lid">
+          <div class="cs-device-screen">
+            <iframe src="{{ phase.website | e }}" title="{{ client | e }} website" loading="lazy"
+              sandbox="allow-scripts allow-same-origin" referrerpolicy="no-referrer"></iframe>
+          </div>
+        </div>
+        <div class="cs-device-base" aria-hidden="true"></div>
+      </div>
+      <p class="cs-device-cap"><span class="is-wheel">Live site · scroll inside the screen</span><span class="is-swipe">Live site · swipe inside the screen</span></p>
+    </div>
+    {%- else %}
     <div class="cs-spec-phase-media">
       <img src="{{ phase.image | e }}" alt="{{ phase.image_alt | e }}"{% if phase.crop and phase.crop != "none" %} class="is-slice-{{ phase.crop }}"{% endif %} loading="lazy">
     </div>
+    {%- endif %}
     <div class="cs-spec-phase-body is-{{ phase.panel or 'cream' }}">
       <span class="cs-spec-phase-num">{{ "0" if loop.index < 10 }}{{ loop.index }}.</span>
       <h3 class="cs-spec-phase-title">{{ phase.title | e }}</h3>
@@ -206,5 +222,24 @@ layout: default.njk
 </section>
 
 </div>
+
+{%- if phases | selectattr("website") | length %}
+<script>
+  // Phase laptops: render each client site at a real screen width (--w: 1440 on the laptop, 390 on the phone) and
+  // scale it to fit the screen, so it shows its true layout. Without JS the site simply fills the screen unscaled.
+  (() => {
+    if (!('ResizeObserver' in window)) return;
+    document.querySelectorAll('[data-cs-device]').forEach(dev => {
+      const screen = dev.querySelector('.cs-device-screen');
+      new ResizeObserver(() => {
+        const w = parseFloat(getComputedStyle(dev).getPropertyValue('--w'));
+        if (!w || !screen.clientWidth) return;
+        dev.style.setProperty('--s', screen.clientWidth / w);
+        dev.classList.add('is-scaled');
+      }).observe(screen);
+    });
+  })();
+</script>
+{%- endif %}
 
 {% include "component/contact.njk" %}

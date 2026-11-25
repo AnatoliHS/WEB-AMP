@@ -113,6 +113,7 @@ phases:
       - Supporting graphic elements aligned with engineering precision
     closing: The new identity communicates scale, reliability, and technical confidence.
   - title: Website Rebuild & Conversion
+    website: https://www.rosescale.com/
     image: /images/rose-scale-design.avif
     image_alt: Rose Scale Website UX, UI and Identity System Architecture
     panel: white

@@ -119,6 +119,7 @@ phases:
     closing: Built to communicate warmth, resilience, and professional credibility
       across every channel.
   - title: Brand Implementation Framework
+    website: https://www.beestrong.ca/
     image: /images/bee-strong-web.avif
     image_alt: Operation BeeStrong Scalable Brand Implementation Framework
     panel: brand

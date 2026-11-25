@@ -5238,6 +5238,50 @@ h3 {
   order: 2;
 }
 
+/* A phase showing the client's live site: a laptop on a dark stage instead of the image */
+.cs-spec-phase-media.is-device {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(40px, 5vw, 72px) clamp(36px, 6vw, 88px) clamp(28px, 3vw, 44px);
+  background-color: var(--cs-dark, #0F2B2C);
+  overflow: hidden;
+}
+
+.cs-device { --w: 1440; --s: 1; position: relative; width: 100%; margin: 0 auto; }
+.cs-device-lid {
+  position: relative;
+  padding: 2.4% 2.4% 3%;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(#2a2c32, #16171b);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09), 0 50px 90px -40px rgba(0, 0, 0, 0.8);
+}
+/* the camera */
+.cs-device-lid::before { content: ""; position: absolute; top: 1.1%; left: 50%; width: 5px; height: 5px; border-radius: 50%; background: #3a3d45; transform: translateX(-50%); }
+.cs-device-screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 5px; background: #fff; }
+.cs-device iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; background: #fff; transform-origin: 0 0; }
+/* the script renders the site at a real screen width (--w px) and scales it to fit (--s) */
+.cs-device.is-scaled iframe { width: calc(var(--w) * 1px); height: calc(100% / var(--s)); transform: scale(var(--s)); }
+.cs-device-base {
+  position: relative;
+  height: 14px;
+  margin: 0 -6.5%;
+  border-radius: 2px 2px 22px 22px / 2px 2px 14px 14px;
+  background: linear-gradient(#d4d6db, #9a9da4 55%, #5d6067);
+  box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.9);
+}
+/* the thumb notch for opening the lid */
+.cs-device-base::before { content: ""; position: absolute; top: 0; left: 50%; width: 15%; height: 6px; border-radius: 0 0 8px 8px; background: #7b7e86; transform: translateX(-50%); }
+.cs-device-cap {
+  margin: 28px 0 0;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 235, 0.6);
+}
+.cs-device-cap .is-swipe { display: none; }
+
 /* Crops of one tall website screenshot, one slice per phase */
 .cs-spec-phase-media img.is-slice-1 { object-position: center 0%; }
 .cs-spec-phase-media img.is-slice-2 { object-position: center 42.5%; }
@@ -5498,6 +5542,16 @@ h3 {
   .cs-spec-phase-media {
     min-height: 300px;
   }
+
+  /* the laptop becomes a phone: the site at 390px wide */
+  .cs-spec-phase-media.is-device { padding: 48px 5% 32px; }
+  .cs-device { --w: 390; width: clamp(220px, 70vw, 300px); }
+  .cs-device-lid { padding: 3.6%; border-radius: 42px; background: #121317; }
+  .cs-device-lid::before { content: none; }
+  .cs-device-screen { aspect-ratio: 390 / 760; border-radius: 32px; }
+  .cs-device-base { display: none; }
+  .cs-device-cap .is-wheel { display: none; }
+  .cs-device-cap .is-swipe { display: inline; }
 }
 
 @media (max-width: 560px) {

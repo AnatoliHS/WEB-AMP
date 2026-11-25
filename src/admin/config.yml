@@ -146,6 +146,7 @@ collections:
         hint: "Numbered automatically. Image and text swap sides on every other phase."
         fields:
           - { label: "Title", name: "title", widget: "string" }
+          - { label: "Website link (live laptop)", name: "website", widget: "string", required: false, hint: "Optional. Paste a site's address, e.g. https://www.example.com, to show it live in a scrollable laptop (a phone on mobile) instead of the image. Some sites block being shown inside another site; if the laptop shows an error, leave this blank. Leave blank to show the image." }
           - { label: "Image", name: "image", widget: "image" }
           - { label: "Image description (alt text)", name: "image_alt", widget: "string" }
           - label: "Image crop"

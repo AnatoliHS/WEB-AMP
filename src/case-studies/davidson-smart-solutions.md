@@ -96,6 +96,7 @@ phases:
   - crop: none
     panel: cream
     title: Website
+    website: https://davidsonsmartsolutions.ca/
     image: /images/uploads/davidson-network-switch-close-up.jpg
     lead: A renewed website that explains what Davidson does and moves visitors
       toward an enquiry.
