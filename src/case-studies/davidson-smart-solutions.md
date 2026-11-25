@@ -8,9 +8,9 @@ description: How AMP helped a smart home and smart business installer find where
 heading: Davidson Smart Solutions | From Amp Deck™ Diagnosis to Growth Build
 lead: How a smart home and smart business installer found where growth was
   stalling, then rebuilt its brand, website, ads, and media around the answer
-hero_image: /images/uploads/sequence-01.00_03_41_07.still005.jpg
+hero_image: /images/uploads/davidson-smart-home-kitchen-tablet-control.jpg
 hero_alt: Woman stands in kitchen with smart lighting
-card_image: /images/uploads/dss00124.jpg
+card_image: /images/uploads/davidson-smart-home-lake-view-living-room.jpg
 card_alt: Smart Home with automatic shades
 theme:
   brand: "#252b3d"
@@ -38,14 +38,14 @@ overview: Davidson Smart Solutions designs and installs automated systems for
   advertising, and media.
 showcase:
   natural: false
-  image: /images/uploads/sequence.02_11_19_12.still089.jpg
+  image: /images/uploads/davidson-lighting-control-rack.jpg
   alt: Control4 Network Rack
 challenge:
   eyebrow: Five Threats, Three Stages
   title: Real expertise / hard to see from the outside.
   subtitle: Attention was the starting point. Trust and Delivery had threats too,
     but they sat further right.
-  image: /images/uploads/sequence.01_05_12_22.still040.jpg
+  image: /images/uploads/davidson-owner-portrait-outdoors.jpg
   image_alt: Davidson Smart Solutions
 needs:
   items:
@@ -86,7 +86,7 @@ phases:
     title: Brand Strategy & Identity. Description
     lead: "We defined Davidson as trusted personal experts in smart technology:
       refined, professional, and tasteful. Then we built the identity to match."
-    image: /images/uploads/sequence.01_35_45_12.still077.jpg
+    image: /images/uploads/davidson-smart-business-cider-taproom.jpg
     image_alt: Justin Davidson Walks into Crimson Cider
     bullets:
       - Vision and personality
@@ -96,21 +96,21 @@ phases:
   - crop: none
     panel: cream
     title: Website
-    image: /images/uploads/sequence.02_05_07_14.still083.jpg
+    image: /images/uploads/davidson-network-switch-close-up.jpg
     lead: A renewed website that explains what Davidson does and moves visitors
       toward an enquiry.
     image_alt: Davidson Smart Solutions
   - crop: none
     panel: cream
     title: Advertising
-    image: /images/uploads/dss00349.jpg
+    image: /images/uploads/davidson-smart-home-infinity-pool.jpg
     lead: Focused campaigns built around one goal, one audience, and one message at
       a time.
     image_alt: Davidson Smart Solutions
   - crop: none
     panel: cream
     title: Media Production
-    image: /images/uploads/dss00026.jpg
+    image: /images/uploads/davidson-smart-home-consultation.jpg
     lead: Photography and video that sell the feeling of ease, not the hardware. The
       house and the life in it lead, and the tech supports.
     bullets:
@@ -121,7 +121,7 @@ phases:
   - crop: none
     panel: cream
     title: "Next: Trust and Delivery"
-    image: /images/uploads/sequence.00_28_13_00.still030.jpg
+    image: /images/uploads/davidson-branded-polo.jpg
     lead: Once Attention is running, we run the table again. Threats further right
       may have quieted down by then.
     closing: Diagnose first. Then build the right thing.

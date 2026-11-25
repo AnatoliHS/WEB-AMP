@@ -3,8 +3,8 @@ layout: landing.njk
 title: "AMP Visual Media | Turn Your Best Work Into Your Best Salesperson"
 description: "AMP turns one real client project into a case study film, a content library, a landing page and a paid funnel that keeps bringing in new leads."
 hideFooterCta: true
-# How It Works: copied as-is from /dental ("The process"): steps, details and requests
-# The four steps. Each is a card in the main site's colours (color = face, fg = text on it; accent/afg = the same
+# How It Works: the four steps as flip cards (built like /dental's "The process", with general wording for any business).
+# Each is a card in the main site's colours (color = face, fg = text on it; accent/afg = the same
 # for its dark back, lighter where the face colour would vanish on near-black), and on its back,
 # at the end of the long scroll, the checklist of what the step covers (items).
 steps:
@@ -14,62 +14,64 @@ steps:
     fg: "#140F11"
     accent: "#DFD4A7"
     afg: "#140F11"
-    line: "We map how patients find you and where they slip away."
-    items: ["AMP Deck™ session", "Patient journey audit", "Local competitor scan", "Treatment focus", "Story plan", "Shoot plan"]
+    line: "We map how customers find you and where they slip away."
+    items: ["AMP Deck™ session", "Customer journey audit", "Competitor scan", "Project selection", "Story plan", "Shoot plan"]
   - name: "Media Day"
-    verb: "Film your practice"
+    verb: "Film the work"
     color: "#DE9E3B"
     fg: "#140F11"
     accent: "#DE9E3B"
     afg: "#140F11"
-    line: "One focused shoot of your team, rooms and technology."
-    items: ["Practice film", "Team interviews", "Team portraits", "Operatories & tech", "Ad footage", "Behind the scenes"]
+    line: "One focused shoot of your team, your work and your customer."
+    items: ["Case study film", "Customer interview", "Team portraits", "The work in action", "Ad footage", "Behind the scenes"]
   - name: "Website"
     verb: "Build the page"
     color: "#A83C27"
     fg: "#F5F2EB"
     accent: "#D2553A"
     afg: "#F5F2EB"
-    line: "A new-patient page built around your film, made to book."
-    items: ["New-patient page", "Treatments", "Locations & hours", "Online requests", "Click to call", "Speed & search"]
+    line: "A landing page built around your film, made to convert."
+    items: ["Landing page", "Services", "Proof & results", "Lead form", "Click to call", "Speed & search"]
   - name: "Ads"
-    verb: "Fill the chairs"
+    verb: "Bring in leads"
     color: "#0B1E1C"
     fg: "#F5F2EB"
     accent: "#6FB3A5"
     afg: "#0B1E1C"
-    line: "Local campaigns that turn nearby people into bookings."
-    items: ["Local campaigns", "Reels & cut-downs", "Retargeting", "Request tracking", "Monthly reporting", "Refinement"]
+    line: "Targeted campaigns that turn the right people into leads."
+    items: ["Paid campaigns", "Reels & cut-downs", "Retargeting", "Lead tracking", "Monthly reporting", "Refinement"]
 # The open-card view: what each card says when it's opened (click a card in the long scroll).
-# Sources: the homepage's How It Works and FAQ, the Website and Ads service pages, and "The Sales Page" client guide.
-# Timings and the practice's own time aren't stated anywhere yet, so the view says dates are set at kickoff.
+# img = the picture on the left (photo, film and site views); none of them appear elsewhere on this page.
 details:
-  - what: "Every engagement starts here. An AMP Deck™ session finds where new patients slip away before anything is built. Then we pick the focus and plan the story and the shoot."
+  - what: "Every engagement starts here. An AMP Deck™ session finds where your pipeline is leaking before anything is built. Then we pick the project worth telling and plan the story and the shoot."
     out: "A roadmap and a shoot plan"
     chips: ["$750, credited back", "Dates set at kickoff"]
     visual: "photo"
+    img: "/images/deck.avif"
     includes:
-      - "A working session that finds where new patients slip away. $750, credited back if you go ahead within 60 days."
-      - "How patients find you today, from first search to first call, and where they drop off."
-      - "What nearby practices show online, so your story stands apart from theirs."
-      - "The treatments worth leading with, so the shoot and the ads point at the work you want more of."
-      - "What the film says and who says it: your dentists and team, in their own words."
+      - "A working session that finds where your pipeline is leaking. $750, credited back if you go ahead within 60 days."
+      - "How customers find you today, from first search to first call, and where they drop off."
+      - "What your competitors show online, so your story stands apart from theirs."
+      - "The standout project worth telling, and the customer who's happy to talk about it."
+      - "What the film says and who says it: you, your team and your customer, in their own words."
       - "Who, where and when for Media Day, planned around your schedule."
   - what: "Our sister company Mind Fusion captures everything in one focused shoot, planned around your schedule. One media day makes a library: the same footage is cut for every stage of the funnel."
     out: "A raw content library"
-    chips: ["One focused shoot", "No appointments move"]
+    chips: ["One focused shoot", "Planned around your work"]
     visual: "film"
+    img: "/images/uploads/rose-scale-uniform-logo.jpg"
     includes:
-      - "The hero film: your team, your rooms and how you care for patients. It leads your page."
-      - "Your dentists and team on camera, telling the story in their own words."
-      - "Clean portraits of everyone a patient will meet, for the page, your Google profile and socials."
-      - "Your rooms and equipment, shot so a nervous patient knows what to expect."
+      - "The hero film: the project, the problem you solved and why it mattered. It leads your page."
+      - "Your customer on camera, telling the story in their own words."
+      - "Clean portraits of your people, for the page, your Google profile and socials."
+      - "Your team, tools and process in action, so a buyer sees exactly how you work."
       - "Extra shots planned for the ads, so every cut-down has what it needs."
       - "Candid moments from the day, for posts that feel real."
-  - what: "We cut the footage for each stage and build one page with one job: turn a stranger into a booking. No menu, no side roads. It answers their questions in order, then asks them to book."
+  - what: "We cut the footage for each stage and build one page with one job: turn a stranger into a lead. No menu, no side roads. It answers their questions in order, then asks them to get in touch."
     out: "Final edits and a live page"
     chips: ["One page, one action", "2.5s mobile target"]
     visual: "site"
+    img: "/images/bee-strong-web.avif"
     cutsTitle: "The cuts, by stage"
     cuts:
       - { t: "Hook cut-downs", d: "15–30s · vertical & square" }
@@ -77,13 +79,13 @@ details:
       - { t: "Process explainer", d: "About 60s" }
       - { t: "Offer video", d: "About 30s, with the ask" }
     includes:
-      - "One page built for someone who has never visited: who you are, what you do, how to book."
+      - "One page built for someone who has never heard of you: who you are, what you did, how to reach you."
       - "What you offer, in plain language, each with one clear next step."
-      - "Where to find you and when you're open, one tap from directions."
-      - "A booking request that works at 10 pm, not just when the front desk picks up."
+      - "The case study and its results up front, so the proof does the selling."
+      - "A simple form that captures leads at 10 pm, not just during office hours."
       - "A call button always in reach on a phone, where 60%+ of visitors arrive."
       - "Built to load in about 2.5 seconds on mobile, with search basics done from day one."
-  - what: "Ads and posts bring people in, and every one points to your page. Each audience gets its own cut, from a short hook for strangers to the offer for people ready to book. We track every request and refine what's working."
+  - what: "Ads and posts bring people in, and every one points to your page. Each audience gets its own cut, from a short hook for strangers to the offer for people ready to buy. We track every lead and refine what's working."
     out: "A running funnel and reporting"
     chips: ["Ad spend set by you", "Dates set at kickoff"]
     visual: "feed"
@@ -91,46 +93,46 @@ details:
     stages:
       - { t: "Seen", d: "Cold · never heard of you · stop the scroll" }
       - { t: "Trusted", d: "Warm · seen you, not yet sure · show the proof" }
-      - { t: "Booked", d: "Ready · visited, not booked · ask for the call" }
+      - { t: "Converted", d: "Ready · visited, not yet in touch · ask for the call" }
     includes:
-      - "Google search and Meta ads aimed at people near your clinics."
+      - "Google search and Meta ads aimed at the people who buy what you sell."
       - "Short vertical and square edits that stop the scroll and earn the click."
       - "Longer story cuts for people who watched, so you feel familiar before they call."
-      - "Every new-patient request traced back to the ad that brought it in."
+      - "Every new lead traced back to the ad that brought it in."
       - "A clear dashboard, so you always see where the money goes and what it brought."
       - "Ongoing tests and tweaks, so results improve over time."
-# The Ads view's illustration: requests arriving, each tagged with the ad that brought it in
+# The Ads view's illustration: leads arriving, each tagged with the ad that brought it in
 requests:
-  - { what: "Cleaning & exam", when: "Tue 9:00", source: "Instagram reel" }
-  - { what: "Invisalign consult", when: "Wed 4:30", source: "Google search" }
-  - { what: "Emergency visit", when: "Today", source: "Retargeting", urgent: true }
-  - { what: "Family check-ups (3)", when: "Thu 3:15", source: "Practice film" }
+  - { what: "Quote request", when: "Tue 9:00", source: "Instagram reel" }
+  - { what: "Discovery call booked", when: "Wed 4:30", source: "Google search" }
+  - { what: "Callback requested", when: "Today", source: "Retargeting", urgent: true }
+  - { what: "Project inquiry", when: "Thu 3:15", source: "Case study film" }
 # Pieces shown in What You Get (word = the big lettering on the screen)
 pieces:
   - name: "The Case Study"
     desc: "We find the project worth telling, interview you and your customer, and shape the story of what you did and why it mattered."
     word: "The story"
-    img: "/images/sales/interview.jpg"
+    img: "/images/sales/case-study-interview-on-camera.jpg"
   - name: "Hero Video"
     desc: "The main case study film. Featured on your landing page and built to make a stranger trust you."
     word: "Hero film"
-    img: "/images/uploads/sequence-01.00_03_41_07.still005.jpg"
+    img: "/images/uploads/davidson-smart-home-kitchen-tablet-control.jpg"
   - name: "Cut-Downs & Ads"
     desc: "Short edits of the hero video in vertical and horizontal formats, cut to run as paid ads."
     word: "Cut it down"
-    img: "/images/uploads/dss00349.jpg"
+    img: "/images/uploads/davidson-smart-home-infinity-pool.jpg"
   - name: "Photo Library"
     desc: "Stills from the shoot plus high-res frame grabs, ready for your website, socials and print."
     word: "Every frame"
-    img: "/images/uploads/dss00026.jpg"
+    img: "/images/uploads/davidson-smart-home-consultation.jpg"
   - name: "The Landing Page"
     desc: "A focused sales page built around the case study. Visitors see what you can do, then get a clear path to get in touch."
     word: "One page"
-    img: "/images/uploads/sequence.02_05_07_14.still083.jpg"
+    img: "/images/uploads/davidson-network-switch-close-up.jpg"
   - name: "The Paid Funnel"
     desc: "Top, middle and bottom of funnel campaigns that build awareness, nurture interest and drive conversions."
     word: "Leads in"
-    img: "/images/uploads/sequence.01_35_45_12.still077.jpg"
+    img: "/images/uploads/davidson-smart-business-cider-taproom.jpg"
 # Questions: shown in the FAQ section and sent to search engines as FAQ schema (schema: false keeps one out of the schema)
 faqs:
   - q: "What does it cost?"
@@ -172,7 +174,7 @@ nav:
 <section class="sales-hero" id="hero">
   {#- The portfolio as a wall laid back in perspective, its strips drifting up and down.
       Each strip holds the same set of images twice, so moving it up by half loops without a seam.
-      One list per strip (11, 11, 11, 10, 10 images), so no image shows in more than one strip.
+      One list per strip (11, 11, 10, 10, 10 images), so no image shows in more than one strip.
       Wall images are 4:5 WebP tiles (480x600) in sales/wall, cut from the original photos (not kept in the repo).
       The wall stays hidden until its images are decoded, then fades in as one piece (script below). -#}
   {%- set wall = [
@@ -185,7 +187,7 @@ nav:
       "dsc00466", "biq00704", "sequence-01.00_04_48_01.still007", "dss00022", "dsc00551"
     ],
     [
-      "biq00775", "sequence-01.00_21_49_07.still022", "dss00065", "dsc00584", "biq00894", "sequence-01.00_23_22_03.still016",
+      "biq00775", "sequence-01.00_21_49_07.still022", "dsc00584", "biq00894", "sequence-01.00_23_22_03.still016",
       "dss00109", "dsc00587", "biq00937", "dss00129", "dsc00763"
     ],
     [
@@ -282,21 +284,21 @@ nav:
           </div>
           <div class="sales-phone-head"><b>Today</b><span>Select</span></div>
           <div class="sales-phone-roll">
-            <img src="/images/uploads/dss00124.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/_.00_20_38_08.still001.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/dss00349.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/dsc00551.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/dss00026.jpg" alt="" loading="lazy">
-            <span class="is-video" data-time="0:14"><img src="/images/uploads/_.00_17_12_05.still002.jpg" alt="" loading="lazy"></span>
-            <img src="/images/uploads/sequence.02_11_19_12.still089.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/dsc00320.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/_.00_51_22_22.still007.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/sequence.00_28_13_00.still030.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/dsc00585.jpg" alt="" loading="lazy">
-            <span class="is-video" data-time="0:08"><img src="/images/uploads/_.00_47_20_03.still003.jpg" alt="" loading="lazy"></span>
-            <img src="/images/uploads/sequence.01_05_12_22.still040.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/sequence.02_05_07_14.still083.jpg" alt="" loading="lazy">
-            <img src="/images/uploads/sequence-01.00_03_41_07.still005.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/davidson-smart-home-lake-view-living-room.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/rose-scale-technician-hard-hat.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/davidson-smart-home-infinity-pool.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/rose-scale-crane-lifting-test-weights.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/davidson-smart-home-consultation.jpg" alt="" loading="lazy">
+            <span class="is-video" data-time="0:14"><img src="/images/uploads/rose-scale-crane-truck-foggy-site.jpg" alt="" loading="lazy"></span>
+            <img src="/images/uploads/davidson-lighting-control-rack.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/rose-scale-cap-close-up.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/rose-scale-crew-on-site.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/davidson-branded-polo.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/rose-scale-crane-hook.jpg" alt="" loading="lazy">
+            <span class="is-video" data-time="0:08"><img src="/images/uploads/rose-scale-truck-decal.jpg" alt="" loading="lazy"></span>
+            <img src="/images/uploads/davidson-owner-portrait-outdoors.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/davidson-network-switch-close-up.jpg" alt="" loading="lazy">
+            <img src="/images/uploads/davidson-smart-home-kitchen-tablet-control.jpg" alt="" loading="lazy">
           </div>
           <div class="sales-phone-dock">
             <p class="sales-phone-views"><span>Years</span><span>Months</span><span>Days</span><span class="is-on">All Photos</span></p>
@@ -334,7 +336,7 @@ nav:
         {#- Hero film: the 15s Crimson Cider cut plays on a muted loop (no animated scene) -#}
         <div class="sales-chapter-screen" aria-hidden="true"><div class="sales-show-stage sales-show-film">
           <video class="sales-show-video" muted loop playsinline preload="none" poster="/images/sales/film/crimson-15s-poster.jpg">
-            <source src="/images/DSS_Crimson_AUDIO_15sec-ezgif.com-video-compressor.mp4" type="video/mp4">
+            <source src="/images/crimson-cider-case-study-15s.mp4" type="video/mp4">
           </video>
           <span class="sales-show-word">{{ p.word }}</span>
         </div></div>
@@ -382,7 +384,7 @@ nav:
   })();
 </script>
 
-<!-- 4. How it works: the four steps as flip cards in a pinned scroll (built like /dental's "The process") -->
+<!-- 4. How it works: the four steps as flip cards in a pinned scroll -->
 {% include "component/process.njk" %}
 
 <!-- 5. Proof -->
@@ -514,7 +516,7 @@ nav:
 <!-- Why AMP: the team as a strip of film, two rows running in opposite directions (no names, just the people) -->
 {#- Ordered so the same person never sits next to themselves, in either row or where the loop joins -#}
 {%- set crew = [] -%}
-{%- for n in ["01", "03", "04", "02", "06", "05", "08", "10", "09", "12"] %}{% set crew = (crew.push("/images/sales/team/people-" + n + ".jpg"), crew) %}{% endfor %}
+{%- for n in ["director-on-set", "portrait-black-and-white", "editor-at-laptop", "producer-smiling", "behind-the-scenes", "off-duty-with-dog", "portrait-waterfront", "portrait-outdoors", "planning-session", "directing-client-shoot"] %}{% set crew = (crew.push("/images/sales/team/amp-crew-" + n + ".jpg"), crew) %}{% endfor %}
 <section class="sales-section is-forest sales-crew" id="team">
   <div class="container">
     <div class="sales-crew-copy">

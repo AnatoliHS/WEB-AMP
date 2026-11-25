@@ -1,4 +1,4 @@
-{#- How it works, as flip cards (the homepage's copy of /dental's "The process"). Reads `steps` from the page's front matter.
+{#- How it works, as flip cards (built like /dental's "The process"). Reads `steps` from the page's front matter.
     The four cards sit as a fanned stack, grow, spread into a row and flip one by one as the section scrolls (pinned);
     their backs carry each step's checklist. Phones and reduced motion get a plain list of the backs.
     Clicking a card (or "See details") grows it into a panel with what the step includes. -#}
@@ -152,14 +152,6 @@
   .fl-sheet-visual > img, .fl-sheet-visual > video { width: 100%; height: 100%; object-fit: cover; }
   .fl-sheet-rec { position: absolute; top: 12px; left: 12px; display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 4px; background: rgba(0, 0, 0, 0.6); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; }
   .fl-sheet-rec i { width: 7px; height: 7px; border-radius: 50%; background: #ef4540; animation: sales-show-blink 1.4s steps(1) infinite; }
-  .fl-sheet-devices { position: absolute; inset: 0; background: radial-gradient(70% 70% at 30% 20%, rgba(168, 60, 39, 0.35), transparent 70%); }
-  .fl-sheet-browser { position: absolute; top: 12%; left: 6%; width: 78%; overflow: hidden; border-radius: 8px; background: #1a1a1a; box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.6); }
-  .fl-sheet-browser > div { display: flex; align-items: center; gap: 4px; height: 20px; padding: 0 8px; background: #222; }
-  .fl-sheet-browser > div i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); }
-  .fl-sheet-browser > div span { margin: 0 auto; font-family: var(--font-mono); font-size: 0.55rem; color: rgba(255, 255, 255, 0.5); }
-  .fl-sheet-browser img, .fl-sheet-phone img { display: block; width: 100%; height: auto; }
-  .fl-sheet-phone { position: absolute; right: 6%; bottom: -10%; width: 23%; margin: 0; padding: 4px; border-radius: 20px; background: #0a0a0a; box-shadow: 0 24px 50px -16px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.14); }
-  .fl-sheet-phone img { border-radius: 16px; }
   .fl-sheet-feed { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 6%; }
   .fl-sheet-feed > p { display: flex; justify-content: space-between; margin-bottom: 10px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245, 242, 235, 0.55); }
   .fl-sheet-feed > p b { color: var(--cream); }
@@ -237,19 +229,12 @@
     <div class="fl-sheet-body">
       <div class="fl-sheet-side">
         <div class="fl-sheet-visual">
-          {%- if d.visual == "photo" %}
-          <img src="/images/dental/reception.jpg" alt="" loading="lazy" decoding="async">
-          {%- elif d.visual == "film" %}
-          <video muted loop playsinline preload="none" poster="/images/dental/film-poster.jpg" data-sheet-film><source src="/images/dental/film.mp4" type="video/mp4"></video>
-          <span class="fl-sheet-rec"><i></i>REC · Media Day</span>
-          {%- elif d.visual == "site" %}
-          <div class="fl-sheet-devices">
-            <div class="fl-sheet-browser"><div><i></i><i></i><i></i><span>yourpractice.ca</span></div><img src="/images/dental/build/home.jpg" alt="" width="1600" height="1000" loading="lazy" decoding="async"></div>
-            <figure class="fl-sheet-phone"><img src="/images/dental/build/phone-book.jpg" alt="" width="780" height="1688" loading="lazy" decoding="async"></figure>
-          </div>
+          {%- if d.visual != "feed" %}
+          <img src="{{ d.img }}" alt="" loading="lazy" decoding="async">
+          {%- if d.visual == "film" %}<span class="fl-sheet-rec"><i></i>REC · Media Day</span>{% endif %}
           {%- else %}
           <div class="fl-sheet-feed">
-            <p><b>New patient requests</b><span>This week</span></p>
+            <p><b>New leads</b><span>This week</span></p>
             <ul>{% for r in requests %}<li{% if r.urgent %} class="is-urgent"{% endif %}><i></i><span><b>{{ r.what }}</b>{{ r.when }}</span><em>{{ r.source }}</em></li>{% endfor %}</ul>
           </div>
           {%- endif %}
